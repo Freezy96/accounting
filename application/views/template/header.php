@@ -10,3 +10,4 @@
    <!-- depends on your template design -->
    <div class="dashboard-wrapper">
     <div class="main-content">
+      Header
