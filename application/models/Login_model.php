@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Login extends CI_Model{
+class Login_Model extends CI_Model{
     function __construct(){
         parent::__construct();
     }
@@ -14,7 +14,7 @@ class Login extends CI_Model{
         $this->db->where('password', $password);
         
         // Run the query
-        $query = $this->db->get('username');
+        $query = $this->db->get('admin');
         // Let's check if there are any results
         if($query->num_rows == 1)
         {
