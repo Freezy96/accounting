@@ -24,6 +24,22 @@ class Login extends CI_Controller {
 		$this->load->view('login/main');
 		$this->load->view('template/footer');
 	}
+
+	public function process(){
+        // Load the model
+        $this->load->model('login');
+        // Validate the user can login
+        $result = $this->login->validate();
+        // Now we verify the result
+        if(! $result){
+            // If user did not validate, then show them login page again
+            $this->index();
+        }else{
+            // If user did validate, 
+            // Send them to members area
+            redirect('home');
+        }        
+    }
 }
 
 /* End of file welcome.php */
