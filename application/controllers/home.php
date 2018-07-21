@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Home extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -21,25 +21,10 @@ class Login extends CI_Controller {
 	{	
 		$this->load->helper('url');
 		$this->load->view('template/header');
+		$this->load->view('template/nav');
 		$this->load->view('login/main');
 		$this->load->view('template/footer');
 	}
-
-	public function process(){
-        // Load the model
-        $this->load->model('login_model');
-        // Validate the user can login
-        $result = $this->login_model->validate();
-        // Now we verify the result
-        if(! $result){
-            // If user did not validate, then show them login page again
-            $this->index();
-        }else{
-            // If user did validate, 
-            // Send them to members area
-            redirect('home/main');
-        }        
-    }
 }
 
 /* End of file welcome.php */

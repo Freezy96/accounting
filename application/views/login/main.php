@@ -12,7 +12,7 @@
 
                 <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                     
-                <form id="loginform" class="form-horizontal" role="form">
+                <form action='<?php echo base_url();?>login/process' method='post' name='process'>
                             
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
