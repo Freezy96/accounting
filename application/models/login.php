@@ -2,7 +2,7 @@
 /* Author: Jorge Torres
  * Description: Login model class
  */
-class Login_model extends CI_Model{
+class Login extends CI_Model{
     function __construct(){
         parent::__construct();
     }
@@ -17,16 +17,14 @@ class Login_model extends CI_Model{
         $this->db->where('password', $password);
         
         // Run the query
-        $query = $this->db->get('users');
+        $query = $this->db->get('username');
         // Let's check if there are any results
         if($query->num_rows == 1)
         {
             // If there is a user, then create session data
             $row = $query->row();
             $data = array(
-                    'userid' => $row->userid,
-                    'fname' => $row->fname,
-                    'lname' => $row->lname,
+                    'adminid' => $row->adminid,
                     'username' => $row->username,
                     'validated' => true
                     );
