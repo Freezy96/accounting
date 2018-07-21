@@ -37,7 +37,7 @@ class Login extends CI_Controller {
         }else{
             // If user did validate, 
             // Send them to members area
-            redirect('home/main');
+            redirect('home');
         }        
     }
 }

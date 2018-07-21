@@ -22,7 +22,7 @@ class Home extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$this->load->view('login/main');
+		$this->load->view('home/main');
 		$this->load->view('template/footer');
 	}
 }
