@@ -9,7 +9,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                   <a href="<?php echo site_url('customer/') ?>">Customer</a>
                 </li>
                 <li>
                     <a href="#">Shortcuts</a>
