@@ -12,7 +12,7 @@ public function index()
     public function process(){
         // Load the model
         $this->load->model('register_model');
-        // Validate the user can login
+        // Validate the user can logi
         $result = $this->register_model->regis();
         // Now we verify the result
         if(! $result){
