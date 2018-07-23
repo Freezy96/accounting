@@ -34,12 +34,14 @@
                       <div class="col-sm-8">
                                 <input class="form-control" type="text" name="campany" required>
                          </div>
-                        </div>
-                        <div style="margin-top:10px" class="form-group pull-right">
+
+                         <div style="margin-top:10px" class="form-group pull-right">
                         <div class="col-sm-12 controls">
                           <button type="submit" name="submit" class="btn btn-success">Register</button>
                         </div>
-                    </div>  
+                    </div> 
+                        </div>
+                         
                 </div>
             </div>
         </div>
