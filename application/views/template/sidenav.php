@@ -18,6 +18,9 @@
                     <a href="#">Overview</a>
                 </li>
                 <li>
+                    <a href="<?php echo site_url('register/')  ?>">Create new Admin</a>
+                </li>
+                <li>
                     <a href="#">Events</a>
                 </li>
                 <li>
