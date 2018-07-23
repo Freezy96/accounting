@@ -13,15 +13,14 @@ public function index()
         // Load the model
         $this->load->model('register_model');
         // Validate the user can login
-        $result = $this->register_model->validate();
+        $result = $this->register_model->regis();
         // Now we verify the result
         if(! $result){
-            // If user did not validate, then show them login page again
-            $this->index();
+            echo "<script>alert('Registered successfully!')</script>";
+         
         }else{
-            // If user did validate, 
-            // Send them to members area
-            redirect('home');
+             echo log_message ( 'error', 'register error-->' . $this->db->last_query () );
+            redirect('register');
         }        
     }
 }
