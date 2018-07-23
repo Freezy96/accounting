@@ -8,7 +8,7 @@ class Register extends CI_Model{
     }
 
 
-    public function register($username, $password, $campany) {
+    public function regis($username, $password, $campany) {
     $this->db->set('username', $username);
     $this->db->set('password', $password);
     $this->db->set('campany', $campany );
