@@ -32,15 +32,13 @@ class Customer extends CI_Controller {
     	$this->load->view('customer/main', $data);
 		$this->load->view('template/footer');
 	}
-	
+
 	public function insert()
 	{	
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$res = $this->load->customer_model->getuserdata();
-		$data['result'] = $res;
-    	$this->load->view('customer/main', $data);
+    	$this->load->view('customer/insert');
 		$this->load->view('template/footer');
 	}
 }

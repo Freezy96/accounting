@@ -1,3 +1,5 @@
+<?php $this->load->view('template/sidenav'); ?>
+
 
 <h1>Register</h1>
 <div class="container">    

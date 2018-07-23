@@ -1,3 +1,13 @@
+  <?php if($this->session){  ?>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+  <?php } ?>  
 <footer>Footer</footer>
    </div><!-- /.main-content -->
   </div><!-- /.dashboard-wrapper -->
