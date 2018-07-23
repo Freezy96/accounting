@@ -6,6 +6,8 @@
 </head>
 <body>
 <h1>Register</h1>
+
+
 <div class="container">    
     <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
         <div class="panel panel-info" >
@@ -23,13 +25,6 @@
                                 <input class="form-control" type="password" id="password" name="password" required>
                             </div>
                         </div>
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <label class="col-sm-4 control-label">Comfirm Password:</label>
-                            <div class="col-sm-8">
-                                <input class="form-control" type="password" id="password2" name="password2" onkeyup="checkPass(); return false;" required>
-                            </div>
-                            <span id="confirmMessage" class="help-block"></span>
-                        </div>
                    <div style="margin-bottom: 25px" class="input-group">
                  <label class="col-sm-4 control-label">Campany:</label>
                       <div class="col-sm-8">
@@ -38,7 +33,7 @@
 
                          <div style="margin-top:10px" class="form-group pull-right">
                         <div class="col-sm-12 controls">
-                          <button type="submit" name="submit" class="btn btn-success">Register</button>
+                          <button id="regBtn" type="submit" class="btn btn-success">Register</button>
                         </div>
                     </div> 
                         </div>

@@ -9,7 +9,7 @@ class Register_model extends CI_Model{
    
 
     public function regis($username, $password, $campany) {
- $this->db->set('username', $username);
+    $this->db->set('username', $username);
     $this->db->set('password', $password);
     $this->db->set('campany', $campany );
         if ($this->db->insert('admin')) {
