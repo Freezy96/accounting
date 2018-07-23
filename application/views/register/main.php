@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<title>register</title>
-</head>
-<body>
+<?php $this->load->view('template/sidenav'); ?>
+
+
 <h1>Register</h1>
 
 
@@ -43,5 +39,3 @@
             </form>
         </div>
     </div>
-</body>
-</html>
