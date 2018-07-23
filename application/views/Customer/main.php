@@ -1,8 +1,13 @@
 <?php $this->load->view('template/sidenav'); ?>
 <table class="table">
+
+	<!-- get session success = true / fail = false -->
+	<?php $return = $this->session->flashdata('return'); ?>
+	<?php if (isset($return) && $return!="") { ?>
+	<CENTER class="showstate"><h3 style="color:<?php if($return == true){echo "green";$message = "Data Inserted Successfully";}else{echo "red";$message = "Data Inserted Failed";} ?>;"><?php echo $message; ?></h3></CENTER><br>
+	<?php } ?>
 	<!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
-
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
 	<?php foreach ($result as $key => $val): ?>

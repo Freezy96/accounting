@@ -38,7 +38,31 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-    	$this->load->view('customer/insert');
+		$this->load->view('customer/insert');
+		$this->load->view('template/footer');
+	}
+
+	public function insertdb()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'customername' => $this->input->post('name'),
+		'address' => $this->input->post('address'),
+		'phoneno' => $this->input->post('phoneno'),
+		'gender' => $this->input->post('gender')
+		);
+
+		$return = $this->customer_model->insert($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('customer');
+		}
 		$this->load->view('template/footer');
 	}
 }

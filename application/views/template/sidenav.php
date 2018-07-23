@@ -12,7 +12,7 @@
                    <a href="<?php echo site_url('customer/') ?>">Customer</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="<?php echo site_url('customer/insert') ?>">Customer Insert</a>
                 </li>
                 <li>
                     <a href="#">Overview</a>
@@ -36,5 +36,9 @@
         </div>
         <!-- /#sidebar-wrapper -->
 
+        <!-- for looking good for content (in sidenav)-->
+        <div class="container" style="padding-top: 3vh;">
+            
+       
         
     

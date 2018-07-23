@@ -9,5 +9,16 @@ class Customer_Model extends CI_Model{
         $query = $this->db->get('customer');
         return $query->result_array();
     }
+
+    public function insert($data){
+        if($this->db->insert('customer', $data)){
+        	$return = true;
+        	return $return;
+        }else{
+        	$return = false;
+        	return $return;
+        }
+
+    }
 }
 ?>

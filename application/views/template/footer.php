@@ -1,4 +1,9 @@
+  <!-- container for looking good (in sidenav / footer) -->
+  </div>
   <?php if($this->session){  ?>
+
+                <!-- go to header -->
+
                   </div>
                 </div>
             </div>
