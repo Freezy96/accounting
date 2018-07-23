@@ -10,7 +10,7 @@
     <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
         <div class="panel panel-info" >
             <div class="panel-heading">
-             <form action='<?php echo base_url();?>login/process' method='post' name='process'>
+             <form action='<?php echo base_url();?>register/process' method='post' name='process'>
             <div style="margin-bottom: 25px" class="input-group">
                  <label class="col-sm-4 control-label">Username:</label>
                       <div class="col-sm-8">

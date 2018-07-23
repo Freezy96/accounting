@@ -19,7 +19,7 @@ public function index()
             echo "<script>alert('Registered successfully!')</script>";
          
         }else{
-             echo log_message ( 'error', 'register error-->' . $this->db->last_query () );
+
             redirect('register');
         }        
     }
