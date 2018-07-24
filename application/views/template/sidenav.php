@@ -20,7 +20,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="<?php echo site_url('customer/insert') ?>">Customer Insert</a>
+                    <a href="#">Package</a>
                 </li>
                 <li>
                      <a href="#">Events</a>
