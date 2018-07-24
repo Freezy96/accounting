@@ -20,6 +20,9 @@
                     </div>
                 </li>
                 <li>
+                    <a href="#">Package</a>
+                </li>
+                <li>
                      <a href="#">Events</a>
                 </li>
                 <li>
