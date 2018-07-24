@@ -65,6 +65,66 @@ class Customer extends CI_Controller {
 		}
 		$this->load->view('template/footer');
 	}
+
+	public function update()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$data = array(
+		'customerid' => $this->input->post('customerid')
+		);
+		$res = $this->load->customer_model->getuserdataupdate($data);
+		$data['result'] = $res;
+		$this->load->view('customer/update', $data);
+		$this->load->view('template/footer');
+	}
+
+	public function updatedb()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'customerid' => $this->input->post('customerid'),
+		'customername' => $this->input->post('name'),
+		'address' => $this->input->post('address'),
+		'phoneno' => $this->input->post('phoneno'),
+		'gender' => $this->input->post('gender')
+		);
+
+		$return = $this->customer_model->update($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('customer');
+		}
+		$this->load->view('template/footer');
+	}
+
+	public function delete()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'customerid' => $this->input->post('customerid')
+		);
+
+		$return = $this->customer_model->delete($data, $customerid);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('customer');
+		}
+		$this->load->view('template/footer');
+	}
 }
 
 /* End of file welcome.php */

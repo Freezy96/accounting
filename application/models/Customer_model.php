@@ -20,5 +20,45 @@ class Customer_Model extends CI_Model{
         }
 
     }
+
+    public function getuserdataupdate($data){
+        // Run the query
+        foreach ($data as $key => $value) {
+           $customerid = $value;
+        }
+        $this->db->where('customerid', $customerid);
+        $query = $this->db->get('customer');
+        return $query->result_array();
+    }
+
+    public function update($data){
+        foreach ($data as $key => $value) {
+           $customerid = $value['customerid'];
+        }
+        $this->db->where('customerid', $customerid);
+        if($this->db->replace('customer', $data)){
+            $return = true;
+            return $return;
+        }else{
+            $return = false;
+            return $return;
+        }
+
+    }
+
+    public function delete($data){
+        foreach ($data as $key => $value) {
+           $customerid = $value['customerid'];
+        }
+        $this->db->where('customerid', $customerid);
+        if($this->db->delete('customer')){
+            $return = true;
+            return $return;
+        }else{
+            $return = false;
+            return $return;
+        }
+
+    }
 }
 ?>

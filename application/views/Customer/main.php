@@ -26,8 +26,17 @@
 				<td>
 					<?php echo $value; ?>
 				</td>
-				
 			<?php endforeach ?>
+				<td>
+					<div class="row">
+						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
+						<button class="btn" value="<?php echo $val["customerid"]; ?>" name="customerid">Edit</button>
+						</form>
+						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
+							<button class="btn" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["customerid"]; ?>" name="customerid">Delete</button>
+						</form>
+					</div>
+				</td>
 		</tr>
 	<?php endforeach ?>
 </table>
