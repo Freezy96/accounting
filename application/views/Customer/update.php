@@ -44,5 +44,5 @@
   </label>
 </div>
 </div>
-  <button type="submit" class="btn btn-default" name="customerid" value="<?php echo $customerid; ?>">Submit</button>
+  <button type="submit" class="btn btn-default" name="customeridedit" value="<?php echo $customerid; ?>">Submit</button>
 </form>

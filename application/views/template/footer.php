@@ -13,7 +13,7 @@
     </div>
     <!-- /#wrapper -->
   <?php } ?>  
-<footer>Footer</footer>
+<footer></footer>
    </div><!-- /.main-content -->
   </div><!-- /.dashboard-wrapper -->
 
