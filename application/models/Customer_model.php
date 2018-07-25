@@ -12,10 +12,10 @@ class Customer_Model extends CI_Model{
 
     public function insert($data){
         if($this->db->insert('customer', $data)){
-        	$return = true;
+        	$return = "insert";
         	return $return;
         }else{
-        	$return = false;
+        	$return = "false";
         	return $return;
         }
 
@@ -37,27 +37,24 @@ class Customer_Model extends CI_Model{
         }
         $this->db->where('customerid', $customerid);
         if($this->db->replace('customer', $data)){
-            $return = true;
+            $return = "update";
             return $return;
         }else{
-            $return = false;
+            $return = "false";
             return $return;
         }
 
     }
 
     public function delete($data){
-        foreach ($data as $key => $value) {
-           $customerid = $value['customerid'];
-        }
-        $this->db->where('customerid', $customerid);
-        if($this->db->delete('customer')){
-            $return = true;
+        
+        if($this->db->delete('customer', $data)){
+            $return = "delete";
             return $return;
         }else{
-            $return = false;
+            $return = "false";
             return $return;
-        }
+        }    
 
     }
 }

@@ -72,7 +72,7 @@ class Customer extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$data = array(
-		'customerid' => $this->input->post('customerid')
+		'customerid' => $this->input->post('customeridedit')
 		);
 		$res = $this->load->customer_model->getuserdataupdate($data);
 		$data['result'] = $res;
@@ -87,7 +87,7 @@ class Customer extends CI_Controller {
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'customerid' => $this->input->post('customerid'),
+		'customerid' => $this->input->post('customeridedit'),
 		'customername' => $this->input->post('name'),
 		'address' => $this->input->post('address'),
 		'phoneno' => $this->input->post('phoneno'),
@@ -112,10 +112,10 @@ class Customer extends CI_Controller {
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'customerid' => $this->input->post('customerid')
+		'customerid' => $this->input->post('customeriddelete')
 		);
 
-		$return = $this->customer_model->delete($data, $customerid);
+		$return = $this->customer_model->delete($data);
 		$data['return'] = $return;
 
 		if($return == true){
