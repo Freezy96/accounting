@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Customer extends CI_Controller {
+class Agent extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,7 +19,7 @@ class Customer extends CI_Controller {
 	 */
 	function __construct(){
         parent::__construct();
-        $this->load->model('customer_model');
+        $this->load->model('agent_model');
     }
 
 	public function index()
@@ -27,9 +27,9 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$res = $this->load->customer_model->getuserdata();
+		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
-    	$this->load->view('customer/main', $data);
+    	$this->load->view('agent/main', $data);
 		$this->load->view('template/footer');
 	}
 

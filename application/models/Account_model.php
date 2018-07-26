@@ -13,10 +13,36 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
-    public function getuserdatainsert(){
+    public function getuserdatainsertcustomer(){
         // Run the query
         $this->db->select('*');
         $query = $this->db->get('customer');
+        return $query->result_array();
+    }
+
+    public function getuserdatainsertpackage(){
+        // Run the query
+        $this->db->select('*');
+        $query = $this->db->get('package');
+        return $query->result_array();
+    }
+
+    public function insert($data){
+        if($this->db->insert('account', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+
+    }
+
+    public function getaccountdataupdate($accountid){
+        // Run the query
+        $accountid = $accountid;
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get('account');
         return $query->result_array();
     }
 }

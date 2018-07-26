@@ -6,7 +6,7 @@ class Customer_Model extends CI_Model{
     
     public function getuserdata(){
         // Run the query
-        $query = $this->db->get('customer');
+        $query = $this->db->get('agent');
         return $query->result_array();
     }
 

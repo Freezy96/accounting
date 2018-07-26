@@ -38,9 +38,53 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$res = $this->load->account_model->getuserdatainsert();
+		$res = $this->load->account_model->getuserdatainsertcustomer();
 		$data['result'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage();
+		$data['package'] = $res;
 		$this->load->view('account/insert', $data);
+		$this->load->view('template/footer');
+	}
+
+	public function insertdb()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'customerid' => $this->input->post('customerid'),
+		'packageid' => $this->input->post('packageid'),
+		'oriamount' => $this->input->post('amount'),
+		'amount' => $this->input->post('amount'),
+		'payment' => $this->input->post('payment'),
+		'datee' => $this->input->post('date')
+		);
+
+		$return = $this->account_model->insert($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
+		$this->load->view('template/footer');
+	}
+
+	public function update()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$accountid = $this->input->post('accountid');
+		$res = $this->load->account_model->getaccountdataupdate($accountid);
+		$data['result'] = $res;
+		$res = $this->load->account_model->getuserdatainsertcustomer();
+		$data['customer'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage();
+		$data['package'] = $res;
+		$this->load->view('account/update', $data);
 		$this->load->view('template/footer');
 	}
 	
