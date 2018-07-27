@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Account extends CI_Controller {
+class Agent extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,7 +19,7 @@ class Account extends CI_Controller {
 	 */
 	function __construct(){
         parent::__construct();
-        $this->load->model('account_model');
+        $this->load->model('agent_model');
     }
 
 	public function index()
@@ -27,9 +27,9 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$res = $this->load->account_model->getuserdata();
+		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
-    	$this->load->view('account/main', $data);
+    	$this->load->view('agent/main', $data);
 		$this->load->view('template/footer');
 	}
 
@@ -38,11 +38,7 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$res = $this->load->account_model->getuserdatainsertcustomer();
-		$data['result'] = $res;
-		$res = $this->load->account_model->getuserdatainsertpackage();
-		$data['package'] = $res;
-		$this->load->view('account/insert', $data);
+		$this->load->view('agent/insert');
 		$this->load->view('template/footer');
 	}
 
@@ -53,21 +49,17 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'customerid' => $this->input->post('customerid'),
-		'packageid' => $this->input->post('packageid'),
-		'oriamount' => $this->input->post('amount'),
-		'amount' => $this->input->post('amount'),
-		'payment' => $this->input->post('payment'),
-		'datee' => $this->input->post('date')
+		'agentname' => $this->input->post('name'),
+		'charge' => $this->input->post('charge')
 		);
 
-		$return = $this->account_model->insert($data);
+		$return = $this->agent_model->insert($data);
 		$data['return'] = $return;
 
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('account');
+			redirect('agent');
 		}
 		$this->load->view('template/footer');
 	}
@@ -77,17 +69,56 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$accountid = $this->input->post('accountid');
-		$res = $this->load->account_model->getaccountdataupdate($accountid);
+		$agentid = $this->input->post('agentidedit');
+		$res = $this->load->agent_model->getuserdataupdate($agentid);
 		$data['result'] = $res;
-		$res = $this->load->account_model->getuserdatainsertcustomer();
-		$data['customer'] = $res;
-		$res = $this->load->account_model->getuserdatainsertpackage();
-		$data['package'] = $res;
-		$this->load->view('account/update', $data);
+		$this->load->view('agent/update', $data);
 		$this->load->view('template/footer');
 	}
-	
+
+	public function updatedb()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'agentid' => $this->input->post('agentidedit'),
+		'agentname' => $this->input->post('name'),
+		'charge' => $this->input->post('charge')
+		);
+
+		$return = $this->agent_model->update($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('agent');
+		}
+		$this->load->view('template/footer');
+	}
+
+	public function delete()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'agentid' => $this->input->post('agentiddelete')
+		);
+
+		$return = $this->agent_model->delete($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('agent');
+		}
+		$this->load->view('template/footer');
+	}
 }
 
 /* End of file welcome.php */

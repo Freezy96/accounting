@@ -1,17 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Customer_Model extends CI_Model{
+class Agent_Model extends CI_Model{
     function __construct(){
         parent::__construct();
     }
     
     public function getuserdata(){
         // Run the query
-        $query = $this->db->get('customer');
+        $query = $this->db->get('agent');
         return $query->result_array();
     }
 
     public function insert($data){
-        if($this->db->insert('customer', $data)){
+        if($this->db->insert('agent', $data)){
         	$return = "insert";
         	return $return;
         }else{
@@ -21,20 +21,20 @@ class Customer_Model extends CI_Model{
 
     }
 
-    public function getuserdataupdate($customerid){
+    public function getuserdataupdate($agentid){
         // Run the query
-        $customerid = $customerid;
-        $this->db->where('customerid', $customerid);
-        $query = $this->db->get('customer');
+        $agentid = $agentid;
+        $this->db->where('agentid', $agentid);
+        $query = $this->db->get('agent');
         return $query->result_array();
     }
 
     public function update($data){
         foreach ($data as $key => $value) {
-           $customerid = $value['customerid'];
+           $agentid = $value['agentid'];
         }
-        $this->db->where('customerid', $customerid);
-        if($this->db->replace('customer', $data)){
+        $this->db->where('agentid', $agentid);
+        if($this->db->replace('agent', $data)){
             $return = "update";
             return $return;
         }else{
@@ -46,7 +46,7 @@ class Customer_Model extends CI_Model{
 
     public function delete($data){
         
-        if($this->db->delete('customer', $data)){
+        if($this->db->delete('agent', $data)){
             $return = "delete";
             return $return;
         }else{

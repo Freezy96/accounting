@@ -71,10 +71,8 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$data = array(
-		'customerid' => $this->input->post('customeridedit')
-		);
-		$res = $this->load->customer_model->getuserdataupdate($data);
+		$customerid = $this->input->post('customeridedit');
+		$res = $this->load->customer_model->getuserdataupdate($customerid);
 		$data['result'] = $res;
 		$this->load->view('customer/update', $data);
 		$this->load->view('template/footer');
