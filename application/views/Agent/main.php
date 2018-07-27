@@ -59,11 +59,11 @@
 			<?php endforeach ?>
 				<td>
 					<div class="row">
-						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
-						<button class="btn" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
+						<form action='<?php echo base_url();?>agent/update' method='post' name='agentedit'>
+						<button class="btn" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
 						</form>
-						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
-							<button class="btn" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
+						<form action='<?php echo base_url();?>agent/delete' method='post' name='agentdelete'>
+							<button class="btn" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
 						</form>
 					</div>
 				</td>

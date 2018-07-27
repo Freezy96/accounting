@@ -38,7 +38,7 @@ class Agent extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$this->load->view('customer/insert');
+		$this->load->view('agent/insert');
 		$this->load->view('template/footer');
 	}
 
@@ -49,19 +49,17 @@ class Agent extends CI_Controller {
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'customername' => $this->input->post('name'),
-		'address' => $this->input->post('address'),
-		'phoneno' => $this->input->post('phoneno'),
-		'gender' => $this->input->post('gender')
+		'agentname' => $this->input->post('name'),
+		'charge' => $this->input->post('charge')
 		);
 
-		$return = $this->customer_model->insert($data);
+		$return = $this->agent_model->insert($data);
 		$data['return'] = $return;
 
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('customer');
+			redirect('agent');
 		}
 		$this->load->view('template/footer');
 	}
@@ -71,10 +69,10 @@ class Agent extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$customerid = $this->input->post('customeridedit');
-		$res = $this->load->customer_model->getuserdataupdate($customerid);
+		$agentid = $this->input->post('agentidedit');
+		$res = $this->load->agent_model->getuserdataupdate($agentid);
 		$data['result'] = $res;
-		$this->load->view('customer/update', $data);
+		$this->load->view('agent/update', $data);
 		$this->load->view('template/footer');
 	}
 
@@ -85,20 +83,18 @@ class Agent extends CI_Controller {
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'customerid' => $this->input->post('customeridedit'),
-		'customername' => $this->input->post('name'),
-		'address' => $this->input->post('address'),
-		'phoneno' => $this->input->post('phoneno'),
-		'gender' => $this->input->post('gender')
+		'agentid' => $this->input->post('agentidedit'),
+		'agentname' => $this->input->post('name'),
+		'charge' => $this->input->post('charge')
 		);
 
-		$return = $this->customer_model->update($data);
+		$return = $this->agent_model->update($data);
 		$data['return'] = $return;
 
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('customer');
+			redirect('agent');
 		}
 		$this->load->view('template/footer');
 	}
@@ -110,16 +106,16 @@ class Agent extends CI_Controller {
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'customerid' => $this->input->post('customeriddelete')
+		'agentid' => $this->input->post('agentiddelete')
 		);
 
-		$return = $this->customer_model->delete($data);
+		$return = $this->agent_model->delete($data);
 		$data['return'] = $return;
 
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('customer');
+			redirect('agent');
 		}
 		$this->load->view('template/footer');
 	}
