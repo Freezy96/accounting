@@ -42,25 +42,21 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#">Package</a>
+                   <div class="btn-group" style="width: 100%;display: unset;">
+                      <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Package <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" style="width: 100vw;">
+                        <li><a href="<?php echo site_url('package/'); ?>" style="color: #141414;">View All</a></li>
+                        <li><a href="<?php echo site_url('package/insert'); ?>" style="color: #141414;">Add New Agent</a></li>
+                      </ul>
+                    </div>
                 </li>
                 <li>
-                     <a href="#">Events</a>
+                    <a href="<?php echo site_url('register/');  ?>">Create new Admin</a>
                 </li>
                 <li>
-                    <a href="<?php echo site_url('register/')  ?>">Create new Admin</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a href="<?php echo site_url('logout/');  ?>">Logout</a>
                 </li>
             </ul>
         </div>
