@@ -20,10 +20,12 @@ class Account extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('account_model');
+        $this->load->model('agent_model');
+        $this->load->model('security_model');
     }
 
 	public function index()
-	{	
+	{	$this->security_model->secure_session_login();
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
@@ -42,6 +44,8 @@ class Account extends CI_Controller {
 		$data['result'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage();
 		$data['package'] = $res;
+		$res = $this->load->agent_model->getuserdata();
+		$data['agent'] = $res;
 		$this->load->view('account/insert', $data);
 		$this->load->view('template/footer');
 	}
@@ -58,7 +62,8 @@ class Account extends CI_Controller {
 		'oriamount' => $this->input->post('amount'),
 		'amount' => $this->input->post('amount'),
 		'payment' => $this->input->post('payment'),
-		'datee' => $this->input->post('date')
+		'datee' => $this->input->post('date'),
+		'agentid' => $this->input->post('agentid')
 		);
 
 		$return = $this->account_model->insert($data);
@@ -84,6 +89,8 @@ class Account extends CI_Controller {
 		$data['customer'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage();
 		$data['package'] = $res;
+		$res = $this->load->agent_model->getuserdata();
+		$data['agent'] = $res;
 		$this->load->view('account/update', $data);
 		$this->load->view('template/footer');
 	}

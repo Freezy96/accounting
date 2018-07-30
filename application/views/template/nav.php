@@ -6,7 +6,7 @@
       </a>
     </div>
     <div>
-    	<p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+    	<p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link"><?php echo $this->session->userdata('username'); ?></a></p>
     </div>
   </div>
 </nav>

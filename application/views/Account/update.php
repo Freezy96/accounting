@@ -7,9 +7,10 @@
     $amount = $value['amount'];
     $payment = $value['payment'];
     $date = $value['datee'];
+    $agentid = $value['agentid'];
    ?>
 <?php endforeach ?>
-<?php print_r($result); ?>
+<!-- <?php print_r($result); ?> -->
 <!-- <?php print_r($customer); ?> -->
 <!-- <?php print_r($package); ?> -->
 
@@ -62,6 +63,20 @@
   <div class="form-group">
     <label for="">Date</label>
      <input type="date" class="form-control" id="" placeholder="Date" name="date" value="<?php echo $date; ?>">
+  </div>
+
+  <div class="form-group">
+    <label for="">Agent</label>
+    <select class="form-control" name="agentid">
+        <option value="0">No Agent</option>
+    <?php foreach ($agent as $key => $value): ?>
+        <?php if ($value['agentid'] == $agentid): ?>
+         <option value="<?php echo $value['agentid']; ?>" selected><?php echo $value['agentname']; ?></option>
+        <?php else: ?>
+         <option value="<?php echo $value['agentid']; ?>"><?php echo $value['agentname']; ?></option>
+        <?php endif ?>
+    <?php endforeach ?>
+     </select>
   </div>
   
   <button type="submit" class="btn btn-default">Submit</button>

@@ -17,12 +17,21 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	function __construct(){
+        parent::__construct();
+        $this->load->model('security_model');
+        $this->load->model('home_model');
+    }
+
 	public function index()
 	{	
+		$this->security_model->secure_session_login();
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$this->load->view('home/main');
+		$res = $this->load->home_model->getuserdata();
+		$data['result'] = $res;
+		$this->load->view('home/main', $data);
 		$this->load->view('template/footer');
 	}
 }

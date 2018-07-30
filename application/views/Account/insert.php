@@ -53,6 +53,18 @@
     <label for="">Date</label>
      <input type="date" class="form-control" id="" placeholder="Date" name="date">
   </div>
+
+  <div class="form-group">
+    <label for="">Agent</label>
+    <select class="form-control" name="agentid">
+        <option value="0">No Agent</option>
+    <?php foreach ($agent as $key => $value): ?>
+      
+        <option value="<?php echo $value['agentid']; ?>"><?php echo $value['agentname']; ?></option>
+     
+    <?php endforeach ?>
+     </select>
+  </div>
   
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
