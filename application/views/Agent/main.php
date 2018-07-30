@@ -5,68 +5,69 @@
 	<?php $return = $this->session->flashdata('return'); ?>
 	<!-- <?php print_r($return); ?> -->
 	<?php if (isset($return) && $return!="") { ?>
-	<CENTER class="showstate">
-		<h3 style="color:
 		<?php 
 		if($return['return'] == "delete")
 		{
-			echo "green";
-			$message = "Data Deleted Successfully";
+			echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Deleted Successfully</div>";
 		}
 		elseif($return['return'] == "insert")
 		{
-			echo "green";
-			$message = "Data Inserted Successfully";
+			echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Inserted Successfully</div>";
 		} 
 		elseif($return['return'] == "update")
 		{
-			echo "green";
-			$message = "Data Updated Successfully";
+			echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Updated Successfully</div>";
 		}
 		else
 		{
-			echo "red";
-			$message = "Data Process Failed";
+			echo "<div class=\"alert alert-danger showstate\" role=\"alert\">Process Fail !</div>";
 		} 
 		?>
-
-		;">
-			<?php echo $message; ?>
-		</h3>
-	</CENTER>
 	<br>
 	<?php } ?>
+			<thead>
+				<tr>
+					<td>
+						ID
+					</td>
+					<td>
+						NAME
+					</td>
+					<td>
+						CHARGE %
+					</td>
+					<td>
+						ACTION
+					</td>
+				</tr>
+			</thead>
+			<tbody>
 	<!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
 	<?php foreach ($result as $key => $val): ?>
 		<tr>
-			<?php if($count<2){ ?>
-			<?php foreach ($val as $fieldname => $value): ?>
-				<td>
-					<?php echo $fieldname; ?>
-				</td>
-				<?php $count++; ?>
-			<?php endforeach ?>
-			<?php } ?>
-		</tr>
-		<tr>
-			<?php foreach ($val as $fieldname => $value): ?>
-				<td>
-					<?php echo $value; ?>
-				</td>
-			<?php endforeach ?>
-				<td>
-					<div class="row">
-						<form action='<?php echo base_url();?>agent/update' method='post' name='agentedit'>
-						<button class="btn" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
-						</form>
-						<form action='<?php echo base_url();?>agent/delete' method='post' name='agentdelete'>
-							<button class="btn" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
-						</form>
-					</div>
-				</td>
+			<td>
+				<?php echo $val['agentid']; ?>
+			</td>
+			<td>
+				<?php echo $val['agentname']; ?>
+			</td>
+			<td>
+				<?php echo $val['charge']; ?>
+			</td>
+			<td>
+				<div class="row">
+					<form action='<?php echo base_url();?>agent/update' method='post' name='agentedit'>
+					<button class="btn btn-primary" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
+					</form>
+					<form action='<?php echo base_url();?>agent/delete' method='post' name='agentdelete'>
+						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
+					</form>
+				</div>
+			</td>
 		</tr>
 	<?php endforeach ?>
 </table>
+<a class="btn btn-default" href="<?php echo site_url('agent/insert'); ?>">Insert New Account</a></li>
