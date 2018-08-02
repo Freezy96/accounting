@@ -23,6 +23,9 @@
 					<td>
 						DUEDATE
 					</td>
+					<td>
+						DAYS LEFT
+					</td>
 					<TD>
 						INTEREST
 					</TD>
@@ -43,7 +46,17 @@
 			<!-- <?php print_r($result); ?>	       Show this for understanding -->
 			
 			<?php foreach ($result as $key => $val): ?>
-				
+				<?php 
+					$date1 = date("Y-m-d");
+					$date2 = date("Y-m-d",strtotime($val['duedate']));
+
+					$diff = abs(strtotime($date2) - strtotime($date1));
+
+					$years = floor($diff / (365*60*60*24));
+					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+					$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+				 ?>
+				<?php if (strtotime($val['duedate']) <= strtotime("+4 day", strtotime($date1)) && $date2 > $date1): ?>
 				<tr>
 					<td>
 						<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
@@ -59,6 +72,21 @@
 					</td>
 					<td>
 						<?php echo $val['duedate']; ?>
+					</td>
+					<td>
+						<span style="color: 
+							<?php if ($days == 1): $msg = "1 day left"; ?>
+								red
+							<?php elseif ($days == 2): $msg = "2 day left"; ?>	
+								orange
+							<?php elseif ($days == 3): $msg = "3 day left"; ?>
+								green
+							<?php elseif ($days == 4): $msg = "4 day left"; ?>
+								green
+							<?php endif ?>
+						;">
+						<?php echo $msg; ?>
+						</span>
 					</td>
 					<td>
 						<?php echo $val['interest']; ?>
@@ -80,8 +108,22 @@
 						</div>
 					</td>
 				</tr>
+				<?php endif ?>
+				
 			<?php endforeach ?>
 			</tbody>
 		</table>
 	</div>
+</div>
+
+<div class="col-sm-4">
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">Insert New Account</button>
+</div>
+
+<div class="col-sm-4">
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">Insert New Customer</button>
+</div>
+
+<div class="col-sm-4">
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">Insert New Package</button>
 </div>
