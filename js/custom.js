@@ -41,13 +41,40 @@ $(document).ready(function() {
   success: function(res) {
       if (res)
       {
-      alert("work");
-      $("#aaa").html(res.accountid); 
+        $("#account_modal_title").html(res[1].customername +" - RM "+ res[1].oriamount); 
+        $("#account_modal_customer").html(res[1].customerid +" - "+ res[1].customername); 
+        $("#account_modal_refid").html(res[1].refid); 
+        $("#account_modal_oriamount").html(res[1].oriamount); 
+        $("#account_modal_package").html(res[1].packageid +" - "+ res[1].name); 
+        $("#account_modal_agent").html(res[1].agentid +" - "+ res[1].agentname); 
+          var $tr = $('<tr/>');
+          $tr.append($('<td/>').html("Amount"));
+          $tr.append($('<td/>').html("Payment"));
+          $tr.append($('<td/>').html("Start Date"));
+          $tr.append($('<td/>').html("Due Date"));
+          $tr.append($('<td/>').html("Interest"));
+          $('.account_modal_table tr:last').before($tr);
+
+        for (var i = 0; i < res.length; i++) {
+          var $tr = $('<tr/>');
+          $tr.append($('<td/>').html(res[i].amount));
+          $tr.append($('<td/>').html(res[i].payment));
+          $tr.append($('<td/>').html(res[i].datee));
+          $tr.append($('<td/>').html(res[i].duedate));
+          $tr.append($('<td/>').html(res[i].interest));
+          $('.account_modal_table tr:last').before($tr);
+        }
+        
+       
+      // alert("work");
+      // $("#account_modal_title").html(res.refid); 
+      
+      // $("#account_modal_title").html(res.refid); 
+      // $("#account_modal_title").html(res.refid); 
       // Show Entered Value
-      // console.log(res);
+      console.log(res);
+      console.log(res[1].customername);
       // console.log("1");
-      console.log(res.accountid);
-      console.log(res.oriamount);
       }
     }
     });

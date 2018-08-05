@@ -91,27 +91,19 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="aaa"></h4>
+        <h4 class="modal-title" id="account_modal_title"></h4>
       </div>
       <div class="modal-body">
        <!-- body -->
-       <?php $x = 10; ?>
-       <?php for ($i=0; $i < $x; $i++) 
-       	{             
-       	for ($j=0; $j < $i+1; $j++) 
-       		{                 
-       			echo "*";            
-       		}            
-       		echo "<br>";        
-       	} ?>        
-       	<?php for ($i=$x-1; $i > 0; $i--) 
-       	{             
-   		for ($j=0; $j < $i; $j++) 
-   			{                 
-   				echo "*";            
-   			}            
-   			echo "<br>";        
-   		} ?>
+      Customer: <span id="account_modal_customer"></span><br>
+      Reference ID: <span id="account_modal_refid"></span><br>
+      Total Amount: <span id="account_modal_oriamount"></span><br>
+      Package: <span id="account_modal_package"></span><br>
+      Agent: <span id="account_modal_agent"></span><br><br>
+      <table class="account_modal_table table">
+      	
+      	<tr></tr>
+      </table>
        
       </div>
       <div class="modal-footer">
