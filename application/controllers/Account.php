@@ -21,7 +21,7 @@ class Account extends CI_Controller {
         parent::__construct();
         $this->load->model('account_model');
         $this->load->model('agent_model');
-        $this->load->model('security_model');
+        $this->load->model('security_model');$this->load->helper('url');
     }
 
 	public function index()
@@ -93,6 +93,22 @@ class Account extends CI_Controller {
 		$data['agent'] = $res;
 		$this->load->view('account/update', $data);
 		$this->load->view('template/footer');
+	}
+
+	public function modal() 
+	{	
+		// $this->load->helper('url');
+		// $this->load->model('account_model');
+		// $this->load->view('template/header');
+		// $this->load->view('template/footer');
+		// $this->load->view('template/nav');
+		// $this->load->view('template/footer');
+		$accountid = $this->input->post('accountid');
+		$data = $this->account_model->getuserdatamodal($accountid);
+	        
+	    echo json_encode($data);
+
+		//Either you can print value or you can send value to database
 	}
 	
 }
