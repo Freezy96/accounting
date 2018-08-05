@@ -1,4 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
+
 <table class="table">
 		<thead>
 			<tr>
@@ -76,9 +77,47 @@
 					<form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
 					</form>
+						<button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
 				</div>
 			</td>
 		</tr>
 	<?php endforeach ?>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('account/insert'); ?>">Insert New Account</a></li>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="aaa"></h4>
+      </div>
+      <div class="modal-body">
+       <!-- body -->
+       <?php $x = 10; ?>
+       <?php for ($i=0; $i < $x; $i++) 
+       	{             
+       	for ($j=0; $j < $i+1; $j++) 
+       		{                 
+       			echo "*";            
+       		}            
+       		echo "<br>";        
+       	} ?>        
+       	<?php for ($i=$x-1; $i > 0; $i--) 
+       	{             
+   		for ($j=0; $j < $i; $j++) 
+   			{                 
+   				echo "*";            
+   			}            
+   			echo "<br>";        
+   		} ?>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,18 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
+    public function getuserdatamodal($data){
+        // Run the query
+        $this->db->select('a.accountid, a.oriamount, a.customerid, c.customername, a.amount, a.payment, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.name');
+        $this->db->from('account a');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        $this->db->join('package p', 'a.packageid = p.packageid', 'left');
+        $this->db->where('accountid', $data);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     public function getuserdatainsertcustomer(){
         // Run the query
         $this->db->select('*');

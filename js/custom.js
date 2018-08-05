@@ -26,3 +26,30 @@ $('#accountcustomcheck').change(function(){
       $('#accountpayment').prop("disabled", false);
     }
  });
+
+  
+$(document).ready(function() {
+  $(".accountmodal").click(function(event) {
+    event.preventDefault();
+    var accountid = $(this).val();
+  // console.log(accountid);
+  $.ajax({
+  type: "POST",
+  url: 'account/modal',
+  dataType: 'json',
+  data: {'accountid': accountid},
+  success: function(res) {
+      if (res)
+      {
+      alert("work");
+      $("#aaa").html(res.accountid); 
+      // Show Entered Value
+      // console.log(res);
+      // console.log("1");
+      console.log(res.accountid);
+      console.log(res.oriamount);
+      }
+    }
+    });
+  });
+});
