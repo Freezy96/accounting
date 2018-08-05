@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class print extends CI_Controller {
+class Print_Expired extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('print_model');
@@ -13,7 +13,7 @@ class print extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->print_model->getuserdata();
 		$data['result'] = $res;
-    	$this->load->view('Print/main', $data);
+    	$this->load->view('print/main', $data);
 		$this->load->view('template/footer');
 	}
 }

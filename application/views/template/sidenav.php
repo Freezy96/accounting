@@ -72,7 +72,7 @@
                         Print <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu" style="width: 100vw;">
-                        <li><a href="<?php echo site_url('Print/'); ?>" style="color: #141414;">Expired today</a></li>
+                        <li><a href="<?php echo site_url('Print_Expired/'); ?>" style="color: #141414;">Expired today</a></li>
                       </ul>
                     </div>
                 </li>
