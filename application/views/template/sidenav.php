@@ -62,7 +62,7 @@
                       </a>
                       <ul class="dropdown-menu" style="width: 100vw;">
                         <li><a href="<?php echo site_url('package/'); ?>" style="color: #141414;">View All</a></li>
-                        <li><a href="<?php echo site_url('package/insert'); ?>" style="color: #141414;">Add New Agent</a></li>
+                        <li><a href="<?php echo site_url('package/insert'); ?>" style="color: #141414;">Add New Package</a></li>
                       </ul>
                     </div>
                 </li>

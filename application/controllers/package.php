@@ -55,5 +55,27 @@ class Package extends CI_Controller {
   echo 'success';
  }
 
+ public function insert()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    // $res = $this->load->Package_model->getpackagedata();
+    // $data['result'] = $res;
+    $this->load->view('Package/insert');
+    $this->load->view('template/footer');
+  }
+
+ public function insert_1000_1300_4week()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    $res = $this->load->Package_model->getpackagedata();
+    $data['result'] = $res;
+      $this->load->view('Package/main', $data);
+    $this->load->view('template/footer');
+  }
+
 }
 ?>
