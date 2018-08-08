@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class print extends CI_Controller {
+class Print_Expired extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('print_model');

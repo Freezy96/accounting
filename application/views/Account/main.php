@@ -10,7 +10,7 @@
 					CUSTOMER ID - NAME
 				</td>
 				<td>
-					ORIGINAL AMOUNT
+					TOTAL AMOUNT
 				</td>
 				<td>
 					PAYMENT
