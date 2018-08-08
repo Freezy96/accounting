@@ -97,12 +97,6 @@ class Account extends CI_Controller {
 
 	public function modal() 
 	{	
-		// $this->load->helper('url');
-		// $this->load->model('account_model');
-		// $this->load->view('template/header');
-		// $this->load->view('template/footer');
-		// $this->load->view('template/nav');
-		// $this->load->view('template/footer');
 		$accountid = $this->input->post('accountid');
 		$data = $this->account_model->getuserdatamodal($accountid);
 	        

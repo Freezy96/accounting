@@ -36,6 +36,9 @@
 						AGENT
 					</TD>
 					<td>
+						Phone No.
+					</td>
+					<td>
 						ACTION
 					</td>
 				</tr>
@@ -97,6 +100,9 @@
 					</td>
 					<td>
 						<?php echo $val['agentname']; ?>
+					</td>
+					<td>
+						<?php echo $val['phoneno']; ?>
 					</td>
 					<td>
 						<div class="row">

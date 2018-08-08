@@ -13,7 +13,7 @@ class Print_Expired extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->print_model->getuserdata();
 		$data['result'] = $res;
-    	$this->load->view('Print/main', $data);
+    	$this->load->view('print/main', $data);
 		$this->load->view('template/footer');
 	}
 }

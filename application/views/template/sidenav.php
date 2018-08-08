@@ -62,7 +62,7 @@
                       </a>
                       <ul class="dropdown-menu" style="width: 100vw;">
                         <li><a href="<?php echo site_url('package/'); ?>" style="color: #141414;">View All</a></li>
-                        <li><a href="<?php echo site_url('package/insert'); ?>" style="color: #141414;">Add New Agent</a></li>
+                        <li><a href="<?php echo site_url('package/insert'); ?>" style="color: #141414;">Add New Package</a></li>
                       </ul>
                     </div>
                 </li>
@@ -72,7 +72,7 @@
                         Print <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu" style="width: 100vw;">
-                        <li><a href="<?php echo site_url('Print/'); ?>" style="color: #141414;">Expired today</a></li>
+                        <li><a href="<?php echo site_url('Print_Expired/'); ?>" style="color: #141414;">Expired today</a></li>
                       </ul>
                     </div>
                 </li>
