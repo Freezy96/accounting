@@ -10,7 +10,7 @@ class Security_Model extends CI_Model{
         if($userid == "")
         {
             echo "<script>alert('Plese Login First !');</script>";
-            echo "<script>window.location.replace('login');</script>";
+            echo "<script>window.location.replace('". base_url() ."login');</script>";
         }
 
     }

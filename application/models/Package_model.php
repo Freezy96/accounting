@@ -40,11 +40,15 @@ class Package_Model extends CI_Model{
       //產生：  DELETE FROM news WHERE id = $id
      }
 
-    public function insert_1000_1300_4week()
+    public function insert_1000_1300_4week_insert($data)
     {
-      // Run the query
-      // $query = $this->db->get('package');
-      // return $query->result_array();
+      if($this->db->insert('package_30%_4week', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
     }
 }
 ?>

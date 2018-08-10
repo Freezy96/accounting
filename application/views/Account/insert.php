@@ -13,7 +13,7 @@
   </div><br>
   <div class="radio">
   <label>
-    <input type="radio" name="packagecustom" id="accountpackagecheck" value="option1" checked="checked">
+    <input type="radio" name="packagecustom" id="accountpackagecheck" value="option1" checked="checked" required>
       <div class="form-group">
         <label for="">Package</label>
         <select class="form-control" name="packageid" id="accountpackage">
@@ -36,10 +36,10 @@
 </div>
   <div class="radio">
     <label>
-      <input type="radio" name="packagecustom" id="accountcustomcheck" value="option1">
+      <input type="radio" name="packagecustom" id="accountcustomcheck" value="option1" required>
         <div class="form-group">
           <label for="">Custom Amount</label>
-          <input type="number" class="form-control" id="accountamount" placeholder="Amount" name="amount" disabled="">
+          <input type="number" class="form-control" id="accountamount" placeholder="Amount" name="amount" disabled="" required>
         </div>
         <!-- <div class="form-group">
           <label for="">Custom Payment</label>
@@ -51,7 +51,7 @@
 
   <div class="form-group">
     <label for="">Date</label>
-     <input type="date" class="form-control" id="" placeholder="Date" name="date">
+     <input type="date" class="form-control" id="" placeholder="Date" name="date" required>
   </div>
 
   <div class="form-group">

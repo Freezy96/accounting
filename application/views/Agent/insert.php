@@ -2,11 +2,11 @@
 <form action='<?php echo base_url();?>agent/insertdb' method='post' name='agentinsert'>
   <div class="form-group">
     <label for="">Agent Name</label>
-    <input type="text" class="form-control" id="" placeholder="Customer Name" name="name">
+    <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" required>
   </div>
   <div class="form-group">
     <label for="">Charge %</label>
-    <input type="number" step="0.01" class="form-control" name="charge">
+    <input type="number" step="0.01" class="form-control" name="charge" required>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>

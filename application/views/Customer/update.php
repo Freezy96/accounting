@@ -11,15 +11,15 @@
 <form action='<?php echo base_url();?>customer/updatedb' method='post' name='customerinsert'>
   <div class="form-group">
     <label for="">Customer Name</label>
-    <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" value="<?php echo $customername; ?>">
+    <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" value="<?php echo $customername; ?>" required>
   </div>
   <div class="form-group">
     <label for="">Address</label>
-    <textarea type="text" class="form-control" id="" placeholder="Address" name="address"><?php echo $address; ?></textarea>
+    <textarea type="text" class="form-control" id="" placeholder="Address" name="address" required><?php echo $address; ?></textarea>
   </div>
   <div class="form-group">
     <label for="">Phone No.</label>
-    <input type="tel" class="form-control" id="" placeholder="Phone No." name="phoneno" value="<?php echo $phoneno; ?>">
+    <input type="tel" class="form-control" id="" placeholder="Phone No." name="phoneno" value="<?php echo $phoneno; ?>" required>
   </div>
   <div class="form-group">
   <label for="exampleInputEmail1">Gender</label>
