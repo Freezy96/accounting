@@ -40,7 +40,7 @@ class Package_Model extends CI_Model{
       //產生：  DELETE FROM news WHERE id = $id
      }
 
-    public function qwe($data)
+    public function insert_30_4week($data)
     {
       if($this->db->insert('package_30_4week', $data)){
             $return = "insert";
