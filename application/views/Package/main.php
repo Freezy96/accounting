@@ -1,28 +1,15 @@
 <?php $this->load->view('template/sidenav'); ?>
-<table class="table">
-	<!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
-		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 
-	<!-- <?php print_r($result); ?>	       Show this for understanding -->
-	<?php $count=0; ?>
-	<?php foreach ($result as $key => $val): ?>
-		<tr>
-			<?php if($count<2){ ?>
-			<?php foreach ($val as $fieldname => $value): ?>
-				<td>
-					<?php echo $fieldname; ?>
-				</td>
-				<?php $count++; ?>
-			<?php endforeach ?>
-			<?php } ?>
-		</tr>
-		<tr>
-			<?php foreach ($val as $fieldname => $value): ?>
-				<td>
-					<?php echo $value; ?>
-				</td>
-				
-			<?php endforeach ?>
-		</tr>
-	<?php endforeach ?>
-</table>
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#30_4week" aria-controls="30_4week" role="tab" data-toggle="tab">30% / 4 Week</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="30_4week"><?php $this->load->view('package/main_30%_4week'); ?></div>
+  </div>
+
+</div>
