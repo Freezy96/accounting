@@ -66,9 +66,10 @@ class Package extends CI_Controller {
     $this->load->view('template/footer');
   }
 
- public function insert_30_4week_insert()
+ public function qqq()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
+
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $this->input->post('interest'),
@@ -78,9 +79,13 @@ class Package extends CI_Controller {
     'week3' => $this->input->post('week3'),
     'week4' => $this->input->post('week4')
     );
-    $res = $this->load->Package_model->insert_30_4week_insert($data);
+    $res = $this->load->Package_model->qwe($data);
     $data['result'] = $res;
-    $this->load->view('package/main',$data);
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
     $this->load->view('template/footer');
   }
 
