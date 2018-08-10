@@ -39,7 +39,12 @@ class Package_Model extends CI_Model{
       $this->db->delete('package', array('packageid' => $id));
       //產生：  DELETE FROM news WHERE id = $id
      }
-
+    public function main_30_4week()
+    {
+      // Run the query
+      $query = $this->db->get('package_30_4week');
+      return $query->result_array();
+    }
     public function insert_30_4week($data)
     {
       if($this->db->insert('package_30_4week', $data)){

@@ -13,9 +13,15 @@ class Package extends CI_Controller {
     $this->load->helper('url');
     $this->load->view('template/header');
     $this->load->view('template/nav');
-    $res = $this->load->Package_model->getpackagedata();
-    $data['result'] = $res;
-      $this->load->view('Package/main', $data);
+    $res = $this->load->Package_model->main_30_4week();
+    $data['main_30_4week'] = $res;
+    // $res = $this->load->Package_model->getpackagedata();
+    // $data['result'] = $res;
+    // $res = $this->load->Package_model->getpackagedata();
+    // $data['result'] = $res;
+    // $res = $this->load->Package_model->getpackagedata();
+    // $data['result'] = $res;
+    $this->load->view('Package/main', $data);
     $this->load->view('template/footer');
   }
   public function inset(){
