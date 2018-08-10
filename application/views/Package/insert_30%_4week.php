@@ -1,5 +1,5 @@
 <br>
-<form action='<?php echo base_url();?>package/insert_30_4week_insert' method='post' name='employeeinsert'>
+<form action='<?php echo base_url();?>package/insert_30_4week' method='post' name=''>
   <div class="form-group">
     <label for="">Lent Amount</label>
     <input type="number" step="0.01" class="form-control" id="" placeholder="Lent Amount" name="lentamount" required>
