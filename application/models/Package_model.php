@@ -50,5 +50,15 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
+    public function insert_1000_1200_week($data)
+    {
+      if($this->db->insert('package_20%_week', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
 }
 ?>
