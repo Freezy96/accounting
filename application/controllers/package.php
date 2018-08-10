@@ -89,7 +89,7 @@ class Package extends CI_Controller {
     $this->load->view('template/footer');
   }
 
- public function insert_1000_1200_week()
+ public function insert_20_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
     $data = array(
@@ -99,10 +99,36 @@ class Package extends CI_Controller {
     'week2' => $this->input->post('week2'),
     'week3' => $this->input->post('week3')
     );
-    $res = $this->load->Package_model->insert_1000_1200_week($data);
+    $this->load->model('Package_model');
+    $res = $this->Package_model->insert_20_week($data);
     $data['result'] = $res;
-    $this->load->view('package/main');
+    if($res == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
     $this->load->view('template/footer');
   }
-}
+
+   public function insert_15_week()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'guarantyitem' => $this->input->post('guarantyitem'),
+    'interest' => $this->input->post('interest'),
+    'totalamount' => $this->input->post('totalamount'),
+    'week2' => $this->input->post('week2'),
+    'week3' => $this->input->post('week3')
+    );
+    $this->load->model('Package_model');
+    $res = $this->Package_model->insert_15_week($data);
+    $data['result'] = $res;
+    if($res == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
 ?>
