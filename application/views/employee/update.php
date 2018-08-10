@@ -14,11 +14,11 @@
   </div>
   <div class="form-group">
     <label for="">Salary</label>
-    <textarea type="text" class="form-control" id="" placeholder="Salary" name="address"><?php echo $salary; ?></textarea>
+    <input type="number" step="0.01" class="form-control" id="" placeholder="Salary" name="address" required><?php echo $salary; ?>
   </div>
   <div class="form-group">
     <label for="">Phone No.</label>
-    <input type="tel" class="form-control" id="contactnum" placeholder="Phone No." name="contactnum" value="<?php echo $contactnum; ?>">
+    <input type="tel" class="form-control" id="contactnum" placeholder="Phone No." name="contactnum" value="<?php echo $contactnum; ?>" required>
   </div>
 </div>
   <button type="submit" class="btn btn-default" name="employeeidedit" value="<?php echo $employeeid; ?>">Submit</button>

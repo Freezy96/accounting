@@ -66,14 +66,21 @@ class Package extends CI_Controller {
     $this->load->view('template/footer');
   }
 
- public function insert_1000_1300_4week()
+ public function insert_1000_1300_4week_insert()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
-    $this->load->view('template/header');
-    $this->load->view('template/nav');
-    $res = $this->load->Package_model->getpackagedata();
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $this->input->post('interest'),
+    'totalamount' => $this->input->post('totalamount'),
+    'week1' => $this->input->post('week1'),
+    'week2' => $this->input->post('week2'),
+    'week3' => $this->input->post('week3'),
+    'week4' => $this->input->post('week4')
+    );
+    $res = $this->load->Package_model->insert_1000_1300_4week_insert($data);
     $data['result'] = $res;
-      $this->load->view('Package/main', $data);
+    $this->load->view('package/main');
     $this->load->view('template/footer');
   }
 

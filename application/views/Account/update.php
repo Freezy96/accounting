@@ -62,7 +62,7 @@
 
   <div class="form-group">
     <label for="">Date</label>
-     <input type="date" class="form-control" id="" placeholder="Date" name="date" value="<?php echo $date; ?>">
+     <input type="date" class="form-control" id="" placeholder="Date" name="date" value="<?php echo $date; ?>" required>
   </div>
 
   <div class="form-group">

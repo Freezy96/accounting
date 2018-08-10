@@ -29,6 +29,8 @@ $('#accountcustomcheck').change(function(){
 
   
 $(document).ready(function() {
+
+  // Modal get data in Account
   $(".accountmodal").click(function(event) {
     event.preventDefault();
     var accountid = $(this).val();
@@ -83,4 +85,28 @@ $(document).ready(function() {
     }
     });
   });
+
+  // Package insert total amount identify
+
+  $('.weekamount').on('change, keyup', function(){
+    var $totalamount = parseFloat($('#totalamount').val());
+    var $week1 = $('#week1').val();
+    var $week2 = $('#week2').val();
+    var $week3 = $('#week3').val();
+    var $week4 = $('#week4').val();
+    var $total4week = parseFloat($week1) + parseFloat($week2) + parseFloat($week3) + parseFloat($week4);
+    if ($week1!="" && $week2!="" && $week3!="" && $week4!="" && $totalamount!="") {
+      if ($totalamount.toFixed(2) !== $total4week.toFixed(2)) 
+      {
+        $('#package_1000_1300_message').html("Total Amount and Amount for 4 week are not the same!");
+        $('#package_1000_1300_btn').prop("disabled", true);
+      }
+      else
+      {
+        $('#package_1000_1300_message').html("");
+        $('#package_1000_1300_btn').prop("disabled", false);
+      }
+    } 
+  });
+
 });
