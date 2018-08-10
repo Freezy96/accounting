@@ -12,7 +12,7 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home"><?php $this->load->view('package/insert_1000_1300_4week'); ?></div>
+    <div role="tabpanel" class="tab-pane active" id="home"><?php $this->load->view('package/insert_30%_4week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="profile">...</div>
     <div role="tabpanel" class="tab-pane" id="messages">...</div>
     <div role="tabpanel" class="tab-pane" id="settings">...</div>
