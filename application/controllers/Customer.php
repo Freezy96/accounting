@@ -48,7 +48,7 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
+		$redirect = $this->input->post('redirect_destination');
 		$data = array(
 		'customername' => $this->input->post('name'),
 		'address' => $this->input->post('address'),
@@ -62,7 +62,15 @@ class Customer extends CI_Controller {
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('customer');
+			if($redirect!="")
+			{
+				redirect($redirect);
+			}
+			else
+			{
+				redirect('customer');
+			}
+			
 		}
 		$this->load->view('template/footer');
 	}

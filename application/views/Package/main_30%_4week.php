@@ -88,11 +88,11 @@
 			</td>
 			<td>
 				<div class="row">
-					<form action='<?php echo base_url();?>package/update_30_4week' method='post' name='packageedit'>
+					<!-- <form action='<?php echo base_url();?>package/update_30_4week' method='post' name='packageedit'>
 					<button class="btn btn-primary" value="<?php echo $val["packageid"]; ?>" name="agentidedit">Edit</button>
-					</form>
+					</form> -->
 					<form action='<?php echo base_url();?>package/delete_30_4week' method='post' name='packagedelete'>
-						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["packageid"]; ?>" name="agentiddelete">Delete</button>
+						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["packageid"]; ?>" name="packagedelete">Delete</button>
 					</form>
 				</div>
 			</td>
