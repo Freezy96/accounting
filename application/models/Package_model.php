@@ -56,7 +56,6 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
-
     public function delete_30_4week($data)
     {
       if($this->db->delete('package_30_4week', $data)){
@@ -77,10 +76,9 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
-
-    public function insert_1000_1200_week($data)
+    public function insert_15_week($data)
     {
-      if($this->db->insert('package_20%_week', $data)){
+      if($this->db->insert('package_15_week', $data)){
             $return = "insert";
             return $return;
         }else{
