@@ -85,9 +85,9 @@ class Package extends CI_Controller {
     'week4' => $this->input->post('week4')
     );
     $this->load->model('Package_model');
-    $res = $this->Package_model->insert_30_4week($data);
-    $data['result'] = $res;
-    if($res == true){
+    $return = $this->Package_model->insert_30_4week($data);
+    $data['return'] = $return;
+    if($return == true){
       // session to sow success or not, only available next page load
       $this->session->set_flashdata('return',$data);
       redirect('package');
@@ -158,4 +158,5 @@ class Package extends CI_Controller {
     }
     $this->load->view('template/footer');
   }
+}
 ?>

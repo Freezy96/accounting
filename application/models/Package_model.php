@@ -56,6 +56,7 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
+    
     public function delete_30_4week($data)
     {
       if($this->db->delete('package_30_4week', $data)){
@@ -73,6 +74,16 @@ class Package_Model extends CI_Model{
       $this->db->select('packagetypeid');
       $this->db->where('packagetypename', $packagetypename);
       $query = $this->db->get('packagetype');
+      return $query->result_array();
+    }
+
+    public function get_package_info($packagename, $packageid)
+    {
+      //database 名字，在insert的选项那边的前缀
+      $dbname = $packagename;
+      $packageid = $packageid;
+      $this->db->where('packageid', $packageid);
+      $query = $this->db->get($dbname);
       return $query->result_array();
     }
 

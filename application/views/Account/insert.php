@@ -6,6 +6,17 @@
 <form action='<?php echo base_url();?>account/insertdb' method='post' name='accountinsert'>
   
   <div class="form-group">
+    <label for="">Reference ID</label>
+    <?php 
+    foreach ($refid as $key => $value) 
+    {
+      $refid = $value['refid']+1; //auto increment
+    }
+     ?>
+     <input type="text" class="form-control" id="" placeholder="" name="date" value="<?php echo $refid; ?>" required readonly>
+  </div>
+
+  <div class="form-group">
     <label for="">Customer</label>
     <select class="form-control" name="customerid">
     <?php foreach ($result as $key => $value): ?>
