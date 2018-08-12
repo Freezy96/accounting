@@ -103,16 +103,61 @@ class Account extends CI_Controller {
 				);
 			
 				$return = $this->account_model->insert($data);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week2,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week3,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week4,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
 		}
-
+		////////////////////////////////////////date havent do ////////////////////////////////////////////////
 		
-		// $data['return'] = $return;
+		$data['return'] = $return;
 
-		// if($return == true){
-		// 	// session to sow success or not, only available next page load
-		// 	$this->session->set_flashdata('return',$data);
-		// 	redirect('account');
-		// }
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
 		$this->load->view('template/footer');
 	}
 
