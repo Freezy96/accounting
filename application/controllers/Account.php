@@ -19,6 +19,7 @@ class Account extends CI_Controller {
 	 */
 	function __construct(){
         parent::__construct();
+        $this->load->model('package_model');
         $this->load->model('account_model');
         $this->load->model('agent_model');
         $this->load->model('security_model');$this->load->helper('url');
@@ -42,8 +43,14 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->account_model->getuserdatainsertcustomer();
 		$data['result'] = $res;
-		$res = $this->load->account_model->getuserdatainsertpackage();
-		$data['package'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_30_4week();
+		$data['package_30_4week'] = $res;
+		// $res = $this->load->account_model->getuserdatainsertpackage();
+		// $data['package_30_4week'] = $res;
+		// $res = $this->load->account_model->getuserdatainsertpackage();
+		// $data['package_30_4week'] = $res;
+		// $res = $this->load->account_model->getuserdatainsertpackage();
+		// $data['package_30_4week'] = $res;
 		$res = $this->load->agent_model->getuserdata();
 		$data['agent'] = $res;
 		$this->load->view('account/insert', $data);
@@ -55,10 +62,23 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
+
+		$package_type_id = $this->input->post('packageid');
+		if (substr( $package_type_id, 0, 16) === "package_30_4week") 
+		{	
+			$packagename = substr( $package_type_id, 0, 16);
+			$packageid = substr( $package_type_id, 16, 17 );
+			$res = $this->load->package_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$result = $value['packagetypeid'];
+			}
+			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
+		}
+
 		$data = array(
 		'customerid' => $this->input->post('customerid'),
-		'packageid' => $this->input->post('packageid'),
+		'packageid' => $packageid,
+		'packagetypeid' => $result,
 		'oriamount' => $this->input->post('amount'),
 		'amount' => $this->input->post('amount'),
 		'payment' => $this->input->post('payment'),
@@ -66,14 +86,14 @@ class Account extends CI_Controller {
 		'agentid' => $this->input->post('agentid')
 		);
 
-		$return = $this->account_model->insert($data);
-		$data['return'] = $return;
+		// $return = $this->account_model->insert($data);
+		// $data['return'] = $return;
 
-		if($return == true){
-			// session to sow success or not, only available next page load
-			$this->session->set_flashdata('return',$data);
-			redirect('account');
-		}
+		// if($return == true){
+		// 	// session to sow success or not, only available next page load
+		// 	$this->session->set_flashdata('return',$data);
+		// 	redirect('account');
+		// }
 		$this->load->view('template/footer');
 	}
 

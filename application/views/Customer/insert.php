@@ -1,5 +1,13 @@
 <?php $this->load->view('template/sidenav'); ?>
+
 <form action='<?php echo base_url();?>customer/insertdb' method='post' name='customerinsert'>
+  <?php 
+
+  if ($this->uri->segment(3, 0) !="") {
+    echo "<input type=\"hidden\" class=\"form-control\" id=\"\" placeholder=\"\" value=\"account/insert\" name=\"redirect_destination\">";
+  }
+
+  ?>
   <div class="form-group">
     <label for="">Customer Name</label>
     <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" required>
