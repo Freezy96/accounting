@@ -45,6 +45,7 @@ class Package_Model extends CI_Model{
       $query = $this->db->get('package_30_4week');
       return $query->result_array();
     }
+
     public function insert_30_4week($data)
     {
       if($this->db->insert('package_30_4week', $data)){
@@ -55,6 +56,28 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
+
+    public function delete_30_4week($data)
+    {
+      if($this->db->delete('package_30_4week', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    public function get_package_type_id($data)
+    {
+      $packagetypename = $data;
+      $this->db->select('packagetypeid');
+      $this->db->where('packagetypename', $packagetypename);
+      $query = $this->db->get('packagetype');
+      return $query->result_array();
+    }
+
+
     public function insert_1000_1200_week($data)
     {
       if($this->db->insert('package_20%_week', $data)){

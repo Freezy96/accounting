@@ -95,6 +95,27 @@ class Package extends CI_Controller {
     $this->load->view('template/footer');
   }
 
+  public function delete_30_4week()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_30_4week($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
  public function insert_1000_1200_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');

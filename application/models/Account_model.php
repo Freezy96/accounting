@@ -47,10 +47,10 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
-    public function getuserdatainsertpackage(){
+    public function getuserdatainsertpackage_30_4week(){
         // Run the query
         $this->db->select('*');
-        $query = $this->db->get('package');
+        $query = $this->db->get('package_30_4week');
         return $query->result_array();
     }
 
