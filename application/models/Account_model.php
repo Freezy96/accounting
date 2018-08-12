@@ -40,6 +40,14 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_max_refid(){
+        // Run the query
+        $this->db->select_max('refid');
+        $this->db->from('account');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function getuserdatainsertcustomer(){
         // Run the query
         $this->db->select('*');

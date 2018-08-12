@@ -1,29 +1,5 @@
 <table class="table">
 
-	<!-- get session success = true / fail = false -->
-	<?php $return = $this->session->flashdata('return'); ?>
-	<!-- <?php print_r($return); ?> -->
-	<?php if (isset($return) && $return!="") { ?>
-		<?php 
-		if($return['return'] == "delete")
-		{
-			echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Deleted Successfully</div>";
-		}
-		elseif($return['return'] == "insert")
-		{
-			echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Inserted Successfully</div>";
-		} 
-		elseif($return['return'] == "update")
-		{
-			echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Updated Successfully</div>";
-		}
-		else
-		{
-			echo "<div class=\"alert alert-danger showstate\" role=\"alert\">Process Fail !</div>";
-		} 
-		?>
-	<br>
-	<?php } ?>
 			<thead>
 				<tr>
 					<td>
