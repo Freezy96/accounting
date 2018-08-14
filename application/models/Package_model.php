@@ -56,6 +56,7 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
+    
     public function delete_30_4week($data)
     {
       if($this->db->delete('package_30_4week', $data)){
@@ -76,6 +77,7 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
+<<<<<<< HEAD
     public function insert_20_week($data)
     {
       if($this->db->insert('package_20_week', $data)){
@@ -86,6 +88,18 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
+=======
+    public function get_package_info($packagename, $packageid)
+    {
+      //database 名字，在insert的选项那边的前缀
+      $dbname = $packagename;
+      $packageid = $packageid;
+      $this->db->where('packageid', $packageid);
+      $query = $this->db->get($dbname);
+      return $query->result_array();
+    }
+
+>>>>>>> master
     public function insert_15_week($data)
     {
       if($this->db->insert('package_15_week', $data)){

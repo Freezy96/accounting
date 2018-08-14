@@ -41,6 +41,8 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		$max_refid = $this->load->account_model->get_max_refid();
+		$data['refid'] = $max_refid;
 		$res = $this->load->account_model->getuserdatainsertcustomer();
 		$data['result'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage_30_4week();
@@ -70,30 +72,92 @@ class Account extends CI_Controller {
 			$packageid = substr( $package_type_id, 16, 17 );
 			$res = $this->load->package_model->get_package_type_id($packagename);
 			foreach ($res as $key => $value) {
-				$result = $value['packagetypeid'];
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->package_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				$interest = $value['interest'];
+				$week1 = $value['week1'];
+				$week2 = $value['week2'];
+				$week3 = $value['week3'];
+				$week4 = $value['week4'];
 			}
 			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
+
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week1,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week2,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week3,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $week4,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $this->input->post('date'),
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
 		}
+		////////////////////////////////////////date havent do ////////////////////////////////////////////////
+		
+		$data['return'] = $return;
 
-		$data = array(
-		'customerid' => $this->input->post('customerid'),
-		'packageid' => $packageid,
-		'packagetypeid' => $result,
-		'oriamount' => $this->input->post('amount'),
-		'amount' => $this->input->post('amount'),
-		'payment' => $this->input->post('payment'),
-		'datee' => $this->input->post('date'),
-		'agentid' => $this->input->post('agentid')
-		);
-
-		// $return = $this->account_model->insert($data);
-		// $data['return'] = $return;
-
-		// if($return == true){
-		// 	// session to sow success or not, only available next page load
-		// 	$this->session->set_flashdata('return',$data);
-		// 	redirect('account');
-		// }
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
 		$this->load->view('template/footer');
 	}
 
