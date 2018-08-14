@@ -66,6 +66,9 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 
 		$package_type_id = $this->input->post('packageid');
+
+		///////////////////////////////////package_30_4week//////////////////////////////////////
+		
 		if (substr( $package_type_id, 0, 16) === "package_30_4week") 
 		{	
 			$packagename = substr( $package_type_id, 0, 16);
@@ -89,6 +92,19 @@ class Account extends CI_Controller {
 				foreach ($max_refid as $key => $value) {
 					$refid = $value['refid']+1; //auto increment
 				}
+				$dateoriginal = $this->input->post('date');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
+
+				$date2 = strtotime("+2 week", strtotime($dateoriginal));
+				$date2 = date('Y-m-d', $date2);
+
+				$date3 = strtotime("+3 week", strtotime($dateoriginal));
+				$date3 = date('Y-m-d', $date3);
+
+				$date4 = strtotime("+4 week", strtotime($dateoriginal));
+				$date4 = date('Y-m-d', $date4);
+
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
 				'packageid' => $packageid,
@@ -98,11 +114,14 @@ class Account extends CI_Controller {
 				'amount' => $week1,
 				'refid' => $refid,
 				'payment' => 0,
-				'datee' => $this->input->post('date'),
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
 				'agentid' => $this->input->post('agentid')
 				);
 			
 				$return = $this->account_model->insert($data);
+				
+				
 
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
@@ -113,11 +132,14 @@ class Account extends CI_Controller {
 				'amount' => $week2,
 				'refid' => $refid,
 				'payment' => 0,
-				'datee' => $this->input->post('date'),
+				'datee' => $date1,
+				'duedate' => $date2,
 				'agentid' => $this->input->post('agentid')
 				);
 			
 				$return = $this->account_model->insert($data);
+
+				
 
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
@@ -128,11 +150,14 @@ class Account extends CI_Controller {
 				'amount' => $week3,
 				'refid' => $refid,
 				'payment' => 0,
-				'datee' => $this->input->post('date'),
+				'datee' => $date2,
+				'duedate' => $date3,
 				'agentid' => $this->input->post('agentid')
 				);
 			
 				$return = $this->account_model->insert($data);
+
+				
 
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
@@ -143,14 +168,17 @@ class Account extends CI_Controller {
 				'amount' => $week4,
 				'refid' => $refid,
 				'payment' => 0,
-				'datee' => $this->input->post('date'),
+				'datee' => $date3,
+				'duedate' => $date4,
 				'agentid' => $this->input->post('agentid')
 				);
 			
 				$return = $this->account_model->insert($data);
 		}
-		////////////////////////////////////////date havent do ////////////////////////////////////////////////
 		
+		///////////////////////////////////package_30_4week//////////////////////////////////////
+
+
 		$data['return'] = $return;
 
 		if($return == true){
