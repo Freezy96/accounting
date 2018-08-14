@@ -76,6 +76,16 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
+    public function insert_20_week($data)
+    {
+      if($this->db->insert('package_20_week', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
     public function insert_15_week($data)
     {
       if($this->db->insert('package_15_week', $data)){
