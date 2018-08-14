@@ -123,13 +123,15 @@ class Package extends CI_Controller {
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $this->input->post('interest'),
     'totalamount' => $this->input->post('totalamount'),
+    'week1' => $this->input->post('week1'),
     'week2' => $this->input->post('week2'),
-    'week3' => $this->input->post('week3')
+    'week3' => $this->input->post('week3'),
+
     );
     $this->load->model('Package_model');
-    $res = $this->Package_model->insert_20_week($data);
-    $data['result'] = $res;
-    if($res == true){
+    $return = $this->Package_model->insert_30_4week($data);
+    $data['return'] = $return;
+    if($return == true){
       // session to sow success or not, only available next page load
       $this->session->set_flashdata('return',$data);
       redirect('package');
@@ -137,25 +139,69 @@ class Package extends CI_Controller {
     $this->load->view('template/footer');
   }
 
-   public function insert_15_week()
-  { $this->security_model->secure_session_login();
+  public function delete_20_week()
+  { 
     $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
     $data = array(
-    'lentamount' => $this->input->post('lentamount'),
-    'guarantyitem' => $this->input->post('guarantyitem'),
-    'interest' => $this->input->post('interest'),
-    'totalamount' => $this->input->post('totalamount'),
-    'week2' => $this->input->post('week2'),
-    'week3' => $this->input->post('week3')
+    'packageid' => $this->input->post('packagedelete')
     );
-    $this->load->model('Package_model');
-    $res = $this->Package_model->insert_15_week($data);
-    $data['result'] = $res;
-    if($res == true){
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_20_week($data);
+    $data['return'] = $return;
+
+    if($return == true){
       // session to sow success or not, only available next page load
       $this->session->set_flashdata('return',$data);
       redirect('package');
     }
+
+    $this->load->view('template/footer');
+  }
+  public function insert_15_week()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $this->input->post('interest'),
+    'totalamount' => $this->input->post('totalamount'),
+    'week1' => $this->input->post('week1'),
+    'week2' => $this->input->post('week2'),
+    'week3' => $this->input->post('week3'),
+
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_30_4week($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function delete_15_week()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_20_week($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+
     $this->load->view('template/footer');
   }
 }
