@@ -104,13 +104,6 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
-    public function main_20_week()
-    {
-      // Run the query
-      $query = $this->db->get('package_20_week');
-      return $query->result_array();
-    }
-
     public function insert_20_week($data)
     {
       if($this->db->insert('package_20_week', $data)){
@@ -136,13 +129,6 @@ class Package_Model extends CI_Model{
             $return = "false";
             return $return;
         } 
-    }
-
-    public function main_15_week()
-    {
-      // Run the query
-      $query = $this->db->get('package_20_week');
-      return $query->result_array();
     }
 
     public function main_15_week()
