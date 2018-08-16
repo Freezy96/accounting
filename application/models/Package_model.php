@@ -75,7 +75,6 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
-<<<<<<< HEAD
     public function insert_25_month($data)
     {
       if($this->db->insert('package_25_month', $data)){
@@ -98,9 +97,6 @@ class Package_Model extends CI_Model{
         } 
     }
 
-    
-
-=======
     public function main_20_week()
     {
       // Run the query
@@ -108,7 +104,13 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
->>>>>>> master
+    public function main_20_week()
+    {
+      // Run the query
+      $query = $this->db->get('package_20_week');
+      return $query->result_array();
+    }
+
     public function insert_20_week($data)
     {
       if($this->db->insert('package_20_week', $data)){
@@ -125,9 +127,6 @@ class Package_Model extends CI_Model{
         }
     }
     
-<<<<<<< HEAD
-    
-=======
     public function delete_20_1week($data)
     {
       if($this->db->delete('package_20_week', $data)){
@@ -139,21 +138,19 @@ class Package_Model extends CI_Model{
         } 
     }
 
-    public function get_package_type_id($data)
-    {
-      $packagetypename = $data;
-      $this->db->select('packagetypeid');
-      $this->db->where('packagetypename', $packagetypename);
-      $query = $this->db->get('packagetype');
-      return $query->result_array();
-    }
-        public function main_15_week()
+    public function main_15_week()
     {
       // Run the query
       $query = $this->db->get('package_20_week');
       return $query->result_array();
     }
->>>>>>> master
+
+    public function main_15_week()
+    {
+      // Run the query
+      $query = $this->db->get('package_20_week');
+      return $query->result_array();
+    }
 
     public function insert_15_week($data)
     {
@@ -180,15 +177,6 @@ class Package_Model extends CI_Model{
             $return = "false";
             return $return;
         } 
-    }
-
-    public function get_package_type_id($data)
-    {
-      $packagetypename = $data;
-      $this->db->select('packagetypeid');
-      $this->db->where('packagetypename', $packagetypename);
-      $query = $this->db->get('packagetype');
-      return $query->result_array();
     }
 
 }
