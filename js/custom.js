@@ -34,7 +34,7 @@ $(document).ready(function() {
   $(".accountmodal").click(function(event) {
     event.preventDefault();
     var accountid = $(this).val();
-  // console.log(accountid);
+    console.log(accountid);
   $.ajax({
   type: "POST",
   url: 'account/modal',
@@ -53,7 +53,7 @@ $(document).ready(function() {
         $("#account_modal_customer").html(res[1].customerid +" - "+ res[1].customername); 
         $("#account_modal_refid").html(res[1].refid); 
         $("#account_modal_oriamount").html(res[1].oriamount); 
-        $("#account_modal_package").html(res[1].packageid +" - "+ res[1].name); 
+        $("#account_modal_package").html(res[1].packageid +" - "+ res[1].packagetypename); 
         $("#account_modal_agent").html(res[1].agentid +" - "+ res[1].agentname); 
           var $tr = $('<tr class=\'account_header_append\'/>');
           $tr.append($('<td/>').html("Amount"));

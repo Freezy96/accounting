@@ -48,9 +48,14 @@ class Agent extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
 		'agentname' => $this->input->post('name'),
+		///////////////Combo of User Identity Insert///////////////////
+		'companyid' => $company_identity,
+		///////////////Combo of User Identity Insert///////////////////
 		'charge' => $this->input->post('charge')
 		);
 

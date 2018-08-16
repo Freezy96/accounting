@@ -11,6 +11,10 @@ class Account_model extends CI_Model{
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -21,11 +25,11 @@ class Account_model extends CI_Model{
         foreach ($refid as $value) {
             $refid_res = $value['refid'];
         }
-        $this->db->select('a.accountid, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.payment, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.name');
+        $this->db->select('a.accountid, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.payment, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
-        $this->db->join('package p', 'a.packageid = p.packageid', 'left');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         $this->db->where('refid', $refid_res);
         $query = $this->db->get();
         return $query->result_array();
@@ -88,7 +92,7 @@ class Account_model extends CI_Model{
       $query = $this->db->get('packagetype');
       return $query->result_array();
     }
-    
+
     public function get_package_info($packagename, $packageid)
     {
       //database 名字，在insert的选项那边的前缀

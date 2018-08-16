@@ -66,6 +66,9 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 
 		$package_type_id = $this->input->post('packageid');
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////
 
 		///////////////////////////////////package_30_4week//////////////////////////////////////
 		
@@ -93,6 +96,7 @@ class Account extends CI_Controller {
 				foreach ($max_refid as $key => $value) {
 					$refid = $value['refid']+1; //auto increment
 				}
+
 				$dateoriginal = $this->input->post('date');
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
@@ -117,6 +121,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -135,6 +142,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $date1,
 				'duedate' => $date2,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -153,6 +163,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $date2,
 				'duedate' => $date3,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -171,6 +184,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $date3,
 				'duedate' => $date4,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -216,6 +232,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -235,7 +254,7 @@ class Account extends CI_Controller {
 		}
 		$this->load->view('template/footer');
 	}
-
+	// account 能不能update ? （未定论）
 	public function update()
 	{	
 		$this->load->helper('url');

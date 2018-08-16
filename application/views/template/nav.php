@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" style="margin-bottom: 0vh;">
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0vh;">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
