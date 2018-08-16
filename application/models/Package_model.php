@@ -77,7 +77,7 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
-<<<<<<< HEAD
+
     public function main_20_week()
     {
       // Run the query
@@ -85,8 +85,7 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
-=======
->>>>>>> master
+
     public function insert_20_week($data)
     {
       if($this->db->insert('package_20_week', $data)){
@@ -102,12 +101,12 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
-<<<<<<< HEAD
+
     
     public function delete_20_1week($data)
 =======
     public function get_package_info($packagename, $packageid)
->>>>>>> master
+
     {
       if($this->db->delete('package_20_week', $data)){
             $return = "delete";
