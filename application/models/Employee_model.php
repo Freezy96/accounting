@@ -6,6 +6,10 @@ class Employee_Model extends CI_Model{
     
     public function getemployeedata(){
         // Run the query
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $query = $this->db->get('employee');
         return $query->result_array();
     }
