@@ -33,6 +33,7 @@
       <div class="form-group">
         <label for="">Package</label>
         <select class="form-control" name="packageid" id="accountpackage">
+          <optgroup label="30% / 4 Week">
          <?php foreach ($package_30_4week as $key => $value): ?>
           <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
             <option value="<?php echo "package_30_4week".$value['packageid']; ?>">
@@ -55,6 +56,28 @@
             <!-- 其他package -->
          
         <?php endforeach ?>
+          </optgroup>
+
+
+
+
+          <optgroup label="25% / 1 Month">
+        <?php foreach ($package_25_month as $key => $value): ?>
+          <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+            <option value="<?php echo "package_25_month".$value['packageid']; ?>">
+              
+              <?php echo "Lent: RM ".$value['lentamount']; ?> 
+               
+              <?php echo "Pay: RM ".$value['totalamount']; ?> 
+              
+              <?php echo "(Fine for each day: X 1".$value['interest']." %)"; ?>
+
+            </option>
+            <!-- 其他package -->
+         
+        <?php endforeach ?>
+          </optgroup>
+
         </select>
       </div>
   <!-- </label> -->

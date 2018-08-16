@@ -68,6 +68,120 @@ class Package_Model extends CI_Model{
         } 
     }
 
+    public function main_25_month()
+    {
+      // Run the query
+      $query = $this->db->get('package_25_month');
+      return $query->result_array();
+    }
+
+<<<<<<< HEAD
+    public function insert_25_month($data)
+    {
+      if($this->db->insert('package_25_month', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    public function delete_25_month($data)
+    {
+      if($this->db->delete('package_25_month', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    
+
+=======
+    public function main_20_week()
+    {
+      // Run the query
+      $query = $this->db->get('package_20_week');
+      return $query->result_array();
+    }
+
+>>>>>>> master
+    public function insert_20_week($data)
+    {
+      if($this->db->insert('package_20_week', $data)){
+        double lentamount = 'lentamount';
+        double interest = 'interest';
+        double totalamount = lentamount*interest;
+        double week1 = totalamount;
+
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
+    
+<<<<<<< HEAD
+    
+=======
+    public function delete_20_1week($data)
+    {
+      if($this->db->delete('package_20_week', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    public function get_package_type_id($data)
+    {
+      $packagetypename = $data;
+      $this->db->select('packagetypeid');
+      $this->db->where('packagetypename', $packagetypename);
+      $query = $this->db->get('packagetype');
+      return $query->result_array();
+    }
+        public function main_15_week()
+    {
+      // Run the query
+      $query = $this->db->get('package_20_week');
+      return $query->result_array();
+    }
+>>>>>>> master
+
+    public function insert_15_week($data)
+    {
+      if($this->db->insert('package_15_week', $data)){
+        double lentamount = 'lentamount';
+        double interest = 'interest';
+        double totalamount = lentamount*interest;
+        double week1 = totalamount;
+        
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
+    
+    public function delete_15_week($data)
+    {
+      if($this->db->delete('package_15_week', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
     public function get_package_type_id($data)
     {
       $packagetypename = $data;
@@ -77,35 +191,5 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
-    public function insert_20_week($data)
-    {
-      if($this->db->insert('package_20_week', $data)){
-            $return = "insert";
-            return $return;
-        }else{
-            $return = "false";
-            return $return;
-        }
-    }
-    public function get_package_info($packagename, $packageid)
-    {
-      //database 名字，在insert的选项那边的前缀
-      $dbname = $packagename;
-      $packageid = $packageid;
-      $this->db->where('packageid', $packageid);
-      $query = $this->db->get($dbname);
-      return $query->result_array();
-    }
-
-    public function insert_15_week($data)
-    {
-      if($this->db->insert('package_15_week', $data)){
-            $return = "insert";
-            return $return;
-        }else{
-            $return = "false";
-            return $return;
-        }
-    }
 }
 ?>
