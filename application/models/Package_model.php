@@ -68,13 +68,33 @@ class Package_Model extends CI_Model{
         } 
     }
 
-    public function get_package_type_id($data)
+    public function main_25_month()
     {
-      $packagetypename = $data;
-      $this->db->select('packagetypeid');
-      $this->db->where('packagetypename', $packagetypename);
-      $query = $this->db->get('packagetype');
+      // Run the query
+      $query = $this->db->get('package_25_month');
       return $query->result_array();
+    }
+
+    public function insert_25_month($data)
+    {
+      if($this->db->insert('package_25_month', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    public function delete_25_month($data)
+    {
+      if($this->db->delete('package_25_month', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
     }
 
     public function main_20_week()
@@ -111,15 +131,7 @@ class Package_Model extends CI_Model{
         } 
     }
 
-    public function get_package_type_id($data)
-    {
-      $packagetypename = $data;
-      $this->db->select('packagetypeid');
-      $this->db->where('packagetypename', $packagetypename);
-      $query = $this->db->get('packagetype');
-      return $query->result_array();
-    }
-        public function main_15_week()
+    public function main_15_week()
     {
       // Run the query
       $query = $this->db->get('package_20_week');
@@ -151,15 +163,6 @@ class Package_Model extends CI_Model{
             $return = "false";
             return $return;
         } 
-    }
-
-    public function get_package_type_id($data)
-    {
-      $packagetypename = $data;
-      $this->db->select('packagetypeid');
-      $this->db->where('packagetypename', $packagetypename);
-      $query = $this->db->get('packagetype');
-      return $query->result_array();
     }
 
 }

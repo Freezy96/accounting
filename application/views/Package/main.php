@@ -28,11 +28,13 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#30_4week" aria-controls="30_4week" role="tab" data-toggle="tab">30% / 4 Week</a></li>
+    <li role="presentation"><a href="#25_month" aria-controls="25_month" role="tab" data-toggle="tab">25% / 1 Month</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="30_4week"><?php $this->load->view('package/main_30%_4week'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="25_month"><?php $this->load->view('package/main_25%_month'); ?></div>
   </div>
 
 </div>
