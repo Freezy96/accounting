@@ -171,14 +171,11 @@ class Package extends CI_Controller {
  public function insert_20_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
+    $totalamount= post('lentamount'*'interest'+'lentamount');
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $this->input->post('interest'),
-    'totalamount' => $this->input->post('totalamount'),
-    'week1' => $this->input->post('week1'),
-    'week2' => $this->input->post('week2'),
-    'week3' => $this->input->post('week3'),
-
+    'totalamount' => $this->input->post($totalamount)
     );
     $this->load->model('Package_model');
     $return = $this->Package_model->insert_30_4week($data);
@@ -216,12 +213,10 @@ class Package extends CI_Controller {
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
     $data = array(
+      'guarantyitem' => $this->input->post('guarantyitem'),
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $this->input->post('interest'),
-    'totalamount' => $this->input->post('totalamount'),
-    'week1' => $this->input->post('week1'),
-    'week2' => $this->input->post('week2'),
-    'week3' => $this->input->post('week3'),
+    'totalamount' => $this->input->post('totalamount')
 
     );
     $this->load->model('Package_model');

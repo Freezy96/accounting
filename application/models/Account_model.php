@@ -160,6 +160,10 @@ class Account_model extends CI_Model{
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
                     $this->insert_interest($total_interest,$accountid);
                 }
+                elseif ($packagename == "package_20_week")
+                {
+
+                }
                 echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
                 echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
             }
