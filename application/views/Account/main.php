@@ -12,9 +12,9 @@
 				<td>
 					TOTAL AMOUNT
 				</td>
-				<td>
+				<!-- <td>
 					PAYMENT
-				</td>
+				</td> -->
 				<td>
 					START DATE
 				</td>
@@ -50,9 +50,9 @@
 			<td>
 				<?php echo $val['oriamount']; ?>
 			</td>
-			<td>
+			<!-- <td>
 				<?php echo $val['payment']; ?>
-			</td>
+			</td> -->
 			<td>
 				<?php echo $val['datee']; ?>
 			</td>
