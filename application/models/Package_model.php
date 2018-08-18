@@ -77,7 +77,10 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 545b24d0f9b5b19de951672faf14becd27df2ba2
     public function main_20_week()
     {
       // Run the query
@@ -85,7 +88,10 @@ class Package_Model extends CI_Model{
       return $query->result_array();
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 545b24d0f9b5b19de951672faf14becd27df2ba2
     public function insert_20_week($data)
     {
       if($this->db->insert('package_20_week', $data)){
@@ -96,12 +102,17 @@ class Package_Model extends CI_Model{
             return $return;
         }
     }
+<<<<<<< HEAD
 
     
     public function delete_20_1week($data)
 =======
     public function get_package_info($packagename, $packageid)
 
+=======
+    
+    public function delete_20_1week($data)
+>>>>>>> 545b24d0f9b5b19de951672faf14becd27df2ba2
     {
       if($this->db->delete('package_20_week', $data)){
             $return = "delete";
