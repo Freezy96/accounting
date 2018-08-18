@@ -157,10 +157,7 @@ class Package_Model extends CI_Model{
     // public function insert_20_week($data)
     // {
     //   if($this->db->insert('package_20_week', $data)){
-    //     double lentamount = 'lentamount';
-    //     double interest = 'interest';
-    //     double totalamount = lentamount*interest;
-    //     double week1 = totalamount;
+
 
     //         $return = "insert";
     //         return $return;
@@ -196,11 +193,7 @@ class Package_Model extends CI_Model{
 
     // public function insert_15_week($data)
     // {
-    //   if($this->db->insert('package_15_week', $data)){
-    //     double lentamount = 'lentamount';
-    //     double interest = 'interest';
-    //     double totalamount = lentamount*interest;
-    //     double week1 = totalamount;
+
         
     //         $return = "insert";
     //         return $return;
