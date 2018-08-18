@@ -19,8 +19,8 @@ class Package extends CI_Controller {
     // $data['result'] = $res;
     // $res = $this->load->Package_model->getpackagedata();
     // $data['result'] = $res;
-    // $res = $this->load->Package_model->getpackagedata();
-    // $data['result'] = $res;
+    $res = $this->load->Package_model->main_25_month();
+    $data['main_25_month'] = $res;
     $this->load->view('Package/main', $data);
     $this->load->view('template/footer');
   }
@@ -75,6 +75,9 @@ class Package extends CI_Controller {
  public function insert_30_4week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
+    ///////////////Combo of User Identity Insert///////////////////
+    $company_identity = $this->session->userdata('adminid');
+    ///////////////Combo of User Identity Insert///////////////////
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $this->input->post('interest'),
@@ -82,6 +85,9 @@ class Package extends CI_Controller {
     'week1' => $this->input->post('week1'),
     'week2' => $this->input->post('week2'),
     'week3' => $this->input->post('week3'),
+    ///////////////Combo of User Identity Insert///////////////////
+    'companyid' => $company_identity,
+    ///////////////Combo of User Identity Insert///////////////////
     'week4' => $this->input->post('week4')
     );
     $this->load->model('Package_model');
@@ -106,6 +112,52 @@ class Package extends CI_Controller {
     );
     // $this->load->model('Package_model');
     $return = $this->load->Package_model->delete_30_4week($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function insert_25_month()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    ///////////////Combo of User Identity Insert///////////////////
+    $company_identity = $this->session->userdata('adminid');
+    ///////////////Combo of User Identity Insert///////////////////
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $this->input->post('interest'),
+    ///////////////Combo of User Identity Insert///////////////////
+    'companyid' => $company_identity,
+    ///////////////Combo of User Identity Insert///////////////////
+    'totalamount' => $this->input->post('totalamount')
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_25_month($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function delete_25_month()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_25_month($data);
     $data['return'] = $return;
 
     if($return == true){

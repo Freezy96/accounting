@@ -96,7 +96,7 @@
 						
 					</td>
 					<td>
-						<?php echo $val['packageid']; ?> - <?php echo $val['name']; ?>
+						<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 					</td>
 					<td>
 						<?php echo $val['agentname']; ?>

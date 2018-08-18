@@ -7,6 +7,7 @@
     <li role="presentation" class="active"><a href="#30_4week" aria-controls="30_4week" role="tab" data-toggle="tab">30% / 4 Week</a></li>
     <li role="presentation"><a href="#20_week" aria-controls="20_week" role="tab" data-toggle="tab">20% / 1 Week</a></li>
     <li role="presentation"><a href="#15_week" aria-controls="15_week" role="tab" data-toggle="tab">15% / 1 Week</a></li>
+    <li role="presentation"><a href="#25_month" aria-controls="25_month" role="tab" data-toggle="tab">25% / 1 Month</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -14,6 +15,7 @@
     <div role="tabpanel" class="tab-pane active" id="30_4week"><?php $this->load->view('package/insert_30%_4week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="20_week"><?php $this->load->view('package/insert_20%_week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="15_week"><?php $this->load->view('package/insert_15%_week'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="25_month"><?php $this->load->view('package/insert_25%_month'); ?></div>
   </div>
 
 </div>

@@ -5,3 +5,7 @@
 .sidenav_a_color:hover{
 	color: #000;
 }
+
+body { 
+	padding-top: 50px; 
+}

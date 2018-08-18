@@ -51,8 +51,8 @@ class Account extends CI_Controller {
 		// $data['package_30_4week'] = $res;
 		// $res = $this->load->account_model->getuserdatainsertpackage();
 		// $data['package_30_4week'] = $res;
-		// $res = $this->load->account_model->getuserdatainsertpackage();
-		// $data['package_30_4week'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_25_month();
+		$data['package_25_month'] = $res;
 		$res = $this->load->agent_model->getuserdata();
 		$data['agent'] = $res;
 		$this->load->view('account/insert', $data);
@@ -66,6 +66,9 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 
 		$package_type_id = $this->input->post('packageid');
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////
 
 		///////////////////////////////////package_30_4week//////////////////////////////////////
 		
@@ -73,11 +76,12 @@ class Account extends CI_Controller {
 		{	
 			$packagename = substr( $package_type_id, 0, 16);
 			$packageid = substr( $package_type_id, 16, 17 );
-			$res = $this->load->package_model->get_package_type_id($packagename);
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
 			foreach ($res as $key => $value) {
 				$packagetypeid = $value['packagetypeid'];
 			}
-			$res_info = $this->load->package_model->get_package_info($packagename, $packageid);
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
 			foreach ($res_info as $key => $value) {
 				$oriamount = $value['totalamount'];
 				$interest = $value['interest'];
@@ -92,6 +96,7 @@ class Account extends CI_Controller {
 				foreach ($max_refid as $key => $value) {
 					$refid = $value['refid']+1; //auto increment
 				}
+
 				$dateoriginal = $this->input->post('date');
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
@@ -116,6 +121,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -134,6 +142,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $date1,
 				'duedate' => $date2,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -152,6 +163,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $date2,
 				'duedate' => $date3,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -170,6 +184,9 @@ class Account extends CI_Controller {
 				'payment' => 0,
 				'datee' => $date3,
 				'duedate' => $date4,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
 				'agentid' => $this->input->post('agentid')
 				);
 			
@@ -177,6 +194,55 @@ class Account extends CI_Controller {
 		}
 		
 		///////////////////////////////////package_30_4week//////////////////////////////////////
+
+		///////////////////////////////////package_25_month//////////////////////////////////////
+		
+		if (substr( $package_type_id, 0, 16) === "package_25_month") 
+		{	
+			$packagename = substr( $package_type_id, 0, 16);
+			$packageid = substr( $package_type_id, 16, 17 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				$interest = $value['interest'];
+			}
+			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
+
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+				$dateoriginal = $this->input->post('date');
+				$date1 = strtotime("+1 month", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => $interest,
+				'amount' => $oriamount,
+				'refid' => $refid,
+				'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
+		
+		///////////////////////////////////package_25_month//////////////////////////////////////
 
 
 		$data['return'] = $return;
@@ -188,7 +254,7 @@ class Account extends CI_Controller {
 		}
 		$this->load->view('template/footer');
 	}
-
+	// account 能不能update ? （未定论）
 	public function update()
 	{	
 		$this->load->helper('url');

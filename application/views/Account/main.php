@@ -63,7 +63,7 @@
 				<?php echo $val['interest']; ?>
 			</td>
 			<td>
-				<?php echo $val['packageid']; ?> - <?php echo $val['name']; ?>
+				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
 			<td>
 				<?php echo $val['agentname']; ?>
@@ -71,9 +71,9 @@
 		
 			<td>
 				<div class="row">
-					<form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
+					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
-					</form>
+					</form> -->
 					<form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
 					</form>
