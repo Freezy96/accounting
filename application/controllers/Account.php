@@ -32,6 +32,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
+		$this->load->account_model->interest_30_4week();
     	$this->load->view('account/main', $data);
 		$this->load->view('template/footer');
 	}
@@ -84,7 +85,7 @@ class Account extends CI_Controller {
 			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
 			foreach ($res_info as $key => $value) {
 				$oriamount = $value['totalamount'];
-				$interest = $value['interest'];
+				// $interest = $value['interest'];
 				$week1 = $value['week1'];
 				$week2 = $value['week2'];
 				$week3 = $value['week3'];
@@ -115,10 +116,10 @@ class Account extends CI_Controller {
 				'packageid' => $packageid,
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
-				'interest' => $interest,
+				'interest' => 0,
 				'amount' => $week1,
 				'refid' => $refid,
-				'payment' => 0,
+				// 'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				///////////////Combo of User Identity Insert///////////////////
@@ -136,10 +137,10 @@ class Account extends CI_Controller {
 				'packageid' => $packageid,
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
-				'interest' => $interest,
+				'interest' => 0,
 				'amount' => $week2,
 				'refid' => $refid,
-				'payment' => 0,
+				// 'payment' => 0,
 				'datee' => $date1,
 				'duedate' => $date2,
 				///////////////Combo of User Identity Insert///////////////////
@@ -157,10 +158,10 @@ class Account extends CI_Controller {
 				'packageid' => $packageid,
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
-				'interest' => $interest,
+				'interest' => 0,
 				'amount' => $week3,
 				'refid' => $refid,
-				'payment' => 0,
+				// 'payment' => 0,
 				'datee' => $date2,
 				'duedate' => $date3,
 				///////////////Combo of User Identity Insert///////////////////
@@ -178,10 +179,10 @@ class Account extends CI_Controller {
 				'packageid' => $packageid,
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
-				'interest' => $interest,
+				'interest' => 0,
 				'amount' => $week4,
 				'refid' => $refid,
-				'payment' => 0,
+				// 'payment' => 0,
 				'datee' => $date3,
 				'duedate' => $date4,
 				///////////////Combo of User Identity Insert///////////////////
@@ -209,7 +210,7 @@ class Account extends CI_Controller {
 			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
 			foreach ($res_info as $key => $value) {
 				$oriamount = $value['totalamount'];
-				$interest = $value['interest'];
+				// $interest = $value['interest'];
 			}
 			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
 
@@ -226,10 +227,10 @@ class Account extends CI_Controller {
 				'packageid' => $packageid,
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
-				'interest' => $interest,
+				'interest' => 0,
 				'amount' => $oriamount,
 				'refid' => $refid,
-				'payment' => 0,
+				// 'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				///////////////Combo of User Identity Insert///////////////////
@@ -252,24 +253,6 @@ class Account extends CI_Controller {
 			$this->session->set_flashdata('return',$data);
 			redirect('account');
 		}
-		$this->load->view('template/footer');
-	}
-	// account 能不能update ? （未定论）
-	public function update()
-	{	
-		$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-		$accountid = $this->input->post('accountid');
-		$res = $this->load->account_model->getaccountdataupdate($accountid);
-		$data['result'] = $res;
-		$res = $this->load->account_model->getuserdatainsertcustomer();
-		$data['customer'] = $res;
-		$res = $this->load->account_model->getuserdatainsertpackage();
-		$data['package'] = $res;
-		$res = $this->load->agent_model->getuserdata();
-		$data['agent'] = $res;
-		$this->load->view('account/update', $data);
 		$this->load->view('template/footer');
 	}
 
