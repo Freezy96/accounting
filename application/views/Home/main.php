@@ -5,7 +5,7 @@
 
 <div class="collapse" id="collapseExample" aria-expanded="true" style=""> 
 	<div class="well"> 
-		<table class="table">
+		<table class="table livesearch">
 			<thead>
 				<tr>
 					<td>
@@ -47,7 +47,7 @@
 			<!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
 				<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 			<!-- <?php print_r($result); ?>	       Show this for understanding -->
-			
+			<?php if(is_array($result) && $result){ ?>
 			<?php foreach ($result as $key => $val): ?>
 				<?php 
 					$date1 = date("Y-m-d");
@@ -118,6 +118,7 @@
 				<?php endif ?>
 				
 			<?php endforeach ?>
+		<?php } ?>
 			</tbody>
 		</table>
 	</div>
