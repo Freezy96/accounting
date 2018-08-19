@@ -22,6 +22,24 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
+    public function getuserdata_payment_use($refid){
+        // Run the query
+        // $this->db->distinct('a.refid');
+        $this->db->select('a.accountid , a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
+        $this->db->from('account a');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.refid', $refid);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
     public function getuserdatamodal($data){
         // Run the query
         $refid = $this->getrefid($data);

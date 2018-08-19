@@ -272,28 +272,17 @@ class Account extends CI_Controller {
 		//Either you can print value or you can send value to database
 	}
 // if ($this->uri->segment(3, 0) !="") 有用到
-	// public function payment()
-	// {	
-	// 	$this->load->helper('url');
-	// 	$this->load->view('template/header');
-	// 	$this->load->view('template/nav');
-	// 	$max_refid = $this->load->account_model->get_max_refid();
-	// 	$data['refid'] = $max_refid;
-	// 	$res = $this->load->account_model->getuserdatainsertcustomer();
-	// 	$data['result'] = $res;
-	// 	$res = $this->load->account_model->getuserdatainsertpackage_30_4week();
-	// 	$data['package_30_4week'] = $res;
-	// 	// $res = $this->load->account_model->getuserdatainsertpackage();
-	// 	// $data['package_30_4week'] = $res;
-	// 	// $res = $this->load->account_model->getuserdatainsertpackage();
-	// 	// $data['package_30_4week'] = $res;
-	// 	$res = $this->load->account_model->getuserdatainsertpackage_25_month();
-	// 	$data['package_25_month'] = $res;
-	// 	$res = $this->load->agent_model->getuserdata();
-	// 	$data['agent'] = $res;
-	// 	$this->load->view('account/insert', $data);
-	// 	$this->load->view('template/footer');
-	// }
+	public function payment()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$refid = $this->input->post('account_refid');
+		$res = $this->load->account_model->getuserdata_payment_use($refid);
+		$data['result'] = $res;
+		$this->load->view('account/payment', $data);
+		$this->load->view('template/footer');
+	}
 	
 }
 

@@ -126,29 +126,3 @@
     </div>
   </div>
 </div>
-<!-- <script>
-function myFunction() {
-  // Declare variables 
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("account_livesearch_input");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("account_livesearch");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    for (var i = 0; i < td.length; i++) {
-    	td = tr[i].getElementsByTagName("td")[i];
-    	if (td) {
-	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-	        tr[i].style.display = "";
-	      } else {
-	        tr[i].style.display = "none";
-	      }
-	    } 
-    }
-    
-  }
-}
-</script> -->
