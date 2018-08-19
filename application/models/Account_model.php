@@ -6,7 +6,8 @@ class Account_model extends CI_Model{
     
     public function getuserdata(){
         // Run the query
-        $this->db->select('a.accountid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
+        // $this->db->distinct('a.refid');
+        $this->db->select('a.accountid , a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -15,7 +16,9 @@ class Account_model extends CI_Model{
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();
+
         return $query->result_array();
     }
 
@@ -158,7 +161,7 @@ class Account_model extends CI_Model{
                 elseif ($packagename == "package_25_month")
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
-                    $this->insert_interest($total_interest,$accountid);
+                    $this->insert_interest(number_format($total_interest, 2, '.', ','),$accountid);
                 }
                 echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
                 echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";

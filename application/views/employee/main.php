@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-<table class="table">
+<table class="table livesearch">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>

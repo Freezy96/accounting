@@ -32,6 +32,12 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
+		foreach ($res as $key => $value) {
+            $packagename =  $value['packagetypename'];
+            $packageid = $value['packageid'];
+            $res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+            $data['p'.$packageid] = $res_info;
+        }
 		$this->load->account_model->interest_30_4week();
     	$this->load->view('account/main', $data);
 		$this->load->view('template/footer');
@@ -265,6 +271,29 @@ class Account extends CI_Controller {
 
 		//Either you can print value or you can send value to database
 	}
+// if ($this->uri->segment(3, 0) !="") 有用到
+	// public function payment()
+	// {	
+	// 	$this->load->helper('url');
+	// 	$this->load->view('template/header');
+	// 	$this->load->view('template/nav');
+	// 	$max_refid = $this->load->account_model->get_max_refid();
+	// 	$data['refid'] = $max_refid;
+	// 	$res = $this->load->account_model->getuserdatainsertcustomer();
+	// 	$data['result'] = $res;
+	// 	$res = $this->load->account_model->getuserdatainsertpackage_30_4week();
+	// 	$data['package_30_4week'] = $res;
+	// 	// $res = $this->load->account_model->getuserdatainsertpackage();
+	// 	// $data['package_30_4week'] = $res;
+	// 	// $res = $this->load->account_model->getuserdatainsertpackage();
+	// 	// $data['package_30_4week'] = $res;
+	// 	$res = $this->load->account_model->getuserdatainsertpackage_25_month();
+	// 	$data['package_25_month'] = $res;
+	// 	$res = $this->load->agent_model->getuserdata();
+	// 	$data['agent'] = $res;
+	// 	$this->load->view('account/insert', $data);
+	// 	$this->load->view('template/footer');
+	// }
 	
 }
 

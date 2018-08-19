@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table livesearch">
 
 			<thead>
 				<tr>
@@ -36,6 +36,7 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
+	<?php if(is_array($main_30_4week) && $main_30_4week){ ?>
 	<?php foreach ($main_30_4week as $key => $val): ?>
 		<tr>
 			<td>
@@ -74,4 +75,5 @@
 			</td>
 		</tr>
 	<?php endforeach ?>
+<?php } ?>
 </table>
