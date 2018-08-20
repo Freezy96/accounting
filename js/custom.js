@@ -48,13 +48,15 @@ $(document).ready(function() {
         $(".account_header_append").remove(); 
         $(".account_trtd_append").remove(); 
         // empty html
-
-        $("#account_modal_title").html(res[1].customername +" - RM "+ res[1].oriamount); 
-        $("#account_modal_customer").html(res[1].customerid +" - "+ res[1].customername); 
-        $("#account_modal_refid").html(res[1].refid); 
-        $("#account_modal_oriamount").html(res[1].oriamount); 
-        $("#account_modal_package").html(res[1].packageid +" - "+ res[1].packagetypename); 
-        $("#account_modal_agent").html(res[1].agentid +" - "+ res[1].agentname); 
+        // generate button
+        $("#pay_amount").html("<button class=\"btn btn-success\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Amount</button>");
+        $("#pay_interest").html("<button class=\"btn btn-primary\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Interest</button>"); 
+        $("#account_modal_title").html(res[0].customername +" - RM "+ res[0].oriamount); 
+        $("#account_modal_customer").html(res[0].customerid +" - "+ res[0].customername); 
+        $("#account_modal_refid").html(res[0].refid); 
+        $("#account_modal_oriamount").html(res[0].oriamount); 
+        $("#account_modal_package").html(res[0].packageid +" - "+ res[0].packagetypename); 
+        $("#account_modal_agent").html(res[0].agentid +" - "+ res[0].agentname); 
           var $tr = $('<tr class=\'account_header_append\'/>');
           $tr.append($('<td/>').html("Amount"));
           $tr.append($('<td/>').html("Payment"));
@@ -109,5 +111,5 @@ $(document).ready(function() {
     } 
   });
 
-
+  $('.livesearch').DataTable();
 });

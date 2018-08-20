@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-<table class="table">
+<table class="table livesearch">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
@@ -46,6 +46,7 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
+	<?php if(is_array($result) && $result){ ?>
 	<?php foreach ($result as $key => $val): ?>
 		<tr>
 			<td>
@@ -69,5 +70,6 @@
 			</td>
 		</tr>
 	<?php endforeach ?>
+<?php } ?>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('agent/insert'); ?>">Insert New Account</a></li>
