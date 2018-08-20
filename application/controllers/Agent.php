@@ -35,7 +35,7 @@ class Agent extends CI_Controller {
 	}
 
 	public function insert()
-	{	
+	{	$this->security_model->secure_session_login();
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
