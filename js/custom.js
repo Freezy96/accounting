@@ -50,7 +50,7 @@ $(document).ready(function() {
         // empty html
         // generate button
         $("#pay_amount").html("<button class=\"btn btn-success\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Amount</button>");
-        $("#pay_interest").html("<button class=\"btn btn-primary\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Interest</button>"); 
+       
         $("#account_modal_title").html(res[0].customername +" - RM "+ res[0].oriamount); 
         $("#account_modal_customer").html(res[0].customerid +" - "+ res[0].customername); 
         $("#account_modal_refid").html(res[0].refid); 
@@ -71,7 +71,7 @@ $(document).ready(function() {
           $tr.append($('<td/>').html(res[i].payment));
           $tr.append($('<td/>').html(res[i].datee));
           $tr.append($('<td/>').html(res[i].duedate));
-          $tr.append($('<td/>').html(res[i].interest));
+          $tr.append($('<td/>').html(res[i].interest-res[i].interest_paid));
           $('.account_modal_table tr:last').before($tr);
         }
         

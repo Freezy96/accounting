@@ -266,7 +266,36 @@ class Account extends CI_Controller {
 	{	
 		$accountid = $this->input->post('accountid');
 		$data = $this->account_model->getuserdatamodal($accountid);
-	        
+		//用accountid 拿refid,再用refid那所有的accountid，在拿所有的payment出来，吧同样的payment merge起来，组成几个东西，push进array
+		$get_refid = $this->account_model->getrefid($accountid);
+		foreach ($get_refid as $key => $value) {
+			$refid = $value['refid'];
+		}
+		$get_all_acc_id = $this->account_model->get_accountid_using_refid($refid);
+		$count_array = -1;
+		foreach ($get_all_acc_id as $key => $value) {
+			$count_array++;
+			$all_account_id = $value['accountid'];
+			$get_payment = $this->account_model->get_payment_amount($all_account_id);
+			$payment = 0;
+			$interest_paid = 0;
+			foreach ($get_payment as $key => $value) {
+				if($value['paymenttype']=="amount")
+				{
+					$payment+=$value['payment'];
+				}
+				elseif($value['paymenttype']=="interest")
+				{
+					$interest_paid+=$value['payment'];
+				}
+				${'data'. $all_account_id} = array();
+				$data[$count_array]["payment"] = $payment;
+				$data[$count_array]["interest_paid"] = $interest_paid;
+
+			}
+		}
+		
+	     
 	    echo json_encode($data);
 
 		//Either you can print value or you can send value to database
@@ -280,6 +309,11 @@ class Account extends CI_Controller {
 		$refid = $this->input->post('account_refid');
 		$res = $this->load->account_model->getuserdata_payment_use($refid);
 		$data['result'] = $res;
+		foreach ($res as $key => $value) {
+			$accountid = $value['accountid'];
+			$res = $this->load->account_model->get_payment_amount($accountid);
+			$data['payment_amount'.$accountid] = $res;
+		}
 		$this->load->view('account/payment', $data);
 		$this->load->view('template/footer');
 	}
@@ -306,7 +340,7 @@ class Account extends CI_Controller {
 			$return = $this->account_model->insert_payment($data);
 			}
 
-			if($this->input->post('interest' . $i)!="0")
+			if($this->input->post('interest' . $i)!="")
 			{
 			$data = array(
 				'accountid' => $this->input->post('accountid' . $i),
@@ -317,7 +351,7 @@ class Account extends CI_Controller {
 			$return = $this->account_model->insert_payment($data);
 			}
 
-			if($this->input->post('discount' . $i)!="0")
+			if($this->input->post('discount' . $i)!="")
 			{
 			$data = array(
 				'accountid' => $this->input->post('accountid' . $i),

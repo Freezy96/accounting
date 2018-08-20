@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-
+<!-- <?php print_r($result); ?> -->
 <?php if(is_array($result) && $result){ ?>
   <?php foreach ($result as $key => $val): ?>
     <?php 
@@ -97,16 +97,36 @@
       <td>
         <?php echo $val['amount']; ?>
       </td>
+      <?php $amount_paid = 0; ?>
+      <?php $interest_paid = 0; ?>
+      <?php foreach (${'payment_amount' . $val['accountid']} as $key => $value): ?>
+        <?php 
+        if ($value['paymenttype'] == 'amount') 
+        {
+          $amount_paid += $value['payment'];
+        } 
+        if($value['paymenttype'] == 'interest')
+        {
+          $interest_paid += $value['payment'];
+        }
+        if($value['paymenttype'] == 'discount')
+        {
+          // $interest_paid += $value['payment'];
+        }
+        ?>
+      <?php endforeach ?>
       <td>
-        0
+        <?php echo $amount_paid; ?>
       </td>
       <td>
         <?php echo $val['datee']; ?>
       </td>
       <td>
         <?php echo $val['duedate']; ?>
-      </td><td>
-        <?php echo $val['interest']; ?>
+      </td>
+      <td>
+        <?php  ?>
+        <?php echo number_format($val['interest']-$interest_paid, 2, '.', ''); ?>
       </td>
     
       <td>
@@ -133,3 +153,4 @@
 
 <button class="btn btn-success pull-right" type="submit">PAYMENT</button>
 </form>
+<br><br><br><br>
