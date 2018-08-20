@@ -44,7 +44,7 @@ class Account extends CI_Controller {
 	}
 
 	public function insert()
-	{	
+	{	$this->security_model->secure_session_login();
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
@@ -281,6 +281,60 @@ class Account extends CI_Controller {
 		$res = $this->load->account_model->getuserdata_payment_use($refid);
 		$data['result'] = $res;
 		$this->load->view('account/payment', $data);
+		$this->load->view('template/footer');
+	}
+
+	public function payment_insert_db()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$account_number_count = $this->input->post('account_number_count');
+		$date_today = date("Y-m-d");
+		for ($i=1; $i < $account_number_count+1; $i++) 
+		{ 
+			$amount = $this->input->post('amount1');
+			echo "<script>console.log( 'Debug Objects: " . $amount . "' );</script>";
+			if($this->input->post('amount' . $i)!="")
+			{
+			$data = array(
+				'accountid' => $this->input->post('accountid' . $i),
+				'payment' => $this->input->post('amount' . $i),
+				'paymenttype' => "amount",
+				'paymentdate' => $date_today
+				);
+			$return = $this->account_model->insert_payment($data);
+			}
+
+			if($this->input->post('interest' . $i)!="0")
+			{
+			$data = array(
+				'accountid' => $this->input->post('accountid' . $i),
+				'payment' => $this->input->post('interest' . $i),
+				'paymenttype' => "interest",
+				'paymentdate' => $date_today
+				);
+			$return = $this->account_model->insert_payment($data);
+			}
+
+			if($this->input->post('discount' . $i)!="0")
+			{
+			$data = array(
+				'accountid' => $this->input->post('accountid' . $i),
+				'payment' => $this->input->post('discount' . $i),
+				'paymenttype' => "discount",
+				'paymentdate' => $date_today
+				);
+			$return = $this->account_model->insert_payment($data);
+			}
+		}
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
 		$this->load->view('template/footer');
 	}
 	

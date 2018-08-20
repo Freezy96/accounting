@@ -18,11 +18,7 @@
   <?php endforeach ?>
 <?php } ?>
 <div class="">
-  <?php if ($this->uri->segment(3, 0) == "interest"): ?>
-    <h1>Interest Payment</h1>
-  <?php elseif($this->uri->segment(3, 0) == "amount"): ?>
-    <h1>Amount Payment</h1>
-  <?php endif ?>
+  <h1>Payment</h1>
 </div>
 
 <div class="container">
@@ -63,6 +59,7 @@
 
 </div>
 <br>
+<form action='<?php echo base_url();?>account/payment_insert_db' method='post' name='account_payment'>
 <table class="table">
     <thead>
       <tr>
@@ -82,7 +79,7 @@
           INTEREST
         </TD>
         <td>
-          ACTION
+          PAYMENT ACTION
         </td>
       </tr>
     </thead>
@@ -90,8 +87,12 @@
   <!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
     <!-- foreach(allInformation  as  Fieldname  =>  Value) -->
   <!-- <?php print_r($result); ?>        Show this for understanding -->
+  <?php $account_number_count = 0; ?>
   <?php if(is_array($result) && $result){ ?>
+
   <?php foreach ($result as $key => $val): ?>
+    <!-- 用来知道有多少个数据显示出来，拿去controller 和 model用 -->
+    <?php $account_number_count+=1; ?>
     <tr>
       <td>
         <?php echo $val['amount']; ?>
@@ -109,53 +110,26 @@
       </td>
     
       <td>
-        <div class="row">
+          Amount:<input type="number" step="0.01" name="<?php echo "amount".$account_number_count; ?>"><br>
+          Interest:<input type="number" step="0.01" name="<?php echo "interest".$account_number_count; ?>"><br>
+          Discount:<input type="number" step="0.01" name="<?php echo "discount".$account_number_count; ?>">
+          <input type="hidden" value="<?php echo $val['accountid']; ?>" name="<?php echo "accountid".$account_number_count; ?>">
+          
           <!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
           <button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
           </form> -->
-          <form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
+          <!-- <form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
             <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
           </form>
-            <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
-        </div>
+            <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
       </td>
     </tr>
   <?php endforeach ?>
+  <input type="hidden" value="<?php echo $account_number_count; ?>" name="account_number_count">
+
+  
 <?php } ?>
 </table>
-<a class="btn btn-default" href="<?php echo site_url('account/insert'); ?>">Insert New Account</a></li>
 
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="account_modal_title"></h4>
-      </div>
-      <div class="modal-body">
-       <!-- body -->
-      Customer: <span id="account_modal_customer"></span><br>
-      Reference ID: <span id="account_modal_refid"></span><br>
-      Total Amount: <span id="account_modal_oriamount"></span><br>
-      Package: <span id="account_modal_package"></span><br>
-      Agent: <span id="account_modal_agent"></span><br><br>
-      <table class="account_modal_table table livesearch">
-        <thead></thead>
-        <tr></tr>
-      </table>
-       
-      </div>
-      <div class="modal-footer">
-        <form id="pay_amount" action='<?php echo base_url();?>account/payment/amount' method='post' name='accountpayamount'>
-      <!-- ajax script generated button -->
-    </form>
-    <form id="pay_interest" action='<?php echo base_url();?>account/payment/interest' method='post' name='accountpayinterest'>
-      <!-- ajax script generated button -->
-    </form>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>
+<button class="btn btn-success pull-right" type="submit">PAYMENT</button>
+</form>
