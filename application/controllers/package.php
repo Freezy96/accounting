@@ -171,17 +171,16 @@ class Package extends CI_Controller {
  public function insert_20_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
+    $interest= post('lentamount'*0.2);
+    $totalamount= post('lentamount'*'interest'+'lentamount');
+    
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
-    'interest' => $this->input->post('interest'),
-    'totalamount' => $this->input->post('totalamount'),
-    'week1' => $this->input->post('week1'),
-    'week2' => $this->input->post('week2'),
-    'week3' => $this->input->post('week3'),
-
+    'interest' => $this->input->post($interest),
+    'totalamount' => $this->input->post($totalamount)
     );
     $this->load->model('Package_model');
-    $return = $this->Package_model->insert_30_4week($data);
+    $return = $this->Package_model->insert_20_week($data);
     $data['return'] = $return;
     if($return == true){
       // session to sow success or not, only available next page load
@@ -215,17 +214,17 @@ class Package extends CI_Controller {
   public function insert_15_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
+    $interest= post('lentamount'*0.15);
+    $totalamount= post('lentamount'*'interest'+'lentamount');
+    
     $data = array(
+    'guarantyitem' => $this->input->post('guarantyitem'),
     'lentamount' => $this->input->post('lentamount'),
-    'interest' => $this->input->post('interest'),
-    'totalamount' => $this->input->post('totalamount'),
-    'week1' => $this->input->post('week1'),
-    'week2' => $this->input->post('week2'),
-    'week3' => $this->input->post('week3'),
-
+    'interest' => $this->input->post($interest),
+    'totalamount' => $this->input->post($totalamount)
     );
     $this->load->model('Package_model');
-    $return = $this->Package_model->insert_30_4week($data);
+    $return = $this->Package_model->insert_15_week($data);
     $data['return'] = $return;
     if($return == true){
       // session to sow success or not, only available next page load
@@ -234,7 +233,7 @@ class Package extends CI_Controller {
     }
     $this->load->view('template/footer');
   }
-
+ 
   public function delete_15_week()
   { 
     $this->load->helper('url');
