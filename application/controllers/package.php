@@ -171,13 +171,15 @@ class Package extends CI_Controller {
  public function insert_20_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
-    $interest= post('lentamount'*0.2);
-    $totalamount= post('lentamount'*'interest'+'lentamount');
-    
+    $lentamount = $this->input->post('lentamount');
+    $interest= $lentamount *(20/100);
+    $totalamount= ($interest+$lentamount);
+    $company_identity = $this->session->userdata('adminid');
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
-    'interest' => $this->input->post($interest),
-    'totalamount' => $this->input->post($totalamount)
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
     );
     $this->load->model('Package_model');
     $return = $this->Package_model->insert_20_week($data);
@@ -215,14 +217,15 @@ class Package extends CI_Controller {
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
     $lentamount = $this->input->post('lentamount');
-    $interest= $lentamount * 0.15;
-    $totalamount= ($lentamount*$interest+$lentamount);
-    
+    $interest= $lentamount * (15/100);
+    $totalamount= ($interest+$lentamount);
+    $company_identity = $this->session->userdata('adminid');
     $data = array(
     'guarantyitem' => $this->input->post('guarantyitem'),
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $interest,
     'totalamount' => $totalamount,
+     'companyid' => $company_identity
     );
     $this->load->model('Package_model');
     $return = $this->Package_model->insert_15_week($data);

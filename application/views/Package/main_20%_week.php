@@ -1,9 +1,13 @@
-<table class="table">
+
+<table class="table livesearch">
 
 			<thead>
 				<tr>
 					<td>
 						ID
+					</td>
+					<td>
+						GUARANTY ITEM
 					</td>
 					<td>
 						LENT AMOUNT
@@ -24,6 +28,7 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
+	<?php if(is_array($main_20_week) && $main_20_week){ ?>
 	<?php foreach ($main_20_week as $key => $val): ?>
 		<tr>
 			<td>
@@ -38,7 +43,6 @@
 			<td>
 				<?php echo $val['interest']; ?>
 			</td>
-			<td>
 				<div class="row">
 					<!-- <form action='<?php echo base_url();?>package/update_30_4week' method='post' name='packageedit'>
 					<button class="btn btn-primary" value="<?php echo $val["packageid"]; ?>" name="agentidedit">Edit</button>
@@ -50,4 +54,5 @@
 			</td>
 		</tr>
 	<?php endforeach ?>
+<?php } ?>
 </table>

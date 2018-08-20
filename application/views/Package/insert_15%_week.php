@@ -6,7 +6,7 @@
   </div>
     <div class="form-group">
     <label for="">Guaranty Item</label>
-    <input type="text" class="form-control" id="" placeholder="Guaranty Item" name="Guaranty Item" required>
+    <input type="text" class="form-control" id="" placeholder="Guaranty Item" name="guarantyitem" required>
   </div>
 
 

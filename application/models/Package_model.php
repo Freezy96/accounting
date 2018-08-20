@@ -100,9 +100,13 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-    public function main_20_week()
+     public function main_20_week()
     {
-      
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
       $query = $this->db->get('package_20_week');
       return $query->result_array();
     }
@@ -118,7 +122,7 @@ class Package_Model extends CI_Model{
         }
      }
     
-    public function delete_20_1week($data)
+    public function delete_20_week($data)
     {
       if($this->db->delete('package_20_week', $data)){
             $return = "delete";
@@ -128,10 +132,14 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-    public function main_15_week()
+        public function main_15_week()
     {
       // Run the query
-      $query = $this->db->get('package_20_week');
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_15_week');
       return $query->result_array();
     }
      public function insert_15_week($data)
