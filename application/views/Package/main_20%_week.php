@@ -1,4 +1,5 @@
-<table class="table">
+
+<table class="table livesearch">
 
 			<thead>
 				<tr>
@@ -6,13 +7,13 @@
 						ID
 					</td>
 					<td>
+						GUARANTY ITEM
+					</td>
+					<td>
 						LENT AMOUNT
 					</td>
 					<td>
 						TOTAL AMOUNT
-					</td>
-					<td>
-						INTEREST PER DAY LATE
 					</td>
 					<td>
 						ACTION
@@ -24,6 +25,7 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
+	<?php if(is_array($main_20_week) && $main_20_week){ ?>
 	<?php foreach ($main_20_week as $key => $val): ?>
 		<tr>
 			<td>
@@ -50,4 +52,5 @@
 			</td>
 		</tr>
 	<?php endforeach ?>
+<?php } ?>
 </table>
