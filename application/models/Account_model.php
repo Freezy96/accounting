@@ -135,6 +135,7 @@ class Account_model extends CI_Model{
             $duedate = $value['duedate'];
             $oriamount = $value['oriamount'];
             $accountid = $value['accountid'];
+            $lentamount = $value['lentamount'];
         
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
@@ -144,6 +145,7 @@ class Account_model extends CI_Model{
             $date2 = date("Y-m-d",strtotime($duedate));
 
             $diff = abs(strtotime($date1) - strtotime($date2));
+
 
             $years = floor($diff / (365*60*60*24));
             $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
@@ -160,12 +162,71 @@ class Account_model extends CI_Model{
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
                     $this->insert_interest($total_interest,$accountid);
                 }
-                elseif ($packagename == "package_20_week")
-                {
-
-                }
+                
                 echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
                 echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
+            }
+            if ($days<= $duedate) {
+                if ($packagename == "package_20_week")
+                {
+                     $total_interest = $lentamount* 0.2;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+                elseif ($packagename == "package_15_week")
+                {
+                     $total_interest = $lentamount* 0.15;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+            }elseif ($days>=$duedate && $diff==1) {
+                                if ($packagename == "package_20_week")
+                {
+                     $total_interest = ($lentamount* 0.2)+50;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+                elseif ($packagename == "package_15_week")
+                {
+                     $total_interest = ($lentamount* 0.15)+50;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+            }elseif ($diff>=2&& $diff<=7) {
+                                if ($packagename == "package_20_week")
+                {
+                     $total_interest = ($lentamount* 0.2)+100;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+                elseif ($packagename == "package_15_week")
+                {
+                     $total_interest = ($lentamount* 0.15)+100;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+            }elseif ($diff>=8) {
+                                if ($packagename == "package_20_week")
+                {
+                     $total_interest = (($lentamount* 0.2)+150)*1.2;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+                elseif ($packagename == "package_15_week")
+                {
+                     $total_interest = (($lentamount* 0.15)+150)*1.15;
+                     $this->insert_interest($total_interest,$accountid);
+                     $totalamount = $total_interest+$lentamount;
+
+                }
+            }
             }
         
         }

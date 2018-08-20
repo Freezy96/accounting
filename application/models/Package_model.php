@@ -132,7 +132,7 @@ class Package_Model extends CI_Model{
 =======
     
     public function delete_20_1week($data)
->>>>>>> 545b24d0f9b5b19de951672faf14becd27df2ba2
+
 =======
 
     public function delete_25_month($data)
