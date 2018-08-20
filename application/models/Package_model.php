@@ -100,28 +100,29 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-    public function main_20_week()
+     public function main_20_week()
     {
       // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
       $query = $this->db->get('package_20_week');
       return $query->result_array();
     }
-    // public function insert_20_week($data)
-    // {
-    //   if($this->db->insert('package_20_week', $data)){
-    //     double lentamount = 'lentamount';
-    //     double interest = 'interest';
-    //     double totalamount = lentamount*interest;
-    //     double week1 = totalamount;
-    //         $return = "insert";
-    //         return $return;
-    //     }else{
-    //         $return = "false";
-    //         return $return;
-    //     }
-    // }
+    public function insert_20_week($data)
+    {
+    if($this->db->insert('package_20_week', $data)){
     
-    public function delete_20_1week($data)
+          $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+             return $return;
+        }
+     }
+    
+    public function delete_20_week($data)
     {
       if($this->db->delete('package_20_week', $data)){
             $return = "delete";
@@ -131,27 +132,27 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-    public function main_15_week()
+        public function main_15_week()
     {
       // Run the query
-      $query = $this->db->get('package_20_week');
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_15_week');
       return $query->result_array();
     }
-    // public function insert_15_week($data)
-    // {
-    //   if($this->db->insert('package_15_week', $data)){
-    //     double lentamount = 'lentamount';
-    //     double interest = 'interest';
-    //     double totalamount = lentamount*interest;
-    //     double week1 = totalamount;
-        
-    //         $return = "insert";
-    //         return $return;
-    //     }else{
-    //         $return = "false";
-    //         return $return;
-    //     }
-    // }
+     public function insert_15_week($data)
+    {
+      if($this->db->insert('package_15_week', $data)){
+    
+             $return = "insert";
+            return $return;
+         }else{
+            $return = "false";
+           return $return;
+         }
+     }
     
     public function delete_15_week($data)
     {

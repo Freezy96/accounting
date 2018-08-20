@@ -15,12 +15,12 @@ class Package extends CI_Controller {
     $this->load->view('template/nav');
     $res = $this->load->Package_model->main_30_4week();
     $data['main_30_4week'] = $res;
-    // $res = $this->load->Package_model->getpackagedata();
-    // $data['result'] = $res;
-    // $res = $this->load->Package_model->getpackagedata();
-    // $data['result'] = $res;
     $res = $this->load->Package_model->main_25_month();
     $data['main_25_month'] = $res;
+    $res = $this->load->Package_model->main_20_week();
+    $data['main_20_week'] = $res;
+    $res = $this->load->Package_model->main_15_week();
+    $data['main_15_week'] = $res;
     $this->load->view('Package/main', $data);
     $this->load->view('template/footer');
   }
@@ -171,13 +171,15 @@ class Package extends CI_Controller {
  public function insert_20_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
-    $interest= post('lentamount'*0.2);
-    $totalamount= post('lentamount'*'interest'+'lentamount');
-    
+    $lentamount = $this->input->post('lentamount');
+    $interest= $lentamount *(20/100);
+    $totalamount= ($interest+$lentamount);
+    $company_identity = $this->session->userdata('adminid');
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
-    'interest' => $this->input->post($interest),
-    'totalamount' => $this->input->post($totalamount)
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
     );
     $this->load->model('Package_model');
     $return = $this->Package_model->insert_20_week($data);
@@ -214,14 +216,16 @@ class Package extends CI_Controller {
   public function insert_15_week()
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
-    $interest= post('lentamount'*0.15);
-    $totalamount= post('lentamount'*'interest'+'lentamount');
-    
+    $lentamount = $this->input->post('lentamount');
+    $interest= $lentamount * (15/100);
+    $totalamount= ($interest+$lentamount);
+    $company_identity = $this->session->userdata('adminid');
     $data = array(
     'guarantyitem' => $this->input->post('guarantyitem'),
     'lentamount' => $this->input->post('lentamount'),
-    'interest' => $this->input->post($interest),
-    'totalamount' => $this->input->post($totalamount)
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
     );
     $this->load->model('Package_model');
     $return = $this->Package_model->insert_15_week($data);
@@ -244,7 +248,7 @@ class Package extends CI_Controller {
     'packageid' => $this->input->post('packagedelete')
     );
     // $this->load->model('Package_model');
-    $return = $this->load->Package_model->delete_20_week($data);
+    $return = $this->load->Package_model->delete_15_week($data);
     $data['return'] = $return;
 
     if($return == true){
