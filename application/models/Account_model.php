@@ -40,6 +40,15 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_payment_amount($accountid){
+        // Run the query
+        $this->db->select('payment, paymenttype');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function getuserdatamodal($data){
         // Run the query
         $refid = $this->getrefid($data);
@@ -52,6 +61,7 @@ class Account_model extends CI_Model{
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         $this->db->where('refid', $refid_res);
+        // $this->db->group_by('pay.accountid');// add group_by
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -61,6 +71,15 @@ class Account_model extends CI_Model{
         $this->db->select('refid');
         $this->db->from('account');
         $this->db->where('accountid', $data);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_accountid_using_refid($refid){
+        // Run the query
+        $this->db->select('accountid');
+        $this->db->from('account');
+        $this->db->where('refid', $refid);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -181,7 +200,7 @@ class Account_model extends CI_Model{
                 elseif ($packagename == "package_25_month")
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
-                    $this->insert_interest(number_format($total_interest, 2, '.', ','),$accountid);
+                    $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
                 }
                 
                 echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
