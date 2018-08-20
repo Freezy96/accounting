@@ -16,9 +16,6 @@
 						TOTAL AMOUNT
 					</td>
 					<td>
-						INTEREST PER DAY LATE
-					</td>
-					<td>
 						ACTION
 					</td>
 				</tr>
@@ -43,6 +40,7 @@
 			<td>
 				<?php echo $val['interest']; ?>
 			</td>
+			<td>
 				<div class="row">
 					<!-- <form action='<?php echo base_url();?>package/update_30_4week' method='post' name='packageedit'>
 					<button class="btn btn-primary" value="<?php echo $val["packageid"]; ?>" name="agentidedit">Edit</button>

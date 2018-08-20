@@ -46,6 +46,8 @@
 			<td>
 				<?php echo $val['interest']; ?>
 			</td>
+			<td>
+
 				<div class="row">
 					<!-- <form action='<?php echo base_url();?>package/update_15_week' method='post' name='packageedit'>
 					<button class="btn btn-primary" value="<?php echo $val["packageid"]; ?>" name="agentidedit">Edit</button>
