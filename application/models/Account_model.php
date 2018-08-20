@@ -156,11 +156,12 @@ class Account_model extends CI_Model{
             $duedate = $value['duedate'];
             $oriamount = $value['oriamount'];
             $accountid = $value['accountid'];
-            $lentamount = $value['lentamount'];
+            
         
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
                 $interest = $value['interest'];
+                $lentamount = $value['lentamount'];
             }
             $date1 = date("Y-m-d");
             $date2 = date("Y-m-d",strtotime($duedate));
@@ -253,5 +254,5 @@ class Account_model extends CI_Model{
         }
 
     }
-    
+
 ?>

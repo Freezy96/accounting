@@ -15,12 +15,12 @@ class Package extends CI_Controller {
     $this->load->view('template/nav');
     $res = $this->load->Package_model->main_30_4week();
     $data['main_30_4week'] = $res;
-    // $res = $this->load->Package_model->getpackagedata();
-    // $data['result'] = $res;
-    // $res = $this->load->Package_model->getpackagedata();
-    // $data['result'] = $res;
     $res = $this->load->Package_model->main_25_month();
     $data['main_25_month'] = $res;
+    $res = $this->load->Package_model->main_20_week();
+    $data['main_20_week'] = $res;
+    $res = $this->load->Package_model->main_15_week();
+    $data['main_15_week'] = $res;
     $this->load->view('Package/main', $data);
     $this->load->view('template/footer');
   }
