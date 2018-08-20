@@ -70,12 +70,6 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-<<<<<<< HEAD
-    public function insert_25_month($data)
-    {
-      if($this->db->insert('package_25_month', $data)){
-            $return = "insert";
-=======
     public function main_25_month()
     {
       // Run the query
@@ -90,17 +84,12 @@ class Package_Model extends CI_Model{
     {
       if($this->db->insert('package_25_month', $data)){
             $return = "delete";
->>>>>>> master
             return $return;
         }else{
             $return = "false";
             return $return;
-        }
+        } 
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> master
     public function delete_25_month($data)
     {
       if($this->db->delete('package_25_month', $data)){
@@ -111,39 +100,25 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-<<<<<<< HEAD
-        public function insert_20_week($data)
-=======
     public function main_20_week()
->>>>>>> master
     {
-      if($this->db->insert('package_20_week', $data)){
-            $return = "insert";
+      
+      $query = $this->db->get('package_20_week');
+      return $query->result_array();
+    }
+    public function insert_20_week($data)
+    {
+    if($this->db->insert('package_20_week', $data)){
+    
+          $return = "insert";
             return $return;
         }else{
             $return = "false";
-            return $return;
+             return $return;
         }
-    }
-<<<<<<< HEAD
-=======
-    // public function insert_20_week($data)
-    // {
-    //   if($this->db->insert('package_20_week', $data)){
-    //     double lentamount = 'lentamount';
-    //     double interest = 'interest';
-    //     double totalamount = lentamount*interest;
-    //     double week1 = totalamount;
-    //         $return = "insert";
-    //         return $return;
-    //     }else{
-    //         $return = "false";
-    //         return $return;
-    //     }
-    // }
->>>>>>> master
+     }
     
-    public function delete_20_week($data)
+    public function delete_20_1week($data)
     {
       if($this->db->delete('package_20_week', $data)){
             $return = "delete";
@@ -153,39 +128,24 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-<<<<<<< HEAD
- public function insert_15_week($data)
-=======
     public function main_15_week()
->>>>>>> master
+    {
+      // Run the query
+      $query = $this->db->get('package_20_week');
+      return $query->result_array();
+    }
+     public function insert_15_week($data)
     {
       if($this->db->insert('package_15_week', $data)){
-            $return = "insert";
-            return $return;
-        }else{
-            $return = "false";
-            return $return;
-        }
-    }
-<<<<<<< HEAD
-=======
-    // public function insert_15_week($data)
-    // {
-    //   if($this->db->insert('package_15_week', $data)){
-    //     double lentamount = 'lentamount';
-    //     double interest = 'interest';
-    //     double totalamount = lentamount*interest;
-    //     double week1 = totalamount;
-        
-    //         $return = "insert";
-    //         return $return;
-    //     }else{
-    //         $return = "false";
-    //         return $return;
-    //     }
-    // }
     
->>>>>>> master
+             $return = "insert";
+            return $return;
+         }else{
+            $return = "false";
+           return $return;
+         }
+     }
+    
     public function delete_15_week($data)
     {
       if($this->db->delete('package_15_week', $data)){
