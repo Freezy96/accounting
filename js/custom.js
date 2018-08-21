@@ -68,10 +68,25 @@ $(document).ready(function() {
         for (var i = 0; i < res.length; i++) {
           var $tr = $('<tr class=\'account_trtd_append\'/>');
           $tr.append($('<td/>').html(res[i].amount));
-          $tr.append($('<td/>').html(res[i].payment));
+          if ("payment" in res[i]) 
+          {
+            $tr.append($('<td/>').html(res[i].payment));
+          }
+          else
+          {
+            $tr.append($('<td/>').html("0"));
+          }
           $tr.append($('<td/>').html(res[i].datee));
           $tr.append($('<td/>').html(res[i].duedate));
-          $tr.append($('<td/>').html(res[i].interest-res[i].interest_paid));
+          if ("interest_paid" in res[i]) 
+          {
+            $tr.append($('<td/>').html(res[i].interest-res[i].interest_paid));
+          }
+          else
+          {
+            $tr.append($('<td/>').html(res[i].interest));
+          }
+          
           $('.account_modal_table tr:last').before($tr);
         }
         
