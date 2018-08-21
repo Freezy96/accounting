@@ -284,13 +284,17 @@ class Account extends CI_Controller {
 				{
 					$payment+=$value['payment'];
 				}
-				elseif($value['paymenttype']=="interest")
+				// elseif($value['paymenttype']=="interest")
+				// {
+				// 	$interest_paid+=$value['payment'];
+				// }
+				if($value['paymenttype']=="discount")
 				{
-					$interest_paid+=$value['payment'];
+					$payment+=$value['payment'];
 				}
-				${'data'. $all_account_id} = array();
+				// ${'data'. $all_account_id} = array();
 				$data[$count_array]["payment"] = $payment;
-				$data[$count_array]["interest_paid"] = $interest_paid;
+				// $data[$count_array]["interest_paid"] = $interest_paid;
 
 			}
 		}
@@ -340,16 +344,16 @@ class Account extends CI_Controller {
 			$return = $this->account_model->insert_payment($data);
 			}
 
-			if($this->input->post('interest' . $i)!="")
-			{
-			$data = array(
-				'accountid' => $this->input->post('accountid' . $i),
-				'payment' => $this->input->post('interest' . $i),
-				'paymenttype' => "interest",
-				'paymentdate' => $date_today
-				);
-			$return = $this->account_model->insert_payment($data);
-			}
+			// if($this->input->post('interest' . $i)!="")
+			// {
+			// $data = array(
+			// 	'accountid' => $this->input->post('accountid' . $i),
+			// 	'payment' => $this->input->post('interest' . $i),
+			// 	'paymenttype' => "interest",
+			// 	'paymentdate' => $date_today
+			// 	);
+			// $return = $this->account_model->insert_payment($data);
+			// }
 
 			if($this->input->post('discount' . $i)!="")
 			{
