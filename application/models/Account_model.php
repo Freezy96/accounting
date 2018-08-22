@@ -97,7 +97,18 @@ class Account_model extends CI_Model{
         $query = $this->db->get('package_25_month');
         return $query->result_array();
     }
-
+    public function getuserdatainsertpackage_20_week(){
+        // Run the query
+        $this->db->select('*');
+        $query = $this->db->get('package_20_week');
+        return $query->result_array();
+    }
+        public function getuserdatainsertpackage_15_week(){
+        // Run the query
+        $this->db->select('*');
+        $query = $this->db->get('package_15_week');
+        return $query->result_array();
+    }
     public function insert($data){
         if($this->db->insert('account', $data)){
             $return = "insert";
