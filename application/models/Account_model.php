@@ -167,7 +167,7 @@ class Account_model extends CI_Model{
             $duedate = $value['duedate'];
             $oriamount = $value['oriamount'];
             $accountid = $value['accountid'];
-            
+
         
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
@@ -265,5 +265,20 @@ class Account_model extends CI_Model{
         }
 
     }
+
+
+   public function insert_payment($data)
+   {
+        if($this->db->insert('payment', $data))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+
+    }
+}
 
 ?>
