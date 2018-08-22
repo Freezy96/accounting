@@ -128,6 +128,7 @@ class Account_model extends CI_Model{
         $query = $this->db->get('package_15_week');
         return $query->result_array();
     }
+    
     public function insert($data){
         if($this->db->insert('account', $data)){
             $return = "insert";

@@ -105,8 +105,7 @@ class Account extends CI_Controller {
 				$week3 = $value['week3'];
 				$week4 = $value['week4'];
 			}
-			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
-
+			
 				$max_refid = $this->load->account_model->get_max_refid();
 				foreach ($max_refid as $key => $value) {
 					$refid = $value['refid']+1; //auto increment
@@ -256,7 +255,99 @@ class Account extends CI_Controller {
 				$return = $this->account_model->insert($data);
 				
 		}
-		
+
+				
+				if (substr( $package_type_id, 0, 16) === "package_20_week") 
+		{	
+			$packagename = substr( $package_type_id, 0, 15);
+			$packageid = substr( $package_type_id, 15, 16 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				// $interest = $value['interest'];
+				
+			}
+			
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+
+				$dateoriginal = $this->input->post('date');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => 0,
+				'amount' => $oriamount,
+				'refid' => $refid,
+				// 'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
+
+
+		if (substr( $package_type_id, 0, 16) === "package_15_week") 
+		{	
+			$packagename = substr( $package_type_id, 0, 15);
+			$packageid = substr( $package_type_id, 15, 16 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				// $interest = $value['interest'];
+				
+			}
+			
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+
+				$dateoriginal = $this->input->post('date');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => 0,
+				'guarantyitem'=>$this->input->post('guarantyitem'),
+				'amount' => $oriamount,
+				'refid' => $refid,
+				// 'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
 		///////////////////////////////////package_25_month//////////////////////////////////////
 
 
