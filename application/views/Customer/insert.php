@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <label for="">Address</label>
-    <textarea type="text" class="form-control" id="" placeholder="Address" name="address"></textarea>
+    <textarea type="text" class="form-control" id="" placeholder="Address" name="address" required></textarea>
   </div>
   <div class="form-group">
     <label for="">Phone No.</label>

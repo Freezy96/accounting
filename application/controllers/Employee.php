@@ -33,11 +33,16 @@ class Employee extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
 		'employeename' => $this->input->post('employeename'),
 		'salary' => $this->input->post('salary'),
-		'contactnum' => $this->input->post('contactnum'),
+		///////////////Combo of User Identity Insert///////////////////
+		'companyid' => $company_identity,
+		///////////////Combo of User Identity Insert///////////////////
+		'contactnum' => $this->input->post('contactnum')
 		);
 
 		$return = $this->employee_model->insert($data);
@@ -68,12 +73,17 @@ class Employee extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
 		'employeeid' => $this->input->post('employeeidedit'),
 		'employeename' => $this->input->post('employeename'),
 		'salary' => $this->input->post('salary'),
-		'contactnum' => $this->input->post('contactnum'),
+		///////////////Combo of User Identity Insert///////////////////
+		'companyid' => $company_identity,
+		///////////////Combo of User Identity Insert///////////////////
+		'contactnum' => $this->input->post('contactnum')
 		);
 
 		$return = $this->employee_model->update($data);
