@@ -38,7 +38,11 @@ class Account extends CI_Controller {
             $res_info = $this->load->account_model->get_package_info($packagename, $packageid);
             $data['p'.$packageid] = $res_info;
         }
+        // 先滚利息
 		$this->load->account_model->interest_30_4week();
+		// 再算totalamount
+		$this->load->account_model->count_total_amount();
+		$this->load->account_model->account_status_set();
     	$this->load->view('account/main', $data);
 		$this->load->view('template/footer');
 	}
@@ -304,7 +308,7 @@ class Account extends CI_Controller {
 
 		//Either you can print value or you can send value to database
 	}
-// if ($this->uri->segment(3, 0) !="") 有用到
+
 	public function payment()
 	{	
 		$this->load->helper('url');
@@ -342,6 +346,7 @@ class Account extends CI_Controller {
 				'paymentdate' => $date_today
 				);
 			$return = $this->account_model->insert_payment($data);
+
 			}
 
 			// if($this->input->post('interest' . $i)!="")
@@ -365,14 +370,17 @@ class Account extends CI_Controller {
 				);
 			$return = $this->account_model->insert_payment($data);
 			}
-		}
-		$data['return'] = $return;
 
-		if($return == true){
-			// session to sow success or not, only available next page load
-			$this->session->set_flashdata('return',$data);
-			redirect('account');
+
 		}
+		// $data['return'] = $return;
+
+		// if($return == true){
+		// 	// session to sow success or not, only available next page load
+		// 	$this->session->set_flashdata('return',$data);
+		// 	redirect('account');
+		// }
+		redirect('account');
 		$this->load->view('template/footer');
 	}
 	
