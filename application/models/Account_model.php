@@ -40,6 +40,15 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_payment_amount($accountid){
+        // Run the query
+        $this->db->select('payment, paymenttype');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function getuserdatamodal($data){
         // Run the query
         $refid = $this->getrefid($data);
@@ -52,6 +61,7 @@ class Account_model extends CI_Model{
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         $this->db->where('refid', $refid_res);
+        // $this->db->group_by('pay.accountid');// add group_by
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -61,6 +71,15 @@ class Account_model extends CI_Model{
         $this->db->select('refid');
         $this->db->from('account');
         $this->db->where('accountid', $data);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_accountid_using_refid($refid){
+        // Run the query
+        $this->db->select('accountid');
+        $this->db->from('account');
+        $this->db->where('refid', $refid);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -193,7 +212,7 @@ class Account_model extends CI_Model{
                 elseif ($packagename == "package_25_month")
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
-                    $this->insert_interest(number_format($total_interest, 2, '.', ','),$accountid);
+                    $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
                 }
                 
                 echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
@@ -279,6 +298,87 @@ class Account_model extends CI_Model{
         }
 
     }
+    //算 database里面的totalamount
+    public function count_total_amount()
+   {
+        //拿所有的payment，groupby accountid
+        $result_payment = $this->groupby_accountid_total_amount();
+
+        $this->db->select('accountid, amount, interest');
+        $this->db->from('account');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
+        $result = $query->result_array();
+        foreach ($result as $key => $val) {
+            $amount = $val['amount'];
+            $interest = $val['interest'];
+            $accountid = $val['accountid'];
+            $totalamount = $amount+$interest;
+            $this->update_total_amount($totalamount,$accountid);
+        }
+
+        foreach ($result as $key => $val) {
+            $amount = $val['amount'];
+            $interest = $val['interest'];
+            $accountid = $val['accountid'];
+            foreach ($result_payment as $key => $value) {
+                if($val['accountid'] == $value['accountid'])
+                {
+                    echo "<script>console.log( 'Debug value: " .$value['accountid']. "' );</script>";
+                    $payment = $value['SUM(payment)'];
+                    $totalamount = $amount+$interest-$payment;
+                    $this->update_total_amount($totalamount,$accountid);
+                }
+            }
+        }
+    }
+
+    public function groupby_accountid_total_amount()
+    {
+        $this->db->select('accountid, SUM(payment)');
+        $this->db->from('payment');
+        $this->db->group_by('accountid');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function update_total_amount($totalamount,$accountid)
+    {
+        $this->db->where('accountid', $accountid);
+        $this->db->update('account', array('totalamount' => $totalamount)); 
+    }
+
+    public function account_status_set()
+    {
+        $this->db->select('accountid, totalamount');
+        $this->db->from('account');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
+        $result = $query->result_array();
+        foreach ($result as $key => $val) {
+            $accountid = $val['accountid'];
+            $totalamount = $val['totalamount'];
+            $status = "closed";
+            if($totalamount <= 0){
+                $this->set_status($status, $accountid); 
+            }
+        }
+    }
+
+    public function set_status($status,$accountid)
+    {
+        $this->db->where('accountid', $accountid);
+        $this->db->update('account', array('status' => $status)); 
+    }
+
+
 }
 
 ?>

@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-
+<!-- <?php print_r($result); ?> -->
 <?php if(is_array($result) && $result){ ?>
   <?php foreach ($result as $key => $val): ?>
     <?php 
@@ -64,20 +64,23 @@
     <thead>
       <tr>
         <td>
-          AMOUNT
-        </td>
-        <td>
-          PAYMENT
-        </td>
-        <td>
           START DATE
         </td>
         <td>
           DUEDATE
         </td>
+        <td>
+          AMOUNT
+        </td>
+        <td>
+          AMOUNT TO BE PAY
+        </td>
         <TD>
-          INTEREST
+          INTEREST TO BE PAY
         </TD>
+        <td>
+          Total:
+        </td>
         <td>
           PAYMENT ACTION
         </td>
@@ -93,25 +96,62 @@
   <?php foreach ($result as $key => $val): ?>
     <!-- 用来知道有多少个数据显示出来，拿去controller 和 model用 -->
     <?php $account_number_count+=1; ?>
+    <?php $amount_paid = 0; ?>
+    <?php $final_interest = number_format(0, 2, '.', ''); ?>
+    <?php $final_amount = number_format(0, 2, '.', ''); ?>
+    <!-- <?php $interest_paid = 0; ?> -->
+    <?php foreach (${'payment_amount' . $val['accountid']} as $key => $value): ?>
+      <?php 
+      if ($value['paymenttype'] == 'amount') 
+      {
+        $amount_paid += $value['payment'];
+      } 
+      // if($value['paymenttype'] == 'interest')
+      // {
+      //   $interest_paid += $value['payment'];
+      // }
+      if($value['paymenttype'] == 'discount')
+      {
+        $amount_paid += $value['payment'];
+      }
+      ?>
+    <?php endforeach ?>
+    <?php 
+      $final_interest = number_format($val['interest']-$amount_paid, 2, '.', '');
+      if ($final_interest<0)
+      {
+        $final_amount = number_format(($val['amount']+$final_interest), 2, '.', '');
+        $final_interest = "Paid";
+      }
+      else
+      {
+        $final_amount = $val['amount'];
+      }
+      
+     ?>
     <tr>
-      <td>
-        <?php echo $val['amount']; ?>
-      </td>
-      <td>
-        0
-      </td>
       <td>
         <?php echo $val['datee']; ?>
       </td>
       <td>
         <?php echo $val['duedate']; ?>
-      </td><td>
-        <?php echo $val['interest']; ?>
+      </td>
+      <td>
+        <?php echo $val['amount']; ?>
+      </td>
+      <td>
+        <?php echo $final_amount; ?>
+      </td>
+      <td>
+        <?php echo $final_interest; ?>
+      </td>
+      <td>
+        <?php echo number_format($final_amount+$final_interest, 2, '.', ''); ?>
       </td>
     
       <td>
           Amount:<input type="number" step="0.01" name="<?php echo "amount".$account_number_count; ?>"><br>
-          Interest:<input type="number" step="0.01" name="<?php echo "interest".$account_number_count; ?>"><br>
+          <!-- Interest:<input type="number" step="0.01" name="<?php echo "interest".$account_number_count; ?>"><br> -->
           Discount:<input type="number" step="0.01" name="<?php echo "discount".$account_number_count; ?>">
           <input type="hidden" value="<?php echo $val['accountid']; ?>" name="<?php echo "accountid".$account_number_count; ?>">
           
@@ -133,3 +173,4 @@
 
 <button class="btn btn-success pull-right" type="submit">PAYMENT</button>
 </form>
+<br><br><br><br>

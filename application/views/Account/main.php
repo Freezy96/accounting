@@ -94,7 +94,7 @@
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -114,10 +114,7 @@
        
       </div>
       <div class="modal-footer">
-      	<form id="pay_amount" action='<?php echo base_url();?>account/payment/amount' method='post' name='accountpayamount'>
-			<!-- ajax script generated button -->
-		</form>
-		<form id="pay_interest" action='<?php echo base_url();?>account/payment/interest' method='post' name='accountpayinterest'>
+      	<form id="pay_amount" action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
 			<!-- ajax script generated button -->
 		</form>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

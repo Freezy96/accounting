@@ -50,7 +50,7 @@ $(document).ready(function() {
         // empty html
         // generate button
         $("#pay_amount").html("<button class=\"btn btn-success\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Amount</button>");
-        $("#pay_interest").html("<button class=\"btn btn-primary\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Interest</button>"); 
+       
         $("#account_modal_title").html(res[0].customername +" - RM "+ res[0].oriamount); 
         $("#account_modal_customer").html(res[0].customerid +" - "+ res[0].customername); 
         $("#account_modal_refid").html(res[0].refid); 
@@ -58,20 +58,76 @@ $(document).ready(function() {
         $("#account_modal_package").html(res[0].packageid +" - "+ res[0].packagetypename); 
         $("#account_modal_agent").html(res[0].agentid +" - "+ res[0].agentname); 
           var $tr = $('<tr class=\'account_header_append\'/>');
-          $tr.append($('<td/>').html("Amount"));
-          $tr.append($('<td/>').html("Payment"));
           $tr.append($('<td/>').html("Start Date"));
           $tr.append($('<td/>').html("Due Date"));
-          $tr.append($('<td/>').html("Interest"));
+          $tr.append($('<td/>').html("Amount"));
+          $tr.append($('<td/>').html("Amount To Be Pay"));
+          $tr.append($('<td/>').html("Interest To Be Pay"));
+          $tr.append($('<td/>').html("Total:"));
           $('.account_modal_table tr:last').before($tr);
 
         for (var i = 0; i < res.length; i++) {
           var $tr = $('<tr class=\'account_trtd_append\'/>');
-          $tr.append($('<td/>').html(res[i].amount));
-          $tr.append($('<td/>').html(res[i].payment));
           $tr.append($('<td/>').html(res[i].datee));
           $tr.append($('<td/>').html(res[i].duedate));
-          $tr.append($('<td/>').html(res[i].interest));
+          $tr.append($('<td/>').html(res[i].amount));
+          var interest_to_be_pay = 0;
+          var amount_paid = 0;
+          var amount_to_be_pay = 0;
+          var total = 0;
+          if ("payment" in res[i]) 
+          {
+            interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);//-100.00
+          }
+          else
+          {
+            interest_to_be_pay = (parseFloat(res[i].interest)).toFixed(2);//200.00
+          }
+          // console.log(interest_to_be_pay);
+          
+          
+          if(interest_to_be_pay < 0)
+          {
+            amount_paid = parseFloat(interest_to_be_pay * -1).toFixed(2); //100.00
+            amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
+            console.log(amount_paid);
+            interest_to_be_pay = parseFloat(0).toFixed(2);
+            var is_Paid = 1;
+          }
+          else
+          {
+            amount_to_be_pay = parseFloat(res[i].amount).toFixed(2); //350.00
+          }
+
+          total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+
+          if ("payment" in res[i]) 
+          {
+            $tr.append($('<td/>').html(amount_to_be_pay));
+          }
+          else
+          {
+            $tr.append($('<td/>').html(parseFloat(Math.round(res[i].amount * 100) / 100).toFixed(2)));
+          }
+          
+          if ("payment" in res[i]) 
+          {
+            if(is_Paid == 1)
+            {
+              $tr.append($('<td/>').html("Paid"));
+            }
+            else
+            {
+              $tr.append($('<td/>').html(interest_to_be_pay));
+            }
+            
+          }
+          else
+          {
+            $tr.append($('<td/>').html(res[i].interest));
+          }
+
+          $tr.append($('<td/>').html(total));
           $('.account_modal_table tr:last').before($tr);
         }
         
