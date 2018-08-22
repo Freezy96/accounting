@@ -64,6 +64,10 @@ class Account extends CI_Controller {
 		// $data['package_30_4week'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage_25_month();
 		$data['package_25_month'] = $res;
+				$res = $this->load->account_model->getuserdatainsertpackage_20_week();
+		$data['package_20_week'] = $res;
+				$res = $this->load->account_model->getuserdatainsertpackage_15_week();
+		$data['package_15_week'] = $res;
 		$res = $this->load->agent_model->getuserdata();
 		$data['agent'] = $res;
 		$this->load->view('account/insert', $data);

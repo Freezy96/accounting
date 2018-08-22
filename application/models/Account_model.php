@@ -170,7 +170,7 @@ class Account_model extends CI_Model{
     // Package 30 / 4Week 滚利息
     public function interest_30_4week()
     {
-        $this->db->select('a.accountid, a.packageid, a.duedate, p.packagetypename, a.oriamount');
+        $this->db->select('a.accountid, a.packageid, a.duedate, p.packagetypename, a.oriamount, a.status');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -182,11 +182,11 @@ class Account_model extends CI_Model{
         foreach ($packagetypeid_array as $key => $value) 
         {
             $packagename = $value['packagetypename'];
+            $status = $value['status'];
             $packageid = $value['packageid'];
             $duedate = $value['duedate'];
             $oriamount = $value['oriamount'];
             $accountid = $value['accountid'];
-
         
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
@@ -204,12 +204,13 @@ class Account_model extends CI_Model{
             $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
 
             if ($days>0 && $date2<$date1) {
-                if($packagename == "package_30_4week")
+                //package 不是closed 就跑利息
+                if($packagename == "package_30_4week" && $status !=="closed")
                 {
                     $total_interest = $interest * $days;
                     $this->insert_interest($total_interest,$accountid);
                 }
-                elseif ($packagename == "package_25_month")
+                elseif ($packagename == "package_25_month" && $status !=="closed")
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
                     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
@@ -218,6 +219,7 @@ class Account_model extends CI_Model{
                 echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
                 echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
             }
+
             if ($days<= $duedate) {
                 if ($packagename == "package_20_week")
                 {
@@ -279,12 +281,10 @@ class Account_model extends CI_Model{
 
                 }
             }
-            }
         
         }
 
     }
-
 
    public function insert_payment($data)
    {
@@ -380,5 +380,4 @@ class Account_model extends CI_Model{
 
 
 }
-
 ?>

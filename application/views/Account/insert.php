@@ -81,7 +81,7 @@
 <optgroup label="20% / Week">
          <?php foreach ($package_20_week as $key => $value): ?>
           <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-            <option value="<?php echo "package_30_4week".$value['packageid']; ?>">
+            <option value="<?php echo "package_20_week".$value['packageid']; ?>">
               
               <?php echo "Lent: RM ".$value['lentamount']; ?> 
                
@@ -97,7 +97,7 @@
           <optgroup label="15% / Week">
          <?php foreach ($package_15_week as $key => $value): ?>
           <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-            <option value="<?php echo "package_30_4week".$value['packageid']; ?>">
+            <option value="<?php echo "package_15_week".$value['packageid']; ?>">
               
               <?php echo "Lent: RM ".$value['lentamount']; ?> 
 
