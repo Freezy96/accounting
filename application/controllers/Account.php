@@ -105,7 +105,6 @@ class Account extends CI_Controller {
 				$week3 = $value['week3'];
 				$week4 = $value['week4'];
 			}
-			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
 
 				$max_refid = $this->load->account_model->get_max_refid();
 				foreach ($max_refid as $key => $value) {

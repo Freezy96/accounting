@@ -98,12 +98,17 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////
 		$data = array(
 		'customerid' => $this->input->post('customeridedit'),
 		'customername' => $this->input->post('name'),
 		'address' => $this->input->post('address'),
 		'phoneno' => $this->input->post('phoneno'),
+		///////////////Combo of User Identity Insert///////////////////
+		'companyid' => $company_identity,
+		///////////////Combo of User Identity Insert///////////////////
 		'gender' => $this->input->post('gender')
 		);
 
