@@ -217,8 +217,7 @@ class Account_model extends CI_Model{
                     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
                 }
                 
-                echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
-                echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
+               
             }
 
             if ($days<=0) {
@@ -269,14 +268,14 @@ class Account_model extends CI_Model{
             }elseif ($days>=7) {
                                 if ($packagename == "package_20_week")
                 {
-                     $total_interest = (($lentamount* 0.2)+150)*1.2;
+                     $total_interest = (($lentamount* 1.2)+100)*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week")
                 {
-                     $total_interest = (($lentamount* 0.15)+150)*1.15;
+                     $total_interest = (($lentamount* 1.15)+100)*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 

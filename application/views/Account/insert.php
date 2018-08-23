@@ -129,9 +129,10 @@
         </div>
     </label>
   </div> -->
-  
-<!-- <input type="text" name="" id="input_option" style="display:none"> -->
-
+  <div class="form-group" id="guarantyitemcol">
+  <label for="">Guaranty Item</label>
+<input type="text" name="guarantyitem" id="input_option" style="display:none" disabled="disabled"> 
+</div>
   <div class="form-group">
     <label for="">Date</label>
      <input type="date" class="form-control" id="" placeholder="Date" name="date" required>

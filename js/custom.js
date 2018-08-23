@@ -189,16 +189,19 @@ $(document).ready(function() {
 
   $('.livesearch').DataTable();
 
-  // $('#accountpackage').on('change', function(){
-  //   var $string = $(this).val();
-  //   if ($string.substring(0,15) == "package_15_week") 
-  //   {
-  //     $('#input_option').show();
-  //   }
-  //   else
-  //   {
-  //     $('#input_option').hide();
-  //   }
+   $('#accountpackage').on('change', function(){
+     var $string = $(this).val();
+     if ($string.substring(0,15) == "package_15_week") 
+    {
+       $('#guarantyitemcol').show();
+        $('#input_option').prop("disabled", false);
+     }
+     else
+     {
+       $('#guarantyitemcol').hide();
+       $('#input_option').prop("disabled", true);
+      }
+     }
     
-  // });
+  });
 });
