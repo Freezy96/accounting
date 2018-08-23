@@ -419,6 +419,16 @@ class Account extends CI_Controller {
 			$res = $this->load->account_model->get_payment_amount($accountid);
 			$data['payment_amount'.$accountid] = $res;
 		}
+
+		$res = $this->load->account_model->getuserdatainsertpackage_30_4week();
+		$data['package_30_4week'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_25_month();
+		$data['package_25_month'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_20_week();
+		$data['package_20_week'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_15_week();
+		$data['package_15_week'] = $res;
+		
 		$this->load->view('account/payment', $data);
 		$this->load->view('template/footer');
 	}
