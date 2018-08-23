@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-<?php print_r($package_30_4week); ?>
+<?php print_r($result); ?>
 <?php if(is_array($result) && $result){ ?>
   <?php foreach ($result as $key => $val): ?>
     <?php 
@@ -14,6 +14,7 @@
       $packageid = $val['packageid'];
       $agentname = $val['agentname'];
       $packagetypename = $val['packagetypename'];
+      $agentid = $val['agentid'];
      ?>
   <?php endforeach ?>
 <?php } ?>
@@ -60,6 +61,7 @@
 </div>
 <br>
 <form action='<?php echo base_url();?>account/payment_insert_db' method='post' name='account_payment'>
+
 <table class="table">
     <thead>
       <tr>
@@ -114,6 +116,10 @@
       //   $interest_paid += $value['payment'];
       // }
       if($value['paymenttype'] == 'discount')
+      {
+        $amount_paid += $value['payment'];
+      }
+      if($value['paymenttype'] == 'newpackage')
       {
         $amount_paid += $value['payment'];
       }
@@ -175,7 +181,7 @@
       <td colspan="7">
         <div class="form-group">
         <label for="">Package</label>
-        <select class="form-control" name="packageid" id="<?php echo "switch_package_checkbox_check".$account_number_count; ?>" disabled="disabled">
+        <select class="form-control" name="<?php echo "packageid".$account_number_count; ?>" id="<?php echo "switch_package_checkbox_check".$account_number_count; ?>" disabled="disabled">
           <optgroup label="30% / 4 Week">
              <?php foreach ($package_30_4week as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
@@ -281,6 +287,8 @@
 <?php } ?>
 </table>
 
+<input type="hidden" name="customerid" value="<?php echo $customerid; ?>">
+<?php echo $customerid; ?>
 <button class="btn btn-success pull-right" type="submit">PAYMENT</button>
 </form>
 <br><br><br><br>
