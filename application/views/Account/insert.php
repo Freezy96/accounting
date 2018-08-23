@@ -130,6 +130,7 @@
     </label>
   </div> -->
   
+<!-- <input type="text" name="" id="input_option" style="display:none"> -->
 
   <div class="form-group">
     <label for="">Date</label>
