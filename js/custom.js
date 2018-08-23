@@ -201,7 +201,6 @@ $(document).ready(function() {
        $('#guarantyitemcol').hide();
        $('#input_option').prop("disabled", true);
       }
-     
-    
+ 
   });
 });
