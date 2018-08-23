@@ -25,7 +25,7 @@ class Account_model extends CI_Model{
     public function getuserdata_payment_use($refid){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
+        $this->db->select('a.accountid , a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -217,8 +217,8 @@ class Account_model extends CI_Model{
                     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
                 }
                 
-                echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
-                echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
+                // echo "<script>console.log( 'Debug ObjectsDay: " .$days. "' );</script>";
+                // echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
             }
 
             if ($days<=0) {
