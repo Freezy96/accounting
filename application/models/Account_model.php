@@ -128,7 +128,7 @@ class Account_model extends CI_Model{
         $query = $this->db->get('package_15_week');
         return $query->result_array();
     }
-    
+
     public function insert($data){
         if($this->db->insert('account', $data)){
             $return = "insert";
@@ -221,22 +221,22 @@ class Account_model extends CI_Model{
                 echo "<script>console.log( 'Debug Objects: " . $total_interest . "' );</script>";
             }
 
-            if ($days<= $duedate) {
+            if ($days<=0) {
                 if ($packagename == "package_20_week")
                 {
-                     $total_interest = $lentamount* 0.2;
+                     $total_interest = $lentamount* 20/100;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week")
                 {
-                     $total_interest = $lentamount* 0.15;
+                     $total_interest = $lentamount* 15/100;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
-            }elseif ($days>=$duedate && $diff==1) {
+            }elseif ($days==1) {
                                 if ($packagename == "package_20_week")
                 {
                      $total_interest = ($lentamount* 0.2)+50;
@@ -251,7 +251,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount;
 
                 }
-            }elseif ($diff>=2&& $diff<=7) {
+            }elseif ($days==2) {
                                 if ($packagename == "package_20_week")
                 {
                      $total_interest = ($lentamount* 0.2)+100;
@@ -266,7 +266,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount;
 
                 }
-            }elseif ($diff>=8) {
+            }elseif ($days>=7) {
                                 if ($packagename == "package_20_week")
                 {
                      $total_interest = (($lentamount* 0.2)+150)*1.2;
