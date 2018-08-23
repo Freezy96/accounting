@@ -189,7 +189,7 @@ $(document).ready(function() {
 
   $('.livesearch').DataTable();
 
-  $('#accountpackage').on('change', function(){
+   $('#accountpackage').on('change', function(){
      var $string = $(this).val();
      if ($string.substring(0,15) == "package_15_week") 
     {
@@ -201,5 +201,6 @@ $(document).ready(function() {
        $('#guarantyitemcol').hide();
        $('#input_option').prop("disabled", true);
       }
-     });
+ 
+  });
 });

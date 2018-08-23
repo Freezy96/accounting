@@ -35,6 +35,9 @@
 					NAME
 				</td>
 				<td>
+				Wechat Name
+				</td>
+				<td>
 					ADDRESS
 				</td>
 				<td>
@@ -60,6 +63,9 @@
 			</td>
 			<td>
 				<?php echo $val['customername']; ?>
+			</td>
+						<td>
+				<?php echo $val['wechatname']; ?>
 			</td>
 			<td>
 				<?php echo $val['address']; ?>

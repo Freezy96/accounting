@@ -130,7 +130,7 @@
     </label>
   </div> -->
   
-<div class="form-group" id="guarantyitemcol" style="display:none">
+  <div class="form-group" id="guarantyitemcol" style="display:none">
   <label for="">Guaranty Item</label>
 <input type="text" name="guarantyitem" id="input_option"  disabled="disabled"> 
 </div>
