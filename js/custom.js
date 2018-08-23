@@ -9,23 +9,43 @@ setTimeout(function() {
     $('.showstate').fadeOut('fast');
 }, 2500);
 
-// $('#accountpackagecheck').change(function(){
-//     if ($(this).is(':checked'))
-//     {
-//       $('#accountamount').prop("disabled", true);
-//       $('#accountpayment').prop("disabled", true);
-//       $('#accountpackage').prop("disabled", false);
-//     }
-//  });
+$('.switch_package_button').click(function(){
+  
+  var package_attr_tr = $(this).attr("data-tr");
+  var package_attr_cb = $(this).attr("data-cb");
+  var none=$("#"+package_attr_tr).css("display");
+    if (none == "none")
+    {
+      // $('#'+package_attr_id).prop('disabled', false);
+      $('#'+package_attr_tr).show();
+      // $('#'+package_attr_tr).css("display", "table-row");
+    }
+    else
+    {
+      if ($('#'+package_attr_cb).is(':checked'))
+      {
+        
+      }
+      else
+      {
+        // $('#'+package_attr_id).prop('disabled', true);
+        $('#'+package_attr_tr).hide();
+        // $('#'+package_attr_tr).css("display", "none");
+      }
+    }
+ });
 
-// $('#accountcustomcheck').change(function(){
-//     if ($(this).is(':checked'))
-//     {
-//       $('#accountpackage').prop("disabled", true);
-//       $('#accountamount').prop("disabled", false);
-//       $('#accountpayment').prop("disabled", false);
-//     }
-//  });
+$('.switch_package_checkbox_class').change(function(){
+  var package_attr_id = $(this).attr("data-id");
+    if ($(this).is(':checked'))
+    {
+      $('#'+package_attr_id).prop("disabled", false);
+    }
+    else
+    {
+      $('#'+package_attr_id).prop("disabled", true);
+    }
+ });
 
   
 $(document).ready(function() {
@@ -168,4 +188,17 @@ $(document).ready(function() {
   });
 
   $('.livesearch').DataTable();
+
+  // $('#accountpackage').on('change', function(){
+  //   var $string = $(this).val();
+  //   if ($string.substring(0,15) == "package_15_week") 
+  //   {
+  //     $('#input_option').show();
+  //   }
+  //   else
+  //   {
+  //     $('#input_option').hide();
+  //   }
+    
+  // });
 });

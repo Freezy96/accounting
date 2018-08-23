@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-<!-- <?php print_r($result); ?> -->
+<?php print_r($package_30_4week); ?>
 <?php if(is_array($result) && $result){ ?>
   <?php foreach ($result as $key => $val): ?>
     <?php 
@@ -84,6 +84,9 @@
         <td>
           PAYMENT ACTION
         </td>
+        <td>
+          SWITCH PACKAGE
+        </td>
       </tr>
     </thead>
     <tbody>
@@ -146,7 +149,8 @@
         <?php echo $final_interest; ?>
       </td>
       <td>
-        <?php echo number_format($final_amount+$final_interest, 2, '.', ''); ?>
+        <?php $totalamount = number_format($final_amount+$final_interest, 2, '.', ''); ?>
+        <?php echo $totalamount; ?>
       </td>
     
       <td>
@@ -162,6 +166,112 @@
             <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
           </form>
             <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
+      </td>
+      <td>
+        <button class="btn btn-primary switch_package_button" type="button" data-cb="<?php echo "switch_package_checkbox".$account_number_count; ?>" data-tr="<?php echo "switch_package_tr".$account_number_count; ?>" value="">Switch Package</button>
+      </td>
+    </tr>
+    <tr id="<?php echo "switch_package_tr".$account_number_count; ?>" style="display: none;">
+      <td colspan="7">
+        <div class="form-group">
+        <label for="">Package</label>
+        <select class="form-control" name="packageid" id="<?php echo "switch_package_checkbox_check".$account_number_count; ?>" disabled="disabled">
+          <optgroup label="30% / 4 Week">
+             <?php foreach ($package_30_4week as $key => $value): ?>
+              <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+              <?php if ($value['lentamount'] <= $totalamount) { ?>
+                <option value="<?php echo "package_30_4week".$value['packageid']; ?>">
+                  
+                  <?php echo "Lent: RM ".$value['lentamount']; ?> 
+                   
+                  <?php echo "Pay: RM ".$value['totalamount']; ?> 
+                  
+                  <?php echo "(Fine for each day: RM ".$value['interest']; ?>
+                  
+                  <?php echo ") 4 week: RM ".$value['week1']; ?>
+
+                  <?php echo "/ RM ".$value['week2']; ?>
+
+                  <?php echo "/ RM ".$value['week3']; ?>
+
+                  <?php echo "/ RM ".$value['week4']; ?>
+
+                </option>
+              <?php } ?>
+                
+                <!-- 其他package -->
+            <?php endforeach ?>
+              </optgroup>
+
+
+
+
+              <optgroup label="25% / 1 Month">
+            <?php foreach ($package_25_month as $key => $value): ?>
+              <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+              <?php if ($value['lentamount'] <= $totalamount) { ?>
+                <option value="<?php echo "package_25_month".$value['packageid']; ?>">
+                  
+                  <?php echo "Lent: RM ".$value['lentamount']; ?> 
+                   
+                  <?php echo "Pay: RM ".$value['totalamount']; ?> 
+                  
+                  <?php echo "(Fine for each day: X 1".$value['interest']." %)"; ?>
+
+                </option>
+                <?php } ?>
+                <!-- 其他package -->
+             
+            <?php endforeach ?>
+              </optgroup>
+
+              <optgroup label="20% / Week">
+             <?php foreach ($package_20_week as $key => $value): ?>
+              <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+              <?php if ($value['lentamount'] <= $totalamount) { ?>
+                <option value="<?php echo "package_20_week".$value['packageid']; ?>">
+                  
+                  <?php echo "Lent: RM ".$value['lentamount']; ?> 
+                   
+                  <?php echo "Pay: RM ".$value['totalamount']; ?> 
+                  
+                  <?php echo "(Fine for each day: RM ".$value['interest']; ?>
+
+                </option>
+                <?php } ?>
+                <!-- 其他package -->
+             
+            <?php endforeach ?>
+              </optgroup>
+              <optgroup label="15% / Week">
+             <?php foreach ($package_15_week as $key => $value): ?>
+              <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+              <?php if ($value['lentamount'] <= $totalamount) { ?>
+                <option value="<?php echo "package_15_week".$value['packageid']; ?>">
+                  
+                  <?php echo "Lent: RM ".$value['lentamount']; ?> 
+
+                  <?php echo "Guaranty Item: RM ".$value['guarantyitem']; ?>
+                   
+                  <?php echo "Pay: RM ".$value['totalamount']; ?> 
+                  
+                  <?php echo "(Fine for each day: RM ".$value['interest']; ?>
+
+                </option>
+                <?php } ?>
+                <!-- 其他package -->
+             
+            <?php endforeach ?>
+              </optgroup>
+            </select>
+          </div>
+      </td>
+      <td>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="switch_package_checkbox_class" data-id="<?php echo "switch_package_checkbox_check".$account_number_count; ?>" id="<?php echo "switch_package_checkbox".$account_number_count; ?>"> Are You Sure
+          </label>
+        </div>
       </td>
     </tr>
   <?php endforeach ?>
