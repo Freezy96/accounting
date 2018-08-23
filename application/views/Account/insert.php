@@ -129,9 +129,9 @@
         </div>
     </label>
   </div> -->
-  <div class="form-group" id="guarantyitemcol">
+  <div class="form-group" id="guarantyitemcol" style="display:none">
   <label for="">Guaranty Item</label>
-<input type="text" name="guarantyitem" id="input_option" style="display:none" disabled="disabled"> 
+<input type="text" name="guarantyitem" id="input_option"  disabled="disabled"> 
 </div>
   <div class="form-group">
     <label for="">Date</label>
