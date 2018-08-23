@@ -236,7 +236,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount;
 
                 }
-            }elseif ($days==7) {
+            }elseif ($days==1) {
                                 if ($packagename == "package_20_week")
                 {
                      $total_interest = ($lentamount* 0.2)+50;
@@ -251,7 +251,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount;
 
                 }
-            }elseif ($days==8) {
+            }elseif ($days==2) {
                                 if ($packagename == "package_20_week")
                 {
                      $total_interest = ($lentamount* 0.2)+100;
@@ -266,7 +266,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount;
 
                 }
-            }elseif ($days>=14) {
+            }elseif ($days>=7) {
                                 if ($packagename == "package_20_week")
                 {
                      $total_interest = (($lentamount* 0.2)+150)*1.2;
