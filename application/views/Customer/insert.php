@@ -12,6 +12,10 @@
     <label for="">Customer Name</label>
     <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" required>
   </div>
+   <div class="form-group">
+    <label for="">Wechat Name</label>
+    <input type="text" class="form-control" id="" placeholder="Wechat Name" name="wechatname" required>
+  </div>
   <div class="form-group">
     <label for="">Address</label>
     <textarea type="text" class="form-control" id="" placeholder="Address" name="address" required></textarea>

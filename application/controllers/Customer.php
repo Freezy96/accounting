@@ -54,6 +54,7 @@ class Customer extends CI_Controller {
 		$redirect = $this->input->post('redirect_destination');
 		$data = array(
 		'customername' => $this->input->post('name'),
+		'wechatname' => $this->input->post('wechatname'),
 		'address' => $this->input->post('address'),
 		'phoneno' => $this->input->post('phoneno'),
 		///////////////Combo of User Identity Insert///////////////////
@@ -104,6 +105,7 @@ class Customer extends CI_Controller {
 		$data = array(
 		'customerid' => $this->input->post('customeridedit'),
 		'customername' => $this->input->post('name'),
+		'wechatname' => $this->input->post('wechatname'),
 		'address' => $this->input->post('address'),
 		'phoneno' => $this->input->post('phoneno'),
 		///////////////Combo of User Identity Insert///////////////////
