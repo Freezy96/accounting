@@ -257,7 +257,7 @@ class Account extends CI_Controller {
 		}
 
 				
-				if (substr( $package_type_id, 0, 16) === "package_20_week") 
+				if (substr( $package_type_id, 0, 15) === "package_20_week") 
 		{	
 			$packagename = substr( $package_type_id, 0, 15);
 			$packageid = substr( $package_type_id, 15, 16 );
@@ -280,6 +280,7 @@ class Account extends CI_Controller {
 
 				$dateoriginal = $this->input->post('date');
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
 
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
@@ -303,7 +304,7 @@ class Account extends CI_Controller {
 		}
 
 
-		if (substr( $package_type_id, 0, 16) === "package_15_week") 
+		if (substr( $package_type_id, 0, 15) === "package_15_week") 
 		{	
 			$packagename = substr( $package_type_id, 0, 15);
 			$packageid = substr( $package_type_id, 15, 16 );
@@ -326,6 +327,7 @@ class Account extends CI_Controller {
 
 				$dateoriginal = $this->input->post('date');
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
 
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
@@ -430,8 +432,8 @@ class Account extends CI_Controller {
 		$date_today = date("Y-m-d");
 		for ($i=1; $i < $account_number_count+1; $i++) 
 		{ 
-			$amount = $this->input->post('amount1');
-			echo "<script>console.log( 'Debug Objects: " . $amount . "' );</script>";
+			$amount = $this->input->post('amount');
+			
 			if($this->input->post('amount' . $i)!="")
 			{
 			$data = array(
