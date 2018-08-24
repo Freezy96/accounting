@@ -7,9 +7,6 @@
 						ID
 					</td>
 					<td>
-						GUARANTY ITEM
-					</td>
-					<td>
 						LENT AMOUNT
 					</td>
 					<td>
@@ -33,9 +30,6 @@
 		<tr>
 			<td>
 				<?php echo $val['packageid']; ?>
-			</td>
-			<td>
-				<?php echo $val['guarantyitem']; ?>
 			</td>
 			<td>
 				<?php echo $val['lentamount']; ?>

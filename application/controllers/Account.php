@@ -436,6 +436,26 @@ class Account extends CI_Controller {
 		$this->load->view('account/payment', $data);
 		$this->load->view('template/footer');
 	}
+	public function baddebt_insert_db()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$date_today = date("Y-m-d");
+		$status = $this->input->post('status');
+
+		if($this-> $status=="baddebt")
+			{
+			$data = array(
+				'accountid' => $this->input->post('accountid' . $i),
+				'datee' => $date_today
+				);
+			$return = $this->account_model->insert_baddebt($data);
+
+			}
+
+		
+	}
 
 	public function payment_insert_db()
 	{	
