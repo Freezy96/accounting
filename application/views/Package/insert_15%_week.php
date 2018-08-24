@@ -7,7 +7,7 @@
 
     <div class="form-group">
     <label for="">Interest Per Day Late </label>
-    <input type="number" step="0.01" class="form-control" id="" placeholder="Lent Amount" name="interest" required>
+    <input type="number" step="0.01" class="form-control" id="" placeholder="Interest Per Day Late " name="interest" required>
   </div>
 
 
