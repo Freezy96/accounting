@@ -16,6 +16,7 @@
                       <ul class="dropdown-menu" style="width: 100vw;">
                         <li><a href="<?php echo site_url('account/'); ?>" style="color: #141414;">View All</a></li>
                         <li><a href="<?php echo site_url('account/insert'); ?>" style="color: #141414;">Add New Account</a></li>
+                        <li><a href="<?php echo site_url('baddebt/'); ?>" style="color: #141414;">Baddebt</a></li>
                       </ul>
                     </div>
                 </li>

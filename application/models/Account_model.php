@@ -203,9 +203,9 @@ class Account_model extends CI_Model{
             $years = floor($diff / (365*60*60*24));
             $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
             $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-if ($days>=60){
-    $status = "baddebt";
-}
+        if ($days>=60){
+            $status = "baddebt";
+            }
             if ($days>0 && $date2<$date1) {
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed" && $status !=="baddebt")
@@ -291,6 +291,19 @@ if ($days>=60){
    public function insert_payment($data)
    {
         if($this->db->insert('payment', $data))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+
+    }
+
+    public function insert_baddebt($data)
+   {
+        if($this->db->insert('baddebt', $data))
         {
             $return = "insert";
             return $return;
