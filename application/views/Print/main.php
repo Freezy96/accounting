@@ -1,5 +1,7 @@
 <?php $this->load->view('template/sidenav'); ?>
-<table class="table livesearch">
+<div class="myDivToPrint">
+	
+<table class="table">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
@@ -21,9 +23,6 @@
 				</td>
 				<td>
 					PHONE NO.
-				</td>
-				<td>
-					ACTION
 				</td>
 			</tr>
 		</thead>
@@ -52,6 +51,8 @@
 	<?php endforeach ?>
 	</tbody>
 </table>
+
+</div>
 <input type="button" value="Print" onclick="printpage()" />
 ​<script>
 function printpage(){
