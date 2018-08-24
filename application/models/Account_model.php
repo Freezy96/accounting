@@ -203,9 +203,9 @@ class Account_model extends CI_Model{
             $years = floor($diff / (365*60*60*24));
             $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
             $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-if ($days>=60){
-    $status = "baddebt";
-}
+        if ($days>=60){
+            $status = "baddebt";
+            }
             if ($days>0 && $date2<$date1) {
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed" && $status !=="baddebt")
@@ -240,14 +240,14 @@ if ($days>=60){
             }elseif ($days==1) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ($lentamount* 0.2)+50;
+                     $total_interest = ($lentamount* 0.2)+$interest;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ($lentamount* 0.15)+50;
+                     $total_interest = ($lentamount* 0.15)+$interest;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -255,14 +255,14 @@ if ($days>=60){
             }elseif ($days==2) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ($lentamount* 0.2)+100;
+                     $total_interest = ($lentamount* 0.2)+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt" && $status !=="baddebt")
                 {
-                     $total_interest = ($lentamount* 0.15)+100;
+                     $total_interest = ($lentamount* 0.15)+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -270,14 +270,14 @@ if ($days>=60){
             }elseif ($days>=7) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (($lentamount* 1.2)+100)*0.2;
+                     $total_interest = (($lentamount* 1.2)+($interest*2))*0.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (($lentamount* 1.15)+100)*0.15;
+                     $total_interest = (($lentamount* 1.15)+($interest*2))*0.15+(($interest*2));
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -291,6 +291,19 @@ if ($days>=60){
    public function insert_payment($data)
    {
         if($this->db->insert('payment', $data))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+
+    }
+
+    public function insert_baddebt($data)
+   {
+        if($this->db->insert('baddebt', $data))
         {
             $return = "insert";
             return $return;
@@ -368,8 +381,36 @@ if ($days>=60){
             $accountid = $val['accountid'];
             $totalamount = $val['totalamount'];
             $status = "closed";
+
+            $this->db->select('a.accountid, a.packageid, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
+            $packagetypeid_array = $query->result_array();
+            foreach ($packagetypeid_array as $key => $value) 
+        {
+            $duedate = $value['duedate'];
+            $date1 = date("Y-m-d");
+            $date2 = date("Y-m-d",strtotime($duedate));
+
+            $diff = abs(strtotime($date1) - strtotime($date2));
+
+
+            $years = floor($diff / (365*60*60*24));
+            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+            
             if($totalamount <= 0){
                 $this->set_status($status, $accountid); 
+            }elseif ($days>=60 && $status !=="closed"){
+                $status = "baddebt";
+          $this->set_status($status, $accountid);
+            }
             }
         }
     }

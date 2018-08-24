@@ -7,13 +7,13 @@
 						ID
 					</td>
 					<td>
-						GUARANTY ITEM
-					</td>
-					<td>
 						LENT AMOUNT
 					</td>
 					<td>
 						TOTAL AMOUNT
+					</td>
+					<td>
+						INTEREST PER DAY LATE
 					</td>
 					<td>
 						ACTION

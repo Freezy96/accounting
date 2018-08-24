@@ -172,8 +172,8 @@ class Package extends CI_Controller {
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
     $lentamount = $this->input->post('lentamount');
-    $interest= $lentamount *(20/100);
-    $totalamount= ($interest+$lentamount);
+    $interest= $this->input->post('interest');
+    $totalamount= ($lentamount*1.2);
     $company_identity = $this->session->userdata('adminid');
     $data = array(
     'lentamount' => $this->input->post('lentamount'),
@@ -217,8 +217,8 @@ class Package extends CI_Controller {
   { $this->security_model->secure_session_login();
     $this->load->helper('url');
     $lentamount = $this->input->post('lentamount');
-    $interest= $lentamount * (15/100);
-    $totalamount= ($interest+$lentamount);
+    $interest= $this->input->post('interest');
+    $totalamount= ($lentamount*1.15);
     $company_identity = $this->session->userdata('adminid');
     $data = array(
     'guarantyitem' => $this->input->post('guarantyitem'),
