@@ -474,9 +474,10 @@ class Account extends CI_Controller {
 			if($checkpackage!="")
 			{
 				$packageid = $this->input->post('packageid' . $i);
+				$guarantyitem = $this->input->post('guarantyitem_name' . $i);
 				// echo "<script>console.log(".$customerid.")</script>";
 				// echo "<script>console.log(".$packageid.")</script>";
-				$this->insertdb_switch_package($customerid, $packageid);
+				$this->insertdb_switch_package($customerid, $packageid, $guarantyitem);
 
 
 				if (substr( $packageid, 0, 16) === "package_30_4week") 
@@ -569,11 +570,12 @@ class Account extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	public function insertdb_switch_package($customerid, $packageid)
+	public function insertdb_switch_package($customerid, $packageid, $guarantyitem)
 	{	
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+
 		$package_type_id = $packageid;
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
@@ -605,7 +607,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal = date('Y-m-d');
+				$dateoriginal =  date('Y-m-d');
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -719,7 +721,7 @@ class Account extends CI_Controller {
 				$oriamount = $value['totalamount'];
 				// $interest = $value['interest'];
 			}
-			// echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
+			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
 
 				$max_refid = $this->load->account_model->get_max_refid();
 				foreach ($max_refid as $key => $value) {
@@ -829,7 +831,7 @@ class Account extends CI_Controller {
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
 				'interest' => 0,
-				'guarantyitem'=>$this->input->post('guarantyitem'),
+				'guarantyitem'=> $guarantyitem,
 				'amount' => $oriamount,
 				'refid' => $refid,
 				// 'payment' => 0,
@@ -847,13 +849,13 @@ class Account extends CI_Controller {
 		///////////////////////////////////package_25_month//////////////////////////////////////
 
 
-		// $data['return'] = $return;
+		$data['return'] = $return;
 
-		// if($return == true){
-		// 	// session to sow success or not, only available next page load
-		// 	$this->session->set_flashdata('return',$data);
-		// 	redirect('account');
-		// }
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
 		$this->load->view('template/footer');
 	}
 	

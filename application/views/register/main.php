@@ -18,7 +18,7 @@
                             </div>
                         </div>
                    <div style="margin-bottom: 25px" class="input-group">
-                 <label class="col-sm-4 control-label">Campany:</label>
+                 <label class="col-sm-4 control-label">Company:</label>
                       <div class="col-sm-8">
                                 <input class="form-control" type="text" name="campany" required>
                          </div>

@@ -203,4 +203,22 @@ $(document).ready(function() {
       }
  
   });
+
+
+    $('.switch_package_guarantyitem').on('change', function(){
+     var $string = $(this).val();
+     var input = $(this).attr('data-guaranty_item');
+     var input_option = $(this).attr('data-input_option');
+     if ($string.substring(0,15) == "package_15_week") 
+    {
+        $('#'+input).show();
+        $('#'+input_option).prop("disabled", false);
+     }
+     else
+     {
+       $('#'+input).hide();
+       $('#'+input_option).prop("disabled", true);
+      }
+ 
+  });
 });
