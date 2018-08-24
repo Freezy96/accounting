@@ -12,7 +12,7 @@
 						TOTAL AMOUNT
 					</td>
 					<td>
-						INTEREST PER DAY LATE
+						INTEREST PER DAY LATE (%)
 					</td>
 					<td>
 						ACTION

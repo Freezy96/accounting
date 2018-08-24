@@ -181,7 +181,7 @@
       <td colspan="7">
         <div class="form-group">
         <label for="">Package</label>
-        <select class="form-control" name="<?php echo "packageid".$account_number_count; ?>" id="<?php echo "switch_package_checkbox_check".$account_number_count; ?>" disabled="disabled">
+        <select class="form-control switch_package_guarantyitem" name="<?php echo "packageid".$account_number_count; ?>" id="<?php echo "switch_package_checkbox_check".$account_number_count; ?>" data-input_option="<?php echo "input_option_switch_package".$account_number_count; ?>" data-guaranty_item="<?php echo "guarantyitem".$account_number_count; ?>" disabled="disabled">
           <optgroup label="30% / 4 Week">
              <?php foreach ($package_30_4week as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
@@ -270,6 +270,10 @@
             <?php endforeach ?>
               </optgroup>
             </select>
+            <div class="form-group" id="<?php echo "guarantyitem".$account_number_count; ?>" style="display:none;">
+              <label for="">Guaranty Item</label>
+              <input type="text" name="<?php echo "guarantyitem_name".$account_number_count; ?>" id="<?php echo "input_option_switch_package".$account_number_count; ?>"  disabled="disabled"> 
+            </div>
           </div>
       </td>
       <td>
@@ -288,7 +292,7 @@
 </table>
 
 <input type="hidden" name="customerid" value="<?php echo $customerid; ?>">
-<?php echo $customerid; ?>
+<!-- <?php echo $customerid; ?> -->
 <button class="btn btn-success pull-right" type="submit">PAYMENT</button>
 </form>
 <br><br><br><br>
