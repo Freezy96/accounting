@@ -225,7 +225,6 @@ class Account extends CI_Controller {
 				$oriamount = $value['totalamount'];
 				// $interest = $value['interest'];
 			}
-			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
 
 				$max_refid = $this->load->account_model->get_max_refid();
 				foreach ($max_refid as $key => $value) {
@@ -473,10 +472,10 @@ class Account extends CI_Controller {
 			$checkpackage = $this->input->post('packageid' . $i);
 			if($checkpackage!="")
 			{
-				$packageid = $this->input->post('packageid' . $i);
+				$packageid = $checkpackage;
 				$guarantyitem = $this->input->post('guarantyitem_name' . $i);
-				// echo "<script>console.log(".$customerid.")</script>";
-				// echo "<script>console.log(".$packageid.")</script>";
+
+				echo "<script>console.log('Debug:".$guarantyitem."')</script>";
 				$this->insertdb_switch_package($customerid, $packageid, $guarantyitem);
 
 
@@ -487,6 +486,7 @@ class Account extends CI_Controller {
 					// echo "<script>console.log(".$packagename_getinfo.")</script>";
 					// echo "<script>console.log(".$packageid_get_info.")</script>";
 					$package_info = $this->account_model->get_package_info($packagename_getinfo, $packageid_get_info);
+
 				}
 				if (substr( $packageid, 0, 16) === "package_25_month") 
 				{
@@ -496,14 +496,15 @@ class Account extends CI_Controller {
 				}
 				if (substr( $packageid, 0, 15) === "package_20_week") 
 				{
-					$packagename_getinfo = substr( $packageid, 0, 16);
-					$packageid_get_info = substr( $packageid, 16, 17 );
+					$packagename_getinfo = substr( $packageid, 0, 15);
+					$packageid_get_info = substr( $packageid, 15, 16 );
 					$package_info = $this->account_model->get_package_info($packagename_getinfo, $packageid_get_info);
+
 				}
 				if (substr( $packageid, 0, 15) === "package_15_week") 
 				{
-					$packagename_getinfo = substr( $packageid, 0, 16);
-					$packageid_get_info = substr( $packageid, 16, 17 );
+					$packagename_getinfo = substr( $packageid, 0, 15);
+					$packageid_get_info = substr( $packageid, 15, 16 );
 					$package_info = $this->account_model->get_package_info($packagename_getinfo, $packageid_get_info);
 				}
 
@@ -518,6 +519,7 @@ class Account extends CI_Controller {
 					'paymenttype' => "newpackage",
 					'paymentdate' => $date_today
 					);
+				echo "<script>console.log(".$lentamount.")</script>";
 				$return = $this->account_model->insert_payment($data_newpackage);
 			}
 
@@ -531,6 +533,7 @@ class Account extends CI_Controller {
 				'paymenttype' => "amount",
 				'paymentdate' => $date_today
 				);
+			echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
 			$return = $this->account_model->insert_payment($data);
 
 			}
@@ -554,6 +557,7 @@ class Account extends CI_Controller {
 				'paymenttype' => "discount",
 				'paymentdate' => $date_today
 				);
+			echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
 			$return = $this->account_model->insert_payment($data);
 			}
 
@@ -721,7 +725,6 @@ class Account extends CI_Controller {
 				$oriamount = $value['totalamount'];
 				// $interest = $value['interest'];
 			}
-			echo "<script>console.log( 'Debug Objects: " . $result . "' );</script>";
 
 				$max_refid = $this->load->account_model->get_max_refid();
 				foreach ($max_refid as $key => $value) {
@@ -849,13 +852,13 @@ class Account extends CI_Controller {
 		///////////////////////////////////package_25_month//////////////////////////////////////
 
 
-		$data['return'] = $return;
+		// $data['return'] = $return;
 
-		if($return == true){
-			// session to sow success or not, only available next page load
-			$this->session->set_flashdata('return',$data);
-			redirect('account');
-		}
+		// if($return == true){
+		// 	// session to sow success or not, only available next page load
+		// 	$this->session->set_flashdata('return',$data);
+		// 	// redirect('account');
+		// }
 		$this->load->view('template/footer');
 	}
 	
