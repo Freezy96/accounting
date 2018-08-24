@@ -381,8 +381,36 @@ class Account_model extends CI_Model{
             $accountid = $val['accountid'];
             $totalamount = $val['totalamount'];
             $status = "closed";
+
+            $this->db->select('a.accountid, a.packageid, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
+            $packagetypeid_array = $query->result_array();
+            foreach ($packagetypeid_array as $key => $value) 
+        {
+            $duedate = $value['duedate'];
+            $date1 = date("Y-m-d");
+            $date2 = date("Y-m-d",strtotime($duedate));
+
+            $diff = abs(strtotime($date1) - strtotime($date2));
+
+
+            $years = floor($diff / (365*60*60*24));
+            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+            
             if($totalamount <= 0){
                 $this->set_status($status, $accountid); 
+            }elseif ($days>=60 && $status !=="closed"){
+                $status = "baddebt";
+          $this->set_status($status, $accountid);
+            }
             }
         }
     }
