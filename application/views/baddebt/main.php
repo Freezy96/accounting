@@ -90,3 +90,5 @@
 	<?php endforeach ?>
 <?php } ?>
 </table>
+
+<a class="btn btn-default" href="<?php echo site_url('baddebt/insert'); ?>">Insert New Account</a></li>

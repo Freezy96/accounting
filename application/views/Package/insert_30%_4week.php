@@ -6,7 +6,7 @@
   </div>
   <div class="form-group">
     <label for="">Interest Per Day Late</label>
-    <input type="number" step="0.01" class="form-control" id="" placeholder="Lent Amount" name="interest" required>
+    <input type="number" step="0.01" class="form-control" id="" placeholder="Interest Per Day Late " name="interest" required>
   </div>
   <div id="package_1000_1300_message" style="color: red;"></div>
   <div class="form-group">
@@ -15,19 +15,19 @@
   </div>
   <div class="form-group">
     <label for="">1st Week Collect Amount</label>
-    <input type="number" step="0.01" class="form-control weekamount" id="week1" placeholder="Collect Amount" name="week1" required>
+    <input type="number" step="0.01" class="form-control weekamount" id="week1" placeholder="Collect Amount Week 1" name="week1" required>
   </div>
   <div class="form-group">
     <label for="">2nd Week Collect Amount</label>
-    <input type="number" step="0.01" class="form-control weekamount" id="week2" placeholder="Collect Amount" name="week2" required>
+    <input type="number" step="0.01" class="form-control weekamount" id="week2" placeholder="Collect Amount Week 2" name="week2" required>
   </div>
   <div class="form-group">
     <label for="">3rd Week Collect Amount</label>
-    <input type="number" step="0.01" class="form-control weekamount" id="week3" placeholder="Collect Amount" name="week3" required>
+    <input type="number" step="0.01" class="form-control weekamount" id="week3" placeholder="Collect Amount Week 3" name="week3" required>
   </div>
   <div class="form-group">
     <label for="">4th Week Collect Amount</label>
-    <input type="number" step="0.01" class="form-control weekamount" id="week4" placeholder="Collect Amount" name="week4" required>
+    <input type="number" step="0.01" class="form-control weekamount" id="week4" placeholder="Collect Amount Week 4" name="week4" required>
   </div>
   <button type="submit" class="btn btn-default" id="package_1000_1300_btn">Submit</button>
 </form>

@@ -6,6 +6,7 @@
     $address = $value['address'];
     $phoneno = $value['phoneno'];
     $gender = $value['gender'];
+    $wechatname = $value['wechatname'];
    ?>
 <?php endforeach ?>
 <form action='<?php echo base_url();?>customer/updatedb' method='post' name='customerinsert'>
@@ -15,7 +16,7 @@
   </div>
      <div class="form-group">
     <label for="">Wechat Name</label>
-    <input type="text" class="form-control" id="" placeholder="Wechat Name" name="wechatname" required>
+    <input type="text" class="form-control" id="" placeholder="Wechat Name" name="wechatname" value="<?php echo $wechatname; ?>" required>
   </div>
   <div class="form-group">
     <label for="">Address</label>
