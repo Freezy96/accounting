@@ -208,18 +208,31 @@ class Account_model extends CI_Model{
                 $interest = $value['interest'];
                 $lentamount = $value['lentamount'];
             }
+            
+
+            // $diff = abs(strtotime($date1) - strtotime($date2));
+
+
+            // $years = floor($diff / (365*60*60*24));
+            // $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+            // $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+            $now = time(); // or your date as well
+            $due_date = strtotime($duedate);
+            $datediff = $now - $due_date;
+            $days = round($datediff / (60 * 60 * 24));
+
             $date1 = date("Y-m-d");
             $date2 = date("Y-m-d",strtotime($duedate));
-
-            $diff = abs(strtotime($date1) - strtotime($date2));
-
-
-            $years = floor($diff / (365*60*60*24));
-            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-        if ($days>=60){
-            $status = "baddebt";
-            }
+            // echo ;
+            // echo "<script>console.log('Year:'+"..");</script>";
+            // echo "<script>console.log('Month:'+".$months.");</script>";
+            // echo "<script>console.log('Day:'+".$days.");</script>";
+            // echo "<script>console.log('Day:'+".$date1.");</script>";
+            // echo "<script>console.log('Day:'+".$date2.");</script>";
+        // if ($days>=60){
+        //     $status = "baddebt";
+        //     }
             if ($days>0 && $date2<$date1) {
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed" && $status !=="baddebt")
@@ -1136,9 +1149,9 @@ if ($payment!==""){
     }
 public function get_days()
     {
-        $this->db->select('a.accountid, a.packageid,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->select('a.accountid, a.packageid,a.totalamount, a.duedate, a.oriamount, a.status');
         $this->db->from('account a');
-        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        // $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('a.companyid', $company_identity);
@@ -1167,23 +1180,24 @@ public function get_days()
             foreach ($get_days as $key => $value) 
         {
             $duedate = $value['duedate'];
+
             $date1 = date("Y-m-d");
             $date2 = date("Y-m-d",strtotime($duedate));
-
-            $diff = abs(strtotime($date1) - strtotime($date2));
+            
+            $diff = abs(strtotime($date2) - strtotime($date1));
 
 
             $years = floor($diff / (365*60*60*24));
             $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
             $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
 
-            
-            if($totalamount <= 0){
-                $this->set_status($status, $accountid); 
-            }elseif ($days>=60){
+            if ($days>=60){
                 $status = "baddebt";
-          $this->set_status($status, $accountid);
+                $this->set_status($status, $accountid);
             }
+            // if($totalamount <= 0){
+            //     $this->set_status($status, $accountid); 
+            // }
             }
         }
     }
