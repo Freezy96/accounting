@@ -1134,7 +1134,19 @@ if ($payment!==""){
         $this->db->where('accountid', $accountid);
         $this->db->update('account', array('totalamount' => $totalamount)); 
     }
+public function get_days()
+    {
+        $this->db->select('a.accountid, a.packageid,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
 
+        return $query->result_array();
+    }
     public function account_status_set()
     {
         $this->db->select('accountid, totalamount');
@@ -1150,16 +1162,9 @@ if ($payment!==""){
             $totalamount = $val['totalamount'];
             $status = "closed";
 
-        $this->db->select('a.accountid, a.packageid, a.duedate, p.packagetypename, a.oriamount, a.status');
-        $this->db->from('account a');
-        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
-        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        $company_identity = $this->session->userdata('adminid');
-        $this->db->where('a.companyid', $company_identity);
-        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        $query = $this->db->get();
-            $packagetypeid_array = $query->result_array();
-            foreach ($packagetypeid_array as $key => $value) 
+       
+            $get_days =$this->get_days();
+            foreach ($get_days as $key => $value) 
         {
             $duedate = $value['duedate'];
             $date1 = date("Y-m-d");
