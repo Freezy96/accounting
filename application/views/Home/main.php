@@ -53,11 +53,10 @@
 					$date1 = date("Y-m-d");
 					$date2 = date("Y-m-d",strtotime($val['duedate']));
 
-					$diff = abs(strtotime($date2) - strtotime($date1));
-
-					$years = floor($diff / (365*60*60*24));
-					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-					$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+					$now = time(); // or your date as well
+		            $due_date = strtotime($duedate);
+		            $datediff = $now - $due_date;
+		            $days = round($datediff / (60 * 60 * 24));
 				 ?>
 				<?php if (strtotime($val['duedate']) <= strtotime("+4 day", strtotime($date1)) && $date2 > $date1): ?>
 				<tr>
