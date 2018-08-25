@@ -250,414 +250,7 @@ class Account_model extends CI_Model{
 
             }
 
-if ($payment!==""){
-            if ($days<=0) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount* 20/100;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
 
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount* 15/100;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==1) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==2&&$days<7) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==7) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==8) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==9&&$days<14) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==14) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==15) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==16&&$days<21) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==21) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==22) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==23&&$days<28) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==28) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==29) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==30&&$days<35) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==35) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==36) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==37&&$days<42) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==42) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==43) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==44&&$days<49) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==49) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==50) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==51&&$days<56) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==56) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount*0.2;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==57) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-            }elseif ($days==58&&$days<60) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
-                {    
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
-                {
-                     $total_interest = $totalamount+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$totalamount;
-
-                }
-
-}else{
             if ($days<=0) {
                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
@@ -796,14 +389,14 @@ if ($payment!==""){
             }elseif ($days==21) {
             if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount;
+                     $total_interest = (((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount;
+                     $total_interest = (((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -811,14 +404,14 @@ if ($payment!==""){
             }elseif ($days==22) {
                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest);
+                     $total_interest = (((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest);
+                     $total_interest = (((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -826,14 +419,14 @@ if ($payment!==""){
             }elseif ($days>= 23 && $days < 28) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest = (((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2);
+                     $total_interest = (((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -841,56 +434,56 @@ if ($payment!==""){
             }elseif ($days==28) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount;
+                     $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount;
+                     $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }elseif ($days==29) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest);
+                     $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest);
+                     $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }elseif ($days>=30 && $days<35) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2);
+                     $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }elseif ($days==35) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount;
+                     $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount;
+                     $total_interest = (((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -898,14 +491,14 @@ if ($payment!==""){
             }elseif ($days==36) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest);
+                     $total_interest = (((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -913,14 +506,14 @@ if ($payment!==""){
             }elseif ($days>=37 &&$days<42) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2);
+                     $total_interest = (((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -928,14 +521,14 @@ if ($payment!==""){
             }elseif ($days==42) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount;
+                     $total_interest =((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount;
+                     $total_interest = ((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -943,14 +536,14 @@ if ($payment!==""){
             }elseif ($days==43) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest);
+                     $total_interest =((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest);
+                     $total_interest = ((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -958,14 +551,14 @@ if ($payment!==""){
             }elseif ($days>=44 &&$days<49) {
                                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest =((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2);
+                     $total_interest = ((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -973,14 +566,14 @@ if ($payment!==""){
             }elseif ($days==49) {
                  if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =(((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount;
+                     $total_interest =(((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount;
+                     $total_interest = (((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -988,14 +581,14 @@ if ($payment!==""){
             }elseif ($days==50) {
                  if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =(((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest);
+                     $total_interest =(((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest);
+                     $total_interest = (((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -1003,14 +596,14 @@ if ($payment!==""){
             }elseif ($days>=51 && $days<56) {
                   if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =(((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest =(((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = (((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2);
+                     $total_interest = (((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -1018,14 +611,14 @@ if ($payment!==""){
             }elseif ($days==56) {
                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount;
+                     $total_interest =((((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount;
+                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -1033,14 +626,14 @@ if ($payment!==""){
             }elseif ($days==57) {
                 if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest);
+                     $total_interest =((((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest);
+                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -1048,14 +641,14 @@ if ($payment!==""){
             }elseif ($days>=58) {
              if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest =((((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2)+$lentamount*1.2)*1.2-$lentamount+($interest*2);
+                     $total_interest =((((((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $status !=="baddebt")
                 {
-                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2)+$lentamount*1.15)*1.15-$lentamount+($interest*2);
+                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -1065,8 +658,8 @@ if ($payment!==""){
         }
     }
 }
-}
-}
+
+
 }
     }
 
