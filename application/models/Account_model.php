@@ -771,26 +771,20 @@ public function get_days()
        
             $get_days =$this->get_days();
             foreach ($get_days as $key => $value) 
-        {
-            $duedate = $value['duedate'];
-
-            $date1 = date("Y-m-d");
-            $date2 = date("Y-m-d",strtotime($duedate));
+        {   $duedate = $value['duedate'];
+           $now = time(); // or your date as well
+            $due_date = strtotime($duedate);
+            $datediff = $now - $due_date;
+            $days = round($datediff / (60 * 60 * 24));
+            $days = $days-1;
             
-            $diff = abs(strtotime($date2) - strtotime($date1));
-
-
-            $years = floor($diff / (365*60*60*24));
-            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-
-            if ($days>=60){
+            if($totalamount <= 0){
+                 $this->set_status($status, $accountid); 
+            }elseif($days>=60 ){
                 $status = "baddebt";
+                $this->db->where('accountid', $accountid);
                 $this->set_status($status, $accountid);
             }
-            // if($totalamount <= 0){
-            //     $this->set_status($status, $accountid); 
-            // }
             }
         }
     }
