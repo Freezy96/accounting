@@ -197,7 +197,7 @@ class Account_model extends CI_Model{
             $accountid = $value['accountid'];
             $totalamount = $value['totalamount'];
             
-
+            $payment = "";
             $paymentinfo = $this->get_payment_info($accountid);
              foreach ($paymentinfo as $key => $value) {
                 $payment = $value['payment'];
