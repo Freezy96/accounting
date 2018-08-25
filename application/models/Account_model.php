@@ -740,22 +740,10 @@ class Account_model extends CI_Model{
         $this->db->where('accountid', $accountid);
         $this->db->update('account', array('totalamount' => $totalamount)); 
     }
-public function get_days()
-    {
-        $this->db->select('a.accountid, a.packageid,a.totalamount, a.duedate, a.oriamount, a.status');
-        $this->db->from('account a');
-        // $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
-        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        $company_identity = $this->session->userdata('adminid');
-        $this->db->where('a.companyid', $company_identity);
-        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        $query = $this->db->get();
 
-        return $query->result_array();
-    }
     public function account_status_set()
     {
-        $this->db->select('accountid, totalamount');
+        $this->db->select('accountid, totalamount, duedate');
         $this->db->from('account');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
@@ -766,26 +754,24 @@ public function get_days()
         foreach ($result as $key => $val) {
             $accountid = $val['accountid'];
             $totalamount = $val['totalamount'];
-            $status = "closed";
-
-       
-            $get_days =$this->get_days();
-            foreach ($get_days as $key => $value) 
-        {   $duedate = $value['duedate'];
-           $now = time(); // or your date as well
+            
+            $duedate = $val['duedate'];
+            $now = time(); // or your date as well
             $due_date = strtotime($duedate);
             $datediff = $now - $due_date;
+
             $days = round($datediff / (60 * 60 * 24));
             $days = $days-1;
-            
+            // echo "<script>alert(".$days.")</script>";
             if($totalamount <= 0){
-                 $this->set_status($status, $accountid); 
-            }elseif($days>=60 ){
+                $status = "closed";
+                $this->set_status($status, $accountid); 
+            }
+            if($days>=60 ){
                 $status = "baddebt";
-                $this->db->where('accountid', $accountid);
                 $this->set_status($status, $accountid);
             }
-            }
+            
         }
     }
 
