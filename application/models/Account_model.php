@@ -459,8 +459,9 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($days>=30 && $days<35) {
-                                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
+                }
+            }elseif ($days>=30 && $days<35) {
+                        if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
                      $total_interest =((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
@@ -473,8 +474,9 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($days==35) {
-                                if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
+                }
+            }elseif ($days==35) {
+                      if ($packagename == "package_20_week"  && $status !=="closed" && $status !=="baddebt")
                 {
                      $total_interest =(((((($lentamount* 1.2)+($interest*2))*1.2+($interest*2))*0.2+(($lentamount* 1.2)+($interest*2))*0.2+($interest*6)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2+($interest*2)+$lentamount*1.2)*1.2-$lentamount*1.2;
                      $this->insert_interest($total_interest,$accountid);
@@ -660,8 +662,8 @@ class Account_model extends CI_Model{
 }
 
 
-}
-    }
+
+    
 
    public function insert_payment($data)
    {
