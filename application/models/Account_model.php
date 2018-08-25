@@ -675,18 +675,7 @@ class Account_model extends CI_Model{
 
     }
 
-    public function insert_baddebt($data)
-   {
-        if($this->db->insert('baddebt', $data))
-        {
-            $return = "insert";
-            return $return;
-        }else{
-            $return = "false";
-            return $return;
-        }
-
-    }
+   
     //算 database里面的totalamount
     public function count_total_amount()
    {
