@@ -50,15 +50,15 @@
 			<?php if(is_array($result) && $result){ ?>
 			<?php foreach ($result as $key => $val): ?>
 				<?php 
-					$date1 = date("Y-m-d");
-					$date2 = date("Y-m-d",strtotime($val['duedate']));
 
 					$now = time(); // or your date as well
-		            $due_date = strtotime($duedate);
+		            $due_date = strtotime($val['duedate']);
 		            $datediff = $now - $due_date;
 		            $days = round($datediff / (60 * 60 * 24));
+
+		            $dayleft = round(($due_date - $now) / (60 * 60 * 24));
 				 ?>
-				<?php if (strtotime($val['duedate']) <= strtotime("+4 day", strtotime($date1)) && $date2 > $date1): ?>
+				<?php if (strtotime($val['duedate']) <= strtotime("+4 day", time()) && $due_date > time()): ?>
 				<tr>
 					<td>
 						<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
@@ -77,13 +77,13 @@
 					</td>
 					<td>
 						<span style="color: 
-							<?php if ($days == 1): $msg = "1 day left"; ?>
+							<?php if ($dayleft+1 == 1): $msg = "1 day left"; ?>
 								red
-							<?php elseif ($days == 2): $msg = "2 day left"; ?>	
+							<?php elseif ($dayleft+1 == 2): $msg = "2 day left"; ?>	
 								orange
-							<?php elseif ($days == 3): $msg = "3 day left"; ?>
+							<?php elseif ($dayleft+1 == 3): $msg = "3 day left"; ?>
 								green
-							<?php elseif ($days == 4): $msg = "4 day left"; ?>
+							<?php elseif ($dayleft+1 == 4): $msg = "4 day left"; ?>
 								green
 							<?php endif ?>
 						;">

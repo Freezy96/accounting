@@ -221,13 +221,14 @@ class Account_model extends CI_Model{
             $due_date = strtotime($duedate);
             $datediff = $now - $due_date;
             $days = round($datediff / (60 * 60 * 24));
+            $days = $days-1;
 
             $date1 = date("Y-m-d");
             $date2 = date("Y-m-d",strtotime($duedate));
             // echo ;
             // echo "<script>console.log('Year:'+"..");</script>";
             // echo "<script>console.log('Month:'+".$months.");</script>";
-            // echo "<script>console.log('Day:'+".$days.");</script>";
+            echo "<script>console.log('Day:'+".$days.");</script>";
             // echo "<script>console.log('Day:'+".$date1.");</script>";
             // echo "<script>console.log('Day:'+".$date2.");</script>";
         // if ($days>=60){
