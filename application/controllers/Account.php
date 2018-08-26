@@ -884,15 +884,31 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$date = date("Y-m-d");
-
-
+		$this->db->select('accountid, duedate ,status');
+        $this->db->from('account');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
+        $result = $query->result_array();
+        foreach ($result as $key => $val) {
+        $accountid= $val['accountid'];
+        $duedate = $val['duedate'];
+        $status = $val['status'];
+		$date = strtotime(date("Y-m-d", strtotime($duedate)) . " +60 days");
+		$date = date ( 'Y-m-d' , $date );
+		
+		
+		if($status='baddebt'){
 			$data = array(
-				'accountid' => $this->input->post('accountid'),
+				'accountid' => $accountid,
 				'datee' => $date
 				);
 			$return = $this->account_model->insert_baddebt($data);
 
+		}
+		}	
 			
 
 	}		
