@@ -62,7 +62,13 @@
 				<?php echo $val['charge']; ?>
 			</td>
 			<td>
-				<?php echo $val['salary']-$val['payment']; ?>
+				<?php $salary = $val['salary']; ?>
+				<?php foreach ($payment as $key => $value): ?>
+					<?php if ($value['agentid'] == $val['agentid']): ?>
+						<?php $salary -= $value['SUM(payment)']; ?>
+					<?php endif ?>
+				<?php endforeach ?>
+				<?php echo $salary; ?>
 			</td>
 			<td>
 				<div class="row">

@@ -879,6 +879,7 @@ public function get_baddebt_info($accountid)
         $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();
         $check_closed_all = $query->result_array();
+        $salary = 0;
         foreach ($check_closed_all as $key => $value) {
             $agentid = $value['agentid'];
             echo "<script>console.log( 'Debug value: " . $agentid. "' );</script>";
@@ -892,9 +893,10 @@ public function get_baddebt_info($accountid)
                     $packageinfo = $this->get_package_info($packagename, $packageid);
                     foreach ($packageinfo as $key => $val) {
                         $lentamount = $val['lentamount'];
-                        $salary = $lentamount * $charge /100;
-                        $this->insert_agent_salary($agentid, $salary);
-                    }
+                        $salary += $lentamount * $charge /100;
+                       
+                    } 
+                    $this->insert_agent_salary($agentid, $salary);
                 } 
             }
                

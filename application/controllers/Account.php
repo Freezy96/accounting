@@ -87,6 +87,9 @@ class Account extends CI_Controller {
 		foreach ($agentcharge_array as $key => $value_charge) {
 			$agent_charge = $value_charge['charge'];
 		}
+		if ($agent_charge=="") {
+			$agent_charge=0;
+		}
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////
@@ -669,7 +672,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -691,7 +694,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $date1,
 				'duedate' => $date2,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -713,7 +716,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $date2,
 				'duedate' => $date3,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -735,7 +738,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $date3,
 				'duedate' => $date4,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -783,7 +786,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -831,7 +834,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -880,7 +883,7 @@ class Account extends CI_Controller {
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
-				'agentcharge' => $agent_charge,
+				'agentcharge' => 0,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
