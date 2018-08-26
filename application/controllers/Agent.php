@@ -32,6 +32,8 @@ class Agent extends CI_Controller {
 		$this->load->account_model->count_agent_salary();
 		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
+		$res = $this->load->agent_model->get_agent_payment();
+		$data['payment'] = $res;
     	$this->load->view('agent/main', $data);
 		$this->load->view('template/footer');
 	}

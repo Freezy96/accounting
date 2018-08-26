@@ -6,14 +6,11 @@ class Agent_Model extends CI_Model{
     
     public function getuserdata(){
         // Run the query
-        $this->db->select('ag.agentname, ag.charge, ag.companyid, ag.salary, ag.agentid, ap.payment');
-        $this->db->from('agent ag');
-        $this->db->join('agentpayment ap', 'ag.agentid = ap.agentid', 'left');
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $query = $this->db->get();
+        $query = $this->db->get('agent');
         return $query->result_array();
     }
 
@@ -76,11 +73,10 @@ class Agent_Model extends CI_Model{
 
     public function get_agent_payment(){
         // Run the query
-        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $company_identity = $this->session->userdata('adminid');
-        $this->db->where('companyid', $company_identity);
-        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $query = $this->db->get('agent');
+        $this->db->select('SUM(payment), agentid');
+        $this->db->from('agentpayment');
+        $this->db->group_by('agentid');
+        $query = $this->db->get();
         return $query->result_array();
 
     }
