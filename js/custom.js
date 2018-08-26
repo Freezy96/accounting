@@ -166,7 +166,7 @@ $(document).ready(function() {
 
   // Package insert total amount identify
 
-  $('.weekamount').on('change, keyup', function(){
+  $('.weekamount').on('change keyup', function(){
     var $totalamount = parseFloat($('#totalamount').val());
     var $week1 = $('#week1').val();
     var $week2 = $('#week2').val();
@@ -221,4 +221,16 @@ $(document).ready(function() {
       }
  
   });
+
+
+    $('#date_profit').on('keyup change', function(){
+      var date = new Date($(this).val());
+      day = date.getDate();
+      month = date.getMonth() + 1;
+      year = date.getFullYear();
+      $('#profit_day_input').val(day);
+      $('#profit_month_input').val(month);
+      $('#profit_year_input').val(year);
+      alert([day, month, year].join('/'));
+    });
 });

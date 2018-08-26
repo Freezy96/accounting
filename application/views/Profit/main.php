@@ -1,61 +1,32 @@
 <?php $this->load->view('template/sidenav'); ?>
-<div class="myDivToPrint">
+
+<form action='<?php echo base_url();?>profit/' method='post' name='customerinsert'>
+	<div class="form-group">
+	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
+	    <input type="date" class="form-control" id="date_profit" placeholder="" name="profit_date">
+	    <input type="hidden" name="day" id="profit_day_input">
+	    <input type="hidden" name="month" id="profit_month_input">
+	    <input type="hidden" name="year" id="profit_year_input">
+  	</div>
+  	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
+</form>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#profit_day" aria-controls="profit_day" role="tab" data-toggle="tab">Day</a></li>
+    <li role="presentation"><a href="#profit_month" aria-controls="profit_month" role="tab" data-toggle="tab">Month</a></li>
+    <li role="presentation"><a href="#profit_year" aria-controls="profit_year" role="tab" data-toggle="tab">Year</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="profit_day"><?php $this->load->view('profit/main_this_day'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="profit_month"><?php $this->load->view('profit/main_this_month'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="profit_year"><?php $this->load->view('profit/main_this_year'); ?></div>
+  </div>
+
+<!-- 一个输入+3个tab（3个方程式拿回来） -->
+
+<script type="text/javascript">
 	
-<table class="table">
-
-	<!-- get session success = true / fail = false -->
-	<?php $return = $this->session->flashdata('return'); ?>
-	<!-- <?php print_r($return); ?> -->
-
-		<thead>
-			<tr>
-				<td>
-				ID
-				</td>
-				<td>
-					NAME
-				</td>
-				<td>
-					ADDRESS
-				</td>
-				<td>
-					GENDER
-				</td>
-				<td>
-					PHONE NO.
-				</td>
-			</tr>
-		</thead>
-		<tbody>
-	<!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
-		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
-	<!-- <?php print_r($result); ?>	       Show this for understanding -->
-	<?php foreach ($result as $key => $val): ?>
-		<tr>
-			<td>
-				<?php echo $val['customerid']; ?>
-			</td>
-			<td>
-				<?php echo $val['customername']; ?>
-			</td>
-			<td>
-				<?php echo $val['address']; ?>
-			</td>
-			<td>
-				<?php echo $val['gender']; ?>
-			</td>
-			<td>
-				<?php echo $val['phoneno']; ?>
-			</td>
-		</tr>
-	<?php endforeach ?>
-	</tbody>
-</table>
-
-</div>
-<input type="button" value="Print" onclick="printpage()" />
-​<script>
-function printpage(){
-	window.print();
-}
 </script>

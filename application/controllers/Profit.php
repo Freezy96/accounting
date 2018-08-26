@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Print_Expired extends CI_Controller {
+class Profit extends CI_Controller {
 	function __construct(){
         parent::__construct();
-        $this->load->model('print_model');
+        $this->load->model('profit_model');
         $this->load->model('security_model');
     }
 
@@ -11,10 +11,45 @@ class Print_Expired extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$res = $this->load->print_model->getuserdata();
-		$data['result'] = $res;
-    	$this->load->view('print/main', $data);
+		$day = $this->input->post('day');
+		if ($this->input->post('month')<10) {
+			$month = "0".$this->input->post('month');
+		}else{
+			$month = $this->input->post('month');
+		}
+		
+		$year = $this->input->post('year');
+		
+		$date_day = $year."-".$month."-".$day;
+		$date_month = $year."-".$month;
+		$date_year = $year;
+
+		$res = $this->load->profit_model->get_this_day_payment($date_day);
+	    $data['day'] = $res;
+	    $res = $this->load->profit_model->get_this_month_payment($date_month);
+	    $data['month'] = $res;
+	    $res = $this->load->profit_model->get_this_year_payment($date_year);
+	    $data['year'] = $res;
+
+	    $res = $this->load->profit_model->get_this_day_payment_discount($date_day);
+	    $data['day_discount'] = $res;
+	    $res = $this->load->profit_model->get_this_month_payment_discount($date_month);
+	    $data['month_discount'] = $res;
+	    $res = $this->load->profit_model->get_this_year_payment_discount($date_year);
+	    $data['year_discount'] = $res;
+
+	    $res = $this->load->profit_model->get_this_day_loss_lent($date_day);
+	    $data['day_lent_loss'] = $res;
+	    $res = $this->load->profit_model->get_this_month_loss_lent($date_month);
+	    $data['month_lent_loss'] = $res;
+	    $res = $this->load->profit_model->get_this_year_loss_lent($date_year);
+	    $data['year_lent_loss'] = $res;
+
+
+    	$this->load->view('profit/main', $data);
 		$this->load->view('template/footer');
 	}
+
+
 }
 ?>

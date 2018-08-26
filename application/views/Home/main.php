@@ -122,7 +122,7 @@
 		</table>
 	</div>
 </div>
-
+<div class="row">
 <div class="col-sm-4">
 	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">Insert New Account</button>
 </div>
@@ -133,4 +133,18 @@
 
 <div class="col-sm-4">
 	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">Insert New Package</button>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-4">
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+</div>
+
+<div class="col-sm-4">
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+</div>
+
+<div class="col-sm-4">
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+</div>
 </div>
