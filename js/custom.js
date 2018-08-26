@@ -123,7 +123,14 @@ $(document).ready(function() {
 
           if ("payment" in res[i]) 
           {
-            $tr.append($('<td/>').html(amount_to_be_pay));
+            if (amount_to_be_pay<=0) 
+            {
+              $tr.append($('<td/>').html("Paid"));
+            }
+            else
+            {
+              $tr.append($('<td/>').html(amount_to_be_pay));
+            }
           }
           else
           {
@@ -146,8 +153,14 @@ $(document).ready(function() {
           {
             $tr.append($('<td/>').html(res[i].interest));
           }
-
-          $tr.append($('<td/>').html(total));
+          if (total<=0) 
+          {
+            $tr.append($('<td/>').html("Paid"));
+          }
+          else
+          {
+            $tr.append($('<td/>').html(total));
+          }
           $('.account_modal_table tr:last').before($tr);
         }
         
@@ -232,5 +245,9 @@ $(document).ready(function() {
       $('#profit_month_input').val(month);
       $('#profit_year_input').val(year);
       alert([day, month, year].join('/'));
+    });
+
+    $('.agent_modal').on('click', function(){
+      $('#agentid_hidden').val($(this).val());
     });
 });

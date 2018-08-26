@@ -37,6 +37,9 @@
 						CHARGE %
 					</td>
 					<td>
+						SALARY
+					</td>
+					<td>
 						ACTION
 					</td>
 				</tr>
@@ -59,6 +62,9 @@
 				<?php echo $val['charge']; ?>
 			</td>
 			<td>
+				<?php echo $val['salary']-$val['payment']; ?>
+			</td>
+			<td>
 				<div class="row">
 					<form action='<?php echo base_url();?>agent/update' method='post' name='agentedit'>
 					<button class="btn btn-primary" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
@@ -66,6 +72,7 @@
 					<form action='<?php echo base_url();?>agent/delete' method='post' name='agentdelete'>
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
 					</form>
+					<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" value="<?php echo $val["agentid"]; ?>" name="accountid">Payment</button>
 				</div>
 			</td>
 		</tr>
@@ -73,3 +80,29 @@
 <?php } ?>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('agent/insert'); ?>">Insert New Account</a></li>
+
+<div class="modal fade" id="agentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+  	<form id="" action='<?php echo base_url();?>agent/payment/' method='post' name='agentpayamount'>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="account_modal_title"></h4>
+      </div>
+      <div class="modal-body">
+       <!-- body -->
+       <div class="form-group">
+       	<label for="">Pay Agent Salary</label>
+     	<input type="text" name="agentpayment" class="form-control">
+       </div>
+      	
+       	<input type="hidden" name="agentid" id="agentid_hidden">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Pay</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
