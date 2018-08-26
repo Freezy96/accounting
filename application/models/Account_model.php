@@ -770,6 +770,45 @@ class Account_model extends CI_Model{
         $this->db->update('account', array('status' => $status)); 
     }
 
+     public function get_status($accountid)
+    {
+        $this->db->select('status');
+        $this->db->from('account');
+        $query = $this->db->get();
+         return $query->result_array();
+    }
+ public function insert_baddebt($data)
+   {
+        if($this->db->insert('baddebt', $data))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+
+    }
+public function get_baddebt_info($accountid)
+    {
+        $this->db->select('payment');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+         return $query->result_array();
+    }
+    public function delete($data){
+        
+        if($this->db->delete('customer', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }    
+
+    }
+
 
 }
 ?>

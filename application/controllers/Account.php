@@ -43,8 +43,9 @@ class Account extends CI_Controller {
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
 		$this->load->account_model->account_status_set();
-    	$this->load->view('account/main', $data);
+    	$this->load->view('account/main', $data);		
 		$this->load->view('template/footer');
+
 	}
 
 	public function insert()
@@ -431,6 +432,27 @@ class Account extends CI_Controller {
 		$data['package_20_week'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage_15_week();
 		$data['package_15_week'] = $res;
+		
+		$this->load->view('account/payment', $data);
+		$this->load->view('template/footer');
+	}
+
+	public function baddebt()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$refid = $this->input->post('account_refid');
+		 
+		foreach ($res as $key => $value) {
+			$status = $value['status'];
+			$res = $this->load->account_model->get_status($refid);
+			$data['result'] = $res;
+		}
+
+		if ($status=="baddebt") {
+			$this->baddebt_insert_db();
+		}
 		
 		$this->load->view('account/payment', $data);
 		$this->load->view('template/footer');
@@ -842,6 +864,28 @@ class Account extends CI_Controller {
 		// }
 		$this->load->view('template/footer');
 	}
+
+	public function baddebt_insert_db()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$date_today = date("Y-m-d");
+		$status = $this->input->post('status');
+
+		if($this-> $status=="baddebt")
+			{
+			$data = array(
+				'accountid' => $this->input->post('accountid' . $i),
+				'datee' => $date_today
+				);
+			$return = $this->account_model->insert_baddebt($data);
+
+			}
+
+		
+	}
+}
 	
 }
 

@@ -80,9 +80,7 @@
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
 					</form> -->
-					<form action='<?php echo base_url();?>baddebt/delete' method='post' name='baddebtdelete'>
-						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
-					</form>
+					
 						<button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
 				</div>
 			</td>
@@ -90,5 +88,3 @@
 	<?php endforeach ?>
 <?php } ?>
 </table>
-
-<a class="btn btn-default" href="<?php echo site_url('baddebt/insert'); ?>">Insert New Account</a></li>
