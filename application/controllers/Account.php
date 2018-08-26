@@ -42,7 +42,7 @@ class Account extends CI_Controller {
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
-		$this->load->account_model->account_status_set();
+		
     	$this->load->view('account/main', $data);		
 		$this->load->view('template/footer');
 
@@ -442,19 +442,20 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$refid = $this->input->post('account_refid');
-		 
+
+		 $res= $this->load->account_model->get_status();
 		foreach ($res as $key => $value) {
 			$status = $value['status'];
-			$res = $this->load->account_model->get_status($refid);
+		
 			$data['result'] = $res;
-		}
-
-		if ($status=="baddebt") {
+			if ($status=="baddebt") {
 			$this->baddebt_insert_db();
 		}
+		}
+
 		
-		$this->load->view('account/payment', $data);
+		
+		$this->load->view('account/baddebt', $data);
 		$this->load->view('template/footer');
 	}
 	
@@ -873,7 +874,7 @@ class Account extends CI_Controller {
 		$date_today = date("Y-m-d");
 		$status = $this->input->post('status');
 
-		if($this-> $status=="baddebt")
+		if($status=="baddebt")
 			{
 			$data = array(
 				'accountid' => $this->input->post('accountid' . $i),
@@ -883,11 +884,11 @@ class Account extends CI_Controller {
 
 			}
 
-		
-	}
+	}		
 }
+
 	
-}
+
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
