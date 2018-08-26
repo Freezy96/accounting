@@ -80,9 +80,9 @@
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
 					</form> -->
-					<form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
+					<!-- <form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
-					</form>
+					</form> -->
 						<button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
 				</div>
 			</td>

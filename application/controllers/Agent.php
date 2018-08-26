@@ -20,6 +20,7 @@ class Agent extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('agent_model');
+        $this->load->model('account_model');
         $this->load->model('security_model');
     }
 
@@ -28,6 +29,7 @@ class Agent extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		$this->load->account_model->count_agent_salary();
 		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
     	$this->load->view('agent/main', $data);
@@ -121,6 +123,29 @@ class Agent extends CI_Controller {
 		);
 
 		$return = $this->agent_model->delete($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('agent');
+		}
+		$this->load->view('template/footer');
+	}
+
+	public function payment()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'agentid' => $this->input->post('agentid'),
+		'paymentdate' => date("Y-m-d"),
+		'payment' => $this->input->post('agentpayment')
+		);
+
+		$return = $this->agent_model->insert_payment($data);
 		$data['return'] = $return;
 
 		if($return == true){
