@@ -21,6 +21,8 @@ class Account_model extends CI_Model{
 
         return $query->result_array();
     }
+
+    
   public function getbaddebtaccid(){
         $this->db->select('accountid');
         $this->db->from('baddebt');
