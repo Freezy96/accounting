@@ -42,7 +42,7 @@ class Account extends CI_Controller {
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
-		$this->load->account_model->account_status_set();
+		
     	$this->load->view('account/main', $data);		
 		$this->load->view('template/footer');
 
@@ -457,22 +457,36 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$refid = $this->input->post('account_refid');
-		 
-		foreach ($res as $key => $value) {
-			$status = $value['status'];
-			$res = $this->load->account_model->get_status($refid);
-			$data['result'] = $res;
-		}
 
-		if ($status=="baddebt") {
+		 $res1= $this->load->account_model->get_status();
+		foreach ($res1 as $key => $value) {
+			$status = $value['status'];
+		
+			$data['result'] = $res1;
+			if ($status=="baddebt") {
 			$this->baddebt_insert_db();
 		}
+	}
+	if ($status=="baddebt") {
+
+		$res = $this->load->account_model->getuserdata();
+		$data['result'] = $res;
+		foreach ($res as $key => $value) {
+            $packagename =  $value['packagetypename'];
+            $packageid = $value['packageid'];
+            $res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+            $data['p'.$packageid] = $res_info;
+        }
+        // 先滚利息
+		$this->load->account_model->interest_30_4week();
+		// 再算totalamount
+		$this->load->account_model->count_total_amount();
+	}
 		
 		$this->load->view('account/baddebt', $data);
 		$this->load->view('template/footer');
-	}
 	
+	}
 
 	public function payment_insert_db()
 	{	
@@ -897,22 +911,20 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$date_today = date("Y-m-d");
-		$status = $this->input->post('status');
+		$date = date("Y-m-d");
 
-		if($this-> $status=="baddebt")
-			{
+
 			$data = array(
-				'accountid' => $this->input->post('accountid' . $i),
-				'datee' => $date_today
+				'accountid' => $this->input->post('accountid'),
+				'datee' => $date
 				);
 			$return = $this->account_model->insert_baddebt($data);
 
-			}
+			
 
-		
-	}
+	}		
 }
+
 	
 
 

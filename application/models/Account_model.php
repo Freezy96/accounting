@@ -786,13 +786,15 @@ class Account_model extends CI_Model{
         $this->db->update('account', array('status' => $status)); 
     }
 
-     public function get_status($accountid)
+     public function get_status()
     {
         $this->db->select('status');
         $this->db->from('account');
         $query = $this->db->get();
          return $query->result_array();
     }
+
+
  public function insert_baddebt($data)
    {
         if($this->db->insert('baddebt', $data))
