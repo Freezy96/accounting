@@ -231,9 +231,9 @@ class Account_model extends CI_Model{
             // echo "<script>console.log('Day:'+".$days.");</script>";
             // echo "<script>console.log('Day:'+".$date1.");</script>";
             // echo "<script>console.log('Day:'+".$date2.");</script>";
-        // if ($days>=60){
-        //     $status = "baddebt";
-        //     }
+         //if ($days>=60){
+         //    $status = "baddebt";
+       //    }
             if ($days>0 && $date2<$date1) {
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed" && $status !=="baddebt")
@@ -751,12 +751,15 @@ class Account_model extends CI_Model{
 
             $days = round($datediff / (60 * 60 * 24));
             $days = $days-1;
+
+           echo "<script>console.log('accountid:".$accountid."')</script>";
+            echo "<script>console.log('totalamount:".$totalamount."')</script>";
+            echo "<script>console.log('days:".$days."')</script>";
             // echo "<script>alert(".$days.")</script>";
             if($totalamount <= 0){
                 $status = "closed";
                 $this->set_status($status, $accountid); 
-            }
-            if($days>=60 ){
+            }elseif($days>=60 && $totalamount > 0){
                 $status = "baddebt";
                 $this->set_status($status, $accountid);
             }
@@ -799,17 +802,7 @@ public function get_baddebt_info($accountid)
         $query = $this->db->get();
          return $query->result_array();
     }
-    public function delete($data){
-        
-        if($this->db->delete('customer', $data)){
-            $return = "delete";
-            return $return;
-        }else{
-            $return = "false";
-            return $return;
-        }    
 
-    }
 
 
 }
