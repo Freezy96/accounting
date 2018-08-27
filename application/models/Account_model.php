@@ -21,6 +21,8 @@ class Account_model extends CI_Model{
 
         return $query->result_array();
     }
+
+
   public function getbaddebtaccid(){
         $this->db->select('accountid');
         $this->db->from('baddebt');
@@ -796,7 +798,7 @@ class Account_model extends CI_Model{
 
      public function get_status()
     {
-        $this->db->select('status');
+        $this->db->select('status, accountid');
         $this->db->from('account');
         $query = $this->db->get();
          return $query->result_array();
@@ -928,5 +930,20 @@ public function get_baddebt_info($accountid)
         $this->db->where('agentid', $agentid);
         $this->db->update('agent', array('salary' => $salary)); 
     }
+
+   public function get_duedate($accountid)
+    {
+        $this->db->select('duedate');
+        $this->db->from('account');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        foreach ($result as $key => $value) {
+            $duedate = $value['duedate'];
+        }
+        return $duedate;
+    }
+
+
 }
 ?>
