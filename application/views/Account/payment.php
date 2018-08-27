@@ -149,14 +149,26 @@
         <?php echo $val['amount']; ?>
       </td>
       <td>
-        <?php echo $final_amount; ?>
+        <?php if ($final_amount<=0): ?>
+          <?php echo "Paid"; ?>
+        <?php else: ?>  
+          <?php echo $final_amount; ?>
+        <?php endif ?>
       </td>
       <td>
-        <?php echo $final_interest; ?>
+        <?php if ($final_interest<=0): ?>
+          <?php echo "Paid"; ?>
+        <?php else: ?>  
+          <?php echo $final_interest; ?>
+        <?php endif ?>
       </td>
       <td>
         <?php $totalamount = number_format($final_amount+$final_interest, 2, '.', ''); ?>
-        <?php echo $totalamount; ?>
+        <?php if ($totalamount<=0): ?>
+          <?php echo "Paid"; ?>
+        <?php else: ?>  
+          <?php echo $totalamount; ?>
+        <?php endif ?>
       </td>
     
       <td>
