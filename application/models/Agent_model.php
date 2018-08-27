@@ -59,5 +59,26 @@ class Agent_Model extends CI_Model{
         }    
 
     }
+
+    public function insert_payment($data){
+        if($this->db->insert('agentpayment', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+
+    }
+
+    public function get_agent_payment(){
+        // Run the query
+        $this->db->select('SUM(payment), agentid');
+        $this->db->from('agentpayment');
+        $this->db->group_by('agentid');
+        $query = $this->db->get();
+        return $query->result_array();
+
+    }
 }
 ?>

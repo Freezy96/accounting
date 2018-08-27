@@ -106,6 +106,10 @@ class Account_model extends CI_Model{
     public function getuserdatainsertpackage_30_4week(){
         // Run the query
         $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
         $query = $this->db->get('package_30_4week');
         return $query->result_array();
     }
@@ -113,18 +117,30 @@ class Account_model extends CI_Model{
     public function getuserdatainsertpackage_25_month(){
         // Run the query
         $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
         $query = $this->db->get('package_25_month');
         return $query->result_array();
     }
     public function getuserdatainsertpackage_20_week(){
         // Run the query
         $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
         $query = $this->db->get('package_20_week');
         return $query->result_array();
     }
         public function getuserdatainsertpackage_15_week(){
         // Run the query
         $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
         $query = $this->db->get('package_15_week');
         return $query->result_array();
     }
@@ -803,7 +819,103 @@ public function get_baddebt_info($accountid)
          return $query->result_array();
     }
 
+    }
+    //计算agent利息，跟着agent利息变动（以前的account也会）
+    // public function count_agent_salary()
+    // {
+        
+    //     $this->db->select('SUM(a.totalamount), a.agentid, a.packageid, p.packagetypename');
+    //     $this->db->from('account a');
+    //     $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+    //     ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+    //     $company_identity = $this->session->userdata('adminid');
+    //     $this->db->where('a.companyid', $company_identity);
+    //     ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+    //     $this->db->group_by('a.refid');// add group_by
+    //     $query = $this->db->get();
+    //     $check_closed_all = $query->result_array();
+    //     foreach ($check_closed_all as $key => $value) {
+    //         $agentid = $value['agentid'];
+    //         echo "<script>console.log( 'Debug value: " . $agentid. "' );</script>";
+    //         if ($agentid!=0) {
+    //             $packagename = $value['packagetypename'];
+    //             $packageid = $value['packageid'];
+    //             if ($value['SUM(a.totalamount)'] <= 0) 
+    //             {
+                    
+    //                 $charge_array = $this->get_agent_charge($agentid);
+    //                 foreach ($charge_array as $key => $value_charge) {
+    //                     $charge = $value_charge['charge'];
+    //                 }
+    //                 $packageinfo = $this->get_package_info($packagename, $packageid);
+    //                 foreach ($packageinfo as $key => $val) {
+    //                     $lentamount = $val['lentamount'];
+    //                     $salary = $lentamount * $charge /100;
+    //                     $this->insert_agent_salary($agentid, $salary);
+    //                 }
+    //             } 
+    //         }
+               
+    //     }
+    // }
 
+    //计算agent利息，进account的时候就定好了（以前的account不会）
+    public function count_agent_salary()
+    {
+        
+        $this->db->select('SUM(a.totalamount), a.agentid, a.packageid, p.packagetypename, a.agentcharge');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('a.refid');// add group_by
+        $query = $this->db->get();
+        $check_closed_all = $query->result_array();
+        $salary = 0;
+        foreach ($check_closed_all as $key => $value) {
+            $agentid = $value['agentid'];
+            echo "<script>console.log( 'Debug value: " . $agentid. "' );</script>";
+            if ($agentid!=0) {
+                $packagename = $value['packagetypename'];
+                $packageid = $value['packageid'];
+                if ($value['SUM(a.totalamount)'] <= 0) 
+                {
+                
+                    $charge = $value['agentcharge'];
+                    $packageinfo = $this->get_package_info($packagename, $packageid);
+                    foreach ($packageinfo as $key => $val) {
+                        $lentamount = $val['lentamount'];
+                        $salary += $lentamount * $charge /100;
+                       
+                    } 
+                    $this->insert_agent_salary($agentid, $salary);
+                } 
+            }
+               
+        }
+    }
 
+    public function get_agent_charge($agentid)
+    {
+        
+        $this->db->select('charge');
+        $this->db->from('agent');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('agentid', $agentid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function insert_agent_salary($agentid, $salary)
+    {
+        
+        $this->db->where('agentid', $agentid);
+        $this->db->update('agent', array('salary' => $salary)); 
+    }
 }
 ?>
