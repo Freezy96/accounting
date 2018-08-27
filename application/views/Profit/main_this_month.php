@@ -36,28 +36,34 @@
 	<?php $profit = 0; ?>
 	<?php if(is_array($month) && $month){ ?>
 	<?php foreach ($month as $key => $val): ?>
-		<tr>
-			<td>
-				Payment from customer
-			</td>
-			<td>
-				<?php echo $val['SUM(payment)']; ?>
-			</td>
-		</tr>
+		<?php if ($val['SUM(payment)'] != 0): ?>
+			<tr>
+				<td>
+					Payment from customer
+				</td>
+				<td>
+					<?php echo $val['SUM(payment)']; ?>
+				</td>
+			</tr>
+		<?php endif ?>
+		
 		<?php $profit+=$val['SUM(payment)']; ?>
 	<?php endforeach ?>
 <?php } ?>
 
 <?php if(is_array($month_discount) && $month_discount){ ?>
 	<?php foreach ($month_discount as $key => $val): ?>
-		<tr>
-			<td>
-				Payment from customer (Discount)
-			</td>
-			<td>
-				<?php echo $val['SUM(payment)']; ?>
-			</td>
-		</tr>
+		<?php if ($val['SUM(payment)'] != 0): ?>
+			<tr>
+				<td>
+					Payment from customer (Discount)
+				</td>
+				<td>
+					<?php echo $val['SUM(payment)']; ?>
+				</td>
+			</tr>
+		<?php endif ?>
+
 		<?php $profit+=$val['SUM(payment)']; ?>
 	<?php endforeach ?>
 	<?php } ?>
@@ -67,7 +73,7 @@
 				Total:
 			</td>
 			<td>
-				<?php echo $profit; ?>
+				<?php echo number_format($profit, 2, '.', ''); ?>
 			</td>
 		</tr>
 	<!-- profit---------------------------------------------------------------------------- -->
@@ -92,6 +98,32 @@
 		</tr>
 		<?php $loss+=$month_lent_loss; ?>
 	<?php endif ?>
+
+	<?php if(is_array($agent_payment_month) && $agent_payment_month){ ?>
+	<?php foreach ($agent_payment_month as $key => $val): ?>
+		<?php if ($val['SUM(payment)'] != 0): ?>
+			<tr>
+				<td>
+					Payment to agent (Discount)
+				</td>
+				<td>
+					<?php echo $val['SUM(payment)']; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
+		
+		<?php $loss+=$val['SUM(payment)']; ?>
+	<?php endforeach ?>
+	<?php } ?>
+
+	<tr>
+		<td align="right">
+			Total:
+		</td>
+		<td>
+			<?php echo number_format($loss, 2, '.', ''); ?>
+		</td>
+	</tr>
 
 	<!-- Loss---------------------------------------------------------------------------- -->
 	</tbody>

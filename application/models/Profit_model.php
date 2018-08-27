@@ -7,7 +7,12 @@ class Profit_Model extends CI_Model{
     public function get_this_day_payment($date){
         
         $this->db->select('SUM(payment)');
-        $this->db->from('payment');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m-%d')", $date);
         $this->db->where("paymenttype !=", "discount");
         $this->db->group_by('paymentdate');// add group_by
@@ -19,7 +24,12 @@ class Profit_Model extends CI_Model{
     public function get_this_month_payment($date){
         
         $this->db->select('SUM(payment)');
-        $this->db->from('payment');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m')", $date);
         $this->db->where("paymenttype !=", "discount");
         // $this->db->group_by('paymentdate');// add group_by
@@ -31,7 +41,12 @@ class Profit_Model extends CI_Model{
     public function get_this_year_payment($date){
         
         $this->db->select('SUM(payment)');
-        $this->db->from('payment');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y')", $date);
         $this->db->where("paymenttype !=", "discount");
         // $this->db->group_by('paymentdate');// add group_by
@@ -43,7 +58,12 @@ class Profit_Model extends CI_Model{
     public function get_this_day_payment_discount($date){
         
         $this->db->select('SUM(payment)');
-        $this->db->from('payment');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m-%d')", $date);
         $this->db->where("paymenttype", "discount");
         $this->db->group_by('paymentdate');// add group_by
@@ -55,7 +75,12 @@ class Profit_Model extends CI_Model{
     public function get_this_month_payment_discount($date){
         
         $this->db->select('SUM(payment)');
-        $this->db->from('payment');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m')", $date);
         $this->db->where("paymenttype", "discount");
         $this->db->group_by('paymentdate');// add group_by
@@ -67,7 +92,12 @@ class Profit_Model extends CI_Model{
     public function get_this_year_payment_discount($date){
         
         $this->db->select('SUM(payment)');
-        $this->db->from('payment');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y')", $date);
         $this->db->where("paymenttype", "discount");
         $this->db->group_by('paymentdate');// add group_by
@@ -102,6 +132,10 @@ class Profit_Model extends CI_Model{
         $this->db->select('a.datee, month(a.datee), year(a.datee), a.packageid, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->group_by('a.refid');// add group_by
         // $this->db->where("DATE_FORMAT(datee,'%Y-%m-%d')", $date);
         $query = $this->db->get();
@@ -169,6 +203,54 @@ class Profit_Model extends CI_Model{
         }
 
         return $loss_lent_out;
+    }
+
+    public function get_day_agent_payment($date){
+        
+        $this->db->select('SUM(payment)');
+        $this->db->from('agentpayment p');
+        $this->db->join('agent a', 'p.agentid = a.agentid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m-%d')", $date);
+        $this->db->group_by('paymentdate');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function get_month_agent_payment($date){
+        
+        $this->db->select('SUM(payment)');
+        $this->db->from('agentpayment p');
+        $this->db->join('agent a', 'p.agentid = a.agentid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m')", $date);
+        $this->db->group_by('paymentdate');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function get_year_agent_payment($date){
+        
+        $this->db->select('SUM(payment)');
+        $this->db->from('agentpayment p');
+        $this->db->join('agent a', 'p.agentid = a.agentid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(paymentdate,'%Y')", $date);
+        $this->db->group_by('paymentdate');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
     }
 
 }
