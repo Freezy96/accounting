@@ -457,18 +457,18 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-
 		 $res1= $this->load->account_model->get_status();
+
 		foreach ($res1 as $key => $value) {
 			$status = $value['status'];
-		
+			
 			$data['result'] = $res1;
 			if ($status=="baddebt") {
 			$this->baddebt_insert_db();
 		}
 	
-	if ($status=="baddebt") {
-
+	
+		
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
 		foreach ($res as $key => $value) {
@@ -481,7 +481,10 @@ class Account extends CI_Controller {
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
-	}
+		$this->load->account_model->account_status_set();
+
+	
+
 	}	
 		$this->load->view('account/baddebt', $data);
 		$this->load->view('template/footer');
@@ -925,7 +928,9 @@ class Account extends CI_Controller {
         $status = $val['status'];
 		$date = strtotime(date("Y-m-d", strtotime($duedate)) . " +60 days");
 		$date = date ( 'Y-m-d' , $date );
-		
+		  
+			
+            
 		
 		if($status='baddebt'){
 			$data = array(
@@ -933,11 +938,9 @@ class Account extends CI_Controller {
 				'datee' => $date
 				);
 			$return = $this->account_model->insert_baddebt($data);
-
+			}
 		}
-		}	
 			
-
 	}		
 }
 
