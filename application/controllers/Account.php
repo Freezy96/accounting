@@ -921,6 +921,7 @@ class Account extends CI_Controller {
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $query = $this->db->get();
+		$my_array=array();;
         $result = $query->result_array();
         foreach ($result as $key => $val) {
         $accountid= $val['accountid'];
@@ -929,7 +930,9 @@ class Account extends CI_Controller {
 		$date = strtotime(date("Y-m-d", strtotime($duedate)) . " +60 days");
 		$date = date ( 'Y-m-d' , $date );
 		  
-			
+		
+     	array_push($my_array,$val['accountid']);
+     	
             
 		
 		if($status='baddebt'){
@@ -940,7 +943,7 @@ class Account extends CI_Controller {
 			$return = $this->account_model->insert_baddebt($data);
 			}
 		}
-			
+		echo ( $my_array);	
 	}		
 }
 
