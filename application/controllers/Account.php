@@ -451,7 +451,7 @@ class Account extends CI_Controller {
 			if ($status=="baddebt") {
 			$this->baddebt_insert_db();
 		}
-	}
+	
 	if ($status=="baddebt") {
 
 		$res = $this->load->account_model->getuserdata();
@@ -467,7 +467,7 @@ class Account extends CI_Controller {
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
 	}
-		
+	}	
 		$this->load->view('account/baddebt', $data);
 		$this->load->view('template/footer');
 	
