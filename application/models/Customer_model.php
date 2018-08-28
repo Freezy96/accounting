@@ -33,6 +33,24 @@ class Customer_Model extends CI_Model{
         return $query->result_array();
     }
 
+        public function getuserstatus($customerid){
+        // Run the query
+        $this->db->select('c.customerid, a.status');
+        $this->db->from('customer c');
+        $this->db->join('account a', 'c.customerid = a.customerid', 'left');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+     public function userstatus($customerid){
+        $data=$this->customer_model->getuserstatus($customerid);
+         foreach ($data as $key => $value) {
+           $status = $value['status'];
+        }
+
+        }
+
+
     public function update($data){
         foreach ($data as $key => $value) {
            $customerid = $value['customerid'];

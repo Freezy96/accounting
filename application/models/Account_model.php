@@ -7,8 +7,26 @@ class Account_model extends CI_Model{
     public function getuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
+        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
         $this->db->from('account a');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('a.refid');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+    public function getbaddebtuserdata(){
+        // Run the query
+        // $this->db->distinct('a.refid');
+        $this->db->select('b.accountid, a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
+        $this->db->from('baddebt b');
+        $this->db->join('account a', 'b.accountid = a.accountid', 'left');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
@@ -1135,6 +1153,9 @@ class Account_model extends CI_Model{
             if($totalamount <= 0){
                 $status = "closed";
                 $this->set_status($status, $accountid); 
+            }elseif($days>=0 && $days<=59 && $totalamount > 0){
+                $status = "late";
+                $this->set_status($status, $accountid);
             }elseif($days>=60 && $totalamount > 0){
                 $status = "baddebt";
                 $this->set_status($status, $accountid);

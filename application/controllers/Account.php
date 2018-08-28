@@ -469,7 +469,7 @@ class Account extends CI_Controller {
 
 
 
-        $res = $this->load->account_model->getuserdata();
+        $res = $this->load->account_model->getbaddebtuserdata();
         $data['result'] = $res;
         foreach ($res as $key => $value) {
             $packagename =  $value['packagetypename'];
