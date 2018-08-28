@@ -7,7 +7,7 @@
    <title>Put_your_title_here</title>
    <?php
       // Set Default TimeZone to match the time
-      date_default_timezone_set("Asia/Kuala_Lumpur");
+      date_default_timezone_set("Pacific/Kiritimati");
     ?>
   </head>
   <body>

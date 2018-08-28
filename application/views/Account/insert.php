@@ -21,7 +21,7 @@
     <select class="form-control" name="customerid">
     <?php foreach ($result as $key => $value): ?>
       
-        <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['customername']; ?></option>
+        <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?></option>
      
     <?php endforeach ?>
      </select>

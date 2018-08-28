@@ -12,7 +12,7 @@
 						CUSTOMER ID - NAME
 					</td>
 					<td>
-						ORIGINAL AMOUNT
+						AMOUNT
 					</td>
 					<!-- <td>
 						PAYMENT
@@ -64,7 +64,7 @@
 						<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
 					</td>
 					<td>
-						<?php echo $val['oriamount']; ?>
+						<?php echo $val['SUM(a.totalamount)']; ?>
 					</td>
 <!-- 					<td>
 						<?php echo $val['payment']; ?>
@@ -141,7 +141,7 @@
 </div>
 
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup/'">Backup</button>
 </div>
 
 <div class="col-sm-4">
