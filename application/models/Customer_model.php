@@ -37,7 +37,7 @@ class Customer_Model extends CI_Model{
         // Run the query
         $this->db->select('c.customerid, a.status');
         $this->db->from('customer c');
-        $this->db->join('account a', 'c.customerid = a.customerid', 'left');
+        $this->db->join('account a', 'a.customerid = c.customerid', 'left');
         $query = $this->db->get();
 
         return $query->result_array();
@@ -55,16 +55,18 @@ public function checkuserstatus(){
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
            $status = $value['status'];
-           $statuscus="";
-           if(($status=""||$status=="closed") && $statuscus!=="late"){
+
+           $statuscus= $status;
+           if(($status=""||$status=="closed") && $statuscus!="late"&& $statuscus!="baddebt"){
                 $statuscus="good";
-           }elseif($status!="" && $status=="late"){
-                $statuscus="late";
-           }elseif($status!="" && $status=="baddebt"){ 
+           }elseif($status!="" && $status="baddebt"){ 
                 $statuscus="bad";
+           }elseif($status!="" && $status="late" && $statuscus!="baddebt"){
+                $statuscus="late";
            }
+
            $data = array(
-            'status'=> $statuscus
+            'status' => $statuscus
             );
         $this->db->where('customerid', $customerid);
         $this->db->update('customer', $data);

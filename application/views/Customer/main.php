@@ -56,8 +56,19 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): ?>
-		<tr>
+	<?php foreach ($result as $key => $val): 
+		$status=$val['status'];
+		?>
+		 <?php if ($status=""){?>
+			<tr bgcolor="#54FF9F">
+			 <?php }elseif ($status="baddebt") {?>
+			<tr bgcolor="#EE5C42">
+			<?php  }elseif ($status="late") {?>
+			<tr bgcolor="CDCD00">
+				<?php } ?>
+			
+		<?php ?>
+		
 			<td>
 				<?php echo $val['customerid']; ?>
 			</td>
