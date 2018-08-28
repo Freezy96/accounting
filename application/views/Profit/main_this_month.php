@@ -51,23 +51,6 @@
 	<?php endforeach ?>
 <?php } ?>
 
-<?php if(is_array($month_discount) && $month_discount){ ?>
-	<?php foreach ($month_discount as $key => $val): ?>
-		<?php if ($val['SUM(payment)'] != 0): ?>
-			<tr>
-				<td>
-					Payment from customer (Discount)
-				</td>
-				<td>
-					<?php echo $val['SUM(payment)']; ?>
-				</td>
-			</tr>
-		<?php endif ?>
-
-		<?php $profit+=$val['SUM(payment)']; ?>
-	<?php endforeach ?>
-	<?php } ?>
-
 		<tr>
 			<td align="right">
 				Total:
@@ -104,7 +87,7 @@
 		<?php if ($val['SUM(payment)'] != 0): ?>
 			<tr>
 				<td>
-					Payment to agent (Discount)
+					Payment to agent
 				</td>
 				<td>
 					<?php echo $val['SUM(payment)']; ?>
@@ -126,5 +109,29 @@
 	</tr>
 
 	<!-- Loss---------------------------------------------------------------------------- -->
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	<!-- additional---------------------------------------------------------------------------- -->	
+	<?php if(is_array($month_discount) && $month_discount){ ?>
+	<?php foreach ($month_discount as $key => $val): ?>
+		<?php if ($val['SUM(payment)'] != 0): ?>
+			<tr>
+				<td>
+					Payment from customer (Discount)
+				</td>
+				<td>
+					<?php echo $val['SUM(payment)']; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
+	<?php endforeach ?>
+	<?php } ?>
+	<!-- additional---------------------------------------------------------------------------- -->	
 	</tbody>
 </table>

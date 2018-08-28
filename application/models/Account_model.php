@@ -268,6 +268,7 @@ class Account_model extends CI_Model{
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
                     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
+                    // print_r($total_interest);
                 }
                 
 

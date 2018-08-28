@@ -54,23 +54,6 @@
 	<?php endforeach ?>
 	<?php } ?>
 
-	<?php if(is_array($day_discount) && $day_discount){ ?>
-	<?php foreach ($day_discount as $key => $val): ?>
-		<?php if ($val['SUM(payment)'] != 0): ?>
-			<tr>
-				<td>
-					Payment from customer (Discount)
-				</td>
-				<td>
-					<?php echo $val['SUM(payment)']; ?>
-				</td>
-			</tr>	
-		<?php endif ?>
-		
-		<?php $profit+=$val['SUM(payment)']; ?>
-	<?php endforeach ?>
-	<?php } ?>
-
 		<tr>
 			<td align="right">
 				Total:
@@ -108,7 +91,7 @@
 		<?php if ($val['SUM(payment)'] != 0): ?>
 			<tr>
 				<td>
-					Payment to agent (Discount)
+					Payment to agent
 				</td>
 				<td>
 					<?php echo $val['SUM(payment)']; ?>
@@ -129,6 +112,30 @@
 			<?php echo number_format($loss, 2, '.', ''); ?>
 		</td>
 	</tr>
-	<!-- Loss---------------------------------------------------------------------------- -->		
+	<!-- Loss---------------------------------------------------------------------------- -->	
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>	
+	<!-- additional---------------------------------------------------------------------------- -->	
+	<?php if(is_array($day_discount) && $day_discount){ ?>
+	<?php foreach ($day_discount as $key => $val): ?>
+		<?php if ($val['SUM(payment)'] != 0): ?>
+			<tr>
+				<td>
+					Payment from customer (Discount)
+				</td>
+				<td>
+					<?php echo $val['SUM(payment)']; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
+	<?php endforeach ?>
+	<?php } ?>
+	<!-- additional---------------------------------------------------------------------------- -->	
 	</tbody>
 </table>
