@@ -33,7 +33,7 @@ class Customer_Model extends CI_Model{
         return $query->result_array();
     }
 
-        public function getuserstatus($customerid){
+        public function getuserstatus(){
         // Run the query
         $this->db->select('c.customerid, a.status');
         $this->db->from('customer c');
@@ -50,6 +50,28 @@ class Customer_Model extends CI_Model{
 
         }
 
+public function checkuserstatus(){
+        $data=$this->customer_model->getuserstatus();
+         foreach ($data as $key => $value) {
+           $customerid= $value['customerid'];
+           $status = $value['status'];
+           $statuscus="";
+           if(($status=""||$status=="closed") && $statuscus!=="late"){
+                $statuscus="good";
+           }elseif($status!="" && $status=="late"){
+                $statuscus="late";
+           }elseif($status!="" && $status=="baddebt"){ 
+                $statuscus="bad";
+           }
+           $data = array(
+            'status'=> $statuscus
+            );
+        $this->db->where('customerid', $customerid);
+        $this->db->update('customer', $data);
+           
+
+    }
+}
 
     public function update($data){
         foreach ($data as $key => $value) {

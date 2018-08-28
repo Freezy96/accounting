@@ -30,8 +30,11 @@ class Customer extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->customer_model->getuserdata();
 		$data['result'] = $res;
+		$this->load->customer_model->checkuserstatus();
+
     	$this->load->view('customer/main', $data);
 		$this->load->view('template/footer');
+
 	}
 
 	public function insert()
@@ -52,10 +55,7 @@ class Customer extends CI_Controller {
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////
 		$redirect = $this->input->post('redirect_destination');
-		 $res=$this->customer_model->getuserstatus($customerid);
-         foreach ($res as $key => $value) {
-           $status = $value['status'];
-        }
+		 $statuscus=$this->customer_model->checkuserstatus();
 		$data = array(
 		'customername' => $this->input->post('name'),
 		'wechatname' => $this->input->post('wechatname'),
@@ -65,7 +65,6 @@ class Customer extends CI_Controller {
 		'companyid' => $company_identity,
 		///////////////Combo of User Identity Insert///////////////////
 		'gender' => $this->input->post('gender'),
-		'status' => $status
 		);
 
 		$return = $this->customer_model->insert($data);
@@ -108,10 +107,6 @@ class Customer extends CI_Controller {
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////
 			$redirect = $this->input->post('redirect_destination');
-		 $res=$this->customer_model->getuserstatus($customerid);
-         foreach ($res as $key => $value) {
-           $status = $value['status'];
-        }
 		$data = array(
 		'customerid' => $this->input->post('customeridedit'),
 		'customername' => $this->input->post('name'),
@@ -122,7 +117,7 @@ class Customer extends CI_Controller {
 		'companyid' => $company_identity,
 		///////////////Combo of User Identity Insert///////////////////
 		'gender' => $this->input->post('gender'),
-		'status' => $status
+
 		);
 
 		$return = $this->customer_model->update($data);
