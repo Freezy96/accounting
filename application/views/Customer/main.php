@@ -60,11 +60,11 @@
 		$status=$val['status'];
 		?>
 		 <?php if ($status=""){?>
-			<tr bgcolor=Yellow >
+			<tr bgcolor="#54FF9F">
 			 <?php }elseif ($status="baddebt") {?>
-			<tr bgcolor=green>
+			<tr bgcolor="#EE5C42">
 			<?php  }elseif ($status="late") {?>
-			<tr bgcolor=orange>
+			<tr bgcolor="CDCD00">
 				<?php } ?>
 			
 		<?php ?>
