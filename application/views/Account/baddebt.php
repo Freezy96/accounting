@@ -15,11 +15,8 @@
 					PAYMENT
 				</td> -->
 				<td>
-					START DATE
-				</td>
-				<!-- <td>
 					DUEDATE
-				</td> -->
+				</td> 
 				<!-- <TD>
 					INTEREST
 				</TD> -->
@@ -56,11 +53,9 @@
 				<?php echo $val['payment']; ?>
 			</td> -->
 			<td>
-				<?php echo $val['datee']; ?>
-			</td>
-			<!-- <td>
+
 				<?php echo $val['duedate']; ?>
-			</td> -->
+			</td> 
 			<!-- <td>
 				<?php echo $val['interest']; ?>
 			</td> -->
