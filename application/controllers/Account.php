@@ -85,12 +85,13 @@ class Account extends CI_Controller {
 		$package_type_id = $this->input->post('packageid');
 		$agentid = $this->input->post('agentid');
 		$agentcharge_array = $this->load->account_model->get_agent_charge($agentid);
+		$agent_charge=0;
 		foreach ($agentcharge_array as $key => $value_charge) {
 			$agent_charge = $value_charge['charge'];
 		}
-		if ($agent_charge=="") {
-			$agent_charge=0;
-		}
+		 
+			
+		
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////
