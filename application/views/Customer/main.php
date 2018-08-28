@@ -64,7 +64,7 @@
 			<td>
 				<?php echo $val['customername']; ?>
 			</td>
-						<td>
+			<td>
 				<?php echo $val['wechatname']; ?>
 			</td>
 			<td>
