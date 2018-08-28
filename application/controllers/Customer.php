@@ -31,7 +31,6 @@ class Customer extends CI_Controller {
 		$res = $this->load->customer_model->getuserdata();
 		$data['result'] = $res;
 		$this->load->customer_model->checkuserstatus();
-
     	$this->load->view('customer/main', $data);
 		$this->load->view('template/footer');
 
