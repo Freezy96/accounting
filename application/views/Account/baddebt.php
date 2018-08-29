@@ -17,9 +17,7 @@
 				<td>
 					DUEDATE
 				</td> 
-				<!-- <TD>
-					INTEREST
-				</TD> -->
+
 				<TD>
 					PACKAGE
 				</TD>
@@ -56,9 +54,7 @@
 
 				<?php echo $val['duedate']; ?>
 			</td> 
-			<!-- <td>
-				<?php echo $val['interest']; ?>
-			</td> -->
+
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
@@ -75,14 +71,14 @@
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
 					</form> -->
-					<button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal1" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
+					<!-- <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal1" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
 			</td>
 		</tr>
 	<?php endforeach ?>
 <?php } ?>
 </table>
 
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -91,7 +87,7 @@
       </div>
       <div class="modal-body">
        <!-- body -->
-      Customer: <span id="account_modal_customer"></span><br>
+      <!-- Customer: <span id="account_modal_customer"></span><br>
       Reference ID: <span id="account_modal_refid"></span><br>
       Total Amount: <span id="account_modal_oriamount"></span><br>
       Package: <span id="account_modal_package"></span><br>
@@ -105,10 +101,10 @@
       <div class="modal-footer">
       	<form id="pay_amount" action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
 			<!-- ajax script generated button -->
-		</form>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+		<!-- </form> -->
+       <!--  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
