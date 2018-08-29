@@ -59,11 +59,11 @@
 	<?php foreach ($result as $key => $val): 
 		$status=$val['status'];
 		?>
-		 <?php if ($status=""){?>
+		 <?php if ($status==""){?>
 			<tr bgcolor="#54FF9F">
-			 <?php }elseif ($status="baddebt") {?>
+			 <?php }elseif ($status=="baddebt") {?>
 			<tr bgcolor="#EE5C42">
-			<?php  }elseif ($status="late") {?>
+			<?php  }elseif ($status=="late") {?>
 			<tr bgcolor="CDCD00">
 				<?php } ?>
 			
