@@ -1,4 +1,5 @@
 <h2>Profit & Loss</h2>
+
 <table class="table">
 
 	<!-- get session success = true / fail = false -->
@@ -135,3 +136,9 @@
 	<!-- additional---------------------------------------------------------------------------- -->	
 	</tbody>
 </table>
+<input type="button" value="Print" onclick="printpage()" />
+​<script>
+function printpage(){
+	window.print();
+}
+</script>

@@ -1,5 +1,6 @@
 <h2>Profit & Loss</h2>
-<table class="table">
+
+<table class="table" >
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
@@ -139,3 +140,9 @@
 	<!-- additional---------------------------------------------------------------------------- -->	
 	</tbody>
 </table>
+<input type="button" value="Print" onclick="printpage()" />
+​<script>
+function printpage(){
+	window.print();
+}
+</script>
