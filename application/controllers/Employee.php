@@ -78,7 +78,7 @@ class Employee extends CI_Controller {
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
 		'employeeid' => $this->input->post('employeeidedit'),
-		'employeename' => $this->input->post('employeename'),
+		'employeename' => $this->input->post('name'),
 		'salary' => $this->input->post('salary'),
 		///////////////Combo of User Identity Insert///////////////////
 		'companyid' => $company_identity,

@@ -7,6 +7,7 @@
     $contactnum = $value['contactnum'];
    ?>
 <?php endforeach ?>
+<div>
 <form action='<?php echo base_url();?>employee/updatedb' method='post' name='employeeinsert'>
   <div class="form-group">
     <label for="">Employee Name</label>
@@ -14,12 +15,13 @@
   </div>
   <div class="form-group">
     <label for="">Salary</label>
-    <input type="number" step="0.01" class="form-control" id="" placeholder="Salary" name="address" required><?php echo $salary; ?>
+    <input type="number" step="0.01" class="form-control" id="" placeholder="Salary" name="salary" value="<?php echo $salary; ?>" required>
   </div>
   <div class="form-group">
     <label for="">Phone No.</label>
     <input type="tel" class="form-control" id="contactnum" placeholder="Phone No." name="contactnum" value="<?php echo $contactnum; ?>" required>
   </div>
 </div>
-  <button type="submit" class="btn btn-default" name="employeeidedit" value="<?php echo $employeeid; ?>">Submit</button>
+  <button type="submit" class="btn btn-default pull-right" name="employeeidedit" value="<?php echo $employeeid; ?>">Submit</button>
 </form>
+</div>
