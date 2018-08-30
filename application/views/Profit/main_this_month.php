@@ -1,4 +1,4 @@
-<h2>Profit & Loss</h2>
+<div id="table_month">
 <table class="table">
 
 	<!-- get session success = true / fail = false -->
@@ -33,6 +33,14 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<!-- profit---------------------------------------------------------------------------- -->
+	<tr>
+		<td>
+			<h3>Profit</h3>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
 	<?php $profit = 0; ?>
 	<?php if(is_array($month) && $month){ ?>
 	<?php foreach ($month as $key => $val): ?>
@@ -62,7 +70,7 @@
 	<!-- profit---------------------------------------------------------------------------- -->
 	<tr>
 		<td>
-			&nbsp;
+			<h3>Loss</h3>
 		</td>
 		<td>
 			&nbsp;
@@ -111,12 +119,13 @@
 	<!-- Loss---------------------------------------------------------------------------- -->
 	<tr>
 		<td>
-			&nbsp;
+			<h3>Additional</h3>
 		</td>
 		<td>
 			&nbsp;
 		</td>
 	</tr>
+	<?php $additional_minus = 0; ?>
 	<!-- additional---------------------------------------------------------------------------- -->	
 	<?php if(is_array($month_discount) && $month_discount){ ?>
 	<?php foreach ($month_discount as $key => $val): ?>
@@ -126,12 +135,46 @@
 					Payment from customer (Discount)
 				</td>
 				<td>
-					<?php echo $val['SUM(payment)']; ?>
+					<?php echo "- ".$val['SUM(payment)']; ?>
 				</td>
-			</tr>	
+			</tr>
+			<?php $additional_minus+=$val['SUM(payment)']; ?>	
 		<?php endif ?>
 	<?php endforeach ?>
 	<?php } ?>
 	<!-- additional---------------------------------------------------------------------------- -->	
+	<tr>
+		<td>
+			<h3>Net</h3>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>	
+	<!-- net---------------------------------------------------------------------------- -->	
+	<tr>
+		<td align="right">
+			Net:
+		</td>
+		<td>
+			<?php echo number_format($profit-$loss-$additional_minus, 2, '.', ''); ?>
+		</td>
+	</tr>
+	<!-- net---------------------------------------------------------------------------- -->	
 	</tbody>
 </table>
+</div>
+<input name="b_print" type="button" class="ipt"   onClick="printdiv('table_month');" value=" Print ">
+<script type="text/javascript">
+function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false;
+}
+</script>
