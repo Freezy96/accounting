@@ -110,6 +110,17 @@
 	<?php endforeach ?>
 	<?php } ?>
 
+	<?php if ($year_employee_loss!==0): ?>
+		<tr>
+			<td>
+				Employee Salary
+			</td>
+			<td>
+				<?php echo number_format($year_employee_loss, 2, '.', ''); ?>
+			</td>
+		</tr>
+		<?php $loss+=$year_employee_loss; ?>
+	<?php endif ?>
 
 	<tr>
 		<td align="right">

@@ -7,9 +7,16 @@
     $phoneno = $value['phoneno'];
     $gender = $value['gender'];
     $wechatname = $value['wechatname'];
+    $photo_path = $value['photopath'];
+    $passport = $value['passport'];
    ?>
 <?php endforeach ?>
-<form action='<?php echo base_url();?>customer/updatedb' method='post' name='customerinsert'>
+<form action='<?php echo base_url();?>customer/updatedb' method='post' name='customerinsert' enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="">Profile Pic</label><br>
+    <img src="<?php echo $photo_path;?>" height="250" width="250" /><br>
+    <input type="file" class="image-upload" accept="image/*" name="profilePic" id="profilePic"/>
+  </div>
   <div class="form-group">
     <label for="">Customer Name</label>
     <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" value="<?php echo $customername; ?>" required>
@@ -25,6 +32,10 @@
   <div class="form-group">
     <label for="">Phone No.</label>
     <input type="tel" class="form-control" id="" placeholder="Phone No." name="phoneno" value="<?php echo $phoneno; ?>" required>
+  </div>
+  <div class="form-group">
+    <label for="">Passport No.</label>
+    <input type="text" class="form-control" id="" placeholder="Customer Name" name="passport" value="<?php echo $passport; ?>" required>
   </div>
   <div class="form-group">
   <label for="exampleInputEmail1">Gender</label>

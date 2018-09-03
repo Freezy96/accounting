@@ -1,6 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 
-<form action='<?php echo base_url();?>customer/insertdb' method='post' name='customerinsert'>
+<form action='<?php echo base_url();?>customer/insertdb' method='post' name='customerinsert' enctype="multipart/form-data">
   <?php 
 
   if ($this->uri->segment(3, 0) !="") {
@@ -8,6 +8,12 @@
   }
 
   ?>
+
+  <div class="form-group">
+    <label for="">Profile Pic</label>
+    <input type="file" class="image-upload" accept="image/*" name="profilePic" id="profilePic"/>
+  </div>
+  
   <div class="form-group">
     <label for="">Customer Name</label>
     <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" required>
@@ -23,6 +29,10 @@
   <div class="form-group">
     <label for="">Phone No.</label>
     <input type="tel" class="form-control" id="" placeholder="Phone No." name="phoneno" required>
+  </div>
+  <div class="form-group">
+    <label for="">Passport No.</label>
+    <input type="text" class="form-control" id="" placeholder="Passport No." name="passport" required>
   </div>
   <div class="form-group">
   <label for="exampleInputEmail1">Gender</label>

@@ -122,30 +122,68 @@
 		</table>
 	</div>
 </div>
+
+<br>
 <div class="row">
-<div class="col-sm-4">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">Insert New Account</button>
+<div class="col-sm-6">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">New Account</button>
 </div>
 
-<div class="col-sm-4">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">Insert New Customer</button>
+<div class="col-sm-6">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account'">View Account/Payment</button>
 </div>
 
-<div class="col-sm-4">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">Insert New Package</button>
-</div>
 </div>
 <br>
 <div class="row">
-<div class="col-sm-4">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+<div class="col-sm-6">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit'">Profit & Loss</button>
 </div>
 
-<div class="col-sm-4">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup/'">Backup</button>
+<div class="col-sm-6">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup'">Backup Database</button>
 </div>
 
-<div class="col-sm-4">
-	<!-- <button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button> -->
 </div>
+<br>
+
+<div class="row">
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer'">View Customer</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>package'">View Package</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>agent'">View Agent</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/baddebt'">View Baddebt</button>
+</div>
+
+</div>
+
+<br>
+<div class="row">
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">New Customer</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">New Package</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>agent/insert'">New Agent</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>register'">New Company</button>
+</div>
+
 </div>

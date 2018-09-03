@@ -17,13 +17,18 @@ class Customer_Model extends CI_Model{
     public function insert($data){
         if($this->db->insert('customer', $data)){
         	$return = "insert";
-        	return $return;
+            $id = $this->db->insert_id();
+        	return $id;
         }else{
         	$return = "false";
         	return $return;
         }
 
     }
+
+    public function submit_profile($picture){
+        $this->db->insert('tbl_st_picture', $picture);
+        }
 
     public function getuserdataupdate($customerid){
         // Run the query
@@ -88,6 +93,13 @@ public function checkuserstatus(){
             return $return;
         }
 
+    }
+
+    public function update_photo_pathname($return_id, $fpath){
+        $this->db->where('customerid',$return_id);
+        $this->db->update('customer', array('photopath' => $fpath));
+        $return = "insert";
+        return $return;
     }
 
     public function delete($data){

@@ -60,14 +60,40 @@ class Customer extends CI_Controller {
 		'wechatname' => $this->input->post('wechatname'),
 		'address' => $this->input->post('address'),
 		'phoneno' => $this->input->post('phoneno'),
+		'passport' => $this->input->post('passport'),
 		///////////////Combo of User Identity Insert///////////////////
 		'companyid' => $company_identity,
 		///////////////Combo of User Identity Insert///////////////////
-		'gender' => $this->input->post('gender'),
+		'gender' => $this->input->post('gender')
 		);
 
-		$return = $this->customer_model->insert($data);
-		$data['return'] = $return;
+		$return_id = $this->customer_model->insert($data);
+
+		$config['upload_path']= realpath(APPPATH . '../Image/Customer_Image');
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['overwrite'] = TRUE;
+		$config['file_name'] = $return_id;
+		$config['max_size'] = "2048000"; 
+		$config['max_height'] = "9999";
+		$config['max_width'] = "9999";
+		$this->load->library('upload', $config);
+		if ($this->upload->do_upload('profilePic')){
+				$image_data = $this->upload->data();
+			    $fname=$image_data[file_name];
+			    $temp = explode(".", $fname);
+				$newfilename = $return_id . '.' . end($temp);
+
+			    $fpath=site_url().'Image/Customer_Image/'.$newfilename;
+			    $return = $this->customer_model->update_photo_pathname($return_id,$fpath);
+			    $data['return'] = $return;
+		    }
+		    else{
+		            echo $this->upload->display_errors();
+		            // $data['return'] = "Failed";
+		    	// redirect('customer');
+		    } 
+
+		
 
 		if($return == true){
 			// session to sow success or not, only available next page load
@@ -116,11 +142,36 @@ class Customer extends CI_Controller {
 		'companyid' => $company_identity,
 		///////////////Combo of User Identity Insert///////////////////
 		'gender' => $this->input->post('gender'),
-
+		'passport' => $this->input->post('passport')
 		);
 
 		$return = $this->customer_model->update($data);
 		$data['return'] = $return;
+
+		$customerid_photouse = $this->input->post('customeridedit');
+		$config['upload_path']= realpath(APPPATH . '../Image/Customer_Image');
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['overwrite'] = TRUE;
+		$config['file_name'] = $customerid_photouse;
+		$config['max_size'] = "2048000"; 
+		$config['max_height'] = "9999";
+		$config['max_width'] = "9999";
+		$this->load->library('upload', $config);
+		if ($this->upload->do_upload('profilePic')){
+				$image_data = $this->upload->data();
+			    $fname=$image_data[file_name];
+			    $temp = explode(".", $fname);
+				$newfilename = $customerid_photouse . '.' . end($temp);
+
+			    $fpath=site_url().'Image/Customer_Image/'.$newfilename;
+			    $return = $this->customer_model->update_photo_pathname($customerid_photouse,$fpath);
+			    $data['return'] = $return;
+		    }
+		    else{
+		            echo $this->upload->display_errors();
+		            // $data['return'] = "Failed";
+		    	// redirect('customer');
+		    } 
 
 		if($return == true){
 			// session to sow success or not, only available next page load
