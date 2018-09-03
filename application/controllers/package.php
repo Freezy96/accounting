@@ -225,7 +225,7 @@ class Package extends CI_Controller {
     $totalamount= ($lentamount*1.15);
     $company_identity = $this->session->userdata('adminid');
     $data = array(
-    'guarantyitem' => $this->input->post('guarantyitem'),
+   
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $interest,
     'totalamount' => $totalamount,
@@ -316,7 +316,7 @@ class Package extends CI_Controller {
     $totalamount= ($lentamount*1.1);
     $company_identity = $this->session->userdata('adminid');
     $data = array(
-    'guarantyitem' => $this->input->post('guarantyitem'),
+ 
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $interest,
     'totalamount' => $totalamount,
