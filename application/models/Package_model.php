@@ -164,5 +164,71 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
+
+ public function main_15_5days()
+    {
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_15_5days');
+      return $query->result_array();
+    }
+
+    public function insert_15_5days($data)
+    {
+    if($this->db->insert('package_15_5days', $data)){
+    
+          $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+             return $return;
+        }
+     }
+    
+    public function delete_15_5days($data)
+    {
+      if($this->db->delete('package_15_5days', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+        public function main_10_5days()
+    {
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_10_5days');
+      return $query->result_array();
+    }
+     public function insert_10_5days($data)
+    {
+      if($this->db->insert('package_10_5days', $data)){
+    
+             $return = "insert";
+            return $return;
+         }else{
+            $return = "false";
+           return $return;
+         }
+     }
+    
+    public function delete_10_5days($data)
+    {
+      if($this->db->delete('package_10_5days', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
 }
 ?>
