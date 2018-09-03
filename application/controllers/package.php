@@ -259,5 +259,96 @@ class Package extends CI_Controller {
 
     $this->load->view('template/footer');
   }
+  public function insert_15_5days()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $lentamount = $this->input->post('lentamount');
+    $interest= $this->input->post('interest');
+    $totalamount= ($lentamount*1.15);
+    $company_identity = $this->session->userdata('adminid');
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_15_5days($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function delete_15_5days()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_15_5days($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+
+    $this->load->view('template/footer');
+  }
+  public function insert_10_5days()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $lentamount = $this->input->post('lentamount');
+    $interest= $this->input->post('interest');
+    $totalamount= ($lentamount*1.1);
+    $company_identity = $this->session->userdata('adminid');
+    $data = array(
+    'guarantyitem' => $this->input->post('guarantyitem'),
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_10_5days($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+ 
+  public function delete_10_5days()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_10_5days($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+
+    $this->load->view('template/footer');
+  }
 }
 ?>

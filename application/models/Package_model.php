@@ -164,7 +164,6 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
-}
 
  public function main_15_5days()
     {
@@ -176,6 +175,7 @@ class Package_Model extends CI_Model{
       $query = $this->db->get('package_15_5days');
       return $query->result_array();
     }
+
     public function insert_15_5days($data)
     {
     if($this->db->insert('package_15_5days', $data)){
