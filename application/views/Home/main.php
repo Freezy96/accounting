@@ -38,9 +38,9 @@
 					<td>
 						Phone No.
 					</td>
-					<td>
+					<!-- <td>
 						ACTION
-					</td>
+					</td> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -103,7 +103,7 @@
 					<td>
 						<?php echo $val['phoneno']; ?>
 					</td>
-					<td>
+					<!-- <td>
 						<div class="row">
 							<form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 							<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
@@ -112,7 +112,7 @@
 								<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
 							</form>
 						</div>
-					</td>
+					</td> -->
 				</tr>
 				<?php endif ?>
 				
@@ -124,27 +124,28 @@
 </div>
 <div class="row">
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">Insert New Account</button>
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">Insert New Account</button>
 </div>
 
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">Insert New Customer</button>
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">Insert New Customer</button>
 </div>
 
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">Insert New Package</button>
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">Insert New Package</button>
 </div>
 </div>
+<br>
 <div class="row">
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
 </div>
 
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup/'">Backup</button>
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup/'">Backup</button>
 </div>
 
 <div class="col-sm-4">
-	<button class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button>
+	<!-- <button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit/'">Profit & Loss</button> -->
 </div>
 </div>

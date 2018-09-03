@@ -1,5 +1,13 @@
 <?php $this->load->view('template/sidenav'); ?>
-<div class="myDivToPrint">
+
+<form action='<?php echo base_url();?>Print_Expired/' method='post' name='customerinsert'>
+	<div class="form-group">
+	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
+	    <input type="date" class="form-control" id="" placeholder="" name="date">
+  	</div>
+  	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
+</form>
+<div id="div_print">
 	
 <table class="table">
 
@@ -29,8 +37,10 @@
 		<tbody>
 	<!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
-	<!-- <?php print_r($result); ?>	       Show this for understanding -->
-	<?php foreach ($result as $key => $val): ?>
+
+		<!-- $count post from data['count'] -->
+	<?php for ($i=0; $i < $count; $i++) { ?> 
+		<?php foreach (${'result'.$i} as $key => $val): ?>
 		<tr>
 			<td>
 				<?php echo $val['customerid']; ?>
@@ -48,14 +58,25 @@
 				<?php echo $val['phoneno']; ?>
 			</td>
 		</tr>
-	<?php endforeach ?>
+		<?php endforeach ?>
+	<?php	} ?>
+	
 	</tbody>
 </table>
 
 </div>
-<input type="button" value="Print" onclick="printpage()" />
-​<script>
-function printpage(){
-	window.print();
+<input name="b_print" type="button" class="ipt"   onClick="printdiv('div_print');" value=" Print ">
+
+<script type="text/javascript">
+function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false;
 }
 </script>

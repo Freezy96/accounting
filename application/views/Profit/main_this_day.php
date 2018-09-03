@@ -1,6 +1,7 @@
-<h2>Profit & Loss</h2>
 
-<table class="table" >
+<div id="table_day">
+
+<table class="table">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
@@ -37,6 +38,14 @@
 
 	
 	<!-- profit---------------------------------------------------------------------------- -->
+	<tr>
+		<td>
+			<h3>Profit</h3>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
 	<?php $profit = 0; ?>
 	<?php if(is_array($day) && $day){ ?>
 	<?php foreach ($day as $key => $val): ?>
@@ -67,7 +76,7 @@
 	<!-- profit---------------------------------------------------------------------------- -->	
 	<tr>
 		<td>
-			&nbsp;
+			<h3>Loss</h3>
 		</td>
 		<td>
 			&nbsp;
@@ -116,12 +125,13 @@
 	<!-- Loss---------------------------------------------------------------------------- -->	
 	<tr>
 		<td>
-			&nbsp;
+			<h3>Additional</h3>
 		</td>
 		<td>
 			&nbsp;
 		</td>
-	</tr>	
+	</tr>
+	<?php $additional_minus = 0; ?>
 	<!-- additional---------------------------------------------------------------------------- -->	
 	<?php if(is_array($day_discount) && $day_discount){ ?>
 	<?php foreach ($day_discount as $key => $val): ?>
@@ -131,18 +141,47 @@
 					Payment from customer (Discount)
 				</td>
 				<td>
-					<?php echo $val['SUM(payment)']; ?>
+					<?php echo "- ".$val['SUM(payment)']; ?>
 				</td>
 			</tr>	
+			<?php $additional_minus+=$val['SUM(payment)']; ?>
 		<?php endif ?>
 	<?php endforeach ?>
 	<?php } ?>
 	<!-- additional---------------------------------------------------------------------------- -->	
+	<tr>
+		<td>
+			<h3>Net</h3>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>	
+	<!-- net---------------------------------------------------------------------------- -->	
+	<tr>
+		<td align="right">
+			Net:
+		</td>
+		<td>
+			<?php echo number_format($profit-$loss-$additional_minus, 2, '.', ''); ?>
+		</td>
+	</tr>
+	<!-- net---------------------------------------------------------------------------- -->	
 	</tbody>
 </table>
-<input type="button" value="Print" onclick="printpage()" />
-​<script>
-function printpage(){
-	window.print();
+	
+</div>
+<input name="b_print" type="button" class="ipt"   onClick="printdiv('table_day');" value=" Print ">
+<script type="text/javascript">
+function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false;
 }
 </script>
