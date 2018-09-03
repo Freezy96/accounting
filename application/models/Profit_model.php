@@ -204,6 +204,43 @@ class Profit_Model extends CI_Model{
 
         return $loss_lent_out;
     }
+    //day 需要吗？
+    public function get_this_month_loss_employee(){
+        
+        $this->db->select('SUM(salary)');
+        $this->db->from('employee');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('companyid');// add group_by
+        $query = $this->db->get();
+        $result_salary = $query->result_array();
+        $salary = 0;
+        foreach ($result_salary as $key => $value) {
+            $salary = $value['SUM(salary)'];
+        }
+        return $salary;
+    }
+
+    public function get_this_year_loss_employee(){
+        
+        $this->db->select('SUM(salary)');
+        $this->db->from('employee');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('companyid');// add group_by
+        $query = $this->db->get();
+        $result_salary = $query->result_array();
+        $salary = 0;
+        foreach ($result_salary as $key => $value) {
+            $salary = $value['SUM(salary)'];
+        }
+        $salary = $salary*12;
+        return $salary;
+    }
 
     public function get_day_agent_payment($date){
         

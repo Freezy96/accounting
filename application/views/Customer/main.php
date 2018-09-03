@@ -47,6 +47,9 @@
 					PHONE NO.
 				</td>
 				<td>
+					PASSPORT
+				</td>
+				<td>
 					ACTION
 				</td>
 			</tr>
@@ -70,7 +73,7 @@
 		<?php ?>
 		
 			<td>
-				<?php echo $val['customerid']; ?>
+				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
 				<?php echo $val['customername']; ?>
@@ -87,8 +90,11 @@
 			<td>
 				<?php echo $val['phoneno']; ?>
 			</td>
+			<td>
+				<?php echo $val['passport']; ?>
+			</td>
 				<td>
-					<div class="row">
+					<div class="btn-group">
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
 						<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
 						</form>
