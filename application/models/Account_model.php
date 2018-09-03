@@ -169,6 +169,26 @@ class Account_model extends CI_Model{
         $query = $this->db->get('package_15_week');
         return $query->result_array();
     }
+        public function getuserdatainsertpackage_15_5days(){
+        // Run the query
+        $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
+        $query = $this->db->get('package_15_5days');
+        return $query->result_array();
+    }
+        public function getuserdatainsertpackage_10_5days(){
+        // Run the query
+        $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
+        $query = $this->db->get('package_10_5days');
+        return $query->result_array();
+    }
 
     public function insert($data){
         if($this->db->insert('account', $data)){
@@ -1154,7 +1174,7 @@ class Account_model extends CI_Model{
             if($totalamount <= 0){
                 $status = "closed";
                 $this->set_status($status, $accountid); 
-            }elseif($days>=0 && $days<=59 && $totalamount > 0){
+            }elseif($days>=4 && $days<=59 && $totalamount > 0){
                 $status = "late";
                 $this->set_status($status, $accountid);
             }elseif($days>=60 && $totalamount > 0){
