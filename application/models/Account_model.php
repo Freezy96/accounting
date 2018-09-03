@@ -2241,13 +2241,13 @@ class Account_model extends CI_Model{
             echo "<script>console.log('totalamount:".$totalamount."')</script>";
             echo "<script>console.log('days:".$days."')</script>";
             // echo "<script>alert(".$days.")</script>";
-            if($totalamount <= 0){
+            if($totalamount <= 0 && $status != "baddebt"){
                 $status = "closed";
                 $this->set_status($status, $accountid); 
-            }elseif($days>=4 && $days<=29 && $totalamount > 0){
+            }elseif($days>=4 && $days<=29 && $totalamount >= 0 && $status != "baddebt"){
                 $status = "late";
                 $this->set_status($status, $accountid);
-            }elseif($days>=30 && $totalamount > 0){
+            }elseif($days>=30 && $totalamount > 0 && $status != "baddebt"){
                 $status = "baddebt";
                 $this->set_status($status, $accountid);
             }
