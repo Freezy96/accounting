@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-<?php print_r($result); ?>
+<!-- <?php print_r($result); ?> -->
 <?php if(is_array($result) && $result){ ?>
   <?php foreach ($result as $key => $val): ?>
     <?php 

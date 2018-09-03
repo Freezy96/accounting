@@ -71,7 +71,7 @@
 				<?php echo $salary; ?>
 			</td>
 			<td>
-				<div class="row">
+				<div class="btn-group">
 					<form action='<?php echo base_url();?>agent/update' method='post' name='agentedit'>
 					<button class="btn btn-primary" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
 					</form>

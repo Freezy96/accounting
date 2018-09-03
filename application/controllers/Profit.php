@@ -45,6 +45,13 @@ class Profit extends CI_Controller {
 	    $res = $this->load->profit_model->get_this_year_loss_lent($date_year);
 	    $data['year_lent_loss'] = $res;
 
+	    // $res = $this->load->profit_model->get_this_day_loss_employee($date_day);
+	    // $data['day_employee_loss'] = $res;
+	    $res = $this->load->profit_model->get_this_month_loss_employee();
+	    $data['month_employee_loss'] = $res;
+	    $res = $this->load->profit_model->get_this_year_loss_employee();
+	    $data['year_employee_loss'] = $res;
+
 		$res = $this->load->profit_model->get_day_agent_payment($date_day);
 	    $data['agent_payment_day'] = $res;
 	    $res = $this->load->profit_model->get_month_agent_payment($date_month);

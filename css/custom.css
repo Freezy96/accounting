@@ -13,3 +13,7 @@ body {
 .container{
 	width: 75vw;
 }
+
+.btn-group{
+	display: flex;
+}
