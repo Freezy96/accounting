@@ -2236,6 +2236,7 @@ class Account_model extends CI_Model{
 
             $days = round($datediff / (60 * 60 * 24));
             $days = $days-1;
+            $status="";
 
            echo "<script>console.log('accountid:".$accountid."')</script>";
             echo "<script>console.log('totalamount:".$totalamount."')</script>";
@@ -2249,7 +2250,7 @@ class Account_model extends CI_Model{
                 $this->set_status($status, $accountid);
             }elseif($days>=30 && $totalamount > 0 && $status != "baddebt"){
                 $status = "baddebt";
-                $this->set_status($status, $accountid);
+                $this->set_status($status , $accountid);
             }
             
         }
@@ -2276,7 +2277,12 @@ class Account_model extends CI_Model{
          return $query->result_array();
     }
 
-
+public function set_account_baddebt()
+    {   $accountid = $this->input->post('accountid');
+        $status="baddebt";
+        $this->db->where('accountid', $accountid);
+        $this->db->update('account', array('status' => $status)); 
+    }
  public function insert_baddebt($data){
    
         if($this->db->insert('baddebt', $data))

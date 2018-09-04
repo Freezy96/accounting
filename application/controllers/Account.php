@@ -1123,6 +1123,12 @@ class Account extends CI_Controller {
 		// }
 		$this->load->view('template/footer');
 	}
+	public function set_baddebt()
+    {	$accountid = $this->input->post('accountid');
+        $status="baddebt";
+        $this->db->where('accountid', $accountid);
+        $this->db->update('account', array('status' => $status)); 
+    }
 
 	public function baddebt_insert_db($accountid)
     {
