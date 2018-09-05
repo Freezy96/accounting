@@ -84,7 +84,9 @@
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
 					</form> -->
 						<button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
-						<button class="btn btn-default accountmodal" action="controllers/Account" method="baddebt_set">baddebt</button>
+						<form role="form" action="<?php echo base_url().'account/set_baddebt'?>" method="post">
+						<button class="btn btn-default accountmodal" value="baddebtset">baddebt</button>
+						</form>
 				</div>
 			</td>
 		</tr>

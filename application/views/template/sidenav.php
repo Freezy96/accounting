@@ -34,6 +34,17 @@
                 <li>
                    <div class="btn-group" style="width: 100%;display: unset;">
                       <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Black List <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" style="width: 100vw;">
+                        <li><a href="<?php echo site_url('blacklist/'); ?>" style="color: #141414;">View All</a></li>
+                        <li><a href="<?php echo site_url('blacklist/insert'); ?>" style="color: #141414;">Add to Black List</a></li>
+                      </ul>
+                    </div>
+                </li>
+                <li>
+                   <div class="btn-group" style="width: 100%;display: unset;">
+                      <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Agents <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu" style="width: 100vw;">
