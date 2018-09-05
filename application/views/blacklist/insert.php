@@ -1,6 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 
-<form action='<?php echo base_url();?>customer/insertdb' method='post' name='customerinsert' enctype="multipart/form-data">
+<form action='<?php echo base_url();?>blacklist/insertdb' method='post' name='blacklistinsert' enctype="multipart/form-data">
   <?php 
 
   if ($this->uri->segment(3, 0) !="") {

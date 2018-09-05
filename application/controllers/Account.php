@@ -66,10 +66,14 @@ class Account extends CI_Controller {
 		// $data['package_30_4week'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage_25_month();
 		$data['package_25_month'] = $res;
-				$res = $this->load->account_model->getuserdatainsertpackage_20_week();
+		$res = $this->load->account_model->getuserdatainsertpackage_20_week();
 		$data['package_20_week'] = $res;
-				$res = $this->load->account_model->getuserdatainsertpackage_15_week();
+		$res = $this->load->account_model->getuserdatainsertpackage_15_week();
 		$data['package_15_week'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_15_5days();
+		$data['package_15_5days'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_10_5days();
+		$data['package_10_days'] = $res;
 		$res = $this->load->agent_model->getuserdata();
 		$data['agent'] = $res;
 		$this->load->view('account/insert', $data);
@@ -367,6 +371,102 @@ class Account extends CI_Controller {
 				$return = $this->account_model->insert($data);
 				
 		}
+
+		if (substr( $package_type_id, 0, 16) === "package_15_5days") 
+		{	
+			$packagename = substr( $package_type_id, 0, 16);
+			$packageid = substr( $package_type_id, 16, 17 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				// $interest = $value['interest'];
+				
+			}
+			
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+
+				$dateoriginal = $this->input->post('date');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => 0,
+				'amount' => $oriamount,
+				'refid' => $refid,
+				// 'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				'agentcharge' => $agent_charge,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
+
+
+		if (substr( $package_type_id, 0, 16) === "package_10_5days") 
+		{	
+			$packagename = substr( $package_type_id, 0, 16);
+			$packageid = substr( $package_type_id, 16, 17 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				// $interest = $value['interest'];
+				
+			}
+			
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+
+				$dateoriginal = $this->input->post('date');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
+
+				$data = array(
+				'customerid' => $this->input->post('customerid'),
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => 0,
+				'guarantyitem'=>$this->input->post('guarantyitem'),
+				'amount' => $oriamount,
+				'refid' => $refid,
+				// 'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				'agentcharge' => $agent_charge,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
 		///////////////////////////////////package_25_month//////////////////////////////////////
 
 
@@ -449,6 +549,10 @@ class Account extends CI_Controller {
 		$data['package_20_week'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage_15_week();
 		$data['package_15_week'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_15_5days();
+		$data['package_15_5days'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_10_5days();
+		$data['package_10_5days'] = $res;
 		
 		$this->load->view('account/payment', $data);
 		$this->load->view('template/footer');
@@ -542,6 +646,19 @@ class Account extends CI_Controller {
 				{
 					$packagename_getinfo = substr( $packageid, 0, 15);
 					$packageid_get_info = substr( $packageid, 15, 16 );
+					$package_info = $this->account_model->get_package_info($packagename_getinfo, $packageid_get_info);
+				}
+				if (substr( $packageid, 0, 16) === "package_15_5days") 
+				{
+					$packagename_getinfo = substr( $packageid, 0, 16);
+					$packageid_get_info = substr( $packageid, 16, 17 );
+					$package_info = $this->account_model->get_package_info($packagename_getinfo, $packageid_get_info);
+
+				}
+				if (substr( $packageid, 0, 16) === "package_10_5days") 
+				{
+					$packagename_getinfo = substr( $packageid, 0, 16);
+					$packageid_get_info = substr( $packageid, 16, 17 );
 					$package_info = $this->account_model->get_package_info($packagename_getinfo, $packageid_get_info);
 				}
 
@@ -898,6 +1015,102 @@ class Account extends CI_Controller {
 				$return = $this->account_model->insert($data);
 				
 		}
+
+				if (substr( $package_type_id, 0, 16) === "package_10_5days") 
+		{	
+			$packagename = substr( $package_type_id, 0, 16);
+			$packageid = substr( $package_type_id, 16, 17 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				// $interest = $value['interest'];
+				
+			}
+			
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+
+				$dateoriginal =  date('Y-m-d');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
+
+				$data = array(
+				'customerid' => $customerid,
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => 0,
+				'amount' => $oriamount,
+				'refid' => $refid,
+				// 'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				'agentcharge' => 0,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
+
+
+		if (substr( $package_type_id, 0, 15) === "package_10_5days") 
+		{	
+			$packagename = substr( $package_type_id, 0, 15);
+			$packageid = substr( $package_type_id, 15, 16 );
+			//find id using name, 用于account 显示分类
+			$res = $this->load->account_model->get_package_type_id($packagename);
+			foreach ($res as $key => $value) {
+				$packagetypeid = $value['packagetypeid'];
+			}
+			$res_info = $this->load->account_model->get_package_info($packagename, $packageid);
+			foreach ($res_info as $key => $value) {
+				$oriamount = $value['totalamount'];
+				// $interest = $value['interest'];
+				
+			}
+			
+				$max_refid = $this->load->account_model->get_max_refid();
+				foreach ($max_refid as $key => $value) {
+					$refid = $value['refid']+1; //auto increment
+				}
+
+				$dateoriginal =  date('Y-m-d');
+				$date1 = strtotime("+1 week", strtotime($dateoriginal));
+				$date1 = date('Y-m-d', $date1);
+
+				$data = array(
+				'customerid' => $customerid,
+				'packageid' => $packageid,
+				'packagetypeid' => $packagetypeid,
+				'oriamount' => $oriamount,
+				'interest' => 0,
+				'guarantyitem'=> $guarantyitem,
+				'amount' => $oriamount,
+				'refid' => $refid,
+				// 'payment' => 0,
+				'datee' => $dateoriginal,
+				'duedate' => $date1,
+				'agentcharge' => 0,
+				///////////////Combo of User Identity Insert///////////////////
+				'companyid' => $company_identity,
+				///////////////Combo of User Identity Insert///////////////////
+				'agentid' => $this->input->post('agentid')
+				);
+			
+				$return = $this->account_model->insert($data);
+				
+		}
 		///////////////////////////////////package_25_month//////////////////////////////////////
 
 
@@ -910,6 +1123,20 @@ class Account extends CI_Controller {
 		// }
 		$this->load->view('template/footer');
 	}
+	public function set_baddebt()
+
+    {	if($this->input->post('baddebtset') != ''){
+		$accountid = $this->input->post('accountid');
+        $status="baddebt";
+        $this->db->where('accountid', $accountid);
+        $this->db->update('account', array('status' => $status)); 
+        echo "update success";
+		$this->load->view('template/footer');
+	}else{
+		            echo $this->upload->display_errors();
+		           
+		    } 
+    }
 
 	public function baddebt_insert_db($accountid)
     {

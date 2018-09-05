@@ -40,8 +40,8 @@
     <div role="tabpanel" class="tab-pane active" id="30_4week"><?php $this->load->view('package/main_30%_4week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="20_week"><?php $this->load->view('package/main_20%_week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="15_week"><?php $this->load->view('package/main_15%_week'); ?></div>
-    <div role="tabpanel" class="tab-pane" id="15_5days"><?php $this->load->view('package/main_20%_week'); ?></div>
-    <div role="tabpanel" class="tab-pane" id="10_5days"><?php $this->load->view('package/main_15%_week'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="15_5days"><?php $this->load->view('package/main_15_5days'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="10_5days"><?php $this->load->view('package/main_10_5days'); ?></div>
     <div role="tabpanel" class="tab-pane" id="25_month"><?php $this->load->view('package/main_25%_month'); ?></div>
   </div>
 

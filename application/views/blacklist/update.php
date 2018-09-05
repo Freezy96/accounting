@@ -11,7 +11,7 @@
     $passport = $value['passport'];
    ?>
 <?php endforeach ?>
-<form action='<?php echo base_url();?>customer/updatedb' method='post' name='customerinsert' enctype="multipart/form-data">
+<form action='<?php echo base_url();?>blacklist/updatedb' method='post' name='blacklistinsert' enctype="multipart/form-data">
   <div class="form-group">
     <label for="">Profile Pic</label><br>
     <img src="<?php echo $photo_path;?>" height="250" width="250" /><br>
@@ -60,5 +60,5 @@
   </label>
 </div>
 </div>
-  <button type="submit" class="btn btn-default" name="customeridedit" value="<?php echo $customerid; ?>">Submit</button>
+  <button type="submit" class="btn btn-default" name="blacklistidedit" value="<?php echo $blacklistid; ?>">Submit</button>
 </form>

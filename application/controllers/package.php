@@ -21,6 +21,10 @@ class Package extends CI_Controller {
     $data['main_20_week'] = $res;
     $res = $this->load->Package_model->main_15_week();
     $data['main_15_week'] = $res;
+    $res = $this->load->Package_model->main_15_5days();
+    $data['main_15_5days'] = $res;
+    $res = $this->load->Package_model->main_10_5days();
+    $data['main_10_5days'] = $res;
     $this->load->view('Package/main', $data);
     $this->load->view('template/footer');
   }
@@ -221,7 +225,7 @@ class Package extends CI_Controller {
     $totalamount= ($lentamount*1.15);
     $company_identity = $this->session->userdata('adminid');
     $data = array(
-    'guarantyitem' => $this->input->post('guarantyitem'),
+   
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $interest,
     'totalamount' => $totalamount,
@@ -312,7 +316,7 @@ class Package extends CI_Controller {
     $totalamount= ($lentamount*1.1);
     $company_identity = $this->session->userdata('adminid');
     $data = array(
-    'guarantyitem' => $this->input->post('guarantyitem'),
+ 
     'lentamount' => $this->input->post('lentamount'),
     'interest' => $interest,
     'totalamount' => $totalamount,
