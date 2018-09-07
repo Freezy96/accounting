@@ -117,6 +117,27 @@ class Account_model extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_max_accountline(){
+        // Run the query
+        $this->db->select_max('accountline');
+        $this->db->from('account');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_accountline($accountid_check_accountline){
+        // Run the query
+        $this->db->select('accountline');
+        $this->db->from('account');
+        $this->db->where('accountid', $accountid_check_accountline);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        foreach ($res as $key => $value) {
+            $accountline = $value['accountline'];
+        }
+        return $accountline;
+    }
+
     public function getuserdatainsertcustomer(){
         // Run the query
         $this->db->select('*');
@@ -1270,39 +1291,98 @@ public function get_baddebt_info($accountid)
     //计算agent利息，进account的时候就定好了（以前的account不会）
     public function count_agent_salary()
     {
+        //sum all accountline totalamount
+        $result_complete_paid = $this->check_complete_paid_account();
+        //get all agent id
+        $get_all_agent = $this->load->agent_model->getuserdata();
+        //create variable liek salary1, salary2, using agentid
+        foreach ($get_all_agent as $key => $value_agent) {
+            $create_agent_salary_variable = $value_agent['agentid'];
+            ${'salary'.$create_agent_salary_variable} = 0;
+        }
+        foreach ($result_complete_paid as $key => $value) {
+            //check sum of totalamount is 0 or not
+            $totalamount_check = $value['SUM(totalamount)'];
+            echo "<script>console.log(".$totalamount_check.");</script>";
+            if($totalamount_check<=0)
+            {
+                //completed accountline
+                $get_accountline_account_info = $value['accountline'];
+                //get accountid by accountline
+                $result_smallest_accountid_by_accountline = $this->get_smallest_accid($get_accountline_account_info);
+                //get account info by accountid
+                $result_get_account_info = $this->get_account_info($result_smallest_accountid_by_accountline);
+                foreach ($result_get_account_info as $key => $value_info) {
+                    $agentid = $value_info['agentid'];
+                    if ($agentid != 0) 
+                    {
+                        $packagename = $value_info['packagetypename'];
+                        $packageid = $value_info['packageid'];
+                        $charge = $value_info['agentcharge'];
+                        
+                        //package info
+                        $packageinfo = $this->get_package_info($packagename, $packageid);
+                        //calculation agent salary
+                        foreach ($packageinfo as $key => $val) {
+                                $lentamount = $val['lentamount'];
+                                $totalamount = $val['totalamount'];
+                                $base = $totalamount - $lentamount;
+                                ${'salary'.$agentid} += $base * $charge / 100;
+                               
+                            } 
+                        $this->insert_agent_salary($agentid, ${'salary'.$agentid});
+                    }
+                    
+                }
+            }
+        }
+    }
+            
+    public function check_complete_paid_account()
+    {
         
-        $this->db->select('SUM(a.totalamount), a.agentid, a.packageid, p.packagetypename, a.agentcharge');
+        $this->db->select('SUM(totalamount), accountline');
+        $this->db->from('account');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('accountline');// add group_by
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_smallest_accid($get_accountline_account_info)
+    {
+        
+        $this->db->select_min('accountid');
+        $this->db->from('account');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('accountline', $get_accountline_account_info);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        foreach ($res as $key => $value) {
+            $accountid = $value['accountid'];
+        }
+        return $accountid;
+    }
+
+    public function get_account_info($accountid)
+    {
+
+        $this->db->select('a.agentid, a.packageid, p.packagetypename, a.agentcharge');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        $this->db->group_by('a.refid');// add group_by
+        $this->db->where('a.accountid', $accountid);
         $query = $this->db->get();
-        $check_closed_all = $query->result_array();
-        $salary = 0;
-        foreach ($check_closed_all as $key => $value) {
-            $agentid = $value['agentid'];
-            echo "<script>console.log( 'Debug value: " . $agentid. "' );</script>";
-            if ($agentid!=0) {
-                $packagename = $value['packagetypename'];
-                $packageid = $value['packageid'];
-                if ($value['SUM(a.totalamount)'] <= 0) 
-                {
-                
-                    $charge = $value['agentcharge'];
-                    $packageinfo = $this->get_package_info($packagename, $packageid);
-                    foreach ($packageinfo as $key => $val) {
-                        $lentamount = $val['lentamount'];
-                        $salary += $lentamount * $charge /100;
-                       
-                    } 
-                    $this->insert_agent_salary($agentid, $salary);
-                } 
-            }
-               
-        }
+        return $query->result_array();
     }
 
     public function get_agent_charge($agentid)
@@ -1337,6 +1417,19 @@ public function get_baddebt_info($accountid)
             $duedate = $value['duedate'];
         }
         return $duedate;
+    }
+
+    public function get_linkaccount($accountid){
+        // Run the query
+        $this->db->select('linkaccount');
+        $this->db->from('account');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        foreach ($res as $key => $value) {
+            $linkaccount = $value['linkaccount'];
+        }
+        return $linkaccount;
     }
 
 

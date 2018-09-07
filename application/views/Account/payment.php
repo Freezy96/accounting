@@ -168,6 +168,7 @@
           <?php echo "Paid"; ?>
         <?php else: ?>  
           <?php echo $totalamount; ?>
+          <input type="hidden" value="<?php echo $totalamount; ?>" name="<?php echo "totalamount_check_limitation".$account_number_count; ?>">
         <?php endif ?>
       </td>
     
@@ -197,7 +198,7 @@
           <optgroup label="30% / 4 Week">
              <?php foreach ($package_30_4week as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-              <?php if ($value['lentamount'] <= $totalamount) { ?>
+              <!-- <?php if ($value['lentamount'] <= $totalamount) { ?> -->
                 <option value="<?php echo "package_30_4week".$value['packageid']; ?>">
                   
                   <?php echo "Lent: RM ".$value['lentamount']; ?> 
@@ -215,7 +216,7 @@
                   <?php echo "/ RM ".$value['week4']; ?>
 
                 </option>
-              <?php } ?>
+              <!-- <?php } ?> -->
                 
                 <!-- 其他package -->
             <?php endforeach ?>
