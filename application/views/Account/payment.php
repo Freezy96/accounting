@@ -198,7 +198,6 @@
           <optgroup label="30% / 4 Week">
              <?php foreach ($package_30_4week as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-              <!-- <?php if ($value['lentamount'] <= $totalamount) { ?> -->
                 <option value="<?php echo "package_30_4week".$value['packageid']; ?>">
                   
                   <?php echo "Lent: RM ".$value['lentamount']; ?> 
@@ -216,7 +215,6 @@
                   <?php echo "/ RM ".$value['week4']; ?>
 
                 </option>
-              <!-- <?php } ?> -->
                 
                 <!-- 其他package -->
             <?php endforeach ?>
@@ -228,7 +226,6 @@
               <optgroup label="25% / 1 Month">
             <?php foreach ($package_25_month as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-              <?php if ($value['lentamount'] <= $totalamount) { ?>
                 <option value="<?php echo "package_25_month".$value['packageid']; ?>">
                   
                   <?php echo "Lent: RM ".$value['lentamount']; ?> 
@@ -238,7 +235,6 @@
                   <?php echo "(Fine for each day: X 1".$value['interest']." %)"; ?>
 
                 </option>
-                <?php } ?>
                 <!-- 其他package -->
              
             <?php endforeach ?>
@@ -247,7 +243,6 @@
               <optgroup label="20% / Week">
              <?php foreach ($package_20_week as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-              <?php if ($value['lentamount'] <= $totalamount) { ?>
                 <option value="<?php echo "package_20_week".$value['packageid']; ?>">
                   
                   <?php echo "Lent: RM ".$value['lentamount']; ?> 
@@ -257,7 +252,6 @@
                   <?php echo "(Fine for each day: RM ".$value['interest']; ?>
 
                 </option>
-                <?php } ?>
                 <!-- 其他package -->
              
             <?php endforeach ?>
@@ -265,7 +259,6 @@
               <optgroup label="15% / Week">
              <?php foreach ($package_15_week as $key => $value): ?>
               <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-              <?php if ($value['lentamount'] <= $totalamount) { ?>
                 <option value="<?php echo "package_15_week".$value['packageid']; ?>">
                   
                   <?php echo "Lent: RM ".$value['lentamount']; ?> 
@@ -277,7 +270,6 @@
                   <?php echo "(Fine for each day: RM ".$value['interest']; ?>
 
                 </option>
-                <?php } ?>
                 <!-- 其他package -->
              
             <?php endforeach ?>
