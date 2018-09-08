@@ -7,7 +7,7 @@
    <title>Put_your_title_here</title>
    <?php
       // Set Default TimeZone to match the time
-      date_default_timezone_set("Pacific/Kiritimati");
+      date_default_timezone_set("Asia/Qatar");
     ?>
   </head>
   <body>
