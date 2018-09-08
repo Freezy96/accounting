@@ -99,7 +99,11 @@ class Account extends CI_Controller {
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////
-
+		//get max accountline then +1 for the new one
+				$max_accountline = $this->load->account_model->get_max_accountline();
+				foreach ($max_accountline as $key => $value) {
+					$accountline = $value['accountline']+1; //auto increment
+				}
 		///////////////////////////////////package_30_4week//////////////////////////////////////
 		
 		if (substr( $package_type_id, 0, 16) === "package_30_4week") 
@@ -138,6 +142,7 @@ class Account extends CI_Controller {
 
 				$date4 = strtotime("+4 week", strtotime($dateoriginal));
 				$date4 = date('Y-m-d', $date4);
+				
 
 				$data = array(
 				'customerid' => $this->input->post('customerid'),
@@ -151,6 +156,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -173,6 +179,7 @@ class Account extends CI_Controller {
 				'datee' => $date1,
 				'duedate' => $date2,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -195,6 +202,7 @@ class Account extends CI_Controller {
 				'datee' => $date2,
 				'duedate' => $date3,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -217,6 +225,7 @@ class Account extends CI_Controller {
 				'datee' => $date3,
 				'duedate' => $date4,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -265,6 +274,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -313,6 +323,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -362,6 +373,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => $agent_charge,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -610,14 +622,17 @@ class Account extends CI_Controller {
 		// echo "<script>console.log(".$customerid.")</script>";
 		for ($i=1; $i < $account_number_count+1; $i++) 
 		{ 
+			//switch package
 			$checkpackage = $this->input->post('packageid' . $i);
 			if($checkpackage!="")
 			{
 				$packageid = $checkpackage;
 				$guarantyitem = $this->input->post('guarantyitem_name' . $i);
-
+				$accountid_check_accountline = $this->input->post('accountid' . $i);
+				$accountline =  $this->account_model->get_accountline($accountid_check_accountline);
 				echo "<script>console.log('Debug:".$guarantyitem."')</script>";
-				$this->insertdb_switch_package($customerid, $packageid, $guarantyitem);
+				//packageid here is packagename + id
+				$this->insertdb_switch_package($customerid, $packageid, $guarantyitem, $accountline);
 
 
 				if (substr( $packageid, 0, 16) === "package_30_4week") 
@@ -666,29 +681,49 @@ class Account extends CI_Controller {
 					$lentamount = $val['lentamount'];
 					// echo "<script>console.log(".$lentamount.")</script>";
 				}
+				//check amount greater than lentamount anot
+				$amount_check_greater_smaller = $this->input->post('totalamount_check_limitation' . $i);
+				if($lentamount>$amount_check_greater_smaller)
+				{
+					$payment_amount = $amount_check_greater_smaller;
+				}
+				else
+				{
+					$payment_amount = $lentamount;
+				}
 
 				$data_newpackage = array(
 					'accountid' => $this->input->post('accountid' . $i),
-					'payment' => $lentamount,
+					'payment' => $payment_amount,
 					'paymenttype' => "newpackage",
 					'paymentdate' => $date_today
 					);
-				echo "<script>console.log(".$lentamount.")</script>";
+				echo "<script>console.log(".$payment_amount.")</script>";
 				$return = $this->account_model->insert_payment($data_newpackage);
 			}
 
-			$amount = $this->input->post('amount');
-			
+			// $amount = $this->input->post('amount');
+			//minus payment then minus discount
+			$step_by_step_amount = $this->input->post('totalamount_check_limitation' . $i);
 			if($this->input->post('amount' . $i)!="")
 			{
-			$data = array(
-				'accountid' => $this->input->post('accountid' . $i),
-				'payment' => $this->input->post('amount' . $i),
-				'paymenttype' => "amount",
-				'paymentdate' => $date_today
-				);
-			echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
-			$return = $this->account_model->insert_payment($data);
+				//check the amount number exceed limit anot.
+				if ($step_by_step_amount<$this->input->post('amount' . $i)) {
+					$amount = $step_by_step_amount;
+					$step_by_step_amount-=$amount;
+				}
+				else{
+					$amount = $this->input->post('amount' . $i);
+					$step_by_step_amount-=$amount;
+				}
+				$data = array(
+					'accountid' => $this->input->post('accountid' . $i),
+					'payment' => $amount,
+					'paymenttype' => "amount",
+					'paymentdate' => $date_today
+					);
+				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
+				$return = $this->account_model->insert_payment($data);
 
 			}
 
@@ -705,14 +740,23 @@ class Account extends CI_Controller {
 
 			if($this->input->post('discount' . $i)!="")
 			{
-			$data = array(
-				'accountid' => $this->input->post('accountid' . $i),
-				'payment' => $this->input->post('discount' . $i),
-				'paymenttype' => "discount",
-				'paymentdate' => $date_today
-				);
-			echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
-			$return = $this->account_model->insert_payment($data);
+				//check the amount number exceed limit anot.
+				if ($step_by_step_amount<$this->input->post('discount' . $i)) {
+					$amount = $step_by_step_amount;
+					$step_by_step_amount-=$amount;
+				}
+				else{
+					$amount = $this->input->post('discount' . $i);
+					$step_by_step_amount-=$amount;
+				}
+				$data = array(
+					'accountid' => $this->input->post('accountid' . $i),
+					'payment' => $amount,
+					'paymenttype' => "discount",
+					'paymentdate' => $date_today
+					);
+				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
+				$return = $this->account_model->insert_payment($data);
 			}
 
 
@@ -728,7 +772,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	public function insertdb_switch_package($customerid, $packageid, $guarantyitem)
+	public function insertdb_switch_package($customerid, $packageid, $guarantyitem, $accountline)
 	{	
 		$this->load->helper('url');
 		$this->load->view('template/header');
@@ -795,6 +839,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -817,6 +862,7 @@ class Account extends CI_Controller {
 				'datee' => $date1,
 				'duedate' => $date2,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -839,6 +885,7 @@ class Account extends CI_Controller {
 				'datee' => $date2,
 				'duedate' => $date3,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -861,6 +908,7 @@ class Account extends CI_Controller {
 				'datee' => $date3,
 				'duedate' => $date4,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -909,6 +957,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -957,6 +1006,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
@@ -1006,6 +1056,7 @@ class Account extends CI_Controller {
 				'datee' => $dateoriginal,
 				'duedate' => $date1,
 				'agentcharge' => 0,
+				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
 				'companyid' => $company_identity,
 				///////////////Combo of User Identity Insert///////////////////
