@@ -25,7 +25,7 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php $count=0; ?>
-	<?php if(is_array($main_10_5days) && $main_10_week){ ?>
+	<?php if(is_array($main_10_5days) && $main_10_5days){ ?>
 	<?php foreach ($main_10_5days as $key => $val): ?>
 		<tr>
 			<td>

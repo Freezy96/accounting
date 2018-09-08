@@ -208,6 +208,10 @@ $(document).ready(function() {
     {
        $('#guarantyitemcol').show();
         $('#input_option').prop("disabled", false);
+     }else if ($string.substring(0,16) == "package_10_5days") 
+    {
+       $('#guarantyitemcol').show();
+        $('#input_option').prop("disabled", false);
      }
      else
      {

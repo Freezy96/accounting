@@ -59,19 +59,7 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): 
-		$status=$val['status'];
-		?>
-		 <?php if ($status==""){?>
-			<tr bgcolor="#54FF9F">
-			 <?php }elseif ($status=="baddebt") {?>
-			<tr bgcolor="#EE5C42">
-			<?php  }elseif ($status=="late") {?>
-			<tr bgcolor="CDCD00">
-				<?php } ?>
-			
-		<?php ?>
-		
+	<tr>
 			<td>
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
@@ -95,11 +83,11 @@
 			</td>
 				<td>
 					<div class="btn-group">
-						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
-						<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
+						<form action='<?php echo base_url();?>blacklist/update' method='post' name='blacklistedit'>
+						<button class="btn btn-primary" value="<?php echo $val["blacklistid"]; ?>" name="blacklistidedit">Edit</button>
 						</form>
-						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
-							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
+						<form action='<?php echo base_url();?>blacklist/delete' method='post' name='blacklistdelete'>
+							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["blacklistid"]; ?>" name="blacklistiddelete">Delete</button>
 						</form>
 					</div>
 				</td>
@@ -108,4 +96,4 @@
 <?php } ?>
 	</tbody>
 </table>
-<a class="btn btn-default" href="<?php echo site_url('customer/insert'); ?>">Insert New Customer</a></li>
+<a class="btn btn-default" href="<?php echo site_url('blacklist/insert'); ?>">Insert New Customer into Black List</a></li>
