@@ -31,6 +31,7 @@ class Customer extends CI_Controller {
 		$res = $this->load->customer_model->getuserdata();
 		$data['result'] = $res;
 		$this->load->customer_model->checkuserstatus();
+		$this->load->customer_model->blackliststatus();
     	$this->load->view('customer/main', $data);
 		$this->load->view('template/footer');
 
@@ -201,6 +202,64 @@ class Customer extends CI_Controller {
 		}
 		$this->load->view('template/footer');
 	}
+
+	 public function blacklist()
+    {
+        $this->load->helper('url');
+        $this->load->view('template/header');
+        $this->load->view('template/nav');
+         $res1= $this->load->customer_model->get_status();
+
+        foreach ($res1 as $key => $value) {
+            $blacklist = $value['blacklist'];
+            $customerid = $value['customerid'];
+            $data['result'] = $res1;
+            if ($blacklist=="blacklist") {
+            $this->blacklist_insert_db($customerid);
+        }
+
+
+
+        $res = $this->load->customer_model->getblacklistuserdata();
+        $data['result'] = $res;
+        
+
+
+
+    }
+        $this->load->view('customer/blacklist', $data);
+        $this->load->view('template/footer');
+
+    }
+
+
+	public function blacklist_insert_db($customerid)
+    {
+        $this->load->helper('url');
+        $this->load->view('template/header');
+        $this->load->view('template/nav');
+        $this->db->select('*');
+        $this->db->from('blacklist');
+        $query = $this->db->get();
+        // $my_array=array();
+
+        $result = $query->result_array();
+        $check_exist = "";
+        foreach ($result as $key => $val) {
+        $customerid_blacklist= $val['customerid'];
+            if ($customerid_blacklist == $customerid) {
+                $check_exist = "exist";
+            }
+        }
+
+        if ($check_exist !== "exist") {
+            
+            $data = array(
+                'customerid' => $customerid,
+                );
+            $return = $this->customer_model->insert_blacklist($data);
+        }
+    }
 }
 
 /* End of file welcome.php */

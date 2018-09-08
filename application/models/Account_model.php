@@ -2316,14 +2316,7 @@ public function set_account_baddebt()
        }
 
     }
-public function get_baddebt_info($accountid)
-    {
-        $this->db->select('payment');
-        $this->db->from('payment');
-        $this->db->where('accountid', $accountid);
-        $query = $this->db->get();
-         return $query->result_array();
-    }
+
 
     //计算agent利息，跟着agent利息变动（以前的account也会）
     // public function count_agent_salary_auto_follow()
