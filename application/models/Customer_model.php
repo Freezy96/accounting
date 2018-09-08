@@ -64,14 +64,43 @@ public function checkuserstatus(){
            $statuscus= $status;
            if(($status=""||$status=="closed") && $statuscus!="late"&& $statuscus!="baddebt"){
                 $statuscus="good";
-           }elseif($status!="" && $status="baddebt"){ 
+           }elseif($status!="" && $status=="baddebt"){ 
                 $statuscus="bad";
-           }elseif($status!="" && $status="late" && $statuscus!="baddebt"){
+           }elseif($status!="" && $status=="late" && $statuscus!="baddebt"){
                 $statuscus="late";
            }
 
            $data = array(
             'status' => $statuscus
+            );
+        $this->db->where('customerid', $customerid);
+        $this->db->update('customer', $data);
+           
+
+    }
+}
+
+        public function getstatus(){
+        // Run the query
+        $this->db->select('customerid, status');
+        $this->db->from('customer');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+public function blackliststatus(){
+        $data=$this->customer_model->getstatus();
+         foreach ($data as $key => $value) {
+           $customerid= $value['customerid'];
+           $status = $value['status'];
+
+           $blacklist= 0;
+          if($status=="baddebt"){ 
+                $blacklist="1";
+           }
+           $data = array(
+            'blacklist' => $blacklist
             );
         $this->db->where('customerid', $customerid);
         $this->db->update('customer', $data);
@@ -110,7 +139,49 @@ public function checkuserstatus(){
         }else{
             $return = "false";
             return $return;
-        }    
+        } 
+
+
+    }
+
+      public function getblacklistuserdata(){
+        // Run the query
+        // $this->db->distinct('a.refid');
+        $this->db->select('b.customerid, c.customername, c.address ,c.gender ,c.phoneno ,c.wechatname ,c.passport ,c.photopath');
+        $this->db->from('blacklist b');
+        $this->db->join('customer c', 'b.customerid = c.customerid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('c.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+ public function get_blacklist()
+    {
+        $this->db->select('blacklist, customerid');
+        $this->db->from('customer');
+        $query = $this->db->get();
+         return $query->result_array();
+    }
+  public function getblacklistcusid(){
+        $this->db->select('customerid');
+        $this->db->from('blacklist');
+        $query = $this->db->get();
+        return $query->result_array();
+}
+ public function insert_blacklist($data){
+   
+        if($this->db->insert('blacklist', $data))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+       }
 
     }
 }
