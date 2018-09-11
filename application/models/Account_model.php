@@ -283,13 +283,13 @@ class Account_model extends CI_Model{
             $paymentinfo = $this->get_payment_info($accountid);
              foreach ($paymentinfo as $key => $value) {
                 $payment = $value['payment'];
-            }
+            
         
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
                 $interest = $value['interest'];
                 $lentamount = $value['lentamount'];
-            }
+            
             
 
             // $diff = abs(strtotime($date1) - strtotime($date2));
@@ -680,7 +680,9 @@ class Account_model extends CI_Model{
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" )
-                {
+                {   
+                    $interest = $value['interest'];
+                    $lentamount = $value['lentamount'];
                      $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
@@ -1074,8 +1076,8 @@ class Account_model extends CI_Model{
 
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" )
-                {
-                     $total_interest = ((((((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
+                {   
+                    $total_interest = ((((((((($lentamount*1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
@@ -1187,7 +1189,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed"   )
+                elseif ($packagename == "package_10_5days"  && $status !=="closed"  )
                 {
                      $total_interest = ($lentamount* 0.10)+($interest*2);
                      $this->insert_interest($total_interest,$accountid);
@@ -2164,7 +2166,8 @@ class Account_model extends CI_Model{
 
                 }
             }
-        
+        }
+    }
 }
     }
 
