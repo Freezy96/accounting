@@ -208,7 +208,7 @@ class Customer extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-         $res1= $this->load->customer_model->get_status();
+         $res1= $this->load->customer_model->getstatus();
 
         foreach ($res1 as $key => $value) {
             $blacklist = $value['blacklist'];
