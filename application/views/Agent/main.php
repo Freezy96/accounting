@@ -78,10 +78,67 @@
 					<form action='<?php echo base_url();?>agent/delete' method='post' name='agentdelete'>
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
 					</form>
-					<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" value="<?php echo $val["agentid"]; ?>" name="accountid">Payment</button>
+					<form action="javascript:void(0);">
+						<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" value="<?php echo $val["agentid"]; ?>" name="accountid">Payment</button>
+					</form>
+					<form action="javascript:void(0);">
+						<a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_agent_<?php echo $val['agentid']; ?>" aria-expanded="true" aria-controls="collapseOne">View Customer</a>
+					</form>
+
 				</div>
 			</td>
 		</tr>
+		<!-- collapse agent -->
+		<tr id="collapse_agent_<?php echo $val['agentid']; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+			<td colspan="5" >
+				<!-- collapse show customer match the agentid -->
+				<div>
+			      <div class="panel-body">
+			      	<table class="table">
+			      		<tr>
+			      			<td>
+			      				Account ID
+			      			</td>
+			      			<td>
+			      				Customer Name
+			      			</td>
+			      			<td>
+			      				Wechat Name
+			      			</td>
+			      			<td>
+			      				Salary Name
+			      			</td>
+			      		</tr>
+			      		<?php
+			      		// get from agent controller
+						foreach ($salary_completed as $key => $value_completed) {
+						    
+						    if($value_completed['agentid_completed'] == $val['agentid']){
+			        			?>
+			        			
+			        				<tr>
+			        					<td>
+				        					<?php echo $value_completed['accountid']; ?>
+				        				</td>
+				        				<td>
+				        					<?php echo $value_completed['customername']; ?>
+				        				</td>
+				        				<td>
+				        					<?php echo $value_completed['wechatname']; ?>
+				        				</td>
+				        				<td>
+				        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." = ".$value_completed['salary']; ?>
+				        				</td>
+				        			</tr>
+			        			<?php
+			        		}
+						}?>
+					</table>
+			      </div>
+			    </div>
+			</td>
+		</tr>
+		<!-- collapse agent -->
 	<?php endforeach ?>
 <?php } ?>
 </table>
@@ -112,3 +169,6 @@
     </form>
   </div>
 </div>
+
+    
+ 
