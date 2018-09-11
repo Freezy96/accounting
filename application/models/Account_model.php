@@ -2504,6 +2504,19 @@ public function set_account_baddebt()
         return $linkaccount;
     }
 
-
+public function set_baddebt_update($accountid){
+        // Run the query
+        $accountid = $accountid;
+        $status = "baddebt";
+        $data = array(
+            'status' => $status
+            );
+        $this->db->select('accountid, status');
+        $this->db->from('account');
+        $this->db->where('accountid', $accountid);
+        $this->db->update('account', $data);
+        $query = $this->db->get('account');
+        return $query->result_array();
+    }
 }
 ?>

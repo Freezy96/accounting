@@ -1176,18 +1176,16 @@ class Account extends CI_Controller {
 	}
 	public function set_baddebt()
 
-    {	if($this->input->post('baddebtset') != ''){
-		$accountid = $this->input->post('accountid');
-        $status="baddebt";
-        $this->db->where('accountid', $accountid);
-        $this->db->update('account', array('status' => $status)); 
-        echo "update success";
+    {	$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$accountid = $this->input->post('set_baddebt');
+		$res = $this->load->account_model->set_baddebt_update($accountid);
+		$data['result'] = $res;
+		
 		$this->load->view('template/footer');
-	}else{
-		            echo $this->upload->display_errors();
-		           
-		    } 
-    }
+	}
+    
 
 	public function baddebt_insert_db($accountid)
     {
