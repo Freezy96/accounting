@@ -2534,8 +2534,7 @@ public function set_baddebt_update($accountid){
         $data = array(
             'status' => $status
             );
-        $this->db->select('accountid, status');
-        $this->db->from('account');
+
         $this->db->where('accountid', $accountid);
         $this->db->update('account', $data);
         $query = $this->db->get('account');
