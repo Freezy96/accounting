@@ -263,6 +263,7 @@ class Account_model extends CI_Model{
       $query = $this->db->get($dbname);
       return $query->result_array();
     }
+
     public function get_payment_info($accountid)
     {
         $this->db->select('payment');
@@ -302,12 +303,6 @@ class Account_model extends CI_Model{
             $accountid = $value['accountid'];
             $totalamount = $value['totalamount'];
             
-            $payment = "";
-            $paymentinfo = $this->get_payment_info($accountid);
-             foreach ($paymentinfo as $key => $value) {
-                $payment = $value['payment'];
-            
-        
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
                 $interest = $value['interest'];
@@ -339,14 +334,23 @@ class Account_model extends CI_Model{
          //if ($days>=60){
          //    $status = "baddebt";
        //    }
-            if ($days>0 && $date2<$date1) {
+            if ($days>0 && $date2<$date1) 
+            {
+                echo "<script>console.log(".$days.")</script>";
                 //package 不是closed 就跑利息
-                if($packagename == "package_30_4week" && $status !=="closed" && $payment!="" )
+                if($packagename == "package_30_4week" && $status !=="closed" )
                 {
                     $total_interest = $interest * $days;
+                    
                     $this->insert_interest($total_interest,$accountid);
                 }
-                elseif ($packagename == "package_25_month" && $status !=="closed" && $payment="" )
+                elseif($packagename == "package_manual_5days_4week" && $status !=="closed" )
+                {
+                    $total_interest = $interest * $days;
+                    
+                    $this->insert_interest($total_interest,$accountid);
+                }
+                elseif ($packagename == "package_25_month" && $status !=="closed" )
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
                     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
@@ -354,6 +358,13 @@ class Account_model extends CI_Model{
                 }
                 
 
+            }
+
+            //有payment和没payment公式跑不同的
+            $payment = "";
+            $paymentinfo = $this->get_payment_info($accountid);
+             foreach ($paymentinfo as $key => $value) {
+                $payment = $value['payment'];
             }
 
             if ($days<=0) {
@@ -2189,7 +2200,7 @@ class Account_model extends CI_Model{
 
                 }
             }
-        }
+        
     }
 }
     }

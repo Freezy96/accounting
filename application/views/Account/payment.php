@@ -236,6 +236,54 @@
 
                 </option>
                 <!-- 其他package -->
+
+         <optgroup label="25% / 5days / 4 Week">
+         <?php foreach ($package_5days_4week as $key => $value): ?>
+          <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+            <option value="<?php echo "package_manual_5days_4week".$value['packageid']; ?>">
+              
+              <?php echo "Lent: RM ".$value['lentamount']; ?> 
+               
+              <?php echo "Pay: RM ".$value['totalamount']; ?> 
+              
+              <?php echo "(Fine for each day: RM ".$value['interest']; ?>
+              
+              <?php echo ") 4 week: RM ".$value['week1']; ?>
+
+              <?php echo "/ RM ".$value['week2']; ?>
+
+              <?php echo "/ RM ".$value['week3']; ?>
+
+              <?php echo "/ RM ".$value['week4']; ?>
+
+            </option>
+            <!-- 其他package -->
+         
+        <?php endforeach ?>
+          </optgroup>
+
+
+          <optgroup label="Pay Everyday">
+         <?php foreach ($package_pay_everyday as $key => $value): ?>
+          <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
+            <option value="<?php echo "package_manual_payeveryday_manualdays".$value['packageid']; ?>">
+              
+              <?php echo "Days: ".$value['days']; ?> 
+
+              <?php echo "Lent: RM ".$value['lentamount']; ?> 
+               
+              <?php echo "Pay: RM ".$value['totalamount']; ?> 
+              
+              <?php echo "(Fine for each day: RM ".$value['interest']; ?>
+              
+              <?php echo ") Pay Each Day: RM ".$value['amounteveryday']; ?>
+
+            </option>
+            <!-- 其他package -->
+         
+        <?php endforeach ?>
+          </optgroup>
+
              
             <?php endforeach ?>
               </optgroup>
