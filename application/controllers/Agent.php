@@ -33,6 +33,8 @@ class Agent extends CI_Controller {
 		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
 		$count = 0;
+		//prevent empty display error
+		$data['salary_completed'] = array();
 		$check_complete_paid_account = $this->load->agent_model->check_complete_paid_account();
 			foreach ($check_complete_paid_account as $key => $val) 
 			{

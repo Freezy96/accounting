@@ -74,6 +74,10 @@ class Account extends CI_Controller {
 		$data['package_15_5days'] = $res;
 		$res = $this->load->account_model->getuserdatainsertpackage_10_5days();
 		$data['package_10_days'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_pay_everyday();
+		$data['package_pay_everyday'] = $res;
+		$res = $this->load->account_model->getuserdatainsertpackage_5days_4week();
+		$data['package_5days_4week'] = $res;
 		$res = $this->load->agent_model->getuserdata();
 		$data['agent'] = $res;
 		$this->load->view('account/insert', $data);

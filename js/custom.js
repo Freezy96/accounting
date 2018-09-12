@@ -200,6 +200,54 @@ $(document).ready(function() {
     } 
   });
 
+  $('.weekamount_25_5days').on('change keyup', function(){
+    var $totalamount = parseFloat($('#totalamount_25_5days').val());
+    var $week1 = $('#week1_25_5days').val();
+    var $week2 = $('#week2_25_5days').val();
+    var $week3 = $('#week3_25_5days').val();
+    var $week4 = $('#week4_25_5days').val();
+    var $total4week = parseFloat($week1) + parseFloat($week2) + parseFloat($week3) + parseFloat($week4);
+    if ($week1!="" && $week2!="" && $week3!="" && $week4!="" && $totalamount!="") {
+      if ($totalamount.toFixed(2) !== $total4week.toFixed(2)) 
+      {
+        $('#package_25_5days_message').html("Total Amount and Amount for 4 week are not the same!");
+        $('#package_25_5days_btn').prop("disabled", true);
+      }
+      else
+      {
+        $('#package_25_5days_message').html("");
+        $('#package_25_5days_btn').prop("disabled", false);
+      }
+    } 
+  });
+
+  //package everyday pay
+  $('.payeveryday_package_manualdays').on('change keyup', function(){
+    var $totalamount = parseFloat($('#payeveryday_package_manualdays_total').val());
+    var $everyday = parseFloat($('#payeveryday_package_manualdays_eachday').val());
+    var $how_many_day = parseFloat($('#payeveryday_package_manualdays_howmanyday').val());
+    var $everyday_should_be =  $totalamount / $how_many_day;
+    //偏差 <= 0.5 成功
+    // console.log($totalamount);
+    // console.log($everyday);
+    // console.log($how_many_day);
+    // console.log($everyday_should_be);
+    if (!isNaN($totalamount) && !isNaN($how_many_day) && !isNaN($everyday)) 
+    {
+      if (Math.abs($everyday.toFixed(2) - $everyday_should_be.toFixed(2))<= 0.5) 
+      {
+        $('#payeveryday_package_manualdays_message').html("");
+        $('#payeveryday_package_manualdays_btn').prop("disabled", false);
+      }
+      else
+      {
+        $('#payeveryday_package_manualdays_message').html("Please make sure Pay How Many Day / Total Collect Amount / Pay Amount Everyday are correct!");
+        $('#payeveryday_package_manualdays_btn').prop("disabled", true);
+      }
+    }
+      
+  });
+
   $('.livesearch').DataTable();
 
    $('#accountpackage').on('change', function(){
@@ -254,6 +302,8 @@ $(document).ready(function() {
     $('.agent_modal').on('click', function(){
       $('#agentid_hidden').val($(this).val());
     });
+
+
 
 
 });

@@ -170,6 +170,29 @@ class Account_model extends CI_Model{
         $query = $this->db->get('package_25_month');
         return $query->result_array();
     }
+
+    public function getuserdatainsertpackage_pay_everyday(){
+        // Run the query
+        $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
+        $query = $this->db->get('package_manual_payeveryday_manualdays');
+        return $query->result_array();
+    }
+
+    public function getuserdatainsertpackage_5days_4week(){
+        // Run the query
+        $this->db->select('*');
+        ///////////////Combo of User Indentity///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity///////////////////
+        $query = $this->db->get('package_manual_5days_4week');
+        return $query->result_array();
+    }
+
     public function getuserdatainsertpackage_20_week(){
         // Run the query
         $this->db->select('*');
@@ -318,7 +341,7 @@ class Account_model extends CI_Model{
        //    }
             if ($days>0 && $date2<$date1) {
                 //package 不是closed 就跑利息
-                if($packagename == "package_30_4week" && $status !=="closed" && $payment="" )
+                if($packagename == "package_30_4week" && $status !=="closed" && $payment!="" )
                 {
                     $total_interest = $interest * $days;
                     $this->insert_interest($total_interest,$accountid);
