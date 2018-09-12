@@ -100,6 +100,72 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
+
+    public function main_manual_payeveryday_manualdays()
+    {
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_manual_payeveryday_manualdays');
+      return $query->result_array();
+    }
+
+    public function insert_manual_payeveryday_manualdays($data)
+    {
+      if($this->db->insert('package_manual_payeveryday_manualdays', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
+
+    public function delete_manual_payeveryday_manualdays($data)
+    {
+      if($this->db->delete('package_manual_payeveryday_manualdays', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    public function main_manual_5days_4week()
+    {
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_manual_5days_4week');
+      return $query->result_array();
+    }
+    public function insert_manual_5days_4week($data)
+    {
+      if($this->db->insert('package_manual_5days_4week', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
+    
+    public function delete_manual_5days_4week($data)
+    {
+      if($this->db->delete('package_manual_5days_4week', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
      public function main_20_week()
     {
       // Run the query
