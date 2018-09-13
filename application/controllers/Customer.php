@@ -208,13 +208,14 @@ class Customer extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-         $res1= $this->load->customer_model->getstatus();
+        $this->load->customer_model-> blackliststatus();
+        $res1= $this->load->customer_model->getstatus();
 
         foreach ($res1 as $key => $value) {
-            $blacklist = $value['blacklist'];
+
             $customerid = $value['customerid'];
             $data['result'] = $res1;
-            if ($blacklist=="blacklist") {
+            if ($customerid=="customerid") {
             $this->blacklist_insert_db($customerid);
         }
 
@@ -243,23 +244,26 @@ class Customer extends CI_Controller {
         $query = $this->db->get();
         // $my_array=array();
 
-        $result = $query->result_array();
-        $check_exist = "";
-        foreach ($result as $key => $val) {
-        $customerid_blacklist= $val['customerid'];
-            if ($customerid_blacklist == $customerid) {
-                $check_exist = "exist";
-            }
-        }
+        $res1= $this->load->customer_model->getstatus();
+ foreach ($data as $key => $value) {
+           $customerid= $value['customerid'];
+           $status = $value['status'];
 
-        if ($check_exist !== "exist") {
-            
-            $data = array(
-                'customerid' => $customerid,
-                );
-            $return = $this->customer_model->insert_blacklist($data);
-        }
+
+          if($status=="baddebt"){ 
+                $data = array(
+            'customerid' => $customerid
+            );
+           }
+           
+        $this->db->where('customerid', $customerid);
+        $this->db->update('blacklist', $data);
+           
+
     }
+            $return = $this->customer_model->insert_blacklist($data);
+   }
+    
 }
 
 /* End of file welcome.php */
