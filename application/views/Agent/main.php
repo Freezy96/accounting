@@ -106,33 +106,36 @@
 			      				Wechat Name
 			      			</td>
 			      			<td>
-			      				Salary Name
+			      				Salary
 			      			</td>
 			      		</tr>
 			      		<?php
 			      		// get from agent controller
-						foreach ($salary_completed as $key => $value_completed) {
+			      		if(is_array($salary_completed) && $salary_completed){
+			      			foreach ($salary_completed as $key => $value_completed) {
 						    
-						    if($value_completed['agentid_completed'] == $val['agentid']){
-			        			?>
-			        			
-			        				<tr>
-			        					<td>
-				        					<?php echo $value_completed['accountid']; ?>
-				        				</td>
-				        				<td>
-				        					<?php echo $value_completed['customername']; ?>
-				        				</td>
-				        				<td>
-				        					<?php echo $value_completed['wechatname']; ?>
-				        				</td>
-				        				<td>
-				        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." = ".$value_completed['salary']; ?>
-				        				</td>
-				        			</tr>
-			        			<?php
-			        		}
-						}?>
+							    if($value_completed['agentid_completed'] == $val['agentid']){
+				        			?>
+				        			
+				        				<tr>
+				        					<td>
+					        					<?php echo $value_completed['accountid']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo $value_completed['customername']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo $value_completed['wechatname']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." = ".$value_completed['salary']; ?>
+					        				</td>
+					        			</tr>
+				        			<?php
+				        		}
+							}
+			      		}?>
+						
 					</table>
 			      </div>
 			    </div>

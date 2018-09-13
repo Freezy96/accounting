@@ -25,6 +25,10 @@ class Package extends CI_Controller {
     $data['main_15_5days'] = $res;
     $res = $this->load->Package_model->main_10_5days();
     $data['main_10_5days'] = $res;
+    $res = $this->load->Package_model->main_manual_payeveryday_manualdays();
+    $data['main_manual_payeveryday_manualdays'] = $res;
+    $res = $this->load->Package_model->main_manual_5days_4week();
+    $data['main_manual_5days_4week'] = $res;
     $this->load->view('Package/main', $data);
     $this->load->view('template/footer');
   }
@@ -162,6 +166,104 @@ class Package extends CI_Controller {
     );
     // $this->load->model('Package_model');
     $return = $this->load->Package_model->delete_25_month($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function insert_manual_payeveryday_manualdays()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    ///////////////Combo of User Identity Insert///////////////////
+    $company_identity = $this->session->userdata('adminid');
+    ///////////////Combo of User Identity Insert///////////////////
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $this->input->post('interest'),
+    'totalamount' => $this->input->post('totalamount'),
+    'amounteveryday' => $this->input->post('amounteveryday'),
+    ///////////////Combo of User Identity Insert///////////////////
+    'companyid' => $company_identity,
+    ///////////////Combo of User Identity Insert///////////////////
+    'days' => $this->input->post('days')
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_manual_payeveryday_manualdays($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function delete_manual_payeveryday_manualdays()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_manual_payeveryday_manualdays($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function insert_manual_5days_4week()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    ///////////////Combo of User Identity Insert///////////////////
+    $company_identity = $this->session->userdata('adminid');
+    ///////////////Combo of User Identity Insert///////////////////
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $this->input->post('interest'),
+    'totalamount' => $this->input->post('totalamount'),
+    'week1' => $this->input->post('week1'),
+    'week2' => $this->input->post('week2'),
+    'week3' => $this->input->post('week3'),
+    ///////////////Combo of User Identity Insert///////////////////
+    'companyid' => $company_identity,
+    ///////////////Combo of User Identity Insert///////////////////
+    'week4' => $this->input->post('week4')
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_manual_5days_4week($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function delete_manual_5days_4week()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_manual_5days_4week($data);
     $data['return'] = $return;
 
     if($return == true){
