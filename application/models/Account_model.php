@@ -445,7 +445,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount-$payment;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=""   && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=""   && $payment!="")
                 {
                      $total_interest = ($totalamount)+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -523,7 +523,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -551,14 +551,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -579,7 +579,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -607,7 +607,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -635,14 +635,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -663,7 +663,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -691,7 +691,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -721,14 +721,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -749,7 +749,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -777,7 +777,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -805,14 +805,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -834,7 +834,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -863,7 +863,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -891,14 +891,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -919,7 +919,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -947,7 +947,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -975,14 +975,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -1003,7 +1003,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1031,7 +1031,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1059,14 +1059,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -1087,7 +1087,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1115,7 +1115,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1143,7 +1143,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.2;
                      $this->insert_interest($total_interest,$accountid);
@@ -1237,7 +1237,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount-$payment;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=""   && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=""   && $payment!="")
                 {
                      $total_interest = ($totalamount)+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1315,7 +1315,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1343,14 +1343,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1371,7 +1371,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1399,7 +1399,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1427,14 +1427,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1455,7 +1455,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1483,7 +1483,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1511,14 +1511,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1539,7 +1539,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1567,7 +1567,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1595,14 +1595,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1624,7 +1624,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1653,7 +1653,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1681,14 +1681,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1709,7 +1709,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1737,7 +1737,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1765,14 +1765,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1793,7 +1793,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1821,7 +1821,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1849,14 +1849,14 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+ $totalamount;
 
                 }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment=!"")
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.10;
                      $this->insert_interest($total_interest,$accountid);
@@ -1877,7 +1877,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1905,7 +1905,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1933,7 +1933,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount*0.15;
                      $this->insert_interest($total_interest,$accountid);
@@ -1961,7 +1961,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -1989,7 +1989,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2017,7 +2017,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2045,7 +2045,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2073,7 +2073,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2101,7 +2101,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2129,7 +2129,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2157,7 +2157,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
@@ -2185,7 +2185,7 @@ class Account_model extends CI_Model{
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
 
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment=!"")
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" && $payment!="")
                 {
                      $total_interest =  $totalamount+($interest);
                      $this->insert_interest($total_interest,$accountid);
