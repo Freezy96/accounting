@@ -205,29 +205,12 @@ class Customer extends CI_Controller {
 
 	 public function blacklist()
     {
-        $this->load->helper('url');
-        $this->load->view('template/header');
-        $this->load->view('template/nav');
-        $this->load->customer_model-> blackliststatus();
-        $res1= $this->load->customer_model->getstatus();
-
-        foreach ($res1 as $key => $value) {
-
-            $customerid = $value['customerid'];
-            $data['result'] = $res1;
-            if ($customerid=="customerid") {
-            $this->blacklist_insert_db($customerid);
-        }
-
-
-
-        $res = $this->load->customer_model->getblacklistuserdata();
-        $data['result'] = $res;
-        
-
-
-
-    }
+       $this->security_model->secure_session_login();
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$res = $this->load->customer_model-> getblacklistdata();
+		$data['result'] = $res;
         $this->load->view('customer/blacklist', $data);
         $this->load->view('template/footer');
 
@@ -257,7 +240,7 @@ class Customer extends CI_Controller {
            }
            
         $this->db->where('customerid', $customerid);
-        $this->db->update('blacklist', $data);
+        $this->db->insert('blacklist', $data);
            
 
     }

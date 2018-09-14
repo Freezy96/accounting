@@ -159,30 +159,18 @@ public function blackliststatus(){
         return $query->result_array();
     }
 
- public function get_blacklist()
-    {
-        $this->db->select('blacklist, customerid');
-        $this->db->from('customer');
-        $query = $this->db->get();
-         return $query->result_array();
-    }
-  public function getblacklistcusid(){
-        $this->db->select('customerid');
-        $this->db->from('blacklist');
-        $query = $this->db->get();
+ public function getblacklistdata(){
+        // Run the query
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+         $this->db->select("*");
+          $this->db->from('customer');
+          $blacklist='1';
+          $this->db->where('blacklist',$blacklist);
+          $query = $this->db->get();
         return $query->result_array();
-}
- public function insert_blacklist($data){
-   
-        if($this->db->insert('blacklist', $data))
-        {
-            $return = "insert";
-            return $return;
-        }else{
-            $return = "false";
-            return $return;
-       }
-
     }
 }
 ?>
