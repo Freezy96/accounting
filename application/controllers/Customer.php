@@ -205,28 +205,12 @@ class Customer extends CI_Controller {
 
 	 public function blacklist()
     {
-        $this->load->helper('url');
-        $this->load->view('template/header');
-        $this->load->view('template/nav');
-         $res1= $this->load->customer_model->getstatus();
-
-        foreach ($res1 as $key => $value) {
-            $blacklist = $value['blacklist'];
-            $customerid = $value['customerid'];
-            $data['result'] = $res1;
-            if ($blacklist=="blacklist") {
-            $this->blacklist_insert_db($customerid);
-        }
-
-
-
-        $res = $this->load->customer_model->getblacklistuserdata();
-        $data['result'] = $res;
-        
-
-
-
-    }
+       $this->security_model->secure_session_login();
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$res = $this->load->customer_model-> getblacklistdata();
+		$data['result'] = $res;
         $this->load->view('customer/blacklist', $data);
         $this->load->view('template/footer');
 
@@ -243,23 +227,26 @@ class Customer extends CI_Controller {
         $query = $this->db->get();
         // $my_array=array();
 
-        $result = $query->result_array();
-        $check_exist = "";
-        foreach ($result as $key => $val) {
-        $customerid_blacklist= $val['customerid'];
-            if ($customerid_blacklist == $customerid) {
-                $check_exist = "exist";
-            }
-        }
+        $res1= $this->load->customer_model->getstatus();
+ foreach ($data as $key => $value) {
+           $customerid= $value['customerid'];
+           $status = $value['status'];
 
-        if ($check_exist !== "exist") {
-            
-            $data = array(
-                'customerid' => $customerid,
-                );
-            $return = $this->customer_model->insert_blacklist($data);
-        }
+
+          if($status=="baddebt"){ 
+                $data = array(
+            'customerid' => $customerid
+            );
+           }
+           
+        $this->db->where('customerid', $customerid);
+        $this->db->insert('blacklist', $data);
+           
+
     }
+            $return = $this->customer_model->insert_blacklist($data);
+   }
+    
 }
 
 /* End of file welcome.php */

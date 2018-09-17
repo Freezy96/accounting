@@ -37,8 +37,7 @@
                         Black List <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu" style="width: 100vw;">
-                        <li><a href="<?php echo site_url('blacklist/'); ?>" style="color: #141414;">View All</a></li>
-                        <li><a href="<?php echo site_url('blacklist/insert'); ?>" style="color: #141414;">Add to Black List</a></li>
+                        <li><a href="<?php echo site_url('customer/blacklist'); ?>" style="color: #141414;">View All</a></li>
                       </ul>
                     </div>
                 </li>

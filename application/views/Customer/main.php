@@ -32,11 +32,9 @@
 				ID
 				</td>
 				<td>
-					NAME
+					NAME(WECHAT)
 				</td>
-				<td>
-				Wechat Name
-				</td>
+				
 				<td>
 					ADDRESS
 				</td>
@@ -76,10 +74,7 @@
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>
-			</td>
-			<td>
-				<?php echo $val['wechatname']; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(",$val['wechatname'],")"; ?>
 			</td>
 			<td>
 				<?php echo $val['address']; ?>

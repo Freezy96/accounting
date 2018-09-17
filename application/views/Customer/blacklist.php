@@ -108,4 +108,3 @@
 <?php } ?>
 	</tbody>
 </table>
-<a class="btn btn-default" href="<?php echo site_url('customer/insert'); ?>">Insert New Customer</a></li>
