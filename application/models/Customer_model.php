@@ -10,7 +10,11 @@ class Customer_Model extends CI_Model{
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $query = $this->db->get('customer');
+         $this->db->select("*");
+          $this->db->from('customer');
+          $blacklist='0';
+          $this->db->where('blacklist',$blacklist);
+        $query = $this->db->get();
         return $query->result_array();
     }
 
