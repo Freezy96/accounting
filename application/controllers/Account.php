@@ -1566,7 +1566,7 @@ class Account extends CI_Controller {
 		// if($return == true){
 		// 	// session to sow success or not, only available next page load
 		// 	$this->session->set_flashdata('return',$data);
-		// 	// redirect('account');
+		// 	redirect('account');
 		// }
 		$this->load->view('template/footer');
 	}
@@ -1617,6 +1617,27 @@ class Account extends CI_Controller {
                 );
             $return = $this->account_model->insert_baddebt($data);
         }
+    }
+
+    public function pull_to_next_period()
+    {
+        $this->load->helper('url');
+        $this->load->view('template/header');
+        $this->load->view('template/nav');
+        $accountid = $this->input->post('accountid_pull_to_next_period');
+        $accountid_destination = $accountid+1;
+        $totalamount = $this->input->post('totalamount');
+		$this->load->view('template/footer');
+		$return = $this->load->account_model->pull_to_next_period($accountid_destination,$totalamount);
+        $data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
+
+        
     }
 }
 

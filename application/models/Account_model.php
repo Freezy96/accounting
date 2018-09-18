@@ -350,6 +350,7 @@ class Account_model extends CI_Model{
                     
                     $this->insert_interest($total_interest,$accountid);
                 }
+                //5天账 公式
                 elseif ($packagename == "package_25_month" && $status !=="closed" )
                 {
                     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
@@ -2550,6 +2551,58 @@ public function set_baddebt_update($accountid){
         $this->db->update('account', $data);
         $query = $this->db->get('account');
         return $query->result_array();
+    }
+
+    public function pull_to_next_period($accountid_destination, $totalamount)
+    {
+        // Run the query
+        $this->db->select('amount');
+        $this->db->from('account');
+        $this->db->where('accountid', $accountid_destination);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        foreach ($result as $key => $value) {
+            $final_amount = $value['amount']+$totalamount;
+        }
+        $original_accountid = $accountid_destination-1;
+
+        $this->pull_to_next_period_update_original($original_accountid, 0);
+        if($this->pull_to_next_period_update($accountid_destination, $final_amount) )
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+       }
+    }
+
+    public function pull_to_next_period_update($accountid_destination, $final_amount)
+    {
+        // Run the query
+        $this->db->where('accountid', $accountid_destination);
+        if($this->db->update('account', array('amount' => $final_amount)))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+       }
+    }
+
+    public function pull_to_next_period_update_original($accountid_original, $amount)
+    {
+        // Run the query
+        $this->db->where('accountid', $accountid_original);
+        if($this->db->update('account', array('amount' => $amount, 'interest' => '0', 'status' => 'closed')))
+        {
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+       }
     }
 }
 ?>
