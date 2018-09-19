@@ -31,6 +31,42 @@ class Home extends CI_Controller {
 		$this->load->view('template/nav');
 		$res = $this->load->home_model->getuserdata();
 		$data['result'] = $res;
+		$this->load->dbutil();
+		// $hour = date("H", mktime(date("H") + 5));  control timezone
+		// $hour = date("H", mktime(date("H"))); 
+		//noew follow the -5 timezone
+		$check = 0;
+		$date_today = date("Y-m-d");
+		$day = date("D"); 
+		if($day == 'Wed') 
+		{
+			//check today backup ady or not 
+			$result_checkdb = $this->load->home_model->get_db_check_exist();
+			foreach ($result_checkdb as $key => $value) {
+				if ($value['date'] == $date_today) {
+					$check = 1;
+				}
+			}
+			if ($check != 1) {
+				$prefs = array(     
+			    'format'      => 'zip',             
+			    'filename'    => 'my_db_backup.sql'
+			    );
+
+
+				$backup =& $this->dbutil->backup($prefs); 
+
+				$db_name = 'backup-on-'. date("Y-m-d-H-i-s") .'.zip';
+				$save = 'Backup_DB/'.$db_name;
+				// autobackup
+				$this->load->helper('file');
+				write_file($save, $backup); 
+				//insert into db as ady backup evidence
+				$this->load->home_model->insert_dbbackup($date_today);
+			}
+			
+		} 
+		
 		$this->load->view('home/main', $data);
 		$this->load->view('template/footer');
 	}
