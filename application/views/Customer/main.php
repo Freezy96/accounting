@@ -32,9 +32,11 @@
 				ID
 				</td>
 				<td>
-					NAME(WECHAT)
+					NAME(PASSPORT/IC)
 				</td>
-				
+					<td>
+					WECHAT
+				</td>
 				<td>
 					ADDRESS
 				</td>
@@ -43,9 +45,6 @@
 				</td>
 				<td>
 					PHONE NO.
-				</td>
-				<td>
-					PASSPORT/IC
 				</td>
 				<td>
 					ACTION
@@ -74,7 +73,10 @@
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>	<?php echo "(",$val['wechatname'],")"; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(",$val['passport'],")"; ?>
+			</td>
+			<td>
+				<?php echo $val['wechatname']; ?>
 			</td>
 			<td>
 				<?php echo $val['address']; ?>
@@ -85,9 +87,7 @@
 			<td>
 				<?php echo $val['phoneno']; ?>
 			</td>
-			<td>
-				<?php echo $val['passport']; ?>
-			</td>
+			
 				<td>
 					<div class="btn-group">
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
