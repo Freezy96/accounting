@@ -66,7 +66,7 @@
 			<?php  }elseif ($status=="late") {?>
 			<tr bgcolor="CDCD00">
 				<?php } ?>
-			a
+			
 		<?php ?>
 		
 			<td>
