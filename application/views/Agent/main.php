@@ -73,13 +73,10 @@
 			<td>
 				<div class="btn-group">
 					<form action='<?php echo base_url();?>agent/update' method='post' name='agentedit'>
-					<button class="btn btn-primary" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
+						<button class="btn btn-primary" value="<?php echo $val["agentid"]; ?>" name="agentidedit">Edit</button>
 					</form>
 					<form action='<?php echo base_url();?>agent/delete' method='post' name='agentdelete'>
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
-					</form>
-					<form action="javascript:void(0);">
-						<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" value="<?php echo $val["agentid"]; ?>" name="accountid">Payment</button>
 					</form>
 					<form action="javascript:void(0);">
 						<a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_agent_<?php echo $val['agentid']; ?>" aria-expanded="true" aria-controls="collapseOne">View Customer</a>
@@ -108,6 +105,9 @@
 			      			<td>
 			      				Salary
 			      			</td>
+			      			<td>
+			      				Action
+			      			</td>
 			      		</tr>
 			      		<?php
 			      		// get from agent controller
@@ -119,7 +119,7 @@
 				        			
 				        				<tr>
 				        					<td>
-					        					<?php echo $value_completed['accountid']; ?>
+					        					<?php echo $value_completed['refid']; ?>
 					        				</td>
 					        				<td>
 					        					<?php echo $value_completed['customername']; ?>
@@ -128,7 +128,18 @@
 					        					<?php echo $value_completed['wechatname']; ?>
 					        				</td>
 					        				<td>
-					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." = ".$value_completed['salary']; ?>
+					        					<?php $salary_paid = 0;?>
+					        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
+													<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
+														<?php $salary_paid += $value_not_grouped['payment']; ?>
+													<?php endif ?>
+												<?php endforeach ?>
+					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); ?>
+					        				</td>
+					        				<td>
+					        					<form action="javascript:void(0);">
+					        						<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_completed['agentid_completed']; ?>" data-refid="<?php echo $value_completed['refid']; ?>" name="accountid">Payment</button>
+					        					</form>
 					        				</td>
 					        			</tr>
 				        			<?php
@@ -162,7 +173,8 @@
      	<input type="text" name="agentpayment" class="form-control">
        </div>
       	
-       	<input type="hidden" name="agentid" id="agentid_hidden">
+       	<input type="hidden" name="agentid" id="agentid_payment_hidden">
+       	<input type="hidden" name="refid" id="refid_payment_hidden">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

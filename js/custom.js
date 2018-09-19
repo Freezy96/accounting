@@ -1,4 +1,8 @@
 // Menu Toggle Script
+ $('.agent_modal').on('click', function(){
+  $('#agentid_payment_hidden').val($(this).attr('data-agentid'));
+  $('#refid_payment_hidden').val($(this).attr('data-refid'));
+});
 
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
@@ -313,9 +317,7 @@ $(document).ready(function() {
       alert([day, month, year].join('/'));
     });
 
-    $('.agent_modal').on('click', function(){
-      $('#agentid_hidden').val($(this).val());
-    });
+
 
 
 

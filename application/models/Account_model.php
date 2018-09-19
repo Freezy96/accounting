@@ -2404,6 +2404,7 @@ public function set_account_baddebt()
         $get_all_agent = $this->load->agent_model->getuserdata();
         //create variable liek salary1, salary2, using agentid
         foreach ($get_all_agent as $key => $value_agent) {
+
             $create_agent_salary_variable = $value_agent['agentid'];
             ${'salary'.$create_agent_salary_variable} = 0;
         }
@@ -2419,27 +2420,35 @@ public function set_account_baddebt()
                 $result_smallest_accountid_by_accountline = $this->get_smallest_accid($get_accountline_account_info);
                 //get account info by accountid
                 $result_get_account_info = $this->get_account_info($result_smallest_accountid_by_accountline);
-                foreach ($result_get_account_info as $key => $value_info) {
+                foreach ($result_get_account_info as $key => $value_info) 
+                {
                     $agentid = $value_info['agentid'];
-                    if ($agentid != 0) 
+                    //check agent里面还有没有这个人（因为上面set variable 是跟着agent table的 这便是跟着account的）
+                    foreach ($get_all_agent as $key => $value_agent) 
                     {
-                        $packagename = $value_info['packagetypename'];
-                        $packageid = $value_info['packageid'];
-                        $charge = $value_info['agentcharge'];
-                        
-                        //package info
-                        $packageinfo = $this->get_package_info($packagename, $packageid);
-                        //calculation agent salary
-                        foreach ($packageinfo as $key => $val) {
-                                $lentamount = $val['lentamount'];
-                                $totalamount = $val['totalamount'];
-                                $base = $totalamount - $lentamount;
-                                ${'salary'.$agentid} += $base * $charge / 100;
-                               
-                            } 
-                        $this->insert_agent_salary($agentid, ${'salary'.$agentid});
+                        if ($agentid == $value_agent['agentid']) 
+                        {
+                            // echo "string";
+                            if ($agentid != 0) 
+                            {
+                                $packagename = $value_info['packagetypename'];
+                                $packageid = $value_info['packageid'];
+                                $charge = $value_info['agentcharge'];
+                                
+                                //package info
+                                $packageinfo = $this->get_package_info($packagename, $packageid);
+                                //calculation agent salary
+                                foreach ($packageinfo as $key => $val) 
+                                {
+                                    $lentamount = $val['lentamount'];
+                                    $totalamount = $val['totalamount'];
+                                    $base = $totalamount - $lentamount;
+                                    ${'salary'.$agentid} += $base * $charge / 100;
+                                } 
+                                $this->insert_agent_salary($agentid, ${'salary'.$agentid});
+                            }
+                        }
                     }
-                    
                 }
             }
         }
