@@ -6,8 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Put_your_title_here</title>
    <?php
-      // Set Default TimeZone to match the time
-      date_default_timezone_set("Asia/Qatar");
+      
     ?>
   </head>
   <body>

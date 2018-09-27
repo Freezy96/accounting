@@ -136,6 +136,18 @@
       {
         $final_amount = $val['amount'];
       }
+
+      //for package_25_month///////////////////////////////////////////////////////////////////
+      if ($packagetypename == "package_25_month") {
+        if ($val['SUM(a.totalamount)']<=$val['amount']) {
+          $final_interest = 0;
+          $final_amount = $val['SUM(a.totalamount)'];
+        }
+        elseif ($val['SUM(a.totalamount)']>$val['amount']) {
+          $final_interest = $val['SUM(a.totalamount)'] - $val['amount'];
+          $final_amount = $val['amount'];
+        }
+      }
       
      ?>
     <tr>
@@ -149,6 +161,7 @@
         <?php echo $val['amount']; ?>
       </td>
       <td>
+        <!-- amount to be pay  -->
         <?php if ($final_amount<=0): ?>
           <?php echo "Paid"; ?>
         <?php else: ?>  
@@ -156,6 +169,7 @@
         <?php endif ?>
       </td>
       <td>
+        <!-- interest to be pay -->
         <?php if ($final_interest<=0): ?>
           <?php echo "Paid"; ?>
         <?php else: ?>  

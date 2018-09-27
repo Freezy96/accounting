@@ -28,6 +28,7 @@ class Account extends CI_Controller {
 	public function index()
 	{	$this->security_model->secure_session_login();
 		$this->load->helper('url');
+		$this->load->helper('date');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$res = $this->load->account_model->getuserdata();
@@ -38,7 +39,10 @@ class Account extends CI_Controller {
             $res_info = $this->load->account_model->get_package_info($packagename, $packageid);
             $data['p'.$packageid] = $res_info;
         }
-        // 先滚利息
+        $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';
+		$time = time();
+		echo mdate($datestring, $time);
+        // 再滚利息
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();

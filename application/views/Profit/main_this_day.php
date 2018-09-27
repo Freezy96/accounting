@@ -113,6 +113,23 @@
 	<?php endforeach ?>
 	<?php } ?>
 
+	<?php if(is_array($expenses_day) && $expenses_day){ ?>
+	<?php foreach ($expenses_day as $key => $val): ?>
+		<?php if ($val['SUM(expensesfee)'] != 0): ?>
+			<tr>
+				<td>
+					Expenses
+				</td>
+				<td>
+					<?php echo $val['SUM(expensesfee)']; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
+		
+		<?php $loss+=$val['SUM(expensesfee)']; ?>
+	<?php endforeach ?>
+	<?php } ?>
+
 
 	<tr>
 		<td align="right">
