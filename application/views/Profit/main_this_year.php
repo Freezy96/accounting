@@ -110,6 +110,23 @@
 	<?php endforeach ?>
 	<?php } ?>
 
+	<?php if(is_array($expenses_year) && $expenses_year){ ?>
+	<?php foreach ($expenses_year as $key => $val): ?>
+		<?php if ($val['SUM(expensesfee)'] != 0): ?>
+			<tr>
+				<td>
+					Expenses
+				</td>
+				<td>
+					<?php echo $val['SUM(expensesfee)']; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
+		
+		<?php $loss+=$val['SUM(expensesfee)']; ?>
+	<?php endforeach ?>
+	<?php } ?>
+
 	<?php if ($year_employee_loss!==0): ?>
 		<tr>
 			<td>
@@ -166,13 +183,33 @@
 			&nbsp;
 		</td>
 	</tr>	
+	<!-- net profit -->
+	<?php $net_profit = number_format($profit-$loss-$additional_minus, 2, '.', ''); ?>
+	<?php $employee_bonus = number_format($net_profit*110/100-$net_profit, 2, '.', ''); ?>
+	<!-- 10% employee---------------------------------------------------------------------------- -->	
+	<?php if ($employee_bonus>=0): ?>
+		<tr>
+			<td>
+				Bonus 10% for employee
+			</td>
+			<td>
+				<?php echo $employee_bonus; ?>
+			</td>
+		</tr>
+	<?php endif ?>
+	<!-- 10% employee---------------------------------------------------------------------------- -->	
 	<!-- net---------------------------------------------------------------------------- -->	
 	<tr>
 		<td align="right">
 			Net:
 		</td>
 		<td>
-			<?php echo number_format($profit-$loss-$additional_minus, 2, '.', ''); ?>
+			<?php if ($employee_bonus>=0): ?>
+				<?php echo $net_profit-$employee_bonus; ?>
+			<?php else: ?>
+				<?php echo $net_profit; ?>
+			<?php endif ?>
+			
 		</td>
 	</tr>
 	<!-- net---------------------------------------------------------------------------- -->

@@ -1,5 +1,7 @@
 <?php
-
+// Set Default TimeZone to match the time
+date_default_timezone_set("Asia/Qatar");
+// ini_set('date.timezone', 'Asia/Qatar');
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

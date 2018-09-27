@@ -124,6 +124,30 @@ $(document).ready(function() {
           }
 
           total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+
+          /////////////////////for package_25_month///////////////////////////////////////////////////////////////////
+
+          if (res[0].packagetypename == "package_25_month") 
+          {
+
+            if (res[i].totalamount<=res[i].amount) 
+            {
+              interest_to_be_pay = parseFloat(0).toFixed(2);
+              amount_to_be_pay = parseFloat(res[i].totalamount).toFixed(2);
+              total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+              is_Paid = 1;
+            }
+            else (res[i].totalamount>res[i].amount) 
+            {
+              interest_to_be_pay = res[i].totalamount - res[i].amount;
+              interest_to_be_pay = parseFloat(interest_to_be_pay).toFixed(2);console.log(interest_to_be_pay);
+              amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);console.log(amount_to_be_pay);
+              total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+              is_Paid = 0;
+            }
+          }
+
+
           //Amount to be pay
           if ("payment" in res[i]) 
           {

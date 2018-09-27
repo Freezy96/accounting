@@ -290,5 +290,50 @@ class Profit_Model extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_this_day_expenses($date){
+        
+        $this->db->select('SUM(expensesfee)');
+        $this->db->from('expenses');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(expensesdate,'%Y-%m-%d')", $date);
+        $this->db->group_by('expensesdate');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function get_this_month_expenses($date){
+        
+        $this->db->select('SUM(expensesfee)');
+        $this->db->from('expenses');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(expensesdate,'%Y-%m')", $date);
+        // $this->db->group_by('paymentdate');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function get_this_year_expenses($date){
+        
+        $this->db->select('SUM(expensesfee)');
+        $this->db->from('expenses');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(expensesdate,'%Y')", $date);
+        // $this->db->group_by('paymentdate');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
 }
 ?>

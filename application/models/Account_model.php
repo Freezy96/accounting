@@ -50,7 +50,7 @@ class Account_model extends CI_Model{
     public function getuserdata_payment_use($refid){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
+        $this->db->select('a.accountid , SUM(a.totalamount), a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -80,7 +80,7 @@ class Account_model extends CI_Model{
         foreach ($refid as $value) {
             $refid_res = $value['refid'];
         }
-        $this->db->select('a.accountid, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
+        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -266,7 +266,7 @@ class Account_model extends CI_Model{
 
     public function get_payment_info($accountid)
     {
-        $this->db->select('payment');
+        $this->db->select('*');
         $this->db->from('payment');
         $this->db->where('accountid', $accountid);
         $query = $this->db->get();
@@ -276,6 +276,15 @@ class Account_model extends CI_Model{
     {
     $data = array(
     'interest' => $total_interest
+    );
+    $this->db->where('accountid', $accountid);
+    $this->db->update('account', $data);
+    }
+
+    public function insert_amount($amount_change, $accountid)
+    {
+    $data = array(
+    'amount' => $amount_change
     );
     $this->db->where('accountid', $accountid);
     $this->db->update('account', $data);
@@ -308,7 +317,11 @@ class Account_model extends CI_Model{
                 $interest = $value['interest'];
                 $lentamount = $value['lentamount'];
             
-            
+                //for package_manual_payeveryday_manualdays
+                if ($packagename == "package_manual_payeveryday_manualdays") {
+                    $totaldays_package_manual_payeveryday_manualdays = $value['days'];
+                }
+                
 
             // $diff = abs(strtotime($date1) - strtotime($date2));
 
@@ -317,11 +330,11 @@ class Account_model extends CI_Model{
             // $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
             // $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
 
-            $now = time(); // or your date as well
+            $now = strtotime(date("Y-m-d")); // or your date as well
             $due_date = strtotime($duedate);
-            $datediff = $now - $due_date;
-            $days = round($datediff / (60 * 60 * 24));
-            $days = $days-1;
+            $timeDiff = abs($now - $due_date);
+            $days = $timeDiff/86400; 
+            // $days = $days-1;
             // echo "<script>console.log( 'days value: " .$days. "' );</script>";
             $date1 = date("Y-m-d");
             $date2 = date("Y-m-d",strtotime($duedate));
@@ -334,27 +347,173 @@ class Account_model extends CI_Model{
          //if ($days>=60){
          //    $status = "baddebt";
        //    }
+        $payment_info = $this->get_payment_info($accountid);
+
             if ($days>0 && $date2<$date1) 
             {
-                echo "<script>console.log(".$days.")</script>";
+                echo "<script>console.log('".$packagename.":".$days."')</script>";
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed" )
                 {
                     $total_interest = $interest * $days;
-                    
                     $this->insert_interest($total_interest,$accountid);
                 }
                 elseif($packagename == "package_manual_5days_4week" && $status !=="closed" )
                 {
                     $total_interest = $interest * $days;
-                    
                     $this->insert_interest($total_interest,$accountid);
                 }
                 //5天账 公式
-                elseif ($packagename == "package_25_month" && $status !=="closed" )
+                elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
                 {
-                    $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
-                    $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
+                    if ($days<=$totaldays_package_manual_payeveryday_manualdays) {
+                        $total_interest = $interest * $days;
+                        $this->insert_interest($total_interest,$accountid);
+                    }
+                    
+                }
+                //一个月 迟一天110% 算法不同 在这边就那payment来减了 而不是像其他的一样 在view那边加减
+                //重要：： interest / amount会变！
+                elseif ($packagename == "package_25_month" && $status !=="closed" )
+                {   
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                    }
+                    //每次 + 1天来取得date
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) 
+                    { 
+                        $date_eachday = strtotime("+ ".$i." days", $due_date);
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        // echo "<script>console.log('package_25_month:".$date_eachday."');</script>";
+                        $check_match_date = 0;
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] == $date_eachday) 
+                            {
+                                $check_match_date = 1;
+                                $payment_paid += $value['payment'];
+                            }
+                        }
+                        //当天有payment
+                        if ($check_match_date == 1) 
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = (($oriamount - $payment_amount_date_less_than_duedate) * ((100+$interest)/100)) - $payment_paid;
+                            }
+                            //其他天
+                            else
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($total_amount * ((100+$interest)/100)) - $payment_paid;
+                            }
+                        }
+                        //当天没有payment
+                        else
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = (($oriamount - $payment_amount_date_less_than_duedate) * ((100+$interest)/100));
+                            }
+                            //其他天
+                            else
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($total_amount * ((100+$interest)/100));
+                            }
+                        }
+                    }
+                    // echo "<script>console.log('package_25_month:".$total_amount."');</script>";
+                    $this->update_total_amount($total_amount,$accountid);
+                    // $total_interest = $total_amount - $oriamount;
+                    // if ($total_interest<=0) {
+                    //     $amount_change = $oriamount + $total_interest; //total_interest 在这边是负数
+                    //     $this->insert_amount(number_format($amount_change, 2, '.', ''),$accountid);
+                    //     $total_interest = 0;
+                    // }
+                    // $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////
+                    // $total_interest = 0;
+                    // $count_paymentdate = 0;
+                    // foreach ($payment_info as $key => $value) {
+                    //     ${"payment_date" . $count_paymentdate} = $value['paymentdate'];
+                    //     ${"payment_amount" . $count_paymentdate} = $value['payment'];
+                    //     $count_paymentdate++;
+                    // }
+                    // if ($count_paymentdate!=0) 
+                    // {
+                    //     for ($i=0; $i <$count_paymentdate ; $i++) 
+                    //     { 
+                    //         if ($i == 0  && $count_paymentdate == 1) {
+                    //             //date 有问题
+                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
+                    //             $days_diff = round($date_diff / (60 * 60 * 24));
+                    //             ${"datestop". $i} = $days_diff;
+                    //             $total_interest += ($oriamount * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
+
+                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
+                    //             $days_diff = round($date_diff / (60 * 60 * 24));
+                    //             ${"datestop". $i} = $days_diff;
+                    //             ${"datestop". $i} = ${"datestop". $i} - $days;
+                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
+                                
+                    //         }
+                    //         elseif ($i == 0  && $count_paymentdate != 1) 
+                    //         {
+                    //             //date 有问题
+                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
+                    //             $days_diff = round($date_diff / (60 * 60 * 24));
+                    //             ${"datestop". $i} = $days_diff;
+                    //             $total_interest += ($oriamount * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
+                    //             echo "<script>console.log('ttttttttt2:".$total_interest."');</script>";
+                    //         }
+                    //         elseif ($i == $count_paymentdate-1) 
+                    //         {
+                    //             $i_minus_1 = $i-1;
+                    //             $date_diff = strtotime(${"payment_date" . $i}) - strtotime(${"payment_date" . $i_minus_1});
+                    //             $days_diff = round($date_diff / (60 * 60 * 24));
+                    //             ${"datestop". $i} = $days_diff;
+                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
+                    //             echo "<script>console.log('ttttttttt2:".$total_interest."');</script>";
+                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
+                    //             $days_diff = round($date_diff / (60 * 60 * 24));
+                    //             ${"datestop". $i} = $days_diff;
+                    //             ${"datestop". $i} = ${"datestop". $i} - $days;
+                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
+                    //             echo "<script>console.log('tttttttttFinal2:".$total_interest."');</script>";
+                    //         }
+                    //         else
+                    //         {
+                    //             $i_minus_1 = $i-1;
+                    //             $date_diff = strtotime(${"payment_date" . $i}) - strtotime(${"payment_date" . $i_minus_1});
+                    //             $days_diff = round($date_diff / (60 * 60 * 24));
+                    //             ${"datestop". $i} = $days_diff;
+                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
+                    //         }
+                             
+                    //     }
+                    //         // echo "<script>console.log('ttttttttt:".number_format($total_interest, 2, '.', '')."');</script>";
+                    //         $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
+                    //     }
+                        // else
+                        // {//没有payment的情况下 好像是错的
+                        //     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
+                        //     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
+                        // }
+                    
                     // print_r($total_interest);
                 }
                 
@@ -2226,35 +2385,41 @@ class Account_model extends CI_Model{
         //拿所有的payment，groupby accountid
         $result_payment = $this->groupby_accountid_total_amount();
 
-        $this->db->select('accountid, amount, interest');
-        $this->db->from('account');
+        $this->db->select('a.accountid, a.amount, a.interest, p.packagetypename');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $query = $this->db->get();
         $result = $query->result_array();
-        foreach ($result as $key => $val) {
-            $amount = $val['amount'];
-            $interest = $val['interest'];
-            $accountid = $val['accountid'];
-            $totalamount = $amount+$interest;
-            $this->update_total_amount($totalamount,$accountid);
-        }
 
-        foreach ($result as $key => $val) {
-            $amount = $val['amount'];
-            $interest = $val['interest'];
-            $accountid = $val['accountid'];
-            foreach ($result_payment as $key => $value) {
-                if($val['accountid'] == $value['accountid'])
-                {
-                    // echo "<script>console.log( 'Debug value: " .$value['accountid']. "' );</script>";
-                    $payment = $value['SUM(payment)'];
-                    $totalamount = $amount+$interest-$payment;
-                    $this->update_total_amount($totalamount,$accountid);
-                }
+        foreach ($result as $key => $val) 
+        {
+            if ($val['packagetypename'] == "package_25_month") 
+            {
+                //do nothing
             }
+            else
+            {
+                $amount = $val['amount'];
+                $interest = $val['interest'];
+                $accountid = $val['accountid'];
+                $totalamount = $amount+$interest;
+                foreach ($result_payment as $key => $value) 
+                {
+                    if($val['accountid'] == $value['accountid'])
+                    {
+                        // echo "<script>console.log( 'Debug value: " .$value['accountid']. "' );</script>";
+                        $payment = $value['SUM(payment)'];
+                        $totalamount = $amount+$interest-$payment;
+                    }
+                }
+                $this->update_total_amount($totalamount,$accountid);
+            }
+            
+            
         }
     }
 
@@ -2276,18 +2441,19 @@ class Account_model extends CI_Model{
 
     public function account_status_set()
     {
-        $this->db->select('accountid, totalamount, duedate');
-        $this->db->from('account');
+        $this->db->select('a.accountid, a.totalamount, a.duedate, p.packagetypename');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
-        $this->db->where('companyid', $company_identity);
+        $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $query = $this->db->get();
         $result = $query->result_array();
         foreach ($result as $key => $val) {
             $accountid = $val['accountid'];
             $totalamount = $val['totalamount'];
-            
+            $packagetypename = $val['packagetypename'];
             $duedate = $val['duedate'];
             $now = time(); // or your date as well
             $due_date = strtotime($duedate);
@@ -2297,9 +2463,9 @@ class Account_model extends CI_Model{
             $days = $days-1;
             $status="";
 
-           echo "<script>console.log('accountid:".$accountid."')</script>";
-            echo "<script>console.log('totalamount:".$totalamount."')</script>";
-            echo "<script>console.log('days:".$days."')</script>";
+           // echo "<script>console.log('accountid:".$accountid."')</script>";
+           //  echo "<script>console.log('totalamount:".$totalamount."')</script>";
+           //  echo "<script>console.log('days:".$days."')</script>";
             // echo "<script>alert(".$days.")</script>";
             if($totalamount <= 0 && $status != "baddebt"){
                 $status = "closed";
