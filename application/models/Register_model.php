@@ -9,6 +9,9 @@ class Register_model extends CI_Model{
    
 
     public function regis($username, $password, $campany) {
+    $this->db->select('username');
+    $this->db->where('username',$username);
+    if () {
     $this->db->set('username', $username);
     $this->db->set('password', $password);
     $this->db->set('campany', $campany );
@@ -19,6 +22,8 @@ class Register_model extends CI_Model{
 
             return false;
         }return false;
+    }
+    
     }
 }
 ?>
