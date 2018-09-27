@@ -1,4 +1,8 @@
 // Menu Toggle Script
+ $('.agent_modal').on('click', function(){
+  $('#agentid_payment_hidden').val($(this).attr('data-agentid'));
+  $('#refid_payment_hidden').val($(this).attr('data-refid'));
+});
 
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
@@ -84,6 +88,7 @@ $(document).ready(function() {
           $tr.append($('<td/>').html("Amount To Be Pay"));
           $tr.append($('<td/>').html("Interest To Be Pay"));
           $tr.append($('<td/>').html("Total:"));
+          $tr.append($('<td/>').html("Action:"));
           $('.account_modal_table tr:last').before($tr);
 
         for (var i = 0; i < res.length; i++) {
@@ -95,6 +100,7 @@ $(document).ready(function() {
           var amount_paid = 0;
           var amount_to_be_pay = 0;
           var total = 0;
+          //Calculation
           if ("payment" in res[i]) 
           {
             interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);//-100.00
@@ -104,9 +110,7 @@ $(document).ready(function() {
             interest_to_be_pay = (parseFloat(res[i].interest)).toFixed(2);//200.00
           }
           // console.log(interest_to_be_pay);
-          
-          
-          if(interest_to_be_pay < 0)
+          if(interest_to_be_pay <= 0)
           {
             amount_paid = parseFloat(interest_to_be_pay * -1).toFixed(2); //100.00
             amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
@@ -120,7 +124,7 @@ $(document).ready(function() {
           }
 
           total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
-
+          //Amount to be pay
           if ("payment" in res[i]) 
           {
             if (amount_to_be_pay<=0) 
@@ -136,7 +140,7 @@ $(document).ready(function() {
           {
             $tr.append($('<td/>').html(parseFloat(Math.round(res[i].amount * 100) / 100).toFixed(2)));
           }
-          
+          //Interest to be pay
           if ("payment" in res[i]) 
           {
             if(is_Paid == 1)
@@ -153,6 +157,7 @@ $(document).ready(function() {
           {
             $tr.append($('<td/>').html(res[i].interest));
           }
+          //Total
           if (total<=0) 
           {
             $tr.append($('<td/>').html("Paid"));
@@ -160,6 +165,19 @@ $(document).ready(function() {
           else
           {
             $tr.append($('<td/>').html(total));
+          }
+          //Action
+          //Get baseurl path
+          var baseurl_pathname   = window.location.origin;
+          var pathname   = window.location.pathname;
+          var total_pull_nxt_period_use = total;
+          if (total_pull_nxt_period_use<=0) 
+            {
+              total_pull_nxt_period_use = 0;
+            }
+          if (i<res.length-1) 
+          {
+            $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
           }
           $('.account_modal_table tr:last').before($tr);
         }
@@ -299,9 +317,7 @@ $(document).ready(function() {
       alert([day, month, year].join('/'));
     });
 
-    $('.agent_modal').on('click', function(){
-      $('#agentid_hidden').val($(this).val());
-    });
+
 
 
 

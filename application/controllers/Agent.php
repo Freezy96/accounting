@@ -61,6 +61,7 @@ class Agent extends CI_Controller {
 	                        $charge = $value_info['agentcharge'];
 	                        $customername = $value_info['customername'];
 	                        $wechatname = $value_info['wechatname'];
+	                        $refid = $value_info['refid'];
 	                        //package info
 	                        $packageinfo = $this->load->account_model->get_package_info($packagename, $packageid);
 	                        //calculation agent salary
@@ -75,6 +76,7 @@ class Agent extends CI_Controller {
                                	$data['salary_completed'][$count] = array(
                                		'customername' => $customername,
                                		'wechatname' => $wechatname,
+                               		'refid' => $refid,
                                		'lentamount' => $lentamount,
                                		'totalamount' => $totalamount,
                                		'accountid' => $accountid,
@@ -93,6 +95,10 @@ class Agent extends CI_Controller {
 		// print_r($data['count_completed']);//complete pass to view//////////////////////
 		$res = $this->load->agent_model->get_agent_payment();
 		$data['payment'] = $res;
+
+		$res = $this->load->agent_model->get_agent_payment_not_grouped();
+		$data['payment_not_grouped'] = $res;
+
     	$this->load->view('agent/main', $data);
 		$this->load->view('template/footer');
 	}
@@ -203,6 +209,7 @@ class Agent extends CI_Controller {
 		$data = array(
 		'agentid' => $this->input->post('agentid'),
 		'paymentdate' => date("Y-m-d"),
+		'refid' => $this->input->post('refid'),
 		'payment' => $this->input->post('agentpayment')
 		);
 

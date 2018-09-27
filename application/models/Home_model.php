@@ -20,5 +20,25 @@ class Home_Model extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_db_check_exist(){
+        // Run the query
+        $this->db->select('*');
+        $this->db->from('dbbackup');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function insert_dbbackup($date_today){
+        // Run the query
+        if($this->db->insert('dbbackup', array('date' => $date_today))){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
+
+
 }
 ?>

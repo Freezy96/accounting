@@ -73,13 +73,23 @@ class Agent_Model extends CI_Model{
 
     public function get_agent_payment(){
         // Run the query
-        $this->db->select('SUM(payment), agentid');
+        $this->db->select('SUM(payment), agentid, refid');
         $this->db->from('agentpayment');
         $this->db->group_by('agentid');
         $query = $this->db->get();
         return $query->result_array();
 
     }
+
+    public function get_agent_payment_not_grouped(){
+        // Run the query
+        $this->db->select('payment, agentid, refid');
+        $this->db->from('agentpayment');
+        $query = $this->db->get();
+        return $query->result_array();
+
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // public function count_agent_salary()
     // {
@@ -165,7 +175,7 @@ class Agent_Model extends CI_Model{
     public function get_account_info($accountid)
     {
 
-        $this->db->select('a.accountid, a.agentid, a.packageid, p.packagetypename, a.agentcharge, a.customerid, c.customername, c.wechatname');
+        $this->db->select('a.accountid, a.refid, a.agentid, a.packageid, p.packagetypename, a.agentcharge, a.customerid, c.customername, c.wechatname');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
