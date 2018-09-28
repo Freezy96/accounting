@@ -32,7 +32,6 @@ class Book extends CI_Controller {
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
-		'title' => $this->input->post('title'),
 		'description' => $this->input->post('description'),
 		'type' => $this->input->post('type'),
 		'amount' => $this->input->post('amount'),
@@ -61,7 +60,6 @@ class Book extends CI_Controller {
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
-		'title' => $this->input->post('title'),
 		'description' => $this->input->post('description'),
 		'type' => $this->input->post('type'),
 		'amount' => $this->input->post('amount'),
@@ -91,7 +89,6 @@ public function insertbankdata()
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
-		'bank' => $this->input->post('bank'),
 		'description' => $this->input->post('description'),
 		'type' => $this->input->post('type'),
 		'amount' => $this->input->post('amount'),
@@ -121,7 +118,6 @@ public function insertempdata()
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
-		'employee' => $this->input->post('employee'),
 		'description' => $this->input->post('description'),
 		'type' => $this->input->post('type'),
 		'amount' => $this->input->post('amount'),
