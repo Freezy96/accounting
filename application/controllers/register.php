@@ -20,7 +20,7 @@ class Register extends CI_Controller {
 
     $username = $this->input->post('username');
     $password = $this->input->post('password');
-    $campany = $this->input->post('campany');
+    $company = $this->input->post('company');
 
     $this->db->select('username');
     $this->db->from('admin');
@@ -36,9 +36,9 @@ class Register extends CI_Controller {
 
     $this->db->set('username', $username);
     $this->db->set('password', $password);
-    $this->db->set('campany', $campany );
+    $this->db->set('company', $company );
         if ($this->db->insert('admin')) {
-            $sql = "INSERT INTO admin (username, password, campany) VALUES ('$username', '$password', '$campany')";
+            $sql = "INSERT INTO admin (username, password, company) VALUES ('$username', '$password', '$company')";
             $this->db->insert_id();  
             echo "<script>alert('Registered successfully!'); location.href='/accounting/register';</script>";
             
