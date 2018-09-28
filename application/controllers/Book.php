@@ -137,7 +137,7 @@ public function insertempdata()
         $res= $this->load->book_model->getbankdata();
         $data['result'] = $res;
     	$this->load->view('book/bank',$data);
-    		$this->load->view('template/footer');
+    	$this->load->view('template/footer');
 
 	}
 		public function coh(){

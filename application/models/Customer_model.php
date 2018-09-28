@@ -44,7 +44,7 @@ class Customer_Model extends CI_Model{
 
         public function getuserstatus(){
         // Run the query
-        $this->db->select('c.customerid, a.status');
+        $this->db->select('c.customerid, a.status, c.reset');
         $this->db->from('customer c');
         $this->db->join('account a', 'a.customerid = c.customerid', 'left');
         $query = $this->db->get();
@@ -64,24 +64,57 @@ public function checkuserstatus(){
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
            $status = $value['status'];
-
-           $statuscus= $status;
-           if(($status==""||$status=="closed") && $status!="late"&& $status!="baddebt"&& $status!=="0"){
+           $reset = $value['reset'];           
+           $statuscus= "";
+           if(($status==""||$status=="closed") && $status!="late" &&$status!="baddebt" ){
                 $statuscus="good";
-           }elseif($status!="" && $status=="baddebt" && $status!=="0"){ 
+           }elseif($status!="" && $reset!="1" && $status=="baddebt" ){ 
                 $statuscus="baddebt";
-           }elseif($status!="" && $status=="late" && $status!="baddebt" && $status!=="0"){
+           }elseif($status!="" && $status=="late" && $reset!="1" && $status!="baddebt" ){
                 $statuscus="late";
            }
-
            $data = array(
             'status' => $statuscus
             );
         $this->db->where('customerid', $customerid);
         $this->db->update('customer', $data);
            
-
+      }
     }
+
+public function getresetstatus(){
+        // Run the query
+        $this->db->select('customerid, reset, re-date, status');
+        $this->db->from('customer');
+        $query = $this->db->get();
+
+        return $query->result_array();
+}
+
+public function reset_duedate(){
+  $data=$this->customer_model->getresetstatus();
+  foreach ($data as $key => $value) {
+     $customerid = $value['customerid'];
+     $status = $value['status'];
+     $reset= $value['reset'];
+     $re_date= $value['re-date'];
+     $date=strtotime(date("Y-m-d"));
+     $re_duedate = strtotime("+3 days", strtotime($re_date));
+
+     if ($date>=$re_duedate) {
+       $reset = 0;
+       $status = " ";
+
+     }
+     $data = array(
+            'status' => $status,
+            'reset' => $reset
+            );
+        $this->db->where('customerid', $customerid);
+        $this->db->update('customer', $data);
+           
+  } 
+    
 }
 public function reset_status($data){
   foreach ($data as $key => $value) {
@@ -96,15 +129,30 @@ public function reset_status($data){
         $this->db->where('customerid', $customerid);
         $this->db->update('customer', $data);
 
+public function reset_status($data){
+   foreach ($data as $key => $value) {
+      $customerid = $value['customerid'];
+  } 
+           $reset=1; 
+           $date = date("Y-m-d");
+           $status= "good";
+           $data = array(
+            'reset' => $reset,
+            're-date' => $date,
+            'status' => $status
+            );
+        $this->db->where('customerid', $customerid);
+        $this->db->update('customer', $data);
+
 }
-        public function getstatus(){
+public function getstatus(){
         // Run the query
         $this->db->select('customerid, status');
         $this->db->from('customer');
         $query = $this->db->get();
 
         return $query->result_array();
-    }
+}
 
 public function blackliststatus(){
         $data=$this->customer_model->getstatus();

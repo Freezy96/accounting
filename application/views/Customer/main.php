@@ -88,7 +88,7 @@
 				<?php echo $val['phoneno']; ?>
 			</td>
 			
-				<td width="90%">
+				<td width="80%">
 					<div class="btn-group">
 						<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" name="accountid">View</button>
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>

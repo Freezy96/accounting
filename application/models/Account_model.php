@@ -2717,15 +2717,21 @@ public function set_account_baddebt()
 public function set_baddebt_update($accountid){
         // Run the query
         $accountid = $accountid;
+        $res1 = $this->db->getrefid($accountid);
+        $res = $res1->result_array();
+        foreach ($res as $key => $value) {
+        $refid=$value['refid'];
         $status = "baddebt";
         $data = array(
             'status' => $status
             );
 
-        $this->db->where('accountid', $accountid);
+        $this->db->where('refid', $refid);
         $this->db->update('account', $data);
+}
         $query = $this->db->get('account');
         return $query->result_array();
+
     }
 
     public function pull_to_next_period($accountid_destination, $totalamount)

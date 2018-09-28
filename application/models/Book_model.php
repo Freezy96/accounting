@@ -49,22 +49,22 @@
     }
 
      public function getbankdata(){
-        // Run the query
+        $this->db->order_by('datee','ASC');
         $query = $this->db->get('bank');
         return $query->result_array();
     }
      public function getcohdata(){
-        // Run the query
+        $this->db->order_by('datee','ASC');
         $query = $this->db->get('coh');
         return $query->result_array();
     }
      public function getempdata(){
-        // Run the query
+        $this->db->order_by('datee','ASC');
         $query = $this->db->get('emp');
         return $query->result_array();
     }
      public function gettotaldata(){
-        // Run the query
+        $this->db->order_by('datee','ASC');
         $query = $this->db->get('total');
         return $query->result_array();
     }
