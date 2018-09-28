@@ -29,7 +29,7 @@ class Register extends CI_Controller {
 
     if ($query->num_rows()>0) {
 
-          echo "<script>alert(' Username is available'); location.href='/accounting/register';</script>";
+          echo "<script>alert(' Username already exist'); location.href='/accounting/register';</script>";
                         
          
     }else{

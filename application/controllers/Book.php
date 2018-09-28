@@ -3,8 +3,8 @@
 class Book extends CI_Controller {
 	function __construct(){
         parent::__construct();
-        $this->load->model('security_model');
         $this->load->model('book_model');
+        $this->load->model('security_model');
     }
   	public function index()
 	{	$this->security_model->secure_session_login();
