@@ -70,6 +70,20 @@ class Home extends CI_Controller {
 		$this->load->view('home/main', $data);
 		$this->load->view('template/footer');
 	}
+
+	public function homeremind()
+	{	
+		$accountid = $this->input->post('accountid');
+		//is checked
+		$checked = $this->input->post('checked');
+		$this->home_model->update_status_home_check($accountid,$checked);
+		// echo json_encode($checked);
+		// $this->update_status_home_check($accountid);
+		// echo json_encode($checked);
+	}
+
+	
+	
 }
 
 /* End of file welcome.php */

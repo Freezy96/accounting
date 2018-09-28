@@ -38,9 +38,9 @@
 					<td>
 						Phone No.
 					</td>
-					<!-- <td>
+					<td>
 						ACTION
-					</td> -->
+					</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -50,15 +50,18 @@
 			<?php if(is_array($result) && $result){ ?>
 			<?php foreach ($result as $key => $val): ?>
 				<?php 
+					$now = strtotime(date("Y-m-d")); // or your date as well
+		            $due_date = strtotime($val['MAX(a.duedate)']);
+		            $timeDiff = abs($now - $due_date);
+		            $days = $timeDiff/86400; 
+					// $now = time(); // or your date as well
+		   //          $due_date = strtotime($val['duedate']);
+		   //          $datediff = $now - $due_date;
+		   //          $days = round($datediff / (60 * 60 * 24));
 
-					$now = time(); // or your date as well
-		            $due_date = strtotime($val['duedate']);
-		            $datediff = $now - $due_date;
-		            $days = round($datediff / (60 * 60 * 24));
-
-		            $dayleft = round(($due_date - $now) / (60 * 60 * 24));
+		            // $dayleft = round(($due_date - $now) / (60 * 60 * 24));
 				 ?>
-				<?php if (strtotime($val['duedate']) <= strtotime("+4 day", time()) && $due_date > time()): ?>
+				<?php if (strtotime($val['MAX(a.duedate)']) <= strtotime("+4 day", time()) && $due_date >= time()-86400): ?>
 				<tr>
 					<td>
 						<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
@@ -70,20 +73,22 @@
 						<?php echo $val['payment']; ?>
 					</td> -->
 					<td>
-						<?php echo $val['datee']; ?>
+						<?php echo $val['MIN(a.datee)']; ?>
 					</td>
 					<td>
-						<?php echo $val['duedate']; ?>
+						<?php echo $val['MAX(a.duedate)']; ?>
 					</td>
 					<td>
 						<span style="color: 
-							<?php if ($dayleft+1 == 1): $msg = "1 day left"; ?>
+							<?php if ($days == 1): $msg = "1 day left"; ?>
 								red
-							<?php elseif ($dayleft+1 == 2): $msg = "2 day left"; ?>	
+							<?php elseif ($days == 0): $msg = "today"; ?>	
+								red
+							<?php elseif ($days == 2): $msg = "2 day left"; ?>	
 								orange
-							<?php elseif ($dayleft+1 == 3): $msg = "3 day left"; ?>
+							<?php elseif ($days == 3): $msg = "3 day left"; ?>
 								green
-							<?php elseif ($dayleft+1 == 4): $msg = "4 day left"; ?>
+							<?php elseif ($days == 4): $msg = "4 day left"; ?>
 								green
 							<?php endif ?>
 						;">
@@ -103,16 +108,14 @@
 					<td>
 						<?php echo $val['phoneno']; ?>
 					</td>
-					<!-- <td>
-						<div class="row">
-							<form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
-							<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
-							</form>
-							<form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
-								<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
-							</form>
-						</div>
-					</td> -->
+					<td>
+
+						<?php if ($val['MAX(a.homeremind)'] == "checked"): ?>
+							<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>" checked>
+						<?php else: ?>
+							<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>">
+						<?php endif ?>
+					</td>
 				</tr>
 				<?php endif ?>
 				

@@ -4,6 +4,10 @@
   $('#refid_payment_hidden').val($(this).attr('data-refid'));
 });
 
+
+
+
+
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -341,9 +345,24 @@ $(document).ready(function() {
       alert([day, month, year].join('/'));
     });
 
-
-
-
-
+    $(".home_check").on("change", function(event) {
+      event.preventDefault();
+      var accountid = $(this).val();
+      var checkbox = $(this);
+      var checked = checkbox.prop('checked');
+      console.log(accountid);
+      $.ajax({
+      type: "POST",
+      url: 'home/homeremind',
+      dataType: 'json',
+      data: {'accountid': accountid, checked:checked},
+      success: function(res) {
+          if (res)
+          { 
+            alert(res);
+          }
+        }
+        });
+    });
 
 });
