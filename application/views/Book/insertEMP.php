@@ -1,6 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 
-<form action='<?php echo base_url();?>Book/insertemp' method='post' name='insert' enctype="multipart/form-data">
+<form action='<?php echo base_url();?>Book/insertempdata' method='post' name='insert' enctype="multipart/form-data">
  <div class="form-group">
     <label for="">Employee Name:</label>
     <input type="text" class="form-control" id="" placeholder="Emp Name" name="employee" required>

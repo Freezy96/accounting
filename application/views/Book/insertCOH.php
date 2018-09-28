@@ -1,6 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 
-<form action='<?php echo base_url();?>Book/insertcoh' method='post' name='insert' enctype="multipart/form-data">
+<form action='<?php echo base_url();?>Book/insertcohdata' method='post' name='insert' enctype="multipart/form-data">
  <div class="form-group">
     <label for="">Title:</label>
     <input type="text" class="form-control" id="" placeholder="title" name="title" required>

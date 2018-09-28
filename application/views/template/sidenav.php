@@ -88,6 +88,9 @@
                     </div>
                 </li>
                 <li>
+                    <a href="<?php echo site_url('book/main');  ?>">Book</a>
+                </li>
+                <li>
                     <a href="<?php echo site_url('logout/');  ?>">Logout</a>
                 </li>
             </ul>
