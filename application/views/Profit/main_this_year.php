@@ -185,12 +185,12 @@
 	</tr>	
 	<!-- net profit -->
 	<?php $net_profit = number_format($profit-$loss-$additional_minus, 2, '.', ''); ?>
-	<?php $employee_bonus = number_format($net_profit*110/100-$net_profit, 2, '.', ''); ?>
+	<?php $employee_bonus = number_format(($net_profit*110/100)-$net_profit, 2, '.', ''); ?>
 	<!-- 10% employee---------------------------------------------------------------------------- -->	
 	<?php if ($employee_bonus>=0): ?>
 		<tr>
 			<td>
-				Bonus 10% for employee
+				Bonus 10% for employee 
 			</td>
 			<td>
 				<?php echo $employee_bonus; ?>
