@@ -18,15 +18,17 @@
 </tr>
 </thead>
 <tbody>
-	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): 
+
+	<?php if(is_array($result) && $result){ 
+$debit=0;
+	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
 <?php if ($type=="receive"){?>
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount']; ?></td>
+<td align="right"><?php echo $val['amount']; $debit+= $val['amount'];?></td>
 </tr>
 <?php } ?>
 <?php endforeach ?>
@@ -47,15 +49,16 @@
 </tr>
 </thead>
 <tbody>
-	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): 
+	<?php if(is_array($result) && $result){ 
+	$credit=0;
+	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
 		 <?php if ($type=="payment"){?>
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount']; ?></td>
+<td align="right"><?php echo $val['amount'];$credit+= $val['amount']; ?></td>
 </tr>
 <?php }?>
 <?php endforeach ?>
@@ -64,5 +67,39 @@
 </table>
 </td>
 </tr>
+<tr>
+
+	<?php 
+	$balance = abs($debit-$credit);
+	if ($debit>$credit) {?>
+		<td colspan="2" align="right">
+			<?php
+			echo "Balance:Credit ".$balance;
+			?>
+		</td><?php
+	}elseif ($credit>$debit) {
+		?>
+		<td colspan="2" align="left">
+		<?php
+		echo "Balance:Debit ".$balance;
+		?>
+		</td>
+	<?php
+	}?>
+
+
+</tr>
+<h3>
+<?php 
+	$balance = abs($debit-$credit);
+	if ($debit>$credit) {
+		echo "Balance:Credit ".$balance;
+	}elseif ($credit>$debit) {
+		echo "Balance:Debit ".$balance;
+	}else{
+
+	}
+	 ?>
+	 </h3>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('book/insertbank'); ?>" >Insert</a>

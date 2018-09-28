@@ -63,5 +63,39 @@
 </table>
 </td>
 </tr>
+<tr>
+
+	<?php 
+	$balance = abs($debit-$credit);
+	if ($debit>$credit) {?>
+		<td colspan="2" align="right">
+			<?php
+			echo "Balance:Credit ".$balance;
+			?>
+		</td><?php
+	}elseif ($credit>$debit) {
+		?>
+		<td colspan="2" align="left">
+		<?php
+		echo "Balance:Debit ".$balance;
+		?>
+		</td>
+	<?php
+	}?>
+
+
+</tr>
+<h3>
+<?php 
+	$balance = abs($debit-$credit);
+	if ($debit>$credit) {
+		echo "Balance:Credit ".$balance;
+	}elseif ($credit>$debit) {
+		echo "Balance:Debit ".$balance;
+	}else{
+
+	}
+	 ?>
+	 </h3>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('book/insertemp'); ?>" >Insert</a>
