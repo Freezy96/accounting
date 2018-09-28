@@ -223,6 +223,9 @@ $(document).ready(function() {
     });
   });
 
+
+
+
 //Customer Payment
 
 $(".customer_payment_view").click(function(event) {
