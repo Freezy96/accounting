@@ -73,7 +73,7 @@
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>	<?php echo "(",$val['passport'],")"; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(".$val['passport'].")"; ?>
 			</td>
 			<td>
 				<?php echo $val['wechatname']; ?>
