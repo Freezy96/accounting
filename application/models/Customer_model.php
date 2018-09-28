@@ -176,5 +176,18 @@ public function blackliststatus(){
           $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function get_customer_payment_modal(){
+        // Run the query
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->select("*");
+        $this->db->from('customer');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
 }
 ?>
