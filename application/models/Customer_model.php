@@ -66,11 +66,11 @@ public function checkuserstatus(){
            $status = $value['status'];
 
            $statuscus= $status;
-           if(($status=""||$status=="closed") && $statuscus!="late"&& $statuscus!="baddebt"){
+           if(($status==""||$status=="closed") && $status!="late"&& $status!="baddebt"&& $status!=="0"){
                 $statuscus="good";
-           }elseif($status!="" && $status=="baddebt"){ 
-                $statuscus="bad";
-           }elseif($status!="" && $status=="late" && $statuscus!="baddebt"){
+           }elseif($status!="" && $status=="baddebt" && $status!=="0"){ 
+                $statuscus="baddebt";
+           }elseif($status!="" && $status=="late" && $status!="baddebt" && $status!=="0"){
                 $statuscus="late";
            }
 
@@ -83,7 +83,20 @@ public function checkuserstatus(){
 
     }
 }
+public function reset_status($data){
+  foreach ($data as $key => $value) {
+           $customerid = $value['customerid'];
+            $status = $value['status'];
+        }
+             $statuscus= $status;
+             $statuscus="0";
+           $data = array(
+            'status' => $statuscus
+            );
+        $this->db->where('customerid', $customerid);
+        $this->db->update('customer', $data);
 
+}
         public function getstatus(){
         // Run the query
         $this->db->select('customerid, status');

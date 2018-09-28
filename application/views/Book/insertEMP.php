@@ -1,10 +1,7 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <form action='<?php echo base_url();?>Book/insertempdata' method='post' name='insert' enctype="multipart/form-data">
- <div class="form-group">
-    <label for="">Employee Name:</label>
-    <input type="text" class="form-control" id="" placeholder="Emp Name" name="employee" required>
-  </div>
+ 
  <div class="form-group">
     <label for="">Description:</label>
     <input type="text" class="form-control" id="" placeholder="Des" name="description" required>
@@ -12,10 +9,9 @@
    <div class="form-group">
     <label for="">Type:</label>
     <select name="type">
-      <optgroup>
+        <option selected disabled>----------</option>
         <option value="payment">Payment</option>   
         <option value="receive">Receive</option>
-      </optgroup>
     </select>
   </div>
   <div class="form-group">

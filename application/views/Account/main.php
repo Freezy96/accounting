@@ -39,7 +39,9 @@
 		<!-- foreach(allInformation  as  Fieldname  =>  Value) -->
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): ?>
+	<?php foreach ($result as $key => $val):
+	$status=$val['status'];
+	if($status !=="baddebt"){?>
 		<tr>
 			<td>
 				<?php echo $val['customername']; ?>
@@ -90,7 +92,7 @@
 				</div>
 			</td>
 		</tr>
-	<?php endforeach ?>
+	<?php } endforeach ?>
 <?php } ?>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('account/insert'); ?>">Insert New Account</a></li>
