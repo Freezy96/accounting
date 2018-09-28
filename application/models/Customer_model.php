@@ -116,18 +116,6 @@ public function reset_duedate(){
   } 
     
 }
-public function reset_status($data){
-  foreach ($data as $key => $value) {
-           $customerid = $value['customerid'];
-            $status = $value['status'];
-        }
-             $statuscus= $status;
-             $statuscus="0";
-           $data = array(
-            'status' => $statuscus
-            );
-        $this->db->where('customerid', $customerid);
-        $this->db->update('customer', $data);
 
 public function reset_status($data){
    foreach ($data as $key => $value) {
