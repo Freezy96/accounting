@@ -26,11 +26,15 @@
 				<td>
 					ADDRESS
 				</td>
-				<td>
-					GENDER
-				</td>
+
 				<td>
 					PHONE NO.
+				</td>				
+				<td>
+					Amount
+				</td>
+				<td>
+					DUEDATE
 				</td>
 			</tr>
 		</thead>
@@ -52,10 +56,13 @@
 				<?php echo $val['address']; ?>
 			</td>
 			<td>
-				<?php echo $val['gender']; ?>
+				<?php echo $val['phoneno']; ?>
 			</td>
 			<td>
-				<?php echo $val['phoneno']; ?>
+				<?php echo $val['SUM(a.totalamount)']; ?>
+			</td>
+			<td>
+				<?php echo $val['duedate']; ?>
 			</td>
 		</tr>
 		<?php endforeach ?>
