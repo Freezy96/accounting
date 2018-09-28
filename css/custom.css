@@ -17,3 +17,16 @@ body {
 .btn-group{
 	display: flex;
 }
+
+/* style sheet for "A4" printing */
+ @media print and (width: 21cm) and (height: 29.7cm) {
+    @page {
+       margin: 3cm;
+    }
+ }
+
+  @media print and (width: 8.5in) and (height: 11in) {
+    @page {
+        margin: 1in;
+    }
+ }

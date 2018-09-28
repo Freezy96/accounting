@@ -58,6 +58,14 @@ class Profit extends CI_Controller {
 	    $data['agent_payment_month'] = $res;
 	    $res = $this->load->profit_model->get_year_agent_payment($date_year);
 	    $data['agent_payment_year'] = $res;
+
+	    $res = $this->load->profit_model->get_this_day_expenses($date_day);
+	    $data['expenses_day'] = $res;
+	    $res = $this->load->profit_model->get_this_month_expenses($date_month);
+	    $data['expenses_month'] = $res;
+	    $res = $this->load->profit_model->get_this_year_expenses($date_year);
+	    $data['expenses_year'] = $res;
+	    
     	$this->load->view('profit/main', $data);
 		$this->load->view('template/footer');
 	}

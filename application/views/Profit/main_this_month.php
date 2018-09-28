@@ -108,6 +108,25 @@
 	<?php endforeach ?>
 	<?php } ?>
 
+
+	<?php if(is_array($expenses_month) && $expenses_month){ ?>
+	<?php foreach ($expenses_month as $key => $val): ?>
+		<?php if ($val['SUM(expensesfee)'] != 0): ?>
+			<tr>
+				<td>
+					Expenses
+				</td>
+				<td>
+					<?php echo $val['SUM(expensesfee)']; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
+		
+		<?php $loss+=$val['SUM(expensesfee)']; ?>
+	<?php endforeach ?>
+	<?php } ?>
+
+
 	<?php if ($month_employee_loss!==0): ?>
 		<tr>
 			<td>
