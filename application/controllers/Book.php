@@ -94,7 +94,7 @@ public function insertbankdata()
 		'amount' => $this->input->post('amount'),
 		'datee' => $this->input->post('datee')
 		);
-
+		 echo "<script>alert('insert successfully!'); location.href='/accounting/book/bank';</script>";
 		$return = $this->book_model->insertB($data);
 		$data['return'] = $return;
 
@@ -128,6 +128,17 @@ public function insertempdata()
 		$data['return'] = $return;
 
 		$this->load->view('template/footer');
+	}
+
+	public function bank(){
+		$this->load->helper('url');
+        $this->load->view('template/header');
+        $this->load->view('template/nav');
+        $res= $this->load->book_model->getbankdata();
+        $data['result'] = $res;
+    	$this->load->view('book/bank',$data);
+    		$this->load->view('template/footer');
+
 	}
 
 public function delete()

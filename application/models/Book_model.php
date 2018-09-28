@@ -47,5 +47,12 @@
         }
 
     }
+
+     public function getbankdata(){
+        // Run the query
+        $query = $this->db->get('bank');
+        return $query->result_array();
+    }
+
     }
 ?>
