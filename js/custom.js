@@ -323,3 +323,20 @@ $(document).ready(function() {
 
 
 });
+
+
+ $(document).ready(function(){
+  $('#username').change(function(){
+   var username = $('#username').val();
+   if(username != ''){
+    $.ajax({
+     url: "<?php echo base_url(); ?>Search/checkUsername",
+     method: "POST",
+     data: {username:username},
+     success: function(data){
+      $('#username_result').html(data);
+     }
+    });
+   }
+  });
+ });

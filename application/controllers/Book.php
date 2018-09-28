@@ -3,8 +3,8 @@
 class Book extends CI_Controller {
 	function __construct(){
         parent::__construct();
-        $this->load->model('book_model');
         $this->load->model('security_model');
+        $this->load->model('book_model');
     }
   	public function index()
 	{	$this->security_model->secure_session_login();
@@ -21,7 +21,6 @@ class Book extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$this->load->view('Book/inserttotal');
-
 		$this->load->view('template/footer');
 	}
 	public function inserttotaldata()

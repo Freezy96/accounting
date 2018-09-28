@@ -22,18 +22,31 @@ class Register extends CI_Controller {
     $password = $this->input->post('password');
     $campany = $this->input->post('campany');
 
-        // Load the model
-        $this->load->model('register_model');
-        // Validate the user can logi
-        $result = $this->register_model->regis($username, $password, $campany);
-        // Now we verify the result
-        if(! $result){
-            echo "<script>alert('Registered successfully!')</script>";
-         
-        }else{
+    $this->db->select('username');
+    $this->db->from('admin');
+    $this->db->where('username',$username);
+    $query=$this->db->get();
 
-            redirect('register');
-        }        
+    if ($query->num_rows()>0) {
+
+          echo "<script>alert(' Username is available'); location.href='/accounting/register';</script>";
+                        
+         
+    }else{
+
+    $this->db->set('username', $username);
+    $this->db->set('password', $password);
+    $this->db->set('campany', $campany );
+        if ($this->db->insert('admin')) {
+            $sql = "INSERT INTO admin (username, password, campany) VALUES ('$username', '$password', '$campany')";
+            $this->db->insert_id();  
+            echo "<script>alert('Registered successfully!'); location.href='/accounting/register';</script>";
+            
+            
+        }
+        }
     }
-}
+        
+    }
+
 ?>

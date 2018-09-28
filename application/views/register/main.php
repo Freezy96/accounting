@@ -15,6 +15,7 @@
                             <label class="col-sm-4 control-label">Password:</label>
                             <div class="col-sm-8">
                                 <input class="form-control" type="password" id="password" name="password" required>
+                                <span id="username_result"></span>
                             </div>
                         </div>
                    <div style="margin-bottom: 25px" class="input-group">
