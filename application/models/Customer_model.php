@@ -66,7 +66,6 @@ public function checkuserstatus(){
            $status = $value['status'];
            $reset = $value['reset'];           
            $statuscus= "";
-
            if(($status==""||$status=="closed") && $status!="late" &&$status!="baddebt" ){
                 $statuscus="good";
            }elseif($status!="" && $reset!="1" && $status=="baddebt" ){ 
@@ -117,7 +116,18 @@ public function reset_duedate(){
   } 
     
 }
-
+public function reset_status($data){
+  foreach ($data as $key => $value) {
+           $customerid = $value['customerid'];
+            $status = $value['status'];
+        }
+             $statuscus= $status;
+             $statuscus="0";
+           $data = array(
+            'status' => $statuscus
+            );
+        $this->db->where('customerid', $customerid);
+        $this->db->update('customer', $data);
 
 public function reset_status($data){
    foreach ($data as $key => $value) {
