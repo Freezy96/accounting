@@ -17,7 +17,7 @@
 </div>
 
 <div class="col-sm-6">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>book/insertTotal'">Total</button>
+	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>book/Total'">Total</button>
 </div>
 </div>
 <div class="row">

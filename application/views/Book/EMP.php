@@ -1,6 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 
-<h1>Bank</h1>
+<h1>Employee</h1>
 
 <table width="100%">
 <tr>
@@ -64,4 +64,4 @@
 </td>
 </tr>
 </table>
-<a class="btn btn-default" href="<?php echo site_url('book/insertbank'); ?>" >Insert</a>
+<a class="btn btn-default" href="<?php echo site_url('book/insertemp'); ?>" >Insert</a>

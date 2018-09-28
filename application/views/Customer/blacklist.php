@@ -93,13 +93,16 @@
 			<td>
 				<?php echo $val['passport']; ?>
 			</td>
-				<td>
-					<div class="btn-group">
+				<td width="90%">
+					<div class="btn-group" >
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
 						<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
 						</form>
 						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
+						</form>
+												<form action='<?php echo base_url();?>customer/resets' method='post' name='customerresetstatus'>
+							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY Reset This Status');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">ResetStatus</button>
 						</form>
 					</div>
 				</td>

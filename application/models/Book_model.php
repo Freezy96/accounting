@@ -53,6 +53,21 @@
         $query = $this->db->get('bank');
         return $query->result_array();
     }
+     public function getcohdata(){
+        // Run the query
+        $query = $this->db->get('coh');
+        return $query->result_array();
+    }
+     public function getempdata(){
+        // Run the query
+        $query = $this->db->get('emp');
+        return $query->result_array();
+    }
+     public function gettotaldata(){
+        // Run the query
+        $query = $this->db->get('total');
+        return $query->result_array();
+    }
 
     }
 ?>
