@@ -59,12 +59,12 @@
 	<?php foreach ($result as $key => $val): 
 		$status=$val['status'];
 		?>
-		 <?php if ($status==""){?>
-			<tr bgcolor="#54FF9F">
+		 <?php if ($status=="good"){?>
+			<tr bgcolor="#54FF9F" width="90%">
 			 <?php }elseif ($status=="baddebt") {?>
-			<tr bgcolor="#EE5C42">
+			<tr bgcolor="#EE5C42" width="90%">
 			<?php  }elseif ($status=="late") {?>
-			<tr bgcolor="CDCD00">
+			<tr bgcolor="CDCD00" width="90%">
 				<?php } ?>
 			
 		<?php ?>
@@ -88,7 +88,7 @@
 				<?php echo $val['phoneno']; ?>
 			</td>
 			
-				<td>
+				<td width="90%">
 					<div class="btn-group">
 						<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" name="accountid">View</button>
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
@@ -96,6 +96,9 @@
 						</form>
 						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
+						</form>
+						<form action='<?php echo base_url();?>customer/resets' method='post' name='customerresetstatus'>
+							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY Reset This Status');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">ResetStatus</button>
 						</form>
 					</div>
 				</td>

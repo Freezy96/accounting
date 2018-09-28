@@ -20,20 +20,33 @@ class Register extends CI_Controller {
 
     $username = $this->input->post('username');
     $password = $this->input->post('password');
-    $campany = $this->input->post('campany');
+    $company = $this->input->post('company');
 
-        // Load the model
-        $this->load->model('register_model');
-        // Validate the user can logi
-        $result = $this->register_model->regis($username, $password, $campany);
-        // Now we verify the result
-        if(! $result){
-            echo "<script>alert('Registered successfully!')</script>";
+    $this->db->select('username');
+    $this->db->from('admin');
+    $this->db->where('username',$username);
+    $query=$this->db->get();
+
+    if ($query->num_rows()>0) {
+
+          echo "<script>alert(' Username already exist'); location.href='/accounting/register';</script>";
+                        
          
-        }else{
+    }else{
 
-            redirect('register');
-        }        
+    $this->db->set('username', $username);
+    $this->db->set('password', $password);
+    $this->db->set('company', $company );
+        if ($this->db->insert('admin')) {
+            $sql = "INSERT INTO admin (username, password, company) VALUES ('$username', '$password', '$company')";
+            $this->db->insert_id();  
+            echo "<script>alert('Registered successfully!'); location.href='/accounting/register';</script>";
+            
+            
+        }
+        }
     }
-}
+        
+    }
+
 ?>
