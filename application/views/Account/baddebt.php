@@ -47,10 +47,10 @@
 			</td> -->
 			<td>
 
-				<?php echo $val['duedate']; ?>
+				<?php echo $val['MAX(a.duedate)']; ?>
 			</td> 
 
-			<td>
+			<td>MAX(a.duedate)
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
 		
@@ -60,6 +60,10 @@
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
 					</form> -->
 					<!-- <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal1" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
+					<form  action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
+			<!-- ajax script generated button -->
+			<button class="btn btn-default "  value="<?php echo $val["refid"]; ?>" name="account_refid">Payment</button>
+		</form>
 			</td>
 		</tr>
 	<?php endforeach ?>
@@ -149,8 +153,8 @@
 			</td> -->
 			<td>
 
-				<?php echo $val['duedate']; ?>
-			</td> 
+				<?php echo $val['MAX(duedate)']; ?>
+							</td> '
 
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>

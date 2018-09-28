@@ -58,6 +58,24 @@ class Customer extends CI_Controller {
 		///////////////Combo of User Identity Insert///////////////////
 		$redirect = $this->input->post('redirect_destination');
 		 $statuscus=$this->customer_model->checkuserstatus();
+		$customername=$this->input->post('name');
+		$passport_check = $this->input->post('passport');
+		$blacklist = $this->customer_model->check_availability();
+		foreach ($blacklist as $key => $value) {
+			$value_customer_name = $value['customername'];
+			$value_customer_passport = $value['passport'];
+			if ($value_customer_name == $customername && $passport_check == $value_customer_passport) {
+				echo "<script>alert('User Already Exist!');</script>";
+				redirect('customer');
+			}
+		}
+    // if ($query->num_rows()>0) {
+
+    // //       echo "<script>alert(' Username already exist'); location.href='/accounting/register';</script>";
+                        
+         
+    // }else{
+
 		$data = array(
 		'customername' => $this->input->post('name'),
 		'wechatname' => $this->input->post('wechatname'),

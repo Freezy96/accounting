@@ -24,7 +24,7 @@ class Account_model extends CI_Model{
     public function getbaddebtuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('b.accountid, a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename');
+        $this->db->select('b.accountid, a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, MAX(a.duedate), a.packageid, ag.agentname, p.packagetypename');
         $this->db->from('baddebt b');
         $this->db->join('account a', 'b.accountid = a.accountid', 'left');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
