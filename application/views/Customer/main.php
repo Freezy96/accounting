@@ -73,7 +73,7 @@
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>	<?php echo "(",$val['passport'],")"; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(".$val['passport'].")"; ?>
 			</td>
 			<td>
 				<?php echo $val['wechatname']; ?>
@@ -88,7 +88,7 @@
 				<?php echo $val['phoneno']; ?>
 			</td>
 			
-				<td width="90%">
+				<td width="80%">
 					<div class="btn-group">
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
 						<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
