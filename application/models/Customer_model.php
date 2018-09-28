@@ -245,5 +245,18 @@ public function blackliststatus(){
         return $query->result_array();
     }
 
+    public function check_availability(){
+        // Run the query
+
+        $this->db->select("blacklist, customername, passport");
+        $this->db->from('customer');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('blacklist', 1);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 ?>

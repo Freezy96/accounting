@@ -12,18 +12,12 @@
 				<td>
 					Return
 				</td>
-				<!-- <td>
-					PAYMENT
-				</td> -->
+
 				<td>
 					DUEDATE
 				</td> 
-
 				<TD>
 					PACKAGE
-				</TD>
-				<TD>
-					AGENT
 				</TD>
 				<td>
 					ACTION
@@ -53,18 +47,11 @@
 			</td> -->
 			<td>
 
-				<?php echo $val['duedate']; ?>
+				<?php echo $val['MAX(a.duedate)']; ?>
 			</td> 
 
-			<td>
+			<td>MAX(a.duedate)
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
-			</td>
-			<td>
-				<?php if ($val['agentname']!=""): ?>
-				<?php echo $val['agentname']; ?>	
-				<?php else: ?>
-				<?php echo "-"; ?>	
-				<?php endif ?>
 			</td>
 		
 					
@@ -73,12 +60,12 @@
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
 					</form> -->
-					<!-- <form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
-						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" value="<?php echo $val["accountid"]; ?>" name="accountid">Delete</button>
-					</form> -->
-						<button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button>
+					<!-- <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal1" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
+					<form  action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
+			<!-- ajax script generated button -->
+			<button class="btn btn-default "  value="<?php echo $val["refid"]; ?>" name="account_refid">Payment</button>
+		</form>
 
-				</div>
 			</td>
 		</tr>
 		</tr>
@@ -138,8 +125,8 @@
 			</td> -->
 			<td>
 
-				<?php echo $val['duedate']; ?>
-			</td> 
+				<?php echo $val['MAX(duedate)']; ?>
+							</td> '
 
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
