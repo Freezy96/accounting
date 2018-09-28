@@ -25,7 +25,10 @@ class Print_Model extends CI_Model{
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        $this->db->where('a.duedate', $date);
+        $date_select=strtotime($date);
+        $date_3week=strtotime("-21 days", strtotime($date));
+
+        $this->db->where('a.duedate >=',  $date_3week);
         $query = $this->db->get();
         return $query->result_array();
     }
