@@ -47,7 +47,7 @@ class Account extends CI_Controller {
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
 		$this->load->account_model->account_status_set();
-
+		$this->load->view('account/modal');
     	$this->load->view('account/main', $data);		
 		$this->load->view('template/footer');
 
@@ -801,6 +801,7 @@ class Account extends CI_Controller {
 
 
     }
+    	$this->load->view('account/modal');
         $this->load->view('account/baddebt', $data);
         $this->load->view('template/footer');
 
