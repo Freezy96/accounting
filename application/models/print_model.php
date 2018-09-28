@@ -27,7 +27,7 @@ class Print_Model extends CI_Model{
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $date_select=strtotime($date);
         $date_3week=strtotime("-21 days", strtotime($date));
-
+        $date_3week = date("Y-m-d",$date_3week);
         $this->db->where('a.duedate >=',  $date_3week);
         $query = $this->db->get();
         return $query->result_array();
