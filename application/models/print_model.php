@@ -19,7 +19,7 @@ class Print_Model extends CI_Model{
 
     public function get_accountid_duedate_that_day($date){
         // Run the query
-        $this->db->select('a.refid, a.duedate');
+        $this->db->select('a.refid, MAX(a.duedate)');
         $this->db->from('account a');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
@@ -27,14 +27,17 @@ class Print_Model extends CI_Model{
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $date_select=strtotime($date);
         $date_3week=strtotime("-21 days", strtotime($date));
-
+        $date_select=(date("Y-m-d",$date_select));
+        $date_3week=(date("Y-m-d",$date_3week));
         $this->db->where('a.duedate >=',  $date_3week);
+        $this->db->where('a.duedate <=',  $date_select);
+        $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();
         return $query->result_array();
     }
     
     public function getuserdata($refid,$duedate){
-        $this->db->select('a.accountid, SUM(a.totalamount), a.oriamount, a.customerid, c.customername, c.address, c.gender, a.amount, a.datee, a.interest, a.duedate, a.packageid, c.phoneno, ag.agentname, p.packagetypename');
+        $this->db->select('a.accountid, SUM(a.totalamount), a.oriamount, a.refid, a.customerid, c.customername, c.address, c.gender, a.amount, a.datee, a.interest, MAX(a.duedate), a.packageid, c.phoneno, ag.agentname, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -45,7 +48,8 @@ class Print_Model extends CI_Model{
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where('a.refid', $refid);
         $this->db->where('a.duedate <=', $duedate);
-        $this->db->group_by('a.refid');// add group_by
+        // $this->db->group_by('a.refid');// add group_by
+        $this->db->order_by('a.duedate', 'desc');
         $query = $this->db->get();
         return $query->result_array();
     }

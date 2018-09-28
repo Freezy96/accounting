@@ -12,18 +12,12 @@
 				<td>
 					Return
 				</td>
-				<!-- <td>
-					PAYMENT
-				</td> -->
+
 				<td>
 					DUEDATE
 				</td> 
-
 				<TD>
 					PACKAGE
-				</TD>
-				<TD>
-					AGENT
 				</TD>
 				<td>
 					ACTION
@@ -58,13 +52,6 @@
 
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
-			</td>
-			<td>
-				<?php if ($val['agentname']!=""): ?>
-				<?php echo $val['agentname']; ?>	
-				<?php else: ?>
-				<?php echo "-"; ?>	
-				<?php endif ?>
 			</td>
 		
 			<td>

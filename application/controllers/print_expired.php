@@ -16,7 +16,7 @@ class Print_Expired extends CI_Controller {
 		$i = 0;
         foreach ($result_duedate as $key => $value) {
             $refid = $value['refid'];
-            $duedate = $value['duedate'];
+            $duedate = $value['MAX(a.duedate)'];
             $res = $this->load->print_model->getuserdata($refid,$duedate);
             $data['result' . $i] = $res;
             $i++;

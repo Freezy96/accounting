@@ -29,6 +29,9 @@
 
 				<td>
 					PHONE NO.
+				</td>
+				<td>
+					PACKAGE NAME
 				</td>				
 				<td>
 					Amount
@@ -59,10 +62,13 @@
 				<?php echo $val['phoneno']; ?>
 			</td>
 			<td>
+				<?php echo $val['packagetypename']; ?>
+			</td>
+			<td>
 				<?php echo $val['SUM(a.totalamount)']; ?>
 			</td>
 			<td>
-				<?php echo $val['duedate']; ?>
+				<?php echo $val['MAX(a.duedate)']; ?>
 			</td>
 		</tr>
 		<?php endforeach ?>
