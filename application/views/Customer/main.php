@@ -73,7 +73,7 @@
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>	<?php echo "(",$val['passport'],")"; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(".$val['passport'].")"; ?>
 			</td>
 			<td>
 				<?php echo $val['wechatname']; ?>
@@ -90,8 +90,9 @@
 			
 				<td width="90%">
 					<div class="btn-group">
+						<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" name="accountid">View</button>
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
-						<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
+							<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
 						</form>
 						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
@@ -107,3 +108,27 @@
 	</tbody>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('customer/insert'); ?>">Insert New Customer</a></li>
+
+<div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="customer_modal_title"></h4>
+      </div>
+      <div class="modal-body">
+       <!-- body -->
+      <!-- Customer: <span id="customer_modal_customerid"></span><span id="customer_modal_customername"></span><br> -->
+      <table class="customer_modal_table table livesearch">
+      	<thead></thead>
+      	<tr></tr>
+      </table>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

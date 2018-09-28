@@ -12,23 +12,11 @@
 						CUSTOMER ID - NAME
 					</td>
 					<td>
-						AMOUNT
-					</td>
-					<!-- <td>
-						PAYMENT
-					</td> -->
-					<td>
 						START DATE
 					</td>
 					<td>
 						DUEDATE
 					</td>
-					<td>
-						DAYS LEFT
-					</td>
-					<TD>
-						INTEREST
-					</TD>
 					<TD>
 						PACKAGE
 					</TD>
@@ -36,7 +24,13 @@
 						AGENT
 					</TD>
 					<td>
-						Phone No.
+						DAYS LEFT
+					</td>
+					<td>
+						AMOUNT
+					</td>
+					<td>
+						PHONE NO.
 					</td>
 					<td>
 						ACTION
@@ -67,16 +61,16 @@
 						<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
 					</td>
 					<td>
-						<?php echo $val['SUM(a.totalamount)']; ?>
-					</td>
-<!-- 					<td>
-						<?php echo $val['payment']; ?>
-					</td> -->
-					<td>
 						<?php echo $val['MIN(a.datee)']; ?>
 					</td>
 					<td>
 						<?php echo $val['MAX(a.duedate)']; ?>
+					</td>
+					<td>
+						<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
+					</td>
+					<td>
+						<?php echo $val['agentname']; ?>
 					</td>
 					<td>
 						<span style="color: 
@@ -96,20 +90,12 @@
 						</span>
 					</td>
 					<td>
-						<?php echo $val['interest']; ?>
-						
-					</td>
-					<td>
-						<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
-					</td>
-					<td>
-						<?php echo $val['agentname']; ?>
+						<?php echo $val['SUM(a.totalamount)']."(Interest:".$val['interest'].")"; ?>
 					</td>
 					<td>
 						<?php echo $val['phoneno']; ?>
 					</td>
 					<td>
-
 						<?php if ($val['MAX(a.homeremind)'] == "checked"): ?>
 							<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>" checked>
 						<?php else: ?>
