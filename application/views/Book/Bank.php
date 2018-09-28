@@ -3,6 +3,7 @@
 <h1>Bank</h1>
 
 <table width="100%">
+
 <tr>
 <td width="50%" style="vertical-align: top;">
 <table  class="table table-condensed">

@@ -54,7 +54,6 @@
         return $query->result_array();
     }
      public function getcohdata(){
-
         $this->db->order_by('datee','ASC');
         $query = $this->db->get('coh');
         return $query->result_array();

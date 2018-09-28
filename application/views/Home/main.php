@@ -12,23 +12,11 @@
 						CUSTOMER ID - NAME
 					</td>
 					<td>
-						AMOUNT
-					</td>
-					<!-- <td>
-						PAYMENT
-					</td> -->
-					<td>
 						START DATE
 					</td>
 					<td>
 						DUEDATE
 					</td>
-					<td>
-						DAYS LEFT
-					</td>
-					<TD>
-						INTEREST
-					</TD>
 					<TD>
 						PACKAGE
 					</TD>
@@ -36,7 +24,13 @@
 						AGENT
 					</TD>
 					<td>
-						Phone No.
+						DAYS LEFT
+					</td>
+					<td>
+						AMOUNT
+					</td>
+					<td>
+						PHONE NO.
 					</td>
 					<td>
 						ACTION
@@ -50,6 +44,7 @@
 			<?php if(is_array($result) && $result){ ?>
 			<?php foreach ($result as $key => $val): ?>
 				<?php 
+				
 					$now = strtotime(date("Y-m-d")); // or your date as well
 		            $due_date = strtotime($val['MAX(a.duedate)']);
 		            $timeDiff = abs($now - $due_date);
@@ -61,64 +56,59 @@
 
 		            // $dayleft = round(($due_date - $now) / (60 * 60 * 24));
 				 ?>
-				<?php if (strtotime($val['MAX(a.duedate)']) <= strtotime("+4 day", time()) && $due_date >= time()-86400): ?>
-				<tr>
-					<td>
-						<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
-					</td>
-					<td>
-						<?php echo $val['SUM(a.totalamount)']; ?>
-					</td>
-<!-- 					<td>
-						<?php echo $val['payment']; ?>
-					</td> -->
-					<td>
-						<?php echo $val['MIN(a.datee)']; ?>
-					</td>
-					<td>
-						<?php echo $val['MAX(a.duedate)']; ?>
-					</td>
-					<td>
-						<span style="color: 
-							<?php if ($days == 1): $msg = "1 day left"; ?>
-								red
-							<?php elseif ($days == 0): $msg = "today"; ?>	
-								red
-							<?php elseif ($days == 2): $msg = "2 day left"; ?>	
-								orange
-							<?php elseif ($days == 3): $msg = "3 day left"; ?>
-								green
-							<?php elseif ($days == 4): $msg = "4 day left"; ?>
-								green
+				<?php if ($val['SUM(a.totalamount)']>0): ?>
+				 	
+					<?php if (strtotime($val['MAX(a.duedate)']) <= strtotime("+4 day", time()) && $due_date >= time()-86400): ?>
+					<tr>
+						<td>
+							<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
+						</td>
+						<td>
+							<?php echo $val['MIN(a.datee)']; ?>
+						</td>
+						<td>
+							<?php echo $val['MAX(a.duedate)']; ?>
+						</td>
+						<td>
+							<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
+						</td>
+						<td>
+							<?php echo $val['agentname']; ?>
+						</td>
+						<td>
+							<span style="color: 
+								<?php if ($days == 1): $msg = "1 day left"; ?>
+									red
+								<?php elseif ($days == 0): $msg = "today"; ?>	
+									red
+								<?php elseif ($days == 2): $msg = "2 day left"; ?>	
+									orange
+								<?php elseif ($days == 3): $msg = "3 day left"; ?>
+									green
+								<?php elseif ($days == 4): $msg = "4 day left"; ?>
+									green
+								<?php endif ?>
+							;">
+							<?php echo $msg; ?>
+							</span>
+						</td>
+						<td>
+							<?php echo $val['SUM(a.totalamount)']."(Interest:".$val['interest'].")"; ?>
+						</td>
+						<td>
+							<?php echo $val['phoneno']; ?>
+						</td>
+						<td>
+							<?php if ($val['MAX(a.homeremind)'] == "checked"): ?>
+								<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>" checked>
+							<?php else: ?>
+								<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>">
 							<?php endif ?>
-						;">
-						<?php echo $msg; ?>
-						</span>
-					</td>
-					<td>
-						<?php echo $val['interest']; ?>
-						
-					</td>
-					<td>
-						<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
-					</td>
-					<td>
-						<?php echo $val['agentname']; ?>
-					</td>
-					<td>
-						<?php echo $val['phoneno']; ?>
-					</td>
-					<td>
-
-						<?php if ($val['MAX(a.homeremind)'] == "checked"): ?>
-							<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>" checked>
-						<?php else: ?>
-							<input type="checkbox" class="home_check" name="" value="<?php echo $val['MAX(a.accountid)']; ?>">
-						<?php endif ?>
-					</td>
-				</tr>
-				<?php endif ?>
+						</td>
+					</tr>
+					<?php endif ?>
 				
+				<?php endif ?>
 			<?php endforeach ?>
 		<?php } ?>
 			</tbody>

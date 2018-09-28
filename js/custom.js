@@ -92,7 +92,7 @@ $(document).ready(function() {
           $tr.append($('<td/>').html("Amount To Be Pay"));
           $tr.append($('<td/>').html("Interest To Be Pay"));
           $tr.append($('<td/>').html("Total:"));
-          $tr.append($('<td/>').html("Action:"));
+          // $tr.append($('<td/>').html("Action:"));
           $('.account_modal_table tr:last').before($tr);
 
         for (var i = 0; i < res.length; i++) {
@@ -118,7 +118,7 @@ $(document).ready(function() {
           {
             amount_paid = parseFloat(interest_to_be_pay * -1).toFixed(2); //100.00
             amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
-            console.log(amount_paid);
+            // console.log(amount_paid);
             interest_to_be_pay = parseFloat(0).toFixed(2);
             var is_Paid = 1;
           }
@@ -133,21 +133,21 @@ $(document).ready(function() {
 
           if (res[0].packagetypename == "package_25_month") 
           {
-
-            if (res[i].totalamount<=res[i].amount) 
+            if (parseFloat(res[i].totalamount) <= parseFloat(res[i].amount))
             {
               interest_to_be_pay = parseFloat(0).toFixed(2);
               amount_to_be_pay = parseFloat(res[i].totalamount).toFixed(2);
               total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
               is_Paid = 1;
             }
-            else (res[i].totalamount>res[i].amount) 
+            else
             {
               interest_to_be_pay = res[i].totalamount - res[i].amount;
-              interest_to_be_pay = parseFloat(interest_to_be_pay).toFixed(2);console.log(interest_to_be_pay);
-              amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);console.log(amount_to_be_pay);
+              interest_to_be_pay = parseFloat(interest_to_be_pay).toFixed(2);
+              amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);
               total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
               is_Paid = 0;
+              res[i].interest = interest_to_be_pay;
             }
           }
 
@@ -218,6 +218,50 @@ $(document).ready(function() {
       // $("#account_modal_title").html(res.refid); 
       // Show Entered Value
       // console.log("1");
+      }
+    }
+    });
+  });
+
+//Customer Payment
+
+$(".customer_payment_view").click(function(event) {
+    event.preventDefault();
+    var customerid = $(this).val();
+    console.log(customerid);
+  $.ajax({
+  type: "POST",
+  url: 'customer/customer_payment_modal',
+  dataType: 'json',
+  data: {'customerid': customerid},
+  success: function(res) {
+      if (res)
+      { 
+        $(".customer_header_append").remove(); 
+        $(".customer_trtd_append").remove(); 
+        // empty html
+       
+        $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
+          var $tr = $('<tr class=\'customer_header_append\'/>');
+          $tr.append($('<td/>').html("AccountID"));
+          $tr.append($('<td/>').html("Package Type"));
+          $tr.append($('<td/>').html("Date"));
+          $tr.append($('<td/>').html("Payment Type"));
+          $tr.append($('<td/>').html("Payment"));
+          // $tr.append($('<td/>').html("Action:"));
+          $('.customer_modal_table tr:last').before($tr);
+
+        for (var i = 0; i < res.length; i++) {
+          var $tr = $('<tr class=\'customer_trtd_append\'/>');
+
+          $tr.append($('<td/>').html(res[i].accountid));
+          $tr.append($('<td/>').html(res[i].packagetypename));
+          $tr.append($('<td/>').html(res[i].paymentdate));
+          $tr.append($('<td/>').html(res[i].paymenttype));
+          $tr.append($('<td/>').html(res[i].payment));
+
+          $('.customer_modal_table tr:last').before($tr);
+        }
       }
     }
     });

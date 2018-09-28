@@ -66,7 +66,6 @@ public function checkuserstatus(){
            $status = $value['status'];
            $reset = $value['reset'];           
            $statuscus= "";
-
            if(($status==""||$status=="closed") && $status!="late" &&$status!="baddebt" ){
                 $statuscus="good";
            }elseif($status!="" && $reset!="1" && $status=="baddebt" ){ 
@@ -117,7 +116,6 @@ public function reset_duedate(){
   } 
     
 }
-
 
 public function reset_status($data){
    foreach ($data as $key => $value) {
@@ -216,16 +214,36 @@ public function blackliststatus(){
 
  public function getblacklistdata(){
         // Run the query
+          $this->db->select("*");
+          $this->db->from('customer');
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-         $this->db->select("*");
-          $this->db->from('customer');
+         
           $blacklist='1';
           $this->db->where('blacklist',$blacklist);
           $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function get_customer_payment_modal($customerid){
+        // Run the query
+
+        $this->db->select("p.paymentid, p.accountid, p.payment, p.paymenttype, p.paymentdate, c.customerid, c.customername, pt.packagetypename");
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('c.companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('c.customerid', $customerid);
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
 }
 ?>
