@@ -237,153 +237,31 @@ $(".customer_payment_view").click(function(event) {
   success: function(res) {
       if (res)
       { 
-        console.log(res);
+        $(".customer_header_append").remove(); 
+        $(".customer_trtd_append").remove(); 
         // empty html
-        $(".account_header_append").remove(); 
-        $(".account_trtd_append").remove(); 
-        // empty html
-        // generate button
-        $("#pay_amount").html("<button class=\"btn btn-success\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Amount</button>");
        
-        $("#account_modal_title").html(res[0].customerid + " - " + res[0].customername); 
-        $("#account_modal_customer").html(res[0].customerid +" - "+ res[0].customername); 
-        $("#account_modal_refid").html(res[0].refid); 
-        $("#account_modal_oriamount").html(res[0].oriamount); 
-        $("#account_modal_package").html(res[0].packageid +" - "+ res[0].packagetypename); 
-        $("#account_modal_agent").html(res[0].agentid +" - "+ res[0].agentname); 
-          var $tr = $('<tr class=\'account_header_append\'/>');
-          $tr.append($('<td/>').html("Start Date"));
-          $tr.append($('<td/>').html("Due Date"));
-          $tr.append($('<td/>').html("Amount"));
-          $tr.append($('<td/>').html("Amount To Be Pay"));
-          $tr.append($('<td/>').html("Interest To Be Pay"));
-          $tr.append($('<td/>').html("Total:"));
+        $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
+          var $tr = $('<tr class=\'customer_header_append\'/>');
+          $tr.append($('<td/>').html("AccountID"));
+          $tr.append($('<td/>').html("Package Type"));
+          $tr.append($('<td/>').html("Date"));
+          $tr.append($('<td/>').html("Payment Type"));
+          $tr.append($('<td/>').html("Payment"));
           // $tr.append($('<td/>').html("Action:"));
-          $('.account_modal_table tr:last').before($tr);
+          $('.customer_modal_table tr:last').before($tr);
 
         for (var i = 0; i < res.length; i++) {
-          var $tr = $('<tr class=\'account_trtd_append\'/>');
-          $tr.append($('<td/>').html(res[i].datee));
-          $tr.append($('<td/>').html(res[i].duedate));
-          $tr.append($('<td/>').html(res[i].amount));
-          var interest_to_be_pay = 0;
-          var amount_paid = 0;
-          var amount_to_be_pay = 0;
-          var total = 0;
-          //Calculation
-          if ("payment" in res[i]) 
-          {
-            interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);//-100.00
-          }
-          else
-          {
-            interest_to_be_pay = (parseFloat(res[i].interest)).toFixed(2);//200.00
-          }
-          // console.log(interest_to_be_pay);
-          if(interest_to_be_pay <= 0)
-          {
-            amount_paid = parseFloat(interest_to_be_pay * -1).toFixed(2); //100.00
-            amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
-            // console.log(amount_paid);
-            interest_to_be_pay = parseFloat(0).toFixed(2);
-            var is_Paid = 1;
-          }
-          else
-          {
-            amount_to_be_pay = parseFloat(res[i].amount).toFixed(2); //350.00
-          }
+          var $tr = $('<tr class=\'customer_trtd_append\'/>');
 
-          total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+          $tr.append($('<td/>').html(res[i].accountid));
+          $tr.append($('<td/>').html(res[i].packagetypename));
+          $tr.append($('<td/>').html(res[i].paymentdate));
+          $tr.append($('<td/>').html(res[i].paymenttype));
+          $tr.append($('<td/>').html(res[i].payment));
 
-          /////////////////////for package_25_month///////////////////////////////////////////////////////////////////
-
-          if (res[0].packagetypename == "package_25_month") 
-          {
-            if (parseFloat(res[i].totalamount) <= parseFloat(res[i].amount))
-            {
-              interest_to_be_pay = parseFloat(0).toFixed(2);
-              amount_to_be_pay = parseFloat(res[i].totalamount).toFixed(2);
-              total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
-              is_Paid = 1;
-            }
-            else
-            {
-              interest_to_be_pay = res[i].totalamount - res[i].amount;
-              interest_to_be_pay = parseFloat(interest_to_be_pay).toFixed(2);
-              amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);
-              total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
-              is_Paid = 0;
-              res[i].interest = interest_to_be_pay;
-            }
-          }
-
-
-          //Amount to be pay
-          if ("payment" in res[i]) 
-          {
-            if (amount_to_be_pay<=0) 
-            {
-              $tr.append($('<td/>').html("Paid"));
-            }
-            else
-            {
-              $tr.append($('<td/>').html(amount_to_be_pay));
-            }
-          }
-          else
-          {
-            $tr.append($('<td/>').html(parseFloat(Math.round(res[i].amount * 100) / 100).toFixed(2)));
-          }
-          //Interest to be pay
-          if ("payment" in res[i]) 
-          {
-            if(is_Paid == 1)
-            {
-              $tr.append($('<td/>').html("Paid"));
-            }
-            else
-            {
-              $tr.append($('<td/>').html(interest_to_be_pay));
-            }
-            
-          }
-          else
-          {
-            $tr.append($('<td/>').html(res[i].interest));
-          }
-          //Total
-          if (total<=0) 
-          {
-            $tr.append($('<td/>').html("Paid"));
-          }
-          else
-          {
-            $tr.append($('<td/>').html(total));
-          }
-          //Action
-          //Get baseurl path
-          var baseurl_pathname   = window.location.origin;
-          var pathname   = window.location.pathname;
-          var total_pull_nxt_period_use = total;
-          if (total_pull_nxt_period_use<=0) 
-            {
-              total_pull_nxt_period_use = 0;
-            }
-          if (i<res.length-1) 
-          {
-            $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
-          }
-          $('.account_modal_table tr:last').before($tr);
+          $('.customer_modal_table tr:last').before($tr);
         }
-        
-       
-      // alert("work");
-      // $("#account_modal_title").html(res.refid); 
-      
-      // $("#account_modal_title").html(res.refid); 
-      // $("#account_modal_title").html(res.refid); 
-      // Show Entered Value
-      // console.log("1");
       }
     }
     });

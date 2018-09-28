@@ -111,21 +111,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="account_modal_title"></h4>
+        <h4 class="modal-title" id="customer_modal_title"></h4>
       </div>
       <div class="modal-body">
        <!-- body -->
       <!-- Customer: <span id="customer_modal_customerid"></span><span id="customer_modal_customername"></span><br> -->
-      <table class="account_modal_table table livesearch">
+      <table class="customer_modal_table table livesearch">
       	<thead></thead>
       	<tr></tr>
       </table>
        
       </div>
       <div class="modal-footer">
-      	<form id="pay_amount" action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
-			<!-- ajax script generated button -->
-		</form>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
