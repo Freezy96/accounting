@@ -64,14 +64,34 @@ public function checkuserstatus(){
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
            $status = $value['status'];
-           $reset = $value['reset'];           
+           $reset = $value['reset']; 
+           $res=$this->customer_model->getstatus();
+                   
            $statuscus= "";
-           if(($status==""||$status=="closed") && $status!="late" &&$status!="baddebt" ){
+           if(($status==""||$status=="closed")  ){
+             foreach ($res as $key => $value) {
+           $customerid= $value['customerid'];
+           $statusc = $value['status'];
+           
+           if ($statusc!="late" || $statusc!="baddebt") {
                 $statuscus="good";
-           }elseif($status!="" && $reset!="1" && $status=="baddebt" ){ 
+              }              
+            }
+
+           }elseif($status!="" && $reset!="1" && $status=="baddebt" ){
+
                 $statuscus="baddebt";
+
            }elseif($status!="" && $status=="late" && $reset!="1" && $status!="baddebt" ){
+
+            foreach ($res as $key => $value) {
+           $customerid= $value['customerid'];
+           $statusc = $value['status'];
+           
+           if ($statusc!="baddebt") {
                 $statuscus="late";
+              }
+            }
            }
            $data = array(
             'status' => $statuscus
