@@ -19,6 +19,7 @@
 
   <!-- Core Scripts - Include with every page -->
   	 <!-- CSS -->
+    
     <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap-theme.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/simple-sidebar.css">
@@ -30,6 +31,33 @@
   	<script type = 'text/javascript' src = "<?php echo base_url(); ?>js/npm.js"></script>
     <script type = 'text/javascript' src = "<?php echo base_url(); ?>js/datatables.js"></script>
   	<script type = 'text/javascript' src = "<?php echo base_url(); ?>js/custom.js"></script>
-    
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        $('.customer_check').on("change keyup", function(event) {
+            event.preventDefault();
+            var name = $('#customer_insert_name').val();
+            var passport = $('#customer_insert_passport').val();
+            $.ajax({
+             type: "POST",
+             url: "<?php echo site_url();?>customer/customer_exist_check", 
+             data: {'name': $('#customer_insert_name').val(), 'passport': $('#customer_insert_passport').val()},
+             dataType: "html",  
+             success: function(res){
+                    // alert(res);  //as a debugging message.
+                    if (res == "yes") {
+                    $('#customer_msg').html("<h3 style=\"color: red\">USER WITH THIS NAME / PASSPORT ID EXIST IN BLACKLIST, PLEASE BE CAREFUL!</h3>");
+                  }else{
+                    $('#customer_msg').html("");
+                  }
+
+                  }
+              });// you have missed this bracket
+         return false;
+          
+        });
+  
+      });
+    </script>
  </body>
 </html>
