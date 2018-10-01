@@ -245,7 +245,7 @@ public function blackliststatus(){
         return $query->result_array();
     }
 
-    public function check_availability(){
+    public function check_availability($name,$passport){
         // Run the query
 
         $this->db->select("blacklist, customername, passport");
@@ -256,7 +256,20 @@ public function blackliststatus(){
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where('blacklist', 1);
         $query = $this->db->get();
-        return $query->result_array();
-    }
+        $blacklist = $query->result_array();
+        $In_db = "no";
+        foreach ($blacklist as $key => $value) {
+        $value_customer_name = $value['customername'];
+        $value_customer_passport = $value['passport'];
+          if ($value_customer_name == $name && $passport == $value_customer_passport) {
+            $In_db = "yes";
+          }
+        } 
+        return $In_db;
+      }
+
+      public function confirm($msg){
+        echo "<script type='text/javascript'>confirm('".$msg."');</script>";    
+      }
 }
 ?>

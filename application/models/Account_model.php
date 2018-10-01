@@ -2786,5 +2786,6 @@ public function set_baddebt_update($accountid){
             return $return;
        }
     }
+
 }
 ?>

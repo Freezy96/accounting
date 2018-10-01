@@ -16,8 +16,9 @@
   
   <div class="form-group">
     <label for="">Customer Name</label>
-    <input type="text" class="form-control" id="" placeholder="Customer Name" name="name" required>
+    <input type="text" class="form-control customer_check" id="customer_insert_name" placeholder="Customer Name" name="name" required>
   </div>
+  <!-- <button class="btn customer_check">check</button> -->
    <div class="form-group">
     <label for="">Wechat Name</label>
     <input type="text" class="form-control" id="" placeholder="Wechat Name" name="wechatname" required>
@@ -32,7 +33,7 @@
   </div>
   <div class="form-group">
     <label for="">Passport/IC No.</label>
-    <input type="text" class="form-control" id="" placeholder="Passport No." name="passport" required>
+    <input type="text" class="form-control customer_check" id="customer_insert_passport" placeholder="Passport No." name="passport" required>
   </div>
   <div class="form-group">
   <label for="exampleInputEmail1">Gender</label>
@@ -47,6 +48,9 @@
     <input type="radio" name="gender" id="optionsRadios2" value="Female" required="required" required>
     Female
   </label>
+</div>
+<div id="customer_msg">
+  
 </div>
 </div>
   <button type="submit" class="btn btn-default">Submit</button>
