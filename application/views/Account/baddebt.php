@@ -60,7 +60,7 @@
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
 					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
 					</form> -->
-					<!-- <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal1" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
+					<!-- <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
 					<form  action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
 			<!-- ajax script generated button -->
 			<button class="btn btn-default "  value="<?php echo $val["refid"]; ?>" name="account_refid">Payment</button>
