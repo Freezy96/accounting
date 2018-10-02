@@ -367,10 +367,11 @@ class Account_model extends CI_Model{
                 //5天账 公式
                 elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
                 {
-                    if ($days<=$totaldays_package_manual_payeveryday_manualdays) {
+                    if ($days >= $totaldays_package_manual_payeveryday_manualdays) {
+                        $days = $totaldays_package_manual_payeveryday_manualdays;
+                    }
                         $total_interest = $interest * $days;
                         $this->insert_interest($total_interest,$accountid);
-                    }
                     
                 }
                 //一个月 迟一天110% 算法不同 在这边就那payment来减了 而不是像其他的一样 在view那边加减
