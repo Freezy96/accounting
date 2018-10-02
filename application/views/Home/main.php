@@ -119,22 +119,22 @@
 <br>
 <div class="row">
 <div class="col-sm-6">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account/insert'">New Account</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/insert'">New Account</button>
 </div>
 
 <div class="col-sm-6">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account'">View Account/Payment</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>account'">Account/Payment</button>
 </div>
 
 </div>
 <br>
 <div class="row">
 <div class="col-sm-6">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit'">Profit & Loss</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>profit'">Profit & Loss</button>
 </div>
 
 <div class="col-sm-6">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup'">Backup Database</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>backup'">Backup Database</button>
 </div>
 
 </div>
@@ -143,40 +143,41 @@
 <div class="row">
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer'">View Customer</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer'">Customer</button>
 </div>
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>package'">View Package</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>package'">Package</button>
 </div>
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>agent'">View Agent</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>agent'">Agent</button>
 </div>
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/baddebt'">View Baddebt</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/baddebt'">Baddebt</button>
 </div>
 
 </div>
 
 <br>
-<div class="row">
+<!-- <div class="row">
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">New Customer</button>
-</div>
-
-<div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">New Package</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>customer/insert'">New Customer</button>
 </div>
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>agent/insert'">New Agent</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>package/insert'">New Package</button>
 </div>
 
 <div class="col-sm-3">
-	<button style="height: 25vh;" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>register'">New Company</button>
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>agent/insert'">New Agent</button>
+</div>
+
+<div class="col-sm-3">
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-primary" onclick="location.href='<?php echo base_url();?>register'">New Company</button>
 </div>
 
 </div>
+ -->
