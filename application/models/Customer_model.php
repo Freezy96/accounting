@@ -42,31 +42,86 @@ class Customer_Model extends CI_Model{
         return $query->result_array();
     }
 
-        public function getuserstatus(){
+    public function getuserstatus(){
         // Run the query
-        $this->db->select('c.customerid, a.status as statusa, c.reset, c.status as statusc');
+        $this->db->select('c.customerid, c.reset, c.status as statusc');
         $this->db->from('customer c');
-        $this->db->join('account a', 'a.customerid = c.customerid', 'left');
         $query = $this->db->get();
 
         return $query->result_array();
     }
+
+    public function get_account_status_by_customerid($customerid){
+        // Run the query
+        $this->db->select('status');
+        $this->db->from('account');
+        $this->db->where('customerid', $customerid);
+        
+        $query = $this->db->get();
+        $res = $query->result_array();
+        $statusa = "";
+        foreach ($res as $key => $value) {
+
+          $status_new = $value['status'];
+          $count++;
+          //when status is closed or empty
+          if ($statusa == "" || $statusa == "closed") {
+            if ($status_new == "" || $status_new == "closed") {
+              $statusa = $status_new;
+            }
+            elseif($status_new == "late") {
+              $statusa = $status_new;
+            }
+            elseif($status_new == "baddebt") {
+              $statusa = $status_new;
+            }
+          }
+          //when status is late
+          elseif($statusa == "late"){
+            if ($status_new == "" || $status_new == "closed") {
+              //do nothing
+            }
+            elseif($status_new == "late") {
+              $statusa = $status_new;
+            }
+            elseif($status_new == "baddebt") {
+              $statusa = $status_new;
+            }
+          }
+          elseif($statusa == "baddebt"){
+            if ($status_new == "" || $status_new == "closed") {
+              //do nothing
+            }
+            elseif($status_new == "late") {
+              //do nothing
+            }
+            elseif($status_new == "baddebt") {
+              $statusa = $status_new;
+            }
+          }
+        }
+        
+        return $statusa;
+
+    }
+
      public function userstatus($customerid){
         $data=$this->customer_model->getuserstatus($customerid);
          foreach ($data as $key => $value) {
            $status = $value['status'];
         }
 
-        }
+      }
 
 public function checkuserstatus(){
         $data=$this->customer_model->getuserstatus();
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
-           $statusa = $value['statusa'];
+           $statusa = $this->get_account_status_by_customerid($customerid);
+           // echo "<script>console.log('".$statusa."');</script>";
            $statusc = $value['statusc'];
            $reset = $value['reset']; 
-                   
+            
            $statuscus_update= "";
 
            if(($statusa==""||$statusa=="closed") && $reset!="1" && $statusc!="late" && $statusc!="baddebt"){
