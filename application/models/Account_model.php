@@ -294,7 +294,7 @@ class Account_model extends CI_Model{
     // Package 30 / 4Week 滚利息
     public function interest_30_4week()
     {
-        $this->db->select('a.accountid, a.packageid,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->select('a.accountid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -312,6 +312,7 @@ class Account_model extends CI_Model{
             $oriamount = $value['oriamount'];
             $accountid = $value['accountid'];
             $totalamount = $value['totalamount'];
+
             
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) {
@@ -526,43 +527,15 @@ class Account_model extends CI_Model{
             $paymentinfo = $this->get_payment_info($accountid);
              foreach ($paymentinfo as $key => $value) {
                 $payment = $value['payment'];
-            }
+            
 
-            if ($days<=0) {
-                if ($packagename == "package_20_week"  && $status !=="closed" && $payment=""  )
-                {
-                     $total_interest = $lentamount* 20/100;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$lentamount;
-
-                }
-              elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=""   )
-                {
-                     $total_interest = $lentamount* 15/100;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$lentamount;
-
-                }else if ($packagename == "package_20_week"  && $status !=="closed" && $payment!="")
-                {
-                     $total_interest = $lentamount* 20/100;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$lentamount-$payment;
-
-                }
-              elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=""   && $payment!="")
-                {
-                     $total_interest = $lentamount* 15/100;
-                     $this->insert_interest($total_interest,$accountid);
-                     $totalamount = $total_interest+$lentamount-$payment;
-
-                }
-            }elseif ($days==1) {
+            if ($days=1) {
                  if ($packagename == "package_20_week"  && $status !=="closed" && $payment=""   )
                 {
                      $total_interest = ($lentamount* 0.2)+$interest;
-                     $this->insert_interest($total_interest,$accountid);
+                     
                      $totalamount = $total_interest+$lentamount;
-
+                    $this->insert_interest($total_interest,$accountid);
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment=""  )
                 {
@@ -584,7 +557,7 @@ class Account_model extends CI_Model{
                      $totalamount = $total_interest+$lentamount-$payment;
 
                 }
-            }elseif ($days==2 ) {
+            }elseif ($days=2 ) {
                 if ($packagename == "package_20_week"  && $status !=="closed" && $payment=""   )
                 {
                      $total_interest = ($lentamount* 0.2)+($interest*2);
@@ -876,8 +849,7 @@ class Account_model extends CI_Model{
                 }
                 elseif ($packagename == "package_15_week"  && $status !=="closed" && $payment="" )
                 {   
-                    $interest = $value['interest'];
-                    $lentamount = $value['lentamount'];
+
                      $total_interest = ((((($lentamount* 1.15)+($interest*2))*1.15+($interest*2))*0.15+(($lentamount* 1.15)+($interest*2))*0.15+($interest*6)+$lentamount*1.15)*1.15-$lentamount*1.15+($interest*2)+$lentamount*1.15)*1.15-$lentamount*1.15;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
@@ -2361,7 +2333,7 @@ class Account_model extends CI_Model{
 
                 }
             }
-        
+        }
     }
 }
     }
@@ -2442,7 +2414,7 @@ class Account_model extends CI_Model{
 
     public function account_status_set()
     {
-        $this->db->select('a.accountid, a.totalamount, a.duedate, p.packagetypename');
+        $this->db->select('a.accountid, a.totalamount, a.duedate, p.packagetypename ,a.status');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -2462,7 +2434,7 @@ class Account_model extends CI_Model{
 
             $days = round($datediff / (60 * 60 * 24));
             $days = $days-1;
-            $status="";
+            $status= $val['status'];
 
            // echo "<script>console.log('accountid:".$accountid."')</script>";
            //  echo "<script>console.log('totalamount:".$totalamount."')</script>";
@@ -2718,9 +2690,8 @@ public function set_account_baddebt()
 public function set_baddebt_update($accountid){
         // Run the query
         $accountid = $accountid;
-        $res1 = $this->db->getrefid($accountid);
-        $res = $res1->result_array();
-        foreach ($res as $key => $value) {
+        $data = $this->getrefid($accountid);
+        foreach ($data as $key => $value) {
         $refid=$value['refid'];
         $status = "baddebt";
         $data = array(
