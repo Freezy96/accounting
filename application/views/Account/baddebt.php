@@ -19,6 +19,9 @@
 				<TD>
 					PACKAGE
 				</TD>
+				<TD>
+					TOTAL AMOUNT
+				</TD>
 				<td>
 					ACTION
 				</td>
@@ -53,8 +56,9 @@
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
-		
-					
+			<td>
+				<?php echo $val['SUM(a.totalamount)']; ?>
+			</td>	
 			<td>
 				<div class="row">
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
@@ -98,6 +102,9 @@
 					PACKAGE
 				</TD>
 				<TD>
+					TOTAL AMOUNT
+				</TD>
+				<TD>
 					AGENT
 				</TD>
 			</tr>
@@ -131,6 +138,11 @@
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
+			<td>
+
+				<?php echo $val['SUM(a.totalamount)']; ?>
+			</td> 
+
 			<td>
 				<?php if ($val['agentname']!=""): ?>
 				<?php echo $val['agentname']; ?>	

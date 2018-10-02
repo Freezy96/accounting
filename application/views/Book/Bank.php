@@ -19,8 +19,10 @@
 </thead>
 <tbody>
 
-	<?php if(is_array($result) && $result){ 
-$debit=0;
+	<?php 
+	$debit=0;
+	if(is_array($result) && $result){ 
+		$debit=0;
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
@@ -49,7 +51,8 @@ $debit=0;
 </tr>
 </thead>
 <tbody>
-	<?php if(is_array($result) && $result){ 
+	<?php $credit=0;
+	if(is_array($result) && $result){ 
 	$credit=0;
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
