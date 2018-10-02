@@ -607,14 +607,14 @@ class Account_model extends CI_Model{
 
                 }
             }elseif($days=3 || $days=8 || $days=13 || $days=18 || $days=23 || $days=28 || $days=33 || $days=38 || $days=43 || $days=48 || $days=53 || $days=58){
-                 if ($packagename == "package_20_week"  && $status !=="closed")
+                 if ($packagename == "package_15_5days"  && $status !=="closed")
                 {
                       $total_interest = ($totalamount)*0.15 ;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount*1.15-$payment;
 
                 }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" )
+                elseif ($packagename == "package_10_5days"  && $status !=="closed" )
                 {
                       $total_interest = ($totalamount)*0.10;
                      $this->insert_interest($total_interest,$accountid);
