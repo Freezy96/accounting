@@ -50,7 +50,7 @@
 				<?php echo $val['MAX(a.duedate)']; ?>
 			</td> 
 
-			<td>MAX(a.duedate)
+			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
 		
