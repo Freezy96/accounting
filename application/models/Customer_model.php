@@ -65,12 +65,10 @@ public function checkuserstatus(){
            $customerid= $value['customerid'];
            $statusa = $value['statusa'];
            $reset = $value['reset'];          
-           $statuscus= "";
-          
            $statusc = $value['statusc'];
-           
+           $statuscus= "";
            if ($statusc!="late" || $statusc!="baddebt" && $reset!="1") { 
-            if(($statusa==""||$statusa=="closed")  ){
+            if(($statusa==""||$statusa=="closed" && $statusa!="late" && $statusa!="baddebt")){
                 $statuscus="good";
                  $data = array(
             'status' => $statuscus
