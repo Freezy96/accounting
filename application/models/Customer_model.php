@@ -44,7 +44,7 @@ class Customer_Model extends CI_Model{
 
         public function getuserstatus(){
         // Run the query
-        $this->db->select('c.customerid, a.status, c.reset');
+        $this->db->select('c.customerid, a.status as statusa, c.reset, c.status as statusc');
         $this->db->from('customer c');
         $this->db->join('account a', 'a.customerid = c.customerid', 'left');
         $query = $this->db->get();
@@ -63,39 +63,30 @@ public function checkuserstatus(){
         $data=$this->customer_model->getuserstatus();
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
-           $status = $value['status'];
+           $statusa = $value['statusa'];
+           $statusc = $value['statusc'];
            $reset = $value['reset']; 
-           $res=$this->customer_model->getstatus();
                    
-           $statuscus= "";
-           if(($status==""||$status=="closed")  ){
-             foreach ($res as $key => $value) {
-           $customerid= $value['customerid'];
-           $statusc = $value['status'];
-           
-           if ($statusc!="late" || $statusc!="baddebt") {
-                $statuscus="good";
-              }              
-            }
+           $statuscus_update= "";
 
-           }elseif($status!="" && $reset!="1" && $status=="baddebt" ){
+           if(($statusa==""||$statusa=="closed") && $reset!="1" && $statusc!="late" && $statusc!="baddebt"){
+            
+            $statuscus_update = "good";
 
-                $statuscus="baddebt";
+           }elseif($statusa!="" && $reset!="1" && $statusa=="baddebt" ){
 
-           }elseif($status!="" && $status=="late" && $reset!="1" && $status!="baddebt" ){
+            $statuscus_update="baddebt";
 
-            foreach ($res as $key => $value) {
-           $customerid= $value['customerid'];
-           $statusc = $value['status'];
-           
-           if ($statusc!="baddebt") {
-                $statuscus="late";
-              }
-            }
+           }elseif($statusa!="" && $statusa=="late" && $reset!="1" && $statusa!="baddebt" && $statusc!="baddebt"){
+
+            $statuscus_update="late";
+
            }
+
            $data = array(
-            'status' => $statuscus
+            'status' => $statuscus_update
             );
+
         $this->db->where('customerid', $customerid);
         $this->db->update('customer', $data);
            
