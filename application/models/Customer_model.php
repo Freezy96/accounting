@@ -63,7 +63,6 @@ class Customer_Model extends CI_Model{
         foreach ($res as $key => $value) {
 
           $status_new = $value['status'];
-          $count++;
           //when status is closed or empty
           if ($statusa == "" || $statusa == "closed") {
             if ($status_new == "" || $status_new == "closed") {
