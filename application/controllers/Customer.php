@@ -32,13 +32,16 @@ class Customer extends CI_Controller {
 		$res = $this->load->customer_model->getuserdata();
 
 		$data['result'] = $res;
-		
+
 		// 再滚利息
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
 		$this->load->account_model->account_status_set();
 
+		$this->load->customer_model->reset_duedate();
+		$this->load->customer_model->checkuserstatus();
+		$this->load->customer_model->blackliststatus();
 		$this->load->customer_model->reset_duedate();
 		$this->load->customer_model->checkuserstatus();
 		$this->load->customer_model->blackliststatus();
