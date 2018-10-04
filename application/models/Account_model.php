@@ -449,8 +449,8 @@ class Account_model extends CI_Model{
                             }
                         }
                     }
-                    // echo "<script>console.log('package_25_month:".$total_amount."');</script>";
                     $this->update_total_amount($total_amount,$accountid);
+
                    }
                    elseif ($packagename == "package_20_week"  && $status !=="closed" )
                 {   
@@ -742,14 +742,11 @@ class Account_model extends CI_Model{
                     
                     }
                      $this->update_total_amount($total_amount,$accountid);
+
                 }
             }
         }
     }
-        
-    
-
-
 
    public function insert_payment($data)
    {
