@@ -452,7 +452,7 @@ class Account_model extends CI_Model{
                     $this->update_total_amount($total_amount,$accountid);
 
                    }
-                   elseif ($packagename == "package_20_week"  && $status !=="closed" )
+            if ($packagename == "package_20_week"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -527,7 +527,10 @@ class Account_model extends CI_Model{
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-            }elseif($packagename == "package_15_week"  && $status !=="closed" )
+            
+
+
+            if($packagename == "package_15_week"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -601,7 +604,9 @@ class Account_model extends CI_Model{
                     
                     }
                      $this->update_total_amount($total_amount,$accountid);
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" )
+                }
+
+                if ($packagename == "package_15_5days"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -671,11 +676,11 @@ class Account_model extends CI_Model{
                                 $total_amount = ($total_amount)*1.15;
                             }
                         }
-                    
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-            elseif($packagename == "package_10_5days"  && $status !=="closed" )
+
+            if($packagename == "package_10_5days"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -755,7 +760,7 @@ class Account_model extends CI_Model{
             }
         }
     }
-
+}
    public function insert_payment($data)
    {
         if($this->db->insert('payment', $data))
