@@ -443,9 +443,10 @@ class Account_model extends CI_Model{
                     }
                     $this->update_total_amount($total_amount,$accountid);
 
-                }
 
-                elseif ($packagename == "package_20_week"  && $status !=="closed" )
+                   }
+            if ($packagename == "package_20_week"  && $status !=="closed" )
+
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -479,7 +480,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                              if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
                    
                                
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
@@ -502,7 +503,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest);
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
                    
                                
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
@@ -520,10 +521,11 @@ class Account_model extends CI_Model{
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-            }
+            
 
 
-                elseif($packagename == "package_15_week"  && $status !=="closed" )
+            if($packagename == "package_15_week"  && $status !=="closed" )
+
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -557,7 +559,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
                    
                                
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
@@ -580,7 +582,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest);
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
                    
                                
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 ) 
@@ -598,7 +600,9 @@ class Account_model extends CI_Model{
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-                elseif ($packagename == "package_15_5days"  && $status !=="closed" )
+
+                if ($packagename == "package_15_5days"  && $status !=="closed" )
+
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -632,7 +636,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -654,7 +658,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest);
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -668,11 +672,13 @@ class Account_model extends CI_Model{
                                 $total_amount = ($total_amount)*1.15;
                             }
                         }
-                    
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-                elseif($packagename == "package_10_5days"  && $status !=="closed" )
+
+
+            if($packagename == "package_10_5days"  && $status !=="closed" )
+
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -706,7 +712,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -729,7 +735,7 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount)+($interest);
+                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -752,7 +758,7 @@ class Account_model extends CI_Model{
             }
         }
     }
-
+}
    public function insert_payment($data)
    {
         if($this->db->insert('payment', $data))
