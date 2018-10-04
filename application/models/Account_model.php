@@ -318,7 +318,8 @@ class Account_model extends CI_Model{
 
             
             $packageinfo = $this->get_package_info($packagename, $packageid);
-            foreach ($packageinfo as $key => $value) {
+            foreach ($packageinfo as $key => $value) 
+            {
                 $interest = $value['interest'];
                 $lentamount = $value['lentamount'];
             
@@ -343,15 +344,6 @@ class Account_model extends CI_Model{
             // echo "<script>console.log( 'days value: " .$days. "' );</script>";
             $date1 = date("Y-m-d");
             $date2 = date("Y-m-d",strtotime($duedate));
-            // echo ;
-            // echo "<script>console.log('Year:'+"..");</script>";
-            // echo "<script>console.log('Month:'+".$months.");</script>";
-            // echo "<script>console.log('Day:'+".$days.");</script>";
-            // echo "<script>console.log('Day:'+".$date1.");</script>";
-            // echo "<script>console.log('Day:'+".$date2.");</script>";
-         //if ($days>=60){
-         //    $status = "baddebt";
-       //    }
                         
         $paymentinfo = $this->get_payment_info($accountid);
         $payment = 0;
@@ -451,8 +443,9 @@ class Account_model extends CI_Model{
                     }
                     $this->update_total_amount($total_amount,$accountid);
 
-                   }
-                   elseif ($packagename == "package_20_week"  && $status !=="closed" )
+                }
+
+                elseif ($packagename == "package_20_week"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -525,7 +518,10 @@ class Account_model extends CI_Model{
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-            }elseif($packagename == "package_15_week"  && $status !=="closed" )
+            }
+
+
+                elseif($packagename == "package_15_week"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -597,7 +593,8 @@ class Account_model extends CI_Model{
                     
                     }
                      $this->update_total_amount($total_amount,$accountid);
-                }elseif ($packagename == "package_15_5days"  && $status !=="closed" )
+                }
+                elseif ($packagename == "package_15_5days"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -669,7 +666,7 @@ class Account_model extends CI_Model{
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-            elseif($packagename == "package_10_5days"  && $status !=="closed" )
+                elseif($packagename == "package_10_5days"  && $status !=="closed" )
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
