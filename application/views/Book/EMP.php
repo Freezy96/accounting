@@ -17,8 +17,11 @@
 </tr>
 </thead>
 <tbody>
-	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): 
+<?php 
+	$debit=0;
+	if(is_array($result) && $result){ 
+		$debit=0;
+	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
 <?php if ($type=="receive"){?>
@@ -46,8 +49,10 @@
 </tr>
 </thead>
 <tbody>
-	<?php if(is_array($result) && $result){ ?>
-	<?php foreach ($result as $key => $val): 
+	<?php $credit=0;
+	if(is_array($result) && $result){ 
+	$credit=0;
+	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
 		 <?php if ($type=="payment"){?>
