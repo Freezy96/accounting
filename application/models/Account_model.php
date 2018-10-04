@@ -492,13 +492,13 @@ class Account_model extends CI_Model{
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                                $total_amount = ($total_amount)+($interest)- $payment_paid;
                             }
                             //其他天
                             elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.2- $payment_paid;
+                                $total_amount = ($total_amount)*1.2- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -513,12 +513,12 @@ class Account_model extends CI_Model{
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest);
+                                $total_amount = ($total_amount)+($interest);
                             //其他天
                             }elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.2;
+                                $total_amount = ($total_amount)*1.2;
                             }
                         }
                     
@@ -565,13 +565,13 @@ class Account_model extends CI_Model{
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                                $total_amount = ($total_amount)+($interest)- $payment_paid;
                             }
                             //其他天
                             elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.15- $payment_paid;
+                                $total_amount = ($total_amount)*1.15- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -586,12 +586,12 @@ class Account_model extends CI_Model{
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 ) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest);
+                                $total_amount = ($total_amount)+($interest);
                             //其他天
                             }elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.15;
+                                $total_amount = ($total_amount)*1.15;
                             }
                         }
                     
@@ -637,13 +637,13 @@ class Account_model extends CI_Model{
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                                $total_amount = ($total_amount)+($interest)- $payment_paid;
                             }
                             //其他天
                             elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.15- $payment_paid;
+                                $total_amount = ($total_amount)*1.15- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -657,12 +657,12 @@ class Account_model extends CI_Model{
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest);
+                                $total_amount = ($total_amount)+($interest);
                             //其他天
                             }elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.15;
+                                $total_amount = ($total_amount)*1.15;
                             }
                         }
                     
@@ -709,13 +709,13 @@ class Account_model extends CI_Model{
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                                $total_amount = ($total_amount)+($interest)- $payment_paid;
                             }
                             //其他天
                             elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.1- $payment_paid;
+                                $total_amount = ($total_amount)*1.1- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -730,13 +730,13 @@ class Account_model extends CI_Model{
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($totalamount)+($interest);
+                                $total_amount = ($total_amount)+($interest);
                             }
                             //其他天
                             elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($totalamount)*1.1;
+                                $total_amount = ($total_amount)*1.1;
                             }
                         }
                     
