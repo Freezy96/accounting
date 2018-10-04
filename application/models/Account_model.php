@@ -275,11 +275,27 @@ class Account_model extends CI_Model{
     }
     public function insert_interest($total_interest, $accountid)
     {
+    $this->db->select('refresh_time');
+    $this->db->from('account');
+    $this->db->where('accountid', $accountid);
+    $res=$this->db->get();
+    $array = $res->result_array();
+    foreach ($array as $key => $value) {
+        $refresh_time=$value['refresh_time'];
+    }
+    $r_days = strtotime(date("Y-m-d"))-strtotime($refresh_time);
+    $days = $r_days/86400; 
+   
+     if ($days>0) {
+        
+    
     $data = array(
-    'interest' => $total_interest
+    'interest' => $total_interest,
+    'refresh_time' => date('Y-m-d')
     );
     $this->db->where('accountid', $accountid);
     $this->db->update('account', $data);
+        }
     }
 
     public function insert_amount($amount_change, $accountid)
@@ -358,7 +374,7 @@ class Account_model extends CI_Model{
         }
             if ($days==1) {
                  if ($packagename == "package_20_week"  && $status !=="closed")
-                {
+                {    
                      $total_interest = ($lentamount* 0.2)+$interest;
                      $this->insert_interest($total_interest,$accountid);
                      $totalamount = $total_interest+$lentamount;
