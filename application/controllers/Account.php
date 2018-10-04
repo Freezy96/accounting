@@ -23,6 +23,7 @@ class Account extends CI_Controller {
         $this->load->model('account_model');
         $this->load->model('agent_model');
         $this->load->model('security_model');$this->load->helper('url');
+        //$this->output->enable_profiler(TRUE); //display SQL
     }
 
 	public function index()
