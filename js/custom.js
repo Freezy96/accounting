@@ -132,7 +132,7 @@ $(document).ready(function() {
 
                   /////////////////////for package_25_month///////////////////////////////////////////////////////////////////
 
-                  if (res[0].packagetypename == "package_25_month") 
+                  if (res[0].packagetypename == "package_25_month"|| res[0].packagetypename == "package_20_week" || res[0].packagetypename == "package_15_week" || res[0].packagetypename == "package_15_5days" ||res[0].packagetypename == "package_10_days") 
                   {
                     if (parseFloat(res[i].totalamount) <= parseFloat(res[i].amount))
                     {
