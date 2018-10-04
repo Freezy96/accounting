@@ -538,97 +538,11 @@ class Account_model extends CI_Model{
                             }
                         }
                     }
-                    // echo "<script>console.log('package_25_month:".$total_amount."');</script>";
                     $this->update_total_amount($total_amount,$accountid);
-                    // $total_interest = $total_amount - $oriamount;
-                    // if ($total_interest<=0) {
-                    //     $amount_change = $oriamount + $total_interest; //total_interest 在这边是负数
-                    //     $this->insert_amount(number_format($amount_change, 2, '.', ''),$accountid);
-                    //     $total_interest = 0;
-                    // }
-                    // $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
-
-                    ////////////////////////////////////////////////////////////////////////////////////////////
-                    // $total_interest = 0;
-                    // $count_paymentdate = 0;
-                    // foreach ($payment_info as $key => $value) {
-                    //     ${"payment_date" . $count_paymentdate} = $value['paymentdate'];
-                    //     ${"payment_amount" . $count_paymentdate} = $value['payment'];
-                    //     $count_paymentdate++;
-                    // }
-                    // if ($count_paymentdate!=0) 
-                    // {
-                    //     for ($i=0; $i <$count_paymentdate ; $i++) 
-                    //     { 
-                    //         if ($i == 0  && $count_paymentdate == 1) {
-                    //             //date 有问题
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($oriamount * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             ${"datestop". $i} = ${"datestop". $i} - $days;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                                
-                    //         }
-                    //         elseif ($i == 0  && $count_paymentdate != 1) 
-                    //         {
-                    //             //date 有问题
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($oriamount * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //             echo "<script>console.log('ttttttttt2:".$total_interest."');</script>";
-                    //         }
-                    //         elseif ($i == $count_paymentdate-1) 
-                    //         {
-                    //             $i_minus_1 = $i-1;
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - strtotime(${"payment_date" . $i_minus_1});
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //             echo "<script>console.log('ttttttttt2:".$total_interest."');</script>";
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             ${"datestop". $i} = ${"datestop". $i} - $days;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //             echo "<script>console.log('tttttttttFinal2:".$total_interest."');</script>";
-                    //         }
-                    //         else
-                    //         {
-                    //             $i_minus_1 = $i-1;
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - strtotime(${"payment_date" . $i_minus_1});
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //         }
-                             
-                    //     }
-                    //         // echo "<script>console.log('ttttttttt:".number_format($total_interest, 2, '.', '')."');</script>";
-                    //         $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
-                    //     }
-                        // else
-                        // {//没有payment的情况下 好像是错的
-                        //     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
-                        //     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
-                        // }
-                    
-                    // print_r($total_interest);
-                
-                
-
-            
-
-            //有payment和没payment公式跑不同的
-
+                }
             }
         }
     }
-}
 }
 
    public function insert_payment($data)
