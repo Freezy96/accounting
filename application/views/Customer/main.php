@@ -70,7 +70,7 @@
 		<?php ?>
 		
 			<td>
-				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
+				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="150" width="150" /><br>
 			</td>
 			<td>
 				<?php echo $val['customername']; ?>	<?php echo "(".$val['passport'].")"; ?>
