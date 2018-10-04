@@ -31,6 +31,13 @@ class Account extends CI_Controller {
 		$this->load->helper('date');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		// 再滚利息
+		$this->load->account_model->interest_30_4week();
+		// 再算totalamount
+		$this->load->account_model->count_total_amount();
+		// 再set status
+		$this->load->account_model->account_status_set();
+
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
 		foreach ($res as $key => $value) {
@@ -42,11 +49,7 @@ class Account extends CI_Controller {
         $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';
 		$time = time();
 		echo mdate($datestring, $time);
-        // 再滚利息
-		$this->load->account_model->interest_30_4week();
-		// 再算totalamount
-		$this->load->account_model->count_total_amount();
-		$this->load->account_model->account_status_set();
+		
 		$this->load->view('account/modal');
     	$this->load->view('account/main', $data);		
 		$this->load->view('template/footer');

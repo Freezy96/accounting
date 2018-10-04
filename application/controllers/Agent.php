@@ -30,8 +30,7 @@ class Agent extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$this->load->account_model->count_agent_salary();
-		$res = $this->load->agent_model->getuserdata();
-		$data['result'] = $res;
+		
 		$count = 0;
 		//prevent empty display error
 		$data['salary_completed'] = array();
@@ -98,6 +97,9 @@ class Agent extends CI_Controller {
 
 		$res = $this->load->agent_model->get_agent_payment_not_grouped();
 		$data['payment_not_grouped'] = $res;
+
+		$res = $this->load->agent_model->getuserdata();
+		$data['result'] = $res;
 
     	$this->load->view('agent/main', $data);
 		$this->load->view('template/footer');
