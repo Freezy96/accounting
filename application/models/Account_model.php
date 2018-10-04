@@ -372,22 +372,7 @@ class Account_model extends CI_Model{
         {
             $payment += $value['payment'];
         }
-            if ($days==1) {
-                 if ($packagename == "package_20_week"  && $status !=="closed")
-                {    
-                     $total_interest = ($totalamount)+$interest-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-                    
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed"   )
-                {
-                     $total_interest = ($totalamount)+$interest;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-
-                }
-            }elseif ( $days==2|| $days==8|| $days==9|| $days==15|| $days==16|| $days==22|| $days==23|| $days==29|| $days==30|| $days==36|| $days==37|| $days==43|| $days==44|| $days==50|| $days==51|| $days==57|| $days==58 ) {
+           if ($days==1 || $days==2|| $days==8|| $days==9|| $days==15|| $days==16|| $days==22|| $days==23|| $days==29|| $days==30|| $days==36|| $days==37|| $days==43|| $days==44|| $days==50|| $days==51|| $days==57|| $days==58 ) {
                  if ($packagename == "package_20_week"  && $status !=="closed"  )
                 {
                       $total_interest = ($totalamount)+($interest)-$totalamount;
@@ -418,20 +403,7 @@ class Account_model extends CI_Model{
                 }
             }
 
-            if ($days==1) {
-                 if ($packagename == "package_15_5days"  && $status !=="closed"   )
-                {
-                     $total_interest = ($totalamount)+$interest-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                    
-                }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed"   )
-                {
-                     $total_interest = ($totalamount)+$interest-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-                }
-            }elseif ( $days==2|| $days==6 || $days==7 || $days==11 || $days==12 || $days==16 || $days==17 || $days==21 || $days==22 || $days==26 || $days==27 || $days==31 || $days==32 || $days==36 || $days==37 || $days==41 || $days==42 || $days==46 || $days==47 || $days==51 || $days==52 || $days==56 || $days==57) {
+            if ($days==1 || $days==2|| $days==6 || $days==7 || $days==11 || $days==12 || $days==16 || $days==17 || $days==21 || $days==22 || $days==26 || $days==27 || $days==31 || $days==32 || $days==36 || $days==37 || $days==41 || $days==42 || $days==46 || $days==47 || $days==51 || $days==52 || $days==56 || $days==57) {
                  if ($packagename == "package_20_week"  && $status !=="closed"  )
                 {
                       $total_interest = ($totalamount)+($interest)-$totalamount;
