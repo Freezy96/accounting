@@ -939,7 +939,6 @@ class Account extends CI_Controller {
 					'paymenttype' => "amount",
 					'paymentdate' => $date_today
 					);
-				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
 				$return = $this->account_model->insert_payment($data);
 
 			}

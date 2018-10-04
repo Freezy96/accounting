@@ -499,6 +499,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.2- $payment_paid;
+                            }else{
+                                $total_amount = $total_amount- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -572,6 +574,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.15- $payment_paid;
+                            }else{
+                                $total_amount = $total_amount- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -644,6 +648,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.15- $payment_paid;
+                            }else{
+                                $total_amount = $total_amount- $payment_paid;
                             }
                         }
                         //当天没有payment
@@ -716,6 +722,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.1- $payment_paid;
+                            }else{
+                                $total_amount = $total_amount- $payment_paid;
                             }
                         }
                         //当天没有payment
