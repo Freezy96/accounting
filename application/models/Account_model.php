@@ -275,28 +275,15 @@ class Account_model extends CI_Model{
     }
     public function insert_interest($total_interest, $accountid)
     {
-    // $this->db->select('refresh_time');
-    // $this->db->from('account');
-    // $this->db->where('accountid', $accountid);
-    // $res=$this->db->get();
-    // $array = $res->result_array();
-    // foreach ($array as $key => $value) {
-    //     $refresh_time=$value['refresh_time'];
-    // }
-    // $r_days = strtotime(date("Y-m-d"))-strtotime($refresh_time);
-    // $days = $r_days/86400; 
-   
-     // if ($days>0) {
+
         
     
     $data = array(
     'interest' => $total_interest,
-    'refresh_time' => date('Y-m-d')
     );
     $this->db->where('accountid', $accountid);
     $this->db->update('account', $data);
         }
-    // }
 
     public function insert_amount($amount_change, $accountid)
     {
@@ -372,68 +359,7 @@ class Account_model extends CI_Model{
         {
             $payment += $value['payment'];
         }
-           if ($days==1 || $days==2|| $days==8|| $days==9|| $days==15|| $days==16|| $days==22|| $days==23|| $days==29|| $days==30|| $days==36|| $days==37|| $days==43|| $days==44|| $days==50|| $days==51|| $days==57|| $days==58 ) {
-                 if ($packagename == "package_20_week"  && $status !=="closed"  )
-                {
-                      $total_interest = ($totalamount)+($interest)-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" )
-                {
-                      $total_interest = ($totalamount)+($interest)-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                    
-
-                }
-            }elseif($days==3 || $days==10 || $days==17 || $days==24 || $days==31 || $days==38 || $days==45 || $days==52 || $days==59){
-                 if ($packagename == "package_20_week"  && $status !=="closed"  )
-                {
-                      $total_interest = ($totalamount)*0.2 ;
-                     $this->insert_interest($total_interest,$accountid);
-                    
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" )
-                {
-                      $total_interest = ($totalamount)*0.15;
-                     $this->insert_interest($total_interest,$accountid);
-                    
-
-                }
-            }
-
-            if ($days==1 || $days==2|| $days==6 || $days==7 || $days==11 || $days==12 || $days==16 || $days==17 || $days==21 || $days==22 || $days==26 || $days==27 || $days==31 || $days==32 || $days==36 || $days==37 || $days==41 || $days==42 || $days==46 || $days==47 || $days==51 || $days==52 || $days==56 || $days==57) {
-                 if ($packagename == "package_20_week"  && $status !=="closed"  )
-                {
-                      $total_interest = ($totalamount)+($interest)-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                    
-
-                }
-                elseif ($packagename == "package_15_week"  && $status !=="closed" )
-                {
-                      $total_interest = ($totalamount)+($interest)-$totalamount;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-
-                }
-            }elseif($days==3 || $days==8 || $days==13 || $days==18 || $days==23 || $days==28 || $days==33 || $days==38 || $days==43 || $days==48 || $days==53 || $days==58){
-                 if ($packagename == "package_15_5days"  && $status !=="closed")
-                {
-                      $total_interest = ($totalamount)*0.15 ;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-
-                }
-                elseif ($packagename == "package_10_5days"  && $status !=="closed" )
-                {
-                      $total_interest = ($totalamount)*0.10;
-                     $this->insert_interest($total_interest,$accountid);
-                     
-
-                }
-            }
+           
 
         $payment_info = $this->get_payment_info($accountid);
 
@@ -525,96 +451,305 @@ class Account_model extends CI_Model{
                     }
                     // echo "<script>console.log('package_25_month:".$total_amount."');</script>";
                     $this->update_total_amount($total_amount,$accountid);
-                    // $total_interest = $total_amount - $oriamount;
-                    // if ($total_interest<=0) {
-                    //     $amount_change = $oriamount + $total_interest; //total_interest 在这边是负数
-                    //     $this->insert_amount(number_format($amount_change, 2, '.', ''),$accountid);
-                    //     $total_interest = 0;
-                    // }
-                    // $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
-
-                    ////////////////////////////////////////////////////////////////////////////////////////////
-                    // $total_interest = 0;
-                    // $count_paymentdate = 0;
-                    // foreach ($payment_info as $key => $value) {
-                    //     ${"payment_date" . $count_paymentdate} = $value['paymentdate'];
-                    //     ${"payment_amount" . $count_paymentdate} = $value['payment'];
-                    //     $count_paymentdate++;
-                    // }
-                    // if ($count_paymentdate!=0) 
-                    // {
-                    //     for ($i=0; $i <$count_paymentdate ; $i++) 
-                    //     { 
-                    //         if ($i == 0  && $count_paymentdate == 1) {
-                    //             //date 有问题
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($oriamount * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             ${"datestop". $i} = ${"datestop". $i} - $days;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                                
-                    //         }
-                    //         elseif ($i == 0  && $count_paymentdate != 1) 
-                    //         {
-                    //             //date 有问题
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($oriamount * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //             echo "<script>console.log('ttttttttt2:".$total_interest."');</script>";
-                    //         }
-                    //         elseif ($i == $count_paymentdate-1) 
-                    //         {
-                    //             $i_minus_1 = $i-1;
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - strtotime(${"payment_date" . $i_minus_1});
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //             echo "<script>console.log('ttttttttt2:".$total_interest."');</script>";
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - $due_date;
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             ${"datestop". $i} = ${"datestop". $i} - $days;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //             echo "<script>console.log('tttttttttFinal2:".$total_interest."');</script>";
-                    //         }
-                    //         else
-                    //         {
-                    //             $i_minus_1 = $i-1;
-                    //             $date_diff = strtotime(${"payment_date" . $i}) - strtotime(${"payment_date" . $i_minus_1});
-                    //             $days_diff = round($date_diff / (60 * 60 * 24));
-                    //             ${"datestop". $i} = $days_diff;
-                    //             $total_interest += ($total_interest * pow((100+$interest)/100, ${"datestop". $i})) - ${"payment_amount" . $i};
-                    //         }
-                             
-                    //     }
-                    //         // echo "<script>console.log('ttttttttt:".number_format($total_interest, 2, '.', '')."');</script>";
-                    //         $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
-                    //     }
-                        // else
-                        // {//没有payment的情况下 好像是错的
-                        //     $total_interest = $oriamount * pow((100+$interest)/100, $days) - $oriamount;
-                        //     $this->insert_interest(number_format($total_interest, 2, '.', ''),$accountid);
-                        // }
+                   }
+                   elseif ($packagename == "package_20_week"  && $status !=="closed" )
+                {   
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                    }
+                    //每次 + 1天来取得date
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) 
+                    { 
+                        $date_eachday = strtotime("+ ".$i." days", $due_date);
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        // echo "<script>console.log('package_25_month:".$date_eachday."');</script>";
+                        $check_match_date = 0;
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] == $date_eachday) 
+                            {
+                                $check_match_date = 1;
+                                $payment_paid += $value['payment'];
+                            }
+                        }
+                        //当天有payment
+                        if ($check_match_date == 1) 
+                        {
+                            //第一天/只有一天
+                             if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                   
+                               
+                            }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                            }
+                            //其他天
+                            elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.2- $payment_paid;
+                            }
+                        }
+                        //当天没有payment
+                        else
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest);
+                   
+                               
+                            }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest);
+                            //其他天
+                            }elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.2;
+                            }
+                        }
                     
-                    // print_r($total_interest);
-                
-                
-
-            
-
-            //有payment和没payment公式跑不同的
-
+                    }
+                     $this->update_total_amount($total_amount,$accountid);
+                }
+            }elseif($packagename == "package_15_week"  && $status !=="closed" )
+                {   
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                    }
+                    //每次 + 1天来取得date
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) 
+                    { 
+                        $date_eachday = strtotime("+ ".$i." days", $due_date);
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        // echo "<script>console.log('package_25_month:".$date_eachday."');</script>";
+                        $check_match_date = 0;
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] == $date_eachday) 
+                            {
+                                $check_match_date = 1;
+                                $payment_paid += $value['payment'];
+                            }
+                        }
+                        //当天有payment
+                        if ($check_match_date == 1) 
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                   
+                               
+                            }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                            }
+                            //其他天
+                            elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.15- $payment_paid;
+                            }
+                        }
+                        //当天没有payment
+                        else
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest);
+                   
+                               
+                            }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 ) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest);
+                            //其他天
+                            }elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.15;
+                            }
+                        }
+                    
+                    }
+                     $this->update_total_amount($total_amount,$accountid);
+                }elseif ($packagename == "package_15_5days"  && $status !=="closed" )
+                {   
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                    }
+                    //每次 + 1天来取得date
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) 
+                    { 
+                        $date_eachday = strtotime("+ ".$i." days", $due_date);
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        // echo "<script>console.log('package_25_month:".$date_eachday."');</script>";
+                        $check_match_date = 0;
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] == $date_eachday) 
+                            {
+                                $check_match_date = 1;
+                                $payment_paid += $value['payment'];
+                            }
+                        }
+                        //当天有payment
+                        if ($check_match_date == 1) 
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                   
+                               
+                            }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                            }
+                            //其他天
+                            elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.15- $payment_paid;
+                            }
+                        }
+                        //当天没有payment
+                        else{
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest);
+                   
+                               
+                            }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest);
+                            //其他天
+                            }elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.15;
+                            }
+                        }
+                    
+                    }
+                     $this->update_total_amount($total_amount,$accountid);
+                }
+            elseif($packagename == "package_10_5days"  && $status !=="closed" )
+                {   
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                    }
+                    //每次 + 1天来取得date
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) 
+                    { 
+                        $date_eachday = strtotime("+ ".$i." days", $due_date);
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        // echo "<script>console.log('package_25_month:".$date_eachday."');</script>";
+                        $check_match_date = 0;
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] == $date_eachday) 
+                            {
+                                $check_match_date = 1;
+                                $payment_paid += $value['payment'];
+                            }
+                        }
+                        //当天有payment
+                        if ($check_match_date == 1) 
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest)- $payment_paid;
+                   
+                               
+                            }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest)- $payment_paid;
+                            }
+                            //其他天
+                            elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.1- $payment_paid;
+                            }
+                        }
+                        //当天没有payment
+                        else
+                        {
+                            //第一天/只有一天
+                            if ($i == 1) 
+                            {   
+                                $total_amount =($oriamount)+($interest);
+                   
+                               
+                            }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
+                            {
+                                // t = 1250+125-300(payment)
+                                $total_amount = ($totalamount)+($interest);
+                            }
+                            //其他天
+                            elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
+                            {
+                                //t = 1075+107.5-payment
+                                $total_amount = ($totalamount)*1.1;
+                            }
+                        }
+                    
+                    }
+                     $this->update_total_amount($total_amount,$accountid);
+                }
             }
         }
     }
-}
-}
+        
+    
+
+
 
    public function insert_payment($data)
    {
@@ -648,7 +783,7 @@ class Account_model extends CI_Model{
 
         foreach ($result as $key => $val) 
         {
-            if ($val['packagetypename'] == "package_25_month") 
+            if ($val['packagetypename'] == "package_25_month"|| $val['packagetypename'] == "package_20_week" || $val['packagetypename'] == "package_15_week" || $val['packagetypename'] == "package_15_5days" || $val['packagetypename'] == "package_10_5days") 
             {
                 //do nothing
             }
