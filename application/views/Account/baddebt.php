@@ -132,7 +132,7 @@
 			</td> -->
 			<td>
 
-				<?php echo $val['MAX(duedate)']; ?>
+				<?php echo $val['MAX(a.duedate)']; ?>
 							</td> '
 
 			<td>
