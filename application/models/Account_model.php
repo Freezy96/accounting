@@ -520,7 +520,7 @@ class Account_model extends CI_Model{
                     }
                      $this->update_total_amount($total_amount,$accountid);
                 }
-            }
+            
 
 
                 elseif($packagename == "package_15_week"  && $status !=="closed" )
@@ -752,6 +752,7 @@ class Account_model extends CI_Model{
             }
         }
     }
+}
 
    public function insert_payment($data)
    {

@@ -1,4 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
+<h4><?php echo $time; ?></h4>
 <table class="table livesearch">
 		<thead>
 			<tr>

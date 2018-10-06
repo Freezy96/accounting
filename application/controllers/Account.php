@@ -49,7 +49,7 @@ class Account extends CI_Controller {
         }
         $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';
 		$time = time();
-		echo mdate($datestring, $time);
+		$data['time'] = mdate($datestring, $time);
 		
 		$this->load->view('account/modal');
     	$this->load->view('account/main', $data);		
