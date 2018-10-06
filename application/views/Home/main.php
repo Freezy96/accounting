@@ -93,6 +93,9 @@
 							</span>
 						</td>
 						<td>
+							<?php if ($val['packagetypename'] == "package_25_month"|| $val['packagetypename'] == "package_20_week" || $val['packagetypename'] == "package_15_week" || $val['packagetypename'] == "package_15_5days" ||$val['packagetypename'] == "package_10_5days"): ?>
+								<?php $val['interest'] = $val['SUM(a.totalamount)'] - $val['oriamount'] ?>
+							<?php endif ?>
 							<?php echo $val['SUM(a.totalamount)']."(Interest:".$val['interest'].")"; ?>
 						</td>
 						<td>

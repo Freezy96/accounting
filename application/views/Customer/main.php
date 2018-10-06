@@ -108,7 +108,7 @@
 	</tbody>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('customer/insert'); ?>">Insert New Customer</a></li>
-
+<br><br>
 <div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">

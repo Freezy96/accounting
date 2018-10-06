@@ -1,0 +1,5 @@
+注意：package 以interest计算 与 以totalamount 计算 需注意地方 :	1. account_model
+																2. function - count_total_amount
+																3. custom.js 显示
+																4. payment View 显示
+																5. Home remind 显示
