@@ -1692,6 +1692,12 @@ class Account extends CI_Controller {
          
         echo json_encode($data);
     }
+
+    public function timestamp()
+    {
+        echo $timestamp = date('H:i:s');
+    }
+
 }
 
 	

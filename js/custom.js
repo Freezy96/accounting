@@ -4,10 +4,6 @@
   $('#refid_payment_hidden').val($(this).attr('data-refid'));
 });
 
-
-
-
-
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -132,7 +128,7 @@ $(document).ready(function() {
 
                   /////////////////////for package_25_month///////////////////////////////////////////////////////////////////
 
-                  if (res[0].packagetypename == "package_25_month"|| res[0].packagetypename == "package_20_week" || res[0].packagetypename == "package_15_week" || res[0].packagetypename == "package_15_5days" ||res[0].packagetypename == "package_10_days") 
+                  if (res[0].packagetypename == "package_25_month"|| res[0].packagetypename == "package_20_week" || res[0].packagetypename == "package_15_week" || res[0].packagetypename == "package_15_5days" ||res[0].packagetypename == "package_10_5days") 
                   {
                     if (parseFloat(res[i].totalamount) <= parseFloat(res[i].amount))
                     {
@@ -283,3 +279,17 @@ $(document).ready(function() {
    }
   });
  });
+
+
+  $(document).ready(function() {
+      setInterval(timestamp, 1000);
+  });
+
+  function timestamp() {
+      $.ajax({
+          url: 'account/timestamp',
+          success: function(data) {
+              $('#timestamp').html(data);
+          },
+      });
+  }

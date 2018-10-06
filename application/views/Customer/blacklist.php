@@ -32,7 +32,7 @@
 				ID
 				</td>
 				<td>
-					NAME
+					NAME(PASSPORT/IC)
 				</td>
 				<td>
 				Wechat Name
@@ -45,9 +45,6 @@
 				</td>
 				<td>
 					PHONE NO.
-				</td>
-				<td>
-					PASSPORT/IC
 				</td>
 				<td>
 					ACTION
@@ -76,7 +73,7 @@
 				<?php echo $val['customerid']; ?><img src="<?php echo $val['photopath'];?>" height="200" width="200" /><br>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(".$val['passport'].")"; ?>
 			</td>
 			<td>
 				<?php echo $val['wechatname']; ?>
@@ -89,9 +86,6 @@
 			</td>
 			<td>
 				<?php echo $val['phoneno']; ?>
-			</td>
-			<td>
-				<?php echo $val['passport']; ?>
 			</td>
 				<td width="90%">
 					<div class="btn-group" >
