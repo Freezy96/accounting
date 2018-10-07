@@ -145,20 +145,28 @@
 
 <div class="row">
 
-<div class="col-sm-3">
+<div class="col-sm-2">
 	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer'">Customer</button>
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-2">
 	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>package'">Package</button>
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-2">
 	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>agent'">Agent</button>
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-2">
 	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/baddebt'">Baddebt</button>
+</div>
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer/blacklist'">Blacklist</button>
+</div>
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>employee'">Employee</button>
 </div>
 
 </div>
