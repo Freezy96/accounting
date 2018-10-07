@@ -18,7 +18,7 @@
 
   <div class="form-group">
     <label for="">Customer</label>
-    <select class="form-control" name="customerid">
+    <select class="form-control" name="customerid" required="">
     <?php foreach ($result as $key => $value): ?>
       
         <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?></option>
@@ -179,7 +179,7 @@
           </optgroup>
 
           <optgroup label="10% / 5 days">
-        <?php foreach ($package_10_days as $key => $value): ?>
+        <?php foreach ($package_10_5days as $key => $value): ?>
           <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
             <option value="<?php echo "package_10_5days".$value['packageid']; ?>">
               

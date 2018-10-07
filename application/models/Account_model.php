@@ -61,6 +61,7 @@ class Account_model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where('a.refid', $refid);
+        $this->db->order_by("a.duedate", "asc");
         $query = $this->db->get();
 
         return $query->result_array();
@@ -88,6 +89,7 @@ class Account_model extends CI_Model{
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         $this->db->where('refid', $refid_res);
         // $this->db->group_by('pay.accountid');// add group_by
+        $this->db->order_by("a.duedate", "asc");
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -106,6 +108,7 @@ class Account_model extends CI_Model{
         $this->db->select('accountid');
         $this->db->from('account');
         $this->db->where('refid', $refid);
+        $this->db->order_by("duedate", "asc");
         $query = $this->db->get();
         return $query->result_array();
     }

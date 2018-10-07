@@ -59,6 +59,20 @@
   
       });
 
+
+        $(document).ready(function() {
+      setInterval(timestamp, 1000);
+        });
+
+        function timestamp() {
+            $.ajax({
+                url: "<?php echo base_url(); ?>account/timestamp",
+                success: function(data) {
+                    $('#timestamp').html(data);
+                },
+            });
+        }
+
     </script>
  </body>
 </html>
