@@ -1143,8 +1143,8 @@ public function set_baddebt_update($accountid){
             $final_amount = $value['amount']+$totalamount;
         }
         $original_accountid = $accountid_destination-1;
-
-        $this->pull_to_next_period_update_original($original_accountid, 0);
+        $amount = $this->sum_payment_by_accid($original_accountid);
+        $this->pull_to_next_period_update_original($original_accountid, $amount);
         if($this->pull_to_next_period_update($accountid_destination, $final_amount) )
         {
             $return = "insert";
@@ -1181,6 +1181,20 @@ public function set_baddebt_update($accountid){
             $return = "false";
             return $return;
        }
+    }
+
+    public function sum_payment_by_accid($accountid_original)
+    {
+        $this->db->select('payment');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accountid_original);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        $amount = 0;
+        foreach ($res as $key => $value) {
+            $amount += $value['payment'];
+        }
+        return $amount;
     }
 
 }
