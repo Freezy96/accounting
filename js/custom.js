@@ -82,6 +82,7 @@ $(document).ready(function() {
                 $("#account_modal_oriamount").html(res[0].oriamount); 
                 $("#account_modal_package").html(res[0].packageid +" - "+ res[0].packagetypename); 
                 $("#account_modal_agent").html(res[0].agentid +" - "+ res[0].agentname); 
+                $("#account_modal_guarantyitem").html(res[0].guarantyitem); 
                   var $tr = $('<tr class=\'account_header_append\'/>');
                   $tr.append($('<td/>').html("Start Date"));
                   $tr.append($('<td/>').html("Due Date"));
