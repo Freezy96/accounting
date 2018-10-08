@@ -7,7 +7,7 @@ class Account_model extends CI_Model{
     public function getuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, a.status');
+        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MAX(a.status)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -445,9 +445,8 @@ class Account_model extends CI_Model{
                         }
                     }
                     $this->update_total_amount($total_amount,$accountid);
+                }
 
-
-                   }
             if ($packagename == "package_20_week"  && $status !=="closed" )
 
                 {   
@@ -1122,7 +1121,7 @@ public function set_baddebt_update($accountid){
         $data = array(
             'status' => $status
             );
-
+        $this->db->where('status !=', "closed");
         $this->db->where('refid', $refid);
         $this->db->update('account', $data);
 }
@@ -1143,8 +1142,8 @@ public function set_baddebt_update($accountid){
             $final_amount = $value['amount']+$totalamount;
         }
         $original_accountid = $accountid_destination-1;
-        $amount = $this->sum_payment_by_accid($original_accountid);
-        $this->pull_to_next_period_update_original($original_accountid, $amount);
+        // $amount = $this->sum_payment_by_accid($original_accountid);
+        $this->pull_to_next_period_update_original($original_accountid, 0);
         if($this->pull_to_next_period_update($accountid_destination, $final_amount) )
         {
             $return = "insert";

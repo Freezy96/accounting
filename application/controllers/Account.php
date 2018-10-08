@@ -1616,12 +1616,12 @@ class Account extends CI_Controller {
         }
 
         if ($check_exist !== "exist") {
-            $duedate = $this->load->account_model->get_duedate($accountid);
-            $date = strtotime(date("Y-m-d", strtotime($duedate)) . " +60 days");
-            $date = date ( 'Y-m-d' , $date );
+            // $duedate = $this->load->account_model->get_duedate($accountid);
+            // $date = strtotime(date("Y-m-d", strtotime($duedate)) . " +60 days");
+            // $date = date ( 'Y-m-d' , $date );
             $data = array(
-                'accountid' => $accountid,
-                'datee' => $date
+                'accountid' => $accountid
+                // 'datee' => $date
                 );
             $return = $this->account_model->insert_baddebt($data);
         }
@@ -1695,7 +1695,7 @@ class Account extends CI_Controller {
 
     public function timestamp()
     {
-        echo $timestamp = date('H:i:s');
+        echo $timestamp = date('Y-m-d H:i:s');
     }
 
 }
