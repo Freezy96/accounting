@@ -97,6 +97,7 @@
 		</tr>
 	<?php } endforeach ?>
 <?php } ?>
+</tbody>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('account/insert'); ?>">Insert New Account</a></li>
 
