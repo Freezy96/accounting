@@ -359,22 +359,22 @@ class Account_model extends CI_Model{
 
         $payment_info = $this->get_payment_info($accountid);
 
-            if ($days>0 && $date2<$date1 && $days <=60) 
+            if ($days>0 && $date2<$date1 ) 
             {
                 echo "<script>console.log('".$packagename.":".$days."')</script>";
                 //package 不是closed 就跑利息
-                if($packagename == "package_30_4week" && $status !=="closed" )
+                if($packagename == "package_30_4week" && $status !=="closed" && $days <=60)
                 {
                     $total_interest = $interest * $days;
                     $this->insert_interest($total_interest,$accountid);
                 }
-                elseif($packagename == "package_manual_5days_4week" && $status !=="closed" )
+                elseif($packagename == "package_manual_5days_4week" && $status !=="closed" && $days <=60)
                 {
                     $total_interest = $interest * $days;
                     $this->insert_interest($total_interest,$accountid);
                 }
                 //5天账 公式
-                elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
+                elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" && $days <=60)
                 {
                     if ($days<=$totaldays_package_manual_payeveryday_manualdays) {
                         $total_interest = $interest * $days;
@@ -384,7 +384,7 @@ class Account_model extends CI_Model{
                 }
                 //一个月 迟一天110% 算法不同 在这边就那payment来减了 而不是像其他的一样 在view那边加减
                 //重要：： interest / amount会变！
-                elseif ($packagename == "package_25_month" && $status !=="closed" )
+                elseif ($packagename == "package_25_month" && $status !=="closed" && $days <=60)
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -496,6 +496,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.2- $payment_paid;
+                            }elseif($i>=60){
+
                             }else{
                                 $total_amount = $total_amount- $payment_paid;
                             }
@@ -518,6 +520,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.2;
+                            }elseif($i>=60){
+
                             }
                         }
                     
@@ -575,6 +579,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.15- $payment_paid;
+                            }elseif($i>=60){
+
                             }else{
                                 $total_amount = $total_amount- $payment_paid;
                             }
@@ -597,6 +603,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.15;
+                            }elseif($i>=60){
+
                             }
                         }
                     
@@ -652,6 +660,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.15- $payment_paid;
+                            }elseif($i>=60){
+
                             }else{
                                 $total_amount = $total_amount- $payment_paid;
                             }
@@ -673,6 +683,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.15;
+                            }elseif($i>=60){
+
                             }
                         }
                     }
@@ -728,6 +740,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.1- $payment_paid;
+                            }elseif($i>=60){
+
                             }else{
                                 $total_amount = $total_amount- $payment_paid;
                             }
@@ -751,6 +765,8 @@ class Account_model extends CI_Model{
                             {
                                 //t = 1075+107.5-payment
                                 $total_amount = ($total_amount)*1.1;
+                            }elseif($i>=60){
+
                             }
                         }
                     
