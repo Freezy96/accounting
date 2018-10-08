@@ -30,6 +30,7 @@ class Password extends CI_Controller {
 
         
         $return = $this->password_model->update($data);
+        redirect('password');
        
         
         $this->load->view('template/footer');

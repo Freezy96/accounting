@@ -213,152 +213,11 @@ $(document).ready(function() {
             });
           });
 
-
-
-//Customer Payment
-
-$(".customer_payment_view").click(function(event) {
-    event.preventDefault();
-    var customerid = $(this).val();
-    console.log(customerid);
-  $.ajax({
-  type: "POST",
-  url: 'customer/customer_payment_modal',
-  dataType: 'json',
-  data: {'customerid': customerid},
-  success: function(res) {
-      if (res)
-      { 
-        console.log(res);
-        $(".customer_header_append").remove(); 
-        $(".customer_trtd_append").remove(); 
-        // empty html
-       
-        $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
-          var $tr = $('<tr class=\'customer_header_append\'/>');
-          $tr.append($('<td/>').html("Ref ID"));
-          $tr.append($('<td/>').html("Package Type"));
-          $tr.append($('<td/>').html("Date"));
-          $tr.append($('<td/>').html("Payment Type"));
-          $tr.append($('<td/>').html("Payment"));
-          // $tr.append($('<td/>').html("Action:"));
-          $('.customer_modal_table tr:last').before($tr);
-
-        for (var i = 0; i < res.length; i++) {
-          var $tr = $('<tr class=\'customer_trtd_append\'/>');
-
-          $tr.append($('<td/>').html(res[i].accountid));
-          $tr.append($('<td/>').html(res[i].packagetypename));
-          $tr.append($('<td/>').html(res[i].paymentdate));
-          $tr.append($('<td/>').html(res[i].paymenttype));
-          $tr.append($('<td/>').html(res[i].payment));
-
-          $('.customer_modal_table tr:last').before($tr);
-        }
-      }
-    }
-    });
-  });
-
-          // Package insert total amount identify
-
-      $('.weekamount').on('change keyup', function(){
-        var $totalamount = parseFloat($('#totalamount').val());
-        var $week1 = $('#week1').val();
-        var $week2 = $('#week2').val();
-        var $week3 = $('#week3').val();
-        var $week4 = $('#week4').val();
-        var $total4week = parseFloat($week1) + parseFloat($week2) + parseFloat($week3) + parseFloat($week4);
-        if ($week1!="" && $week2!="" && $week3!="" && $week4!="" && $totalamount!="") {
-          if ($totalamount.toFixed(2) !== $total4week.toFixed(2)) 
-          {
-            $('#package_1000_1300_message').html("Total Amount and Amount for 4 week are not the same!");
-            $('#package_1000_1300_btn').prop("disabled", true);
-          }
-          else
-          {
-            $('#package_1000_1300_message').html("");
-            $('#package_1000_1300_btn').prop("disabled", false);
-          }
-        } 
-      });
-
-      $('.weekamount_25_5days').on('change keyup', function(){
-        var $totalamount = parseFloat($('#totalamount_25_5days').val());
-        var $week1 = $('#week1_25_5days').val();
-        var $week2 = $('#week2_25_5days').val();
-        var $week3 = $('#week3_25_5days').val();
-        var $week4 = $('#week4_25_5days').val();
-        var $total4week = parseFloat($week1) + parseFloat($week2) + parseFloat($week3) + parseFloat($week4);
-        if ($week1!="" && $week2!="" && $week3!="" && $week4!="" && $totalamount!="") {
-          if ($totalamount.toFixed(2) !== $total4week.toFixed(2)) 
-          {
-            $('#package_25_5days_message').html("Total Amount and Amount for 4 week are not the same!");
-            $('#package_25_5days_btn').prop("disabled", true);
-          }
-          else
-          {
-            $('#package_25_5days_message').html("");
-            $('#package_25_5days_btn').prop("disabled", false);
-          }
-        } 
-      });
-
-      //package everyday pay
-      $('.payeveryday_package_manualdays').on('change keyup', function(){
-        var $totalamount = parseFloat($('#payeveryday_package_manualdays_total').val());
-        var $everyday = parseFloat($('#payeveryday_package_manualdays_eachday').val());
-        var $how_many_day = parseFloat($('#payeveryday_package_manualdays_howmanyday').val());
-        var $everyday_should_be =  $totalamount / $how_many_day;
-        //偏差 <= 0.5 成功
-        // console.log($totalamount);
-        // console.log($everyday);
-        // console.log($how_many_day);
-        // console.log($everyday_should_be);
-        if (!isNaN($totalamount) && !isNaN($how_many_day) && !isNaN($everyday)) 
-        {
-          if (Math.abs($everyday.toFixed(2) - $everyday_should_be.toFixed(2))<= 0.5) 
-          {
-            $('#payeveryday_package_manualdays_message').html("");
-            $('#payeveryday_package_manualdays_btn').prop("disabled", false);
-          }
-          else
-          {
-            $('#payeveryday_package_manualdays_message').html("Please make sure Pay How Many Day / Total Collect Amount / Pay Amount Everyday are correct!");
-            $('#payeveryday_package_manualdays_btn').prop("disabled", true);
-          }
-        }
-          
-      });
-
-
-      $('.livesearch').DataTable();
-      
-
-       $('#accountpackage').on('change', function(){
-         var $string = $(this).val();
-         if ($string.substring(0,15) == "package_15_week") 
-        {
-           $('#guarantyitemcol').show();
-            $('#input_option').prop("disabled", false);
-         }else if ($string.substring(0,16) == "package_10_5days") 
-        {
-           $('#guarantyitemcol').show();
-            $('#input_option').prop("disabled", false);
-         }
-         else
-         {
-           $('#guarantyitemcol').hide();
-           $('#input_option').prop("disabled", true);
-          }
-     
-      });
-
     $('.switch_package_guarantyitem').on('change', function(){
      var $string = $(this).val();
      var input = $(this).attr('data-guaranty_item');
      var input_option = $(this).attr('data-input_option');
-     if ($string.substring(0,15) == "package_15_week" || $string.substring(0,16) == "package_10_5days") 
+     if ($string.substring(0,15) == "package_15_week") 
     {
         $('#'+input).show();
         $('#'+input_option).prop("disabled", false);
@@ -423,3 +282,15 @@ $(".customer_payment_view").click(function(event) {
  });
 
 
+  $(document).ready(function() {
+      setInterval(timestamp, 1000);
+  });
+
+  function timestamp() {
+      $.ajax({
+          url: 'account/timestamp',
+          success: function(data) {
+              $('#timestamp').html(data);
+          },
+      });
+  }

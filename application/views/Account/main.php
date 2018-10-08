@@ -1,7 +1,7 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <h4>Clock: <span id="timestamp"></span></h4>
-<!-- <br> -->
+<br>
 <table class="table livesearch">
 		<thead>
 			<tr>
@@ -14,15 +14,24 @@
 				<td>
 					Return
 				</td>
+				<!-- <td>
+					PAYMENT
+				</td> -->
 				<td>
 					START DATE
 				</td>
-				<td>
+				<!-- <td>
+					DUEDATE
+				</td> -->
+				<!-- <TD>
+					INTEREST
+				</TD> -->
+				<TD>
 					PACKAGE
-				</td>
-				<td>
+				</TD>
+				<TD>
 					AGENT
-				</td>
+				</TD>
 				<td>
 					ACTION
 				</td>
@@ -48,9 +57,18 @@
 			<td>
 				<?php echo $val['oriamount']; ?>
 			</td>
+			<!-- <td>
+				<?php echo $val['payment']; ?>
+			</td> -->
 			<td>
 				<?php echo $val['datee']; ?>
 			</td>
+			<!-- <td>
+				<?php echo $val['duedate']; ?>
+			</td> -->
+			<!-- <td>
+				<?php echo $val['interest']; ?>
+			</td> -->
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
@@ -61,6 +79,7 @@
 				<?php echo "-"; ?>	
 				<?php endif ?>
 			</td>
+		
 			<td>
 				<div class="row">
 					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
@@ -78,7 +97,6 @@
 		</tr>
 	<?php } endforeach ?>
 <?php } ?>
-	</tbody>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('account/insert'); ?>">Insert New Account</a></li>
 
