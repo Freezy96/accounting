@@ -359,7 +359,7 @@ class Account_model extends CI_Model{
 
         $payment_info = $this->get_payment_info($accountid);
 
-            if ($days>0 && $date2<$date1) 
+            if ($days>0 && $date2<$date1 && $days <=60) 
             {
                 echo "<script>console.log('".$packagename.":".$days."')</script>";
                 //package 不是closed 就跑利息
