@@ -19,6 +19,7 @@ class Home_Model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where('a.duedate <=', $date_plus_4);
+        $this->db->where('a.totalamount >=', 0);
         // $this->db->order_by("a.homeremind", "desc");
         $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();

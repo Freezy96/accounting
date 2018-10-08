@@ -357,7 +357,7 @@ $(".customer_payment_view").click(function(event) {
      var $string = $(this).val();
      var input = $(this).attr('data-guaranty_item');
      var input_option = $(this).attr('data-input_option');
-     if ($string.substring(0,15) == "package_15_week") 
+     if ($string.substring(0,15) == "package_15_week" || $string.substring(0,16) == "package_10_5days") 
     {
         $('#'+input).show();
         $('#'+input_option).prop("disabled", false);
