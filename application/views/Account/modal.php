@@ -12,7 +12,7 @@
       Total Amount: <span id="account_modal_oriamount"></span><br>
       Package: <span id="account_modal_package"></span><br>
       Agent: <span id="account_modal_agent"></span><br><br>
-      <table class="account_modal_table table livesearch">
+      <table class="account_modal_table table">
       	<thead></thead>
       	<tr></tr>
       </table>
