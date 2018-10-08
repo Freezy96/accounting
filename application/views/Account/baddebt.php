@@ -7,10 +7,10 @@
 					NAME
 				</td>
 				<td>
-					Lent
+					LENT
 				</td>
 				<td>
-					Return
+					RETURN
 				</td>
 
 				<td>
@@ -19,6 +19,9 @@
 				<TD>
 					PACKAGE
 				</TD>
+				<td>
+					GUARANTY ITEM
+				</td>
 				<TD>
 					TOTAL AMOUNT
 				</TD>
@@ -55,6 +58,14 @@
 
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
+			</td>
+			<td>
+				<?php if ($val['guarantyitem'] == ""): ?>
+					-
+				<?php else: ?>
+					<?php echo $val['guarantyitem']; ?>
+				<?php endif ?>
+				
 			</td>
 			<td>
 				<?php echo $val['SUM(a.totalamount)']; ?>
