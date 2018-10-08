@@ -129,25 +129,25 @@ $(document).ready(function() {
 
                   /////////////////////for package_25_month///////////////////////////////////////////////////////////////////
 
-                  // if (res[0].packagetypename == "package_25_month"|| res[0].packagetypename == "package_20_week" || res[0].packagetypename == "package_15_week" || res[0].packagetypename == "package_15_5days" ||res[0].packagetypename == "package_10_5days") 
-                  // {
-                  //   if (parseFloat(res[i].totalamount) <= parseFloat(res[i].amount))
-                  //   {
-                  //     interest_to_be_pay = parseFloat(0).toFixed(2);
-                  //     amount_to_be_pay = parseFloat(res[i].totalamount).toFixed(2);
-                  //     total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
-                  //     is_Paid = 1;
-                  //   }
-                  //   else
-                  //   {
-                  //     interest_to_be_pay = res[i].totalamount - res[i].amount;
-                  //     interest_to_be_pay = parseFloat(interest_to_be_pay).toFixed(2);
-                  //     amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);
-                  //     total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
-                  //     is_Paid = 0;
-                  //     res[i].interest = interest_to_be_pay;
-                  //   }
-                  // }
+                  if (res[0].packagetypename == "package_25_month"|| res[0].packagetypename == "package_20_week" || res[0].packagetypename == "package_15_week" || res[0].packagetypename == "package_15_5days" ||res[0].packagetypename == "package_10_5days") 
+                  {
+                    if (parseFloat(res[i].totalamount) <= parseFloat(res[i].amount))
+                    {
+                      interest_to_be_pay = parseFloat(0).toFixed(2);
+                      amount_to_be_pay = parseFloat(res[i].totalamount).toFixed(2);
+                      total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+                      is_Paid = 1;
+                    }
+                    else
+                    {
+                      interest_to_be_pay = res[i].totalamount - res[i].amount;
+                      interest_to_be_pay = parseFloat(interest_to_be_pay).toFixed(2);
+                      amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);
+                      total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+                      is_Paid = 0;
+                      res[i].interest = interest_to_be_pay;
+                    }
+                  }
 
 
                   //Amount to be pay
