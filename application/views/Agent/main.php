@@ -157,7 +157,7 @@
 <?php } ?>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('agent/insert'); ?>">Insert New Account</a></li>
-
+<br><br>
 <div class="modal fade" id="agentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
   	<form id="" action='<?php echo base_url();?>agent/payment/' method='post' name='agentpayamount'>

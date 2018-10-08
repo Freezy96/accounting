@@ -759,6 +759,7 @@ class Account_model extends CI_Model{
         }
     }
 }
+
    public function insert_payment($data)
    {
         if($this->db->insert('payment', $data))

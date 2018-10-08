@@ -1,4 +1,7 @@
 <?php $this->load->view('template/sidenav'); ?>
+
+<h4>Clock: <span id="timestamp"></span></h4>
+<br>
 <table class="table livesearch">
 		<thead>
 			<tr>
@@ -97,3 +100,4 @@
 </table>
 <a class="btn btn-default" href="<?php echo site_url('account/insert'); ?>">Insert New Account</a></li>
 
+<br><br>
