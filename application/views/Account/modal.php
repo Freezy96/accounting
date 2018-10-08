@@ -11,7 +11,8 @@
       Reference ID: <span id="account_modal_refid"></span><br>
       Total Amount: <span id="account_modal_oriamount"></span><br>
       Package: <span id="account_modal_package"></span><br>
-      Agent: <span id="account_modal_agent"></span><br><br>
+      Agent: <span id="account_modal_agent"></span><br>
+      Guaranty Item: <span id="account_modal_guarantyitem"></span><br><br>
       <table class="account_modal_table table">
       	<thead></thead>
       	<tr></tr>

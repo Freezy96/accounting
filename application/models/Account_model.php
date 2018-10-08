@@ -7,7 +7,7 @@ class Account_model extends CI_Model{
     public function getuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MAX(a.status)');
+        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MIN(a.status)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -35,6 +35,7 @@ class Account_model extends CI_Model{
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.totalamount >=', 0);
         $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();
 
@@ -82,7 +83,7 @@ class Account_model extends CI_Model{
         foreach ($refid as $value) {
             $refid_res = $value['refid'];
         }
-        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
+        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename, a.guarantyitem');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');

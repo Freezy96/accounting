@@ -43,7 +43,7 @@
 	<!-- <?php print_r($result); ?>	       Show this for understanding -->
 	<?php if(is_array($result) && $result){ ?>
 	<?php foreach ($result as $key => $val):
-	$status=$val['status'];
+	$status=$val['MIN(a.status)'];
 	if($status !=="baddebt"){?>
 		<tr>
 			<td>
