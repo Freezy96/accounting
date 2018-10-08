@@ -14,15 +14,12 @@ class Password_Model extends CI_Model{
        
             if($this->db->update('admin', $data)){
                 $return = "update";
-              
            
-             }
+            }
         } 
-        echo "<script>alert('Change successfully!')</script>";
-    }else{
-           
-             echo "<script>alert('Password Error!')</script>"; 
-        }
+        
+    }
+    return $return;
     }
 }
 ?>

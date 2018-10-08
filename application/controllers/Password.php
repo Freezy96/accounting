@@ -29,8 +29,11 @@ class Password extends CI_Controller {
     $data=$this->db->get();
 
         
-        $return = $this->password_model->update($data);
-        redirect('password');
+        $return['return'] = $this->password_model->update($data);
+
+        $this->session->set_flashdata('return',$return);
+
+        echo "<script>window.location.href='".base_url()."password';</script>";
        
         
         $this->load->view('template/footer');

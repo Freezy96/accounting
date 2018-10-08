@@ -28,6 +28,31 @@
             }
         }  
 </script>
+
+    <?php $return = $this->session->flashdata('return'); ?>
+    <!-- <?php print_r($return); ?> -->
+    <?php if (isset($return) && $return!="") { ?>
+        <?php 
+        if($return['return'] == "delete")
+        {
+            echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Deleted Successfully</div>";
+        }
+        elseif($return['return'] == "insert")
+        {
+            echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Inserted Successfully</div>";
+        } 
+        elseif($return['return'] == "update")
+        {
+            echo "<div class=\"alert alert-success showstate\" role=\"alert\">Data Updated Successfully</div>";
+        }
+        else
+        {
+            echo "<div class=\"alert alert-danger showstate\" role=\"alert\">Process Fail !</div>";
+        } 
+        ?>
+    <br>
+    <?php } ?>
+    
 <h1>Change password</h1>
 <div class="container">
     <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
