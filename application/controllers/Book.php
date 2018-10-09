@@ -134,11 +134,22 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $date = $year."-".$month;
-        $res= $this->load->book_model->getbankdata($date);
+		$day = $this->input->post('date');
+		if ($this->input->post('month')<10) {
+			$month = "0".$this->input->post('month');
+		}else{
+			$month = $this->input->post('month');
+		}
+		
+		$year = $this->input->post('year');
+		
+		
+		$date_month = $year."-".$month;
+		$date_year = $year;
+        $res= $this->load->book_model->getbankdata($date_month);
         $data['result'] = $res;
-        $result=$this->load->book_model->getbalancebank($date);
-        $data['balance'] = $balance;
+        //$result=$this->load->book_model->getbalancebank($date_month);
+        //$data['balance'] = $result;
     	$this->load->view('book/bank',$data);
     	$this->load->view('template/footer');
 
@@ -147,7 +158,7 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->getcohdata($date);
+        $res= $this->load->book_model->getcohdata($date_month);
         $data['result'] = $res;
     	$this->load->view('book/coh',$data);
     		$this->load->view('template/footer');
@@ -157,7 +168,7 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->getempdata($date);
+        $res= $this->load->book_model->getempdata($date_month);
         $data['result'] = $res;
     	$this->load->view('book/emp',$data);
     		$this->load->view('template/footer');
@@ -167,7 +178,7 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->gettotaldata($date);
+        $res= $this->load->book_model->gettotaldata($date_month);
         $data['result'] = $res;
     	$this->load->view('book/total',$data);
     		$this->load->view('template/footer');
