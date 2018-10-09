@@ -373,6 +373,17 @@ $(document).ready(function() {
       alert([day, month, year].join('/'));
     });
 
+    $('.date_book').on('keyup change', function(){
+      var date = new Date($(this).val());
+      day = date.getDate();
+      month = date.getMonth() + 1;
+      year = date.getFullYear();
+      $('.book_day_input').val(day);
+      $('.book_month_input').val(month);
+      $('.book_year_input').val(year);
+      alert([day, month, year].join('/'));
+    });
+
     $(".home_check").on("change", function(event) {
       event.preventDefault();
       var accountid = $(this).val();
