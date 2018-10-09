@@ -148,8 +148,8 @@ public function insertempdata()
 		$date_year = $year;
         $res= $this->load->book_model->getbankdata($date_month);
         $data['result'] = $res;
-        //$result=$this->load->book_model->getbalancebank($date_month);
-        //$data['balance'] = $result;
+        $result=$this->load->book_model->getbalancebank($date_month);
+        $data['balance'] = $result;
     	$this->load->view('book/bank',$data);
     	$this->load->view('template/footer');
 
