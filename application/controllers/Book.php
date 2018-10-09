@@ -134,8 +134,11 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->getbankdata();
+        $date = $year."-".$month;
+        $res= $this->load->book_model->getbankdata($date);
         $data['result'] = $res;
+        $result=$this->load->book_model->getbalancebank($date);
+        $data['balance'] = $balance;
     	$this->load->view('book/bank',$data);
     	$this->load->view('template/footer');
 
@@ -144,7 +147,7 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->getcohdata();
+        $res= $this->load->book_model->getcohdata($date);
         $data['result'] = $res;
     	$this->load->view('book/coh',$data);
     		$this->load->view('template/footer');
@@ -154,7 +157,7 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->getempdata();
+        $res= $this->load->book_model->getempdata($date);
         $data['result'] = $res;
     	$this->load->view('book/emp',$data);
     		$this->load->view('template/footer');
@@ -164,7 +167,7 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $res= $this->load->book_model->gettotaldata();
+        $res= $this->load->book_model->gettotaldata($date);
         $data['result'] = $res;
     	$this->load->view('book/total',$data);
     		$this->load->view('template/footer');

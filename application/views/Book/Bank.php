@@ -1,6 +1,16 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <h1>Bank</h1>
+<form action='<?php echo base_url();?>profit/' method='post' name='customerinsert'>
+	<div class="form-group">
+	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
+	    <input type="date" class="form-control" id="date_profit" placeholder="" name="profit_date">
+	    <input type="hidden" name="day" id="profit_day_input">
+	    <input type="hidden" name="month" id="profit_month_input">
+	    <input type="hidden" name="year" id="profit_year_input">
+  	</div>
+  	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
+</form>
 
 <table width="100%">
 
@@ -26,6 +36,23 @@
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
+		<?php 
+
+	if ($balance<0) {?>
+		<td colspan="2" align="right">
+			<?php
+			echo "Balance b/f:Credit ".$balance;
+			?>
+		</td><?php
+	}elseif ($balance>0) {
+		?>
+		<td colspan="2" align="left">
+		<?php
+		echo "Balance b/f:Debit ".$balance;
+		?>
+		</td>
+	<?php
+	}?>
 <?php if ($type=="receive"){?>
 <tr>
 <td><?php echo $val['datee']; ?></td>
@@ -73,18 +100,18 @@
 <tr>
 
 	<?php 
-	$balance = abs($debit-$credit);
+	$balancec = abs($debit-$credit);
 	if ($debit>$credit) {?>
 		<td colspan="2" align="right">
 			<?php
-			echo "Balance:Credit ".$balance;
+			echo "Balance c/f:Credit ".$balancec;
 			?>
 		</td><?php
 	}elseif ($credit>$debit) {
 		?>
 		<td colspan="2" align="left">
 		<?php
-		echo "Balance:Debit ".$balance;
+		echo "Balance c/f:Debit ".$balancec;
 		?>
 		</td>
 	<?php

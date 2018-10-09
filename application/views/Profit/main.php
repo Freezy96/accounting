@@ -1,4 +1,4 @@
-<?php $this->load->view('template/sidenav'); ?>
+ <?php $this->load->view('template/sidenav'); ?>
 
 <form action='<?php echo base_url();?>profit/' method='post' name='customerinsert'>
 	<div class="form-group">

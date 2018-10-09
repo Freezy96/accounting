@@ -48,24 +48,68 @@
 
     }
 
-     public function getbankdata(){
+     public function getbankdata($date){ 
+
+        $this->db->select(*);
+        $this->db->from('bank');
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
-        $query = $this->db->get('bank');
+        $query = $this->db->get();
+        return $query->result_array();
+
+
+    }
+     public function getbankdebit($date){
+        $typed="receive";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typed);
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')<", $date);
+        $query = $this->db->get();
         return $query->result_array();
     }
+    public function getbankcredit($date){
+        $typec="payment";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typec);
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')<", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getbalancebank{
+        $debit = $this->getbankdebit($date);
+            foreach ($debit as $key => $value) 
+            {
+                $sumd= $value['SUM(amount)'];
+            }
+        $credit = $this->getbankdebit($date);
+            foreach ($credit as $key => $value) 
+            {
+                $sumc= $value['SUM(amount)'];
+            }
+        $balance=$sumd-$sumc;
+        return $balance;
+    }
      public function getcohdata(){
+        $this->db->select('coh');
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
-        $query = $this->db->get('coh');
+        $query = $this->db->get();
         return $query->result_array();
     }
      public function getempdata(){
+        $this->db->select('emp');
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
-        $query = $this->db->get('emp');
+        $query = $this->db->get();
         return $query->result_array();
     }
      public function gettotaldata(){
+        $this->db->select('total');
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
-        $query = $this->db->get('total');
+        $query = $this->db->get();
         return $query->result_array();
     }
 
