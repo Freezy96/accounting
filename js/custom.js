@@ -217,6 +217,8 @@ $(document).ready(function() {
  $(".customer_payment_view").click(function(event) {
     event.preventDefault();
     var customerid = $(this).val();
+    var customername = $(this).attr('data-name');
+    $("#customer_modal_title").html(customerid+" - "+customername);
     console.log(customerid);
   $.ajax({
   type: "POST",
@@ -390,6 +392,25 @@ $(document).ready(function() {
         }
         });
     });
+
+  $(".account_ready_to_run").on("click", function(event) {
+      event.preventDefault();
+      var refid = $(this).val();
+      console.log(refid);
+      $.ajax({
+      type: "POST",
+      url: 'account/acc_ready_to_run',
+      dataType: 'json',
+      data: {'refid': refid},
+      success: function(res) {
+          if (res)
+          { 
+            alert(res);
+          }
+        }
+        });
+    });
+
 
 });
 
