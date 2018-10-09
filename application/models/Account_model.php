@@ -7,7 +7,7 @@ class Account_model extends CI_Model{
     public function getuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MIN(a.status)');
+        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.readytorun, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MIN(a.status)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -802,7 +802,7 @@ class Account_model extends CI_Model{
         //拿所有的payment，groupby accountid
         $result_payment = $this->groupby_accountid_total_amount();
 
-        $this->db->select('a.accountid, a.amount, a.interest, p.packagetypename');
+        $this->db->select('a.accountid, a.amount, a.interest, p.packagetypename, a.duedate');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -817,6 +817,15 @@ class Account_model extends CI_Model{
             if ($val['packagetypename'] == "package_25_month"|| $val['packagetypename'] == "package_20_week" || $val['packagetypename'] == "package_15_week" || $val['packagetypename'] == "package_15_5days" || $val['packagetypename'] == "package_10_5days") 
             {
                 //do nothing
+                $duedate = $val['duedate'];
+                $today = date("Y-m-d");
+                if($today<=$duedate){
+                    $accountid = $val['accountid'];
+                    $sum_payment_by_accid_count_total_amount = $this->sum_payment_by_accid_count_total_amount($accountid);
+                    $amount = $val['amount'];
+                    $totalamount = $amount - $sum_payment_by_accid_count_total_amount;
+                }
+                $this->update_total_amount($totalamount,$accountid);
             }
             else
             {
@@ -840,6 +849,20 @@ class Account_model extends CI_Model{
         }
     }
 
+    public function sum_payment_by_accid_count_total_amount($accountid)
+    {
+        $this->db->select('payment');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        $amount = 0;
+        foreach ($res as $key => $value) {
+            $amount += $value['payment'];
+        }
+        return $amount;
+    }
+
     public function groupby_accountid_total_amount()
     {
         $this->db->select('accountid, SUM(payment)');
@@ -858,7 +881,7 @@ class Account_model extends CI_Model{
 
     public function account_status_set()
     {
-        $this->db->select('a.accountid, a.totalamount, a.duedate, p.packagetypename ,a.status');
+        $this->db->select('a.accountid, a.totalamount, a.duedate, p.packagetypename ,a.status, a.readytorun');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -868,43 +891,48 @@ class Account_model extends CI_Model{
         $query = $this->db->get();
         $result = $query->result_array();
         foreach ($result as $key => $val) {
-            $accountid = $val['accountid'];
-            $totalamount = $val['totalamount'];
-            $packagetypename = $val['packagetypename'];
-            $duedate = $val['duedate'];
-            $now = time(); // or your date as well
-            $due_date = strtotime($duedate);
-            $datediff = $now - $due_date;
+            $readytorun = $val['readytorun'];
+            if ($readytorun == 1) {
+                $accountid = $val['accountid'];
+                $totalamount = $val['totalamount'];
+                $packagetypename = $val['packagetypename'];
+                $duedate = $val['duedate'];
+                $now = time(); // date today in strtotime mode
+                $due_date = strtotime($duedate);
+                $datediff = $now - $due_date;
 
-            $days = round($datediff / (60 * 60 * 24));
-            $days = $days-1;
-            $status= $val['status'];
-           $res= $this->get_payment_days($accountid);
-            foreach ($res as $key => $val) {
-                $paymentdate = $val['MAX(paymentdate)'];
-                $payment_date = strtotime($paymentdate);
+                $days = round($datediff / (60 * 60 * 24));
+                $days = $days-1;
+                $status= $val['status'];
+                $res= $this->get_payment_days($accountid);
+
+                $duedate_count_pdays = $duedate;
+                //if got payment and paymentdate > duedate then duedate = paymentdate
+                //if no payment then use duedate to count pdays
+                foreach ($res as $key => $val) {
+                    $paymentdate = $val['MAX(paymentdate)'];
+                    if ($paymentdate>$duedate_count_pdays) {
+                        $duedate_count_pdays = $paymentdate;
+                    }
+                }
+                //count pdays
+                $payment_date = strtotime($duedate_count_pdays);
                 $now = time(); 
                 $datediff2 = $now - $payment_date;
+                // today - last payment date
                 $pdays = round($datediff2 / (60 * 60 * 24));
-            }
 
-           // echo "<script>console.log('accountid:".$accountid."')</script>";
-           //  echo "<script>console.log('totalamount:".$totalamount."')</script>";
-           //  echo "<script>console.log('days:".$days."')</script>";
-            // echo "<script>alert(".$days.")</script>";
-            if($totalamount <= 0 && $status != "baddebt"){
-                $status = "closed";
-                $this->set_status($status, $accountid); 
-            }elseif($days>=4 && $days<=29 && $totalamount >= 0 && $status != "baddebt"){
-                $status = "late";
-                $this->set_status($status, $accountid);
-            }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"){
-                $status = "baddebt";
-                $this->set_status($status , $accountid);
-            }else{
-                
+                if($totalamount <= 0 && $status != "baddebt"){
+                    $status = "closed";
+                    $this->set_status($status, $accountid); 
+                }elseif($days>=4 && $days<=29 && $totalamount >= 0 && $status != "baddebt"){
+                    $status = "late";
+                    $this->set_status($status, $accountid);
+                }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"){
+                    $status = "baddebt";
+                    $this->set_status($status , $accountid);
+                }
             }
-            
         }
     }
      public function get_payment_days($accountid)
@@ -1231,6 +1259,14 @@ public function set_baddebt_update($accountid){
             $amount += $value['payment'];
         }
         return $amount;
+    }
+
+    public function run_account_update($refid){
+
+        $this->db->where('refid', $refid);
+        $this->db->update('account', array('readytorun' => '1'));
+        echo json_encode($refid);
+
     }
 
 }

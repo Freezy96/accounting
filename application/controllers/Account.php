@@ -20,6 +20,7 @@ class Account extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('package_model');
+        $this->load->model('customer_model');
         $this->load->model('account_model');
         $this->load->model('agent_model');
         $this->load->model('security_model');$this->load->helper('url');
@@ -39,6 +40,9 @@ class Account extends CI_Controller {
 		// 再set status
 		$this->load->account_model->account_status_set();
 
+		$this->load->customer_model->reset_duedate();
+		$this->load->customer_model->checkuserstatus();
+		$this->load->customer_model->blackliststatus();
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
 		foreach ($res as $key => $value) {
@@ -817,7 +821,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$account_number_count = $this->input->post('account_number_count');
-		$date_today = date("Y-m-d");
+		$date_today = $this->input->post('payment_date');
 
 		// $this->insertdb_switch_package($customerid, $packageid);
 		$customerid = $this->input->post('customerid');
@@ -1699,20 +1703,13 @@ class Account extends CI_Controller {
     }
 
     public function acc_ready_to_run()
-    {	$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-		$accountid = $this->input->post('set_baddebt');
-		$res = $this->load->account_model->set_baddebt_update($accountid);
-		$data['result'] = $res;
+    {	
+    	$refid = $this->input->post('refid');
 
-
-
-		
-			redirect('account');
-		
-		
-		$this->load->view('template/footer');
+		$this->account_model->run_account_update($refid);
+		// echo json_encode($checked);
+		// $this->update_status_home_check($accountid);
+		// echo json_encode($checked);
 	}
 
 }
