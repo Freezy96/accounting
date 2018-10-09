@@ -1,7 +1,16 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <h1>Total</h1>
-
+<form action='<?php echo base_url();?>profit/' method='post' name='customerinsert'>
+	<div class="form-group">
+	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
+	    <input type="date" class="form-control" id="date_profit" placeholder="" name="profit_date">
+	    <input type="hidden" name="day" id="profit_day_input">
+	    <input type="hidden" name="month" id="profit_month_input">
+	    <input type="hidden" name="year" id="profit_year_input">
+  	</div>
+  	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
+</form>
 <table width="100%">
 <tr>
 <td width="50%" style="vertical-align: top;">
