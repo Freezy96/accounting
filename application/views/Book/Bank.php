@@ -33,28 +33,24 @@
 	$debit=0;
 	if(is_array($result) && $result){ 
 		$debit=0;
-	 foreach ($result as $key => $val): 
-	$type=$val['type'];
 
-
-		?>
-		<?php 
-
-	if ($balance<0) {?>
-		<td colspan="2" align="right">
-			<?php
-			echo "Balance b/f:Credit ".$balance;
-			?>
-		</td><?php
-	}elseif ($balance>0) {
+	if ($balance>0) {
 		?>
 		<td colspan="2" align="left">
 		<?php
 		echo "Balance b/f:Debit ".$balance;
+		$debit=$balance;
 		?>
 		</td>
-	<?php
+		<?php
 	}?>
+		<?php
+	 foreach ($result as $key => $val): 
+	$type=$val['type'];
+// echo $date_month;
+		?>
+		
+	
 <?php if ($type=="receive"){?>
 <tr>
 <td><?php echo $val['datee']; ?></td>
@@ -83,6 +79,15 @@
 	<?php $credit=0;
 	if(is_array($result) && $result){ 
 	$credit=0;
+	if ($balance<0) {?>
+		<td colspan="2" align="right">
+			<?php
+			echo "Balance b/f:Credit ".$balance*-1;
+			$credit=$balance*-1;
+			?>
+
+		</td><?php
+	}
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
@@ -90,7 +95,7 @@
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount'];$credit+= $val['amount']; ?></td>
+<td align="right"><?php echo $val['amount'];$credit+= $val['amount'];?></td>
 </tr>
 <?php }?>
 <?php endforeach ?>
@@ -123,11 +128,12 @@
 </tr>
 <h3>
 <?php 
-	$balance = abs($debit-$credit);
+	$balancec = abs($debit-$credit);
 	if ($debit>$credit) {
-		echo "Balance:Credit ".$balance;
+
+		echo "Balance:Credit ".$balancec;
 	}elseif ($credit>$debit) {
-		echo "Balance:Debit ".$balance;
+		echo "Balance:Debit ".$balancec;
 	}else{
 
 	}
