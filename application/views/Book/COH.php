@@ -1,17 +1,19 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <h1>Cash On Hand</h1>
-<form action='<?php echo base_url();?>profit/' method='post' name='customerinsert'>
+<form action="<?php echo base_url();?>book/coh" method="post" name="">
 	<div class="form-group">
-	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
-	    <input type="date" class="form-control" id="date_profit" placeholder="" name="profit_date">
-	    <input type="hidden" name="day" id="profit_day_input">
-	    <input type="hidden" name="month" id="profit_month_input">
-	    <input type="hidden" name="year" id="profit_year_input">
+	    <label for="exampleInputEmail1">Choose Date </label>
+	    <input type="date" class="form-control date_book" id="" placeholder="" name="date">
+	    <input type="hidden" name="day" class="book_day_input">
+	    <input type="hidden" name="month" class="book_month_input">
+	    <input type="hidden" name="year" class="book_year_input">
   	</div>
-  	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
+  	<button class="btn btn-default pull-right" id="submit">Submit</button>
 </form>
+
 <table width="100%">
+
 <tr>
 <td width="50%" style="vertical-align: top;">
 <table  class="table table-condensed">
@@ -26,19 +28,34 @@
 </tr>
 </thead>
 <tbody>
-<?php 
+
+	<?php 
 	$debit=0;
 	if(is_array($result) && $result){ 
 		$debit=0;
+
+	if ($balance>0) {
+		?>
+		<td colspan="2" align="left">
+		<?php
+		echo "Balance b/f:Debit ".$balance;
+		$debit=$balance;
+		?>
+		</td>
+		<?php
+	}?>
+		<?php
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
+// echo $date_month;
 		?>
+		
 	
 <?php if ($type=="receive"){?>
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount']; ?></td>
+<td align="right"><?php echo $val['amount']; $debit+= $val['amount'];?></td>
 </tr>
 <?php } ?>
 <?php endforeach ?>
@@ -62,6 +79,15 @@
 	<?php $credit=0;
 	if(is_array($result) && $result){ 
 	$credit=0;
+	if ($balance<0) {?>
+		<td colspan="2" align="right">
+			<?php
+			echo "Balance b/f:Credit ".$balance*-1;
+			$credit=$balance*-1;
+			?>
+
+		</td><?php
+	}
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 		?>
@@ -69,7 +95,7 @@
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount']; ?></td>
+<td align="right"><?php echo $val['amount'];$credit+= $val['amount'];?></td>
 </tr>
 <?php }?>
 <?php endforeach ?>
@@ -81,18 +107,18 @@
 <tr>
 
 	<?php 
-	$balance = abs($debit-$credit);
+	$balancec = abs($debit-$credit);
 	if ($debit>$credit) {?>
 		<td colspan="2" align="right">
 			<?php
-			echo "Balance:Credit ".$balance;
+			echo "Balance c/f:Credit ".$balancec;
 			?>
 		</td><?php
 	}elseif ($credit>$debit) {
 		?>
 		<td colspan="2" align="left">
 		<?php
-		echo "Balance:Debit ".$balance;
+		echo "Balance c/f:Debit ".$balancec;
 		?>
 		</td>
 	<?php
@@ -102,11 +128,12 @@
 </tr>
 <h3>
 <?php 
-	$balance = abs($debit-$credit);
+	$balancec = abs($debit-$credit);
 	if ($debit>$credit) {
-		echo "Balance:Credit ".$balance;
+
+		echo "Balance:Credit ".$balancec;
 	}elseif ($credit>$debit) {
-		echo "Balance:Debit ".$balance;
+		echo "Balance:Debit ".$balancec;
 	}else{
 
 	}

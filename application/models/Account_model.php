@@ -901,6 +901,8 @@ class Account_model extends CI_Model{
             }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"){
                 $status = "baddebt";
                 $this->set_status($status , $accountid);
+            }else{
+                
             }
             
         }
