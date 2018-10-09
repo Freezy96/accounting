@@ -134,11 +134,19 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $date = $year."-".$month;
+        $day = $this->input->post('day');
+        if ($this->input->post('month')<10) {
+			$month = "0".$this->input->post('month');
+		}else{
+			$month = $this->input->post('month');
+		}
+		
+		$year = $this->input->post('year');
+         $date = $year."-".$month;
         $res= $this->load->book_model->getbankdata($date);
         $data['result'] = $res;
         $result=$this->load->book_model->getbalancebank($date);
-        $data['balance'] = $balance;
+        $data['balance'] = $result;
     	$this->load->view('book/bank',$data);
     	$this->load->view('template/footer');
 

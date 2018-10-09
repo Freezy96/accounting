@@ -50,7 +50,7 @@
 
      public function getbankdata($date){ 
 
-        $this->db->select(*);
+        $this->db->select('*');
         $this->db->from('bank');
         $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
@@ -77,7 +77,7 @@
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function getbalancebank{
+    public function getbalancebank($date){
         $debit = $this->getbankdebit($date);
             foreach ($debit as $key => $value) 
             {
