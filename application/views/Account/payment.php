@@ -61,7 +61,16 @@
 </div>
 <br>
 <form action='<?php echo base_url();?>account/payment_insert_db' method='post' name='account_payment'>
-
+<table class="table">
+  <tr>
+    <td>
+      PAYMENT DATE
+    </td>
+    <td>
+      <input type="date" name="payment_date" class="form-control" value="<?php echo date("Y-m-d"); ?>" required>
+    </td>
+  </tr>
+</table>
 <table class="table">
     <thead>
       <tr>
@@ -92,9 +101,6 @@
       </tr>
     </thead>
     <tbody>
-  <!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
-    <!-- foreach(allInformation  as  Fieldname  =>  Value) -->
-  <!-- <?php print_r($result); ?>        Show this for understanding -->
   <?php $account_number_count = 0; ?>
   <?php if(is_array($result) && $result){ ?>
 

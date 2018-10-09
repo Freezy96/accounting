@@ -406,20 +406,26 @@ $(document).ready(function() {
 
   $(".account_ready_to_run").on("click", function(event) {
       event.preventDefault();
-      var refid = $(this).val();
-      console.log(refid);
-      $.ajax({
-      type: "POST",
-      url: 'account/acc_ready_to_run',
-      dataType: 'json',
-      data: {'refid': refid},
-      success: function(res) {
-          if (res)
-          { 
-            alert(res);
+      if (confirm('Are you sure you want to delete this item?')) {
+        var refid = $(this).val();
+        // console.log(refid);
+        $.ajax({
+        type: "POST",
+        url: 'account/acc_ready_to_run',
+        dataType: 'json',
+        data: {'refid': refid},
+        success: function(res) {
+            if (res)
+            { 
+              // alert(res);
+              $("#ready_to_run_"+res).css('display', 'none');
+            }
           }
-        }
-        });
+          });
+      } else {
+
+      }
+
     });
 
 
