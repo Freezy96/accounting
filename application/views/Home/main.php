@@ -9,6 +9,9 @@
 			<thead>
 				<tr>
 					<td>
+						REF ID
+					</td>
+					<td>
 						CUSTOMER ID - NAME
 					</td>
 					<td>
@@ -60,6 +63,9 @@
 				 	
 					<?php if (strtotime($val['MAX(a.duedate)']) <= strtotime("+4 day", time()) && $due_date >= time()-86400): ?>
 					<tr>
+						<td>
+							<?php echo $val['refid']; ?>
+						</td>
 						<td>
 							<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
 						</td>

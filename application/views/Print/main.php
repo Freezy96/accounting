@@ -18,7 +18,10 @@
 		<thead>
 			<tr>
 				<td>
-				ID
+					REF ID
+				</td>
+				<td>
+					CUSTOMER ID
 				</td>
 				<td>
 					NAME
@@ -50,6 +53,9 @@
 		<?php foreach (${'result'.$i} as $key => $val): ?>
 		<tr>
 			<td>
+				<?php echo $val['refid']; ?>
+			</td>
+			<td>
 				<?php echo $val['customerid']; ?>
 			</td>
 			<td>
@@ -68,7 +74,7 @@
 				<?php echo $val['SUM(a.totalamount)']; ?>
 			</td>
 			<td>
-				<?php echo $val['MAX(a.duedate)']; ?>
+				<?php echo $val['MIN(a.duedate)']; ?>
 			</td>
 		</tr>
 		<?php endforeach ?>

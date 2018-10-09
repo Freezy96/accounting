@@ -1,13 +1,13 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <h1>Bank</h1>
-<form action='<?php echo base_url();?>book/bank' method='post' name='date'>
+<form action="<?php echo base_url();?>book/bank" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>
-	    <input type="date" class="form-control" id="date" placeholder="" name="date">
-	    <input type="hidden" name="day" id="day">
-	    <input type="hidden" name="month" id="month">
-	    <input type="hidden" name="year" id="year">
+	    <input type="date" class="form-control date_book" id="" placeholder="" name="date">
+	    <input type="hidden" name="day" class="book_day_input">
+	    <input type="hidden" name="month" class="book_month_input">
+	    <input type="hidden" name="year" class="book_year_input">
   	</div>
   	<button class="btn btn-default pull-right" id="submit">Submit</button>
 </form>
@@ -35,7 +35,11 @@
 		$debit=0;
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
+<<<<<<< HEAD
 
+=======
+// echo $date_month;
+>>>>>>> master
 		?>
 		<?php 
 

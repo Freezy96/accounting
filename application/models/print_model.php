@@ -37,7 +37,7 @@ class Print_Model extends CI_Model{
     }
     
     public function getuserdata($refid,$duedate){
-        $this->db->select('a.accountid, SUM(a.totalamount), a.oriamount, a.refid, a.customerid, c.customername, c.address, c.gender, a.amount, a.datee, a.interest, MAX(a.duedate), a.packageid, c.phoneno, ag.agentname, p.packagetypename');
+        $this->db->select('a.accountid, SUM(a.totalamount), a.oriamount, a.refid, a.customerid, c.customername, c.address, c.gender, a.amount, a.datee, a.interest, MIN(a.duedate), a.packageid, c.phoneno, ag.agentname, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -47,6 +47,7 @@ class Print_Model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where('a.refid', $refid);
+        $this->db->where('a.totalamount >=', 0);
         $this->db->where('a.duedate <=', $duedate);
         // $this->db->group_by('a.refid');// add group_by
         $this->db->order_by('a.duedate', 'desc');
