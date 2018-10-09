@@ -1698,6 +1698,23 @@ class Account extends CI_Controller {
         echo $timestamp = date('Y-m-d H:i:s');
     }
 
+    public function acc_ready_to_run()
+    {	$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$accountid = $this->input->post('set_baddebt');
+		$res = $this->load->account_model->set_baddebt_update($accountid);
+		$data['result'] = $res;
+
+
+
+		
+			redirect('account');
+		
+		
+		$this->load->view('template/footer');
+	}
+
 }
 
 	

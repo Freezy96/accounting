@@ -6,13 +6,16 @@
 		<thead>
 			<tr>
 				<td>
+					REFID
+				</td>
+				<td>
 					NAME
 				</td>
 				<td>
-					Lent
+					LENT
 				</td>
 				<td>
-					Return
+					RETURN
 				</td>
 				<!-- <td>
 					PAYMENT
@@ -46,6 +49,9 @@
 	$status=$val['MIN(a.status)'];
 	if($status !=="baddebt"){?>
 		<tr>
+			<td>
+				<?php echo $val['refid']; ?>
+			</td>
 			<td>
 				<?php echo $val['customername']; ?>
 			</td>
@@ -92,6 +98,7 @@
 						<form action='<?php echo base_url();?>account/set_baddebt' method='post'>
 						<button class="btn btn-default" value="<?php echo $val["accountid"]; ?>" name="set_baddebt">baddebt</button>
 						</form>
+						<button class="btn btn-warning account_ready_to_run" value="<?php echo $val['refid']; ?>" name="ready_to_run"></button>
 				</div>
 			</td>
 		</tr>

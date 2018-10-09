@@ -9,7 +9,7 @@ class Home_Model extends CI_Model{
         $date_plus_4 = date("Y-m-d");
         $date_plus_4 = strtotime("+4 days", strtotime($date_plus_4));
         $date_plus_4 = date("Y-m-d", $date_plus_4);
-        $this->db->select('MAX(a.accountid), SUM(a.totalamount), a.oriamount, a.customerid, c.customername, a.amount, MIN(a.datee), a.interest, MAX(a.duedate), a.packageid, c.phoneno, ag.agentname, p.packagetypename, MAX(a.homeremind)');
+        $this->db->select('MAX(a.accountid), SUM(a.totalamount), a.refid, a.oriamount, a.customerid, c.customername, a.amount, MIN(a.datee), a.interest, MAX(a.duedate), a.packageid, c.phoneno, ag.agentname, p.packagetypename, MAX(a.homeremind)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');

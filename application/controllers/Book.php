@@ -135,6 +135,7 @@ public function insertempdata()
         $this->load->view('template/header');
         $this->load->view('template/nav');
 		$day = $this->input->post('date');
+
 		if ($this->input->post('month')<10) {
 			$month = "0".$this->input->post('month');
 		}else{
@@ -146,10 +147,12 @@ public function insertempdata()
 		
 		$date_month = $year."-".$month;
 		$date_year = $year;
+		echo "<script>console.log(".$date_month.")</script>";
+		echo "<script>console.log(".$date_year.")</script>";
         $res= $this->load->book_model->getbankdata($date_month);
         $data['result'] = $res;
-        //$result=$this->load->book_model->getbalancebank($date_month);
-        //$data['balance'] = $result;
+        $result=$this->load->book_model->getbalancebank($date_month);
+        $data['balance'] = $result;
     	$this->load->view('book/bank',$data);
     	$this->load->view('template/footer');
 
