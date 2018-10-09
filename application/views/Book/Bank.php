@@ -35,11 +35,8 @@
 		$debit=0;
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
-<<<<<<< HEAD
 
-=======
-// echo $date_month;
->>>>>>> master
+
 		?>
 		<?php 
 
