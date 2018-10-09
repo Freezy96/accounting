@@ -922,7 +922,6 @@ class Account_model extends CI_Model{
                 // today - last payment date
                 $pdays = round($datediff2 / (60 * 60 * 24));
 
-
                 if($totalamount <= 0 && $status != "baddebt"){
                     $status = "closed";
                     $this->set_status($status, $accountid); 
