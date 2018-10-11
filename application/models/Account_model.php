@@ -298,10 +298,23 @@ class Account_model extends CI_Model{
     $this->db->update('account', $data);
     }
 
+    public function get_maxduedate_by_refid($refid)
+    {
+        $this->db->select('MAX(duedate)');
+        $this->db->from('account');
+        $this->db->where('refid', $refid);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        foreach ($res as $key => $value) {
+            $duedate = $value['MAX(duedate)'];
+        }
+        return $duedate;
+    }
+
     // Package 30 / 4Week 滚利息
     public function interest_30_4week()
     {
-        $this->db->select('a.accountid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->select('a.accountid, a.refid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -319,6 +332,7 @@ class Account_model extends CI_Model{
             $oriamount = $value['oriamount'];
             $accountid = $value['accountid'];
             $totalamount = $value['totalamount'];
+            $refid = $value['refid'];
 
             
             $packageinfo = $this->get_package_info($packagename, $packageid);
@@ -341,7 +355,9 @@ class Account_model extends CI_Model{
             // $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
 
             $now = strtotime(date("Y-m-d")); // or your date as well
+
             $due_date = strtotime($duedate);
+
             $timeDiff = abs($now - $due_date);
             $days = $timeDiff/86400; 
             // $days = $days-1;
@@ -355,9 +371,23 @@ class Account_model extends CI_Model{
         {
             $payment += $value['payment'];
         }
-           if($days>=60){
-                    $days=60;
-                }
+
+        $day_limitdays = 60;
+
+        //SPECIAL FOR 4 WEEK PACKAGE & SELF DEFINE DAY
+        if ($packagename == "package_30_4week") {
+            $max_limit_date = $this->get_maxduedate_by_refid($refid);
+            $max_limit_date = strtotime($max_limit_date);
+            $max_limit_date = strtotime("+60 days", $max_limit_date);
+            $max_limit_datedif = abs($due_date - $max_limit_date);
+            $day_limitdays = $max_limit_datedif/86400; 
+        }
+        elseif ($packagename == "package_manual_payeveryday_manualdays") {
+            $day_limitdays = $totaldays_package_manual_payeveryday_manualdays+2;
+        }
+        if($days>=$day_limitdays){
+            $days=$day_limitdays;
+        }
 
         $payment_info = $this->get_payment_info($accountid);
 
@@ -1207,8 +1237,8 @@ public function set_baddebt_update($accountid){
             $final_amount = $value['amount']+$totalamount;
         }
         $original_accountid = $accountid_destination-1;
-        // $amount = $this->sum_payment_by_accid($original_accountid);
-        $this->pull_to_next_period_update_original($original_accountid, 0);
+        $amount = $this->sum_payment_by_accid($original_accountid);
+        $this->pull_to_next_period_update_original($original_accountid, $amount);
         if($this->pull_to_next_period_update($accountid_destination, $final_amount) )
         {
             $return = "insert";

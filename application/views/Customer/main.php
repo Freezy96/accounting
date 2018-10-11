@@ -91,7 +91,7 @@
 				<td width="80%">
 					<div class="btn-group">
 						<form action="javascript:void(0);">
-							<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid">View</button>
+							<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid">View Payment</button>
 						</form>
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
 							<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>

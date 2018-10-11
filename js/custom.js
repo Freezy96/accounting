@@ -203,7 +203,9 @@ $(document).ready(function() {
                     }
                   if (i<res.length-1) 
                   {
-                    $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
+                    if (total>0) {
+                      $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
+                    }
                   }
                   $('.account_modal_table tr:last').before($tr);
                 }
