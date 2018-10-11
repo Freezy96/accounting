@@ -830,6 +830,63 @@ class Account extends CI_Controller {
 		{ 
 			//switch package
 			$checkpackage = $this->input->post('packageid' . $i);
+
+			// $amount = $this->input->post('amount');
+			//minus payment then minus discount
+			$step_by_step_amount = $this->input->post('totalamount_check_limitation' . $i);
+			if($this->input->post('amount' . $i)!="")
+			{
+				//check the amount number exceed limit anot.
+				if ($step_by_step_amount<$this->input->post('amount' . $i)) {
+					$amount = $step_by_step_amount;
+					$step_by_step_amount-=$amount;
+				}
+				else{
+					$amount = $this->input->post('amount' . $i);
+					$step_by_step_amount-=$amount;
+				}
+				$data = array(
+					'accountid' => $this->input->post('accountid' . $i),
+					'payment' => $amount,
+					'paymenttype' => "amount",
+					'paymentdate' => $date_today
+					);
+				$return = $this->account_model->insert_payment($data);
+
+			}
+
+			// if($this->input->post('interest' . $i)!="")
+			// {
+			// $data = array(
+			// 	'accountid' => $this->input->post('accountid' . $i),
+			// 	'payment' => $this->input->post('interest' . $i),
+			// 	'paymenttype' => "interest",
+			// 	'paymentdate' => $date_today
+			// 	);
+			// $return = $this->account_model->insert_payment($data);
+			// }
+
+			if($this->input->post('discount' . $i)!="")
+			{
+				//check the amount number exceed limit anot.
+				if ($step_by_step_amount<$this->input->post('discount' . $i)) {
+					$amount = $step_by_step_amount;
+					$step_by_step_amount-=$amount;
+				}
+				else{
+					$amount = $this->input->post('discount' . $i);
+					$step_by_step_amount-=$amount;
+				}
+				$data = array(
+					'accountid' => $this->input->post('accountid' . $i),
+					'payment' => $amount,
+					'paymenttype' => "discount",
+					'paymentdate' => $date_today
+					);
+				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
+				$return = $this->account_model->insert_payment($data);
+			}
+
 			if($checkpackage!="")
 			{
 				$packageid = $checkpackage;
@@ -903,10 +960,10 @@ class Account extends CI_Controller {
 					// echo "<script>console.log(".$lentamount.")</script>";
 				}
 				//check amount greater than lentamount anot
-				$amount_check_greater_smaller = $this->input->post('totalamount_check_limitation' . $i);
-				if($lentamount>$amount_check_greater_smaller)
+				// $amount_check_greater_smaller = $this->input->post('totalamount_check_limitation' . $i);
+				if($lentamount>$step_by_step_amount)
 				{
-					$payment_amount = $amount_check_greater_smaller;
+					$payment_amount = $step_by_step_amount;
 				}
 				else
 				{
@@ -922,64 +979,7 @@ class Account extends CI_Controller {
 				echo "<script>console.log(".$payment_amount.")</script>";
 				$return = $this->account_model->insert_payment($data_newpackage);
 			}
-
-			// $amount = $this->input->post('amount');
-			//minus payment then minus discount
-			$step_by_step_amount = $this->input->post('totalamount_check_limitation' . $i);
-			if($this->input->post('amount' . $i)!="")
-			{
-				//check the amount number exceed limit anot.
-				if ($step_by_step_amount<$this->input->post('amount' . $i)) {
-					$amount = $step_by_step_amount;
-					$step_by_step_amount-=$amount;
-				}
-				else{
-					$amount = $this->input->post('amount' . $i);
-					$step_by_step_amount-=$amount;
-				}
-				$data = array(
-					'accountid' => $this->input->post('accountid' . $i),
-					'payment' => $amount,
-					'paymenttype' => "amount",
-					'paymentdate' => $date_today
-					);
-				$return = $this->account_model->insert_payment($data);
-
-			}
-
-			// if($this->input->post('interest' . $i)!="")
-			// {
-			// $data = array(
-			// 	'accountid' => $this->input->post('accountid' . $i),
-			// 	'payment' => $this->input->post('interest' . $i),
-			// 	'paymenttype' => "interest",
-			// 	'paymentdate' => $date_today
-			// 	);
-			// $return = $this->account_model->insert_payment($data);
-			// }
-
-			if($this->input->post('discount' . $i)!="")
-			{
-				//check the amount number exceed limit anot.
-				if ($step_by_step_amount<$this->input->post('discount' . $i)) {
-					$amount = $step_by_step_amount;
-					$step_by_step_amount-=$amount;
-				}
-				else{
-					$amount = $this->input->post('discount' . $i);
-					$step_by_step_amount-=$amount;
-				}
-				$data = array(
-					'accountid' => $this->input->post('accountid' . $i),
-					'payment' => $amount,
-					'paymenttype' => "discount",
-					'paymentdate' => $date_today
-					);
-				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
-				$return = $this->account_model->insert_payment($data);
-			}
-
-
+			
 		}
 		// $data['return'] = $return;
 
