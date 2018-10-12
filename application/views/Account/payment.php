@@ -15,6 +15,7 @@
       $agentname = $val['agentname'];
       $packagetypename = $val['packagetypename'];
       $agentid = $val['agentid'];
+      $guarantyitem = $val['guarantyitem'];
      ?>
   <?php endforeach ?>
 <?php } ?>
@@ -56,12 +57,37 @@
         <?php echo $packageid." - ".$packagetypename; ?>
       </td>
     </tr>
+    <tr>
+      <td>
+        Agent:
+      </td>
+      <td>
+        <?php echo $agentid." - ".$agentname; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Guaranty Item:
+      </td>
+      <td>
+        <?php echo $guarantyitem; ?>
+      </td>
+    </tr>    
   </table>
 
 </div>
 <br>
 <form action='<?php echo base_url();?>account/payment_insert_db' method='post' name='account_payment'>
-
+<table class="table">
+  <tr>
+    <td>
+      PAYMENT DATE
+    </td>
+    <td>
+      <input type="date" name="payment_date" class="form-control" value="<?php echo date("Y-m-d"); ?>" required>
+    </td>
+  </tr>
+</table>
 <table class="table">
     <thead>
       <tr>
@@ -92,9 +118,6 @@
       </tr>
     </thead>
     <tbody>
-  <!-- foreach (ResultGetFromModel  as  indexNumber  =>  allInformation) -->
-    <!-- foreach(allInformation  as  Fieldname  =>  Value) -->
-  <!-- <?php print_r($result); ?>        Show this for understanding -->
   <?php $account_number_count = 0; ?>
   <?php if(is_array($result) && $result){ ?>
 
@@ -180,6 +203,7 @@
         <?php $totalamount = number_format($final_amount+$final_interest, 2, '.', ''); ?>
         <?php if ($totalamount<=0): ?>
           <?php echo "Paid"; ?>
+          <input type="hidden" value="0" name="<?php echo "totalamount_check_limitation".$account_number_count; ?>">
         <?php else: ?>  
           <?php echo $totalamount; ?>
           <input type="hidden" value="<?php echo $totalamount; ?>" name="<?php echo "totalamount_check_limitation".$account_number_count; ?>">
@@ -367,7 +391,7 @@
             </select>
             <div class="form-group" id="<?php echo "guarantyitem".$account_number_count; ?>" style="display:none;">
               <label for="">Guaranty Item</label>
-              <input type="text" name="<?php echo "guarantyitem_name".$account_number_count; ?>" id="<?php echo "input_option_switch_package".$account_number_count; ?>"  disabled="disabled"> 
+              <input type="text" name="<?php echo "guarantyitem_name".$account_number_count; ?>" id="<?php echo "input_option_switch_package".$account_number_count; ?>" disabled="disabled" required> 
             </div>
           </div>
       </td>

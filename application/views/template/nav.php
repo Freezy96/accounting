@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0vh;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="#" onclick="location.href='<?php echo base_url();?>home'">
         Accounting
       </a>
     </div>

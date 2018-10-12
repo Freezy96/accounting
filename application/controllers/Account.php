@@ -20,6 +20,7 @@ class Account extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('package_model');
+        $this->load->model('customer_model');
         $this->load->model('account_model');
         $this->load->model('agent_model');
         $this->load->model('security_model');$this->load->helper('url');
@@ -39,6 +40,9 @@ class Account extends CI_Controller {
 		// 再set status
 		$this->load->account_model->account_status_set();
 
+		$this->load->customer_model->reset_duedate();
+		$this->load->customer_model->checkuserstatus();
+		$this->load->customer_model->blackliststatus();
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
 		foreach ($res as $key => $value) {
@@ -817,7 +821,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$account_number_count = $this->input->post('account_number_count');
-		$date_today = date("Y-m-d");
+		$date_today = $this->input->post('payment_date');
 
 		// $this->insertdb_switch_package($customerid, $packageid);
 		$customerid = $this->input->post('customerid');
@@ -826,6 +830,63 @@ class Account extends CI_Controller {
 		{ 
 			//switch package
 			$checkpackage = $this->input->post('packageid' . $i);
+
+			// $amount = $this->input->post('amount');
+			//minus payment then minus discount
+			$step_by_step_amount = $this->input->post('totalamount_check_limitation' . $i);
+			if($this->input->post('amount' . $i)!="")
+			{
+				//check the amount number exceed limit anot.
+				if ($step_by_step_amount<$this->input->post('amount' . $i)) {
+					$amount = $step_by_step_amount;
+					$step_by_step_amount-=$amount;
+				}
+				else{
+					$amount = $this->input->post('amount' . $i);
+					$step_by_step_amount-=$amount;
+				}
+				$data = array(
+					'accountid' => $this->input->post('accountid' . $i),
+					'payment' => $amount,
+					'paymenttype' => "amount",
+					'paymentdate' => $date_today
+					);
+				$return = $this->account_model->insert_payment($data);
+
+			}
+
+			// if($this->input->post('interest' . $i)!="")
+			// {
+			// $data = array(
+			// 	'accountid' => $this->input->post('accountid' . $i),
+			// 	'payment' => $this->input->post('interest' . $i),
+			// 	'paymenttype' => "interest",
+			// 	'paymentdate' => $date_today
+			// 	);
+			// $return = $this->account_model->insert_payment($data);
+			// }
+
+			if($this->input->post('discount' . $i)!="")
+			{
+				//check the amount number exceed limit anot.
+				if ($step_by_step_amount<$this->input->post('discount' . $i)) {
+					$amount = $step_by_step_amount;
+					$step_by_step_amount-=$amount;
+				}
+				else{
+					$amount = $this->input->post('discount' . $i);
+					$step_by_step_amount-=$amount;
+				}
+				$data = array(
+					'accountid' => $this->input->post('accountid' . $i),
+					'payment' => $amount,
+					'paymenttype' => "discount",
+					'paymentdate' => $date_today
+					);
+				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
+				$return = $this->account_model->insert_payment($data);
+			}
+
 			if($checkpackage!="")
 			{
 				$packageid = $checkpackage;
@@ -899,10 +960,10 @@ class Account extends CI_Controller {
 					// echo "<script>console.log(".$lentamount.")</script>";
 				}
 				//check amount greater than lentamount anot
-				$amount_check_greater_smaller = $this->input->post('totalamount_check_limitation' . $i);
-				if($lentamount>$amount_check_greater_smaller)
+				// $amount_check_greater_smaller = $this->input->post('totalamount_check_limitation' . $i);
+				if($lentamount>$step_by_step_amount)
 				{
-					$payment_amount = $amount_check_greater_smaller;
+					$payment_amount = $step_by_step_amount;
 				}
 				else
 				{
@@ -918,64 +979,7 @@ class Account extends CI_Controller {
 				echo "<script>console.log(".$payment_amount.")</script>";
 				$return = $this->account_model->insert_payment($data_newpackage);
 			}
-
-			// $amount = $this->input->post('amount');
-			//minus payment then minus discount
-			$step_by_step_amount = $this->input->post('totalamount_check_limitation' . $i);
-			if($this->input->post('amount' . $i)!="")
-			{
-				//check the amount number exceed limit anot.
-				if ($step_by_step_amount<$this->input->post('amount' . $i)) {
-					$amount = $step_by_step_amount;
-					$step_by_step_amount-=$amount;
-				}
-				else{
-					$amount = $this->input->post('amount' . $i);
-					$step_by_step_amount-=$amount;
-				}
-				$data = array(
-					'accountid' => $this->input->post('accountid' . $i),
-					'payment' => $amount,
-					'paymenttype' => "amount",
-					'paymentdate' => $date_today
-					);
-				$return = $this->account_model->insert_payment($data);
-
-			}
-
-			// if($this->input->post('interest' . $i)!="")
-			// {
-			// $data = array(
-			// 	'accountid' => $this->input->post('accountid' . $i),
-			// 	'payment' => $this->input->post('interest' . $i),
-			// 	'paymenttype' => "interest",
-			// 	'paymentdate' => $date_today
-			// 	);
-			// $return = $this->account_model->insert_payment($data);
-			// }
-
-			if($this->input->post('discount' . $i)!="")
-			{
-				//check the amount number exceed limit anot.
-				if ($step_by_step_amount<$this->input->post('discount' . $i)) {
-					$amount = $step_by_step_amount;
-					$step_by_step_amount-=$amount;
-				}
-				else{
-					$amount = $this->input->post('discount' . $i);
-					$step_by_step_amount-=$amount;
-				}
-				$data = array(
-					'accountid' => $this->input->post('accountid' . $i),
-					'payment' => $amount,
-					'paymenttype' => "discount",
-					'paymentdate' => $date_today
-					);
-				echo "<script>console.log(".$this->input->post('amount' . $i).")</script>";
-				$return = $this->account_model->insert_payment($data);
-			}
-
-
+			
 		}
 		// $data['return'] = $return;
 
@@ -1550,7 +1554,7 @@ class Account extends CI_Controller {
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
 				'interest' => 0,
-				'guarantyitem'=>$this->input->post('guarantyitem'),
+				'guarantyitem'=>$guarantyitem,
 				'amount' => $oriamount,
 				'refid' => $refid,
 				// 'payment' => 0,
@@ -1699,20 +1703,13 @@ class Account extends CI_Controller {
     }
 
     public function acc_ready_to_run()
-    {	$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-		$accountid = $this->input->post('set_baddebt');
-		$res = $this->load->account_model->set_baddebt_update($accountid);
-		$data['result'] = $res;
+    {	
+    	$refid = $this->input->post('refid');
 
-
-
-		
-			redirect('account');
-		
-		
-		$this->load->view('template/footer');
+		$this->account_model->run_account_update($refid);
+		// echo json_encode($checked);
+		// $this->update_status_home_check($accountid);
+		// echo json_encode($checked);
 	}
 
 }
