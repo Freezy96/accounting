@@ -65,6 +65,14 @@ class Customer extends CI_Controller {
 		echo $data;
 	}
 
+	// public function customer_exist_check_normal()
+	// {
+	// 	$name = $this->input->post('name');
+	// 	$passport = $this->input->post('passport');
+	// 	$data = $this->customer_model->check_availability_normal($name,$passport);
+	// 	echo $data;
+	// }
+
 	public function insertdb()
 	{	
 		$this->load->helper('url');
@@ -77,9 +85,12 @@ class Customer extends CI_Controller {
 		$statuscus=$this->customer_model->checkuserstatus();
 		$customername=$this->input->post('name');
 		$passport_check = $this->input->post('passport');
-		$blacklist_check = $this->customer_model->check_availability($customername,$passport_check);
+		$exist_check = $this->customer_model->check_availability($customername,$passport_check);
 		// echo $blacklist_check;
-
+		// if ($exist_check == "yes") {
+		// 	$this->session->set_flashdata('return',"update");
+		// 	redirect("customer");
+		// }
 		
 
 			$data = array(
@@ -255,6 +266,16 @@ $this->load->view('template/footer');
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		// 再滚利息
+		$this->load->account_model->interest_30_4week();
+		// 再算totalamount
+		$this->load->account_model->count_total_amount();
+		// 再set status
+		$this->load->account_model->account_status_set();
+
+		$this->load->customer_model->reset_duedate();
+		$this->load->customer_model->checkuserstatus();
+		$this->load->customer_model->blackliststatus();
 		$res = $this->load->customer_model-> getblacklistdata();
 		$data['result'] = $res;
         $this->load->view('customer/blacklist', $data);

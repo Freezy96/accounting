@@ -45,18 +45,53 @@
              dataType: "html",  
              success: function(res){
                     // alert(res);  //as a debugging message.
-                    if (res == "yes") {
-                    $('#customer_msg').html("<h3 style=\"color: red\">USER WITH THIS NAME / PASSPORT ID EXIST IN BLACKLIST, PLEASE BE CAREFUL!</h3>");
-                  }else{
-                    $('#customer_msg').html("");
-                  }
+                    if (res == "yes_blacklist") {
+                      $('#customer_msg').html("<h3 style=\"color: red\">USER WITH THIS NAME / PASSPORT ID EXIST IN BLACKLIST, PLEASE BE CAREFUL!</h3>");
+                      $('#customer_insert_submit_btn').prop("disabled", true);
+                    }else{
+                      $('#customer_msg').html("");
+                      $('#customer_insert_submit_btn').prop("disabled", false);
+                    }
+
+                    if(res == "yes"){
+                      $('#customer_msg').html("<h3 style=\"color: red\">USER WITH THIS NAME / PASSPORT ID EXIST, PLEASE BE CAREFUL!</h3>");
+                      $('#customer_insert_submit_btn').prop("disabled", true);
+                    }else{
+                      $('#customer_msg').html("");
+                      $('#customer_insert_submit_btn').prop("disabled", false);
+                    }
 
                   }
-              });// you have missed this bracket
+              });
+
+
          return false;
           
         });
-  
+        //   $('.customer_check').on("change keyup", function(event) {
+        //     event.preventDefault();
+        //     var name = $('#customer_insert_name').val();
+        //     var passport = $('#customer_insert_passport').val();
+        //     $.ajax({
+        //      type: "POST",
+        //      url: "<?php echo site_url();?>customer/customer_exist_check_normal", 
+        //      data: {'name': $('#customer_insert_name').val(), 'passport': $('#customer_insert_passport').val()},
+        //      dataType: "html",  
+        //      success: function(res){
+        //             // alert(res);  //as a debugging message.
+        //             if (res == "yes") {
+        //             $('#customer_msg').html("<h3 style=\"color: red\">USER WITH THIS NAME / PASSPORT ID EXIST, PLEASE BE CAREFUL!</h3>");
+        //           }else{
+        //             $('#customer_msg').html("");
+        //           }
+
+        //           }
+        //       });
+
+
+        //  return false;
+          
+        // });
       });
 
       $(document).ready(function() {
