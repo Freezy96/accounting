@@ -15,6 +15,7 @@
       $agentname = $val['agentname'];
       $packagetypename = $val['packagetypename'];
       $agentid = $val['agentid'];
+      $guarantyitem = $val['guarantyitem'];
      ?>
   <?php endforeach ?>
 <?php } ?>
@@ -56,6 +57,22 @@
         <?php echo $packageid." - ".$packagetypename; ?>
       </td>
     </tr>
+    <tr>
+      <td>
+        Agent:
+      </td>
+      <td>
+        <?php echo $agentid." - ".$agentname; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Guaranty Item:
+      </td>
+      <td>
+        <?php echo $guarantyitem; ?>
+      </td>
+    </tr>    
   </table>
 
 </div>
@@ -374,7 +391,7 @@
             </select>
             <div class="form-group" id="<?php echo "guarantyitem".$account_number_count; ?>" style="display:none;">
               <label for="">Guaranty Item</label>
-              <input type="text" name="<?php echo "guarantyitem_name".$account_number_count; ?>" id="<?php echo "input_option_switch_package".$account_number_count; ?>"  disabled="disabled"> 
+              <input type="text" name="<?php echo "guarantyitem_name".$account_number_count; ?>" id="<?php echo "input_option_switch_package".$account_number_count; ?>" disabled="disabled" required> 
             </div>
           </div>
       </td>

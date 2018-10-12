@@ -223,39 +223,39 @@ $(document).ready(function() {
     $("#customer_modal_title").html(customerid+" - "+customername);
     console.log(customerid);
     var BASE_URL = "<?php echo base_url();?>";
-  $.ajax({
-  type: "POST",
-  url: 'customer/customer_payment_modal',
-  dataType: 'json',
-  data: {'customerid': customerid},
-  success: function(res) {
-      if (res)
-      { 
-        console.log(res);
-        $(".customer_header_append").remove(); 
-        $(".customer_trtd_append").remove(); 
-        // empty html
-       
-        $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
-          var $tr = $('<tr class=\'customer_header_append\'/>');
-          $tr.append($('<td/>').html("Ref ID"));
-          $tr.append($('<td/>').html("Package Type"));
-          $tr.append($('<td/>').html("Date"));
-          $tr.append($('<td/>').html("Payment Type"));
-          $tr.append($('<td/>').html("Payment"));
-          // $tr.append($('<td/>').html("Action:"));
-          $('.customer_modal_table tr:last').before($tr);
-         for (var i = 0; i < res.length; i++) {
-          var $tr = $('<tr class=\'customer_trtd_append\'/>');
-           $tr.append($('<td/>').html(res[i].accountid));
-          $tr.append($('<td/>').html(res[i].packagetypename));
-          $tr.append($('<td/>').html(res[i].paymentdate));
-          $tr.append($('<td/>').html(res[i].paymenttype));
-          $tr.append($('<td/>').html(res[i].payment));
-           $('.customer_modal_table tr:last').before($tr);
+    $.ajax({
+    type: "POST",
+    url: 'customer/customer_payment_modal',
+    dataType: 'json',
+    data: {'customerid': customerid},
+    success: function(res) {
+        if (res)
+        { 
+          console.log(res);
+          $(".customer_header_append").remove(); 
+          $(".customer_trtd_append").remove(); 
+          // empty html
+         
+          $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
+            var $tr = $('<tr class=\'customer_header_append\'/>');
+            $tr.append($('<td/>').html("Ref ID"));
+            $tr.append($('<td/>').html("Package Type"));
+            $tr.append($('<td/>').html("Date"));
+            $tr.append($('<td/>').html("Payment Type"));
+            $tr.append($('<td/>').html("Payment"));
+            // $tr.append($('<td/>').html("Action:"));
+            $('.customer_modal_table tr:last').before($tr);
+           for (var i = 0; i < res.length; i++) {
+            var $tr = $('<tr class=\'customer_trtd_append\'/>');
+             $tr.append($('<td/>').html(res[i].accountid));
+            $tr.append($('<td/>').html(res[i].packagetypename));
+            $tr.append($('<td/>').html(res[i].paymentdate));
+            $tr.append($('<td/>').html(res[i].paymenttype));
+            $tr.append($('<td/>').html(res[i].payment));
+             $('.customer_modal_table tr:last').before($tr);
+          }
         }
       }
-    }
     });
 
     $.ajax({

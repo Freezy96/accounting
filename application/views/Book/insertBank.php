@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-
+<h2>Insert Bank</h2>
 <form action='<?php echo base_url();?>Book/insertbankdata' method='post' name='insert' enctype="multipart/form-data">
  
 <div class="form-group">

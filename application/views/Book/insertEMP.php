@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-
+<h2>Insert Cash on Employee</h2>
 <form action='<?php echo base_url();?>Book/insertempdata' method='post' name='insert' enctype="multipart/form-data">
  
  <div class="form-group">
