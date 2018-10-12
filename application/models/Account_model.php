@@ -83,7 +83,7 @@ class Account_model extends CI_Model{
         foreach ($refid as $value) {
             $refid_res = $value['refid'];
         }
-        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename, a.guarantyitem');
+        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename, a.guarantyitem, a.pullnextperiod');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -961,6 +961,9 @@ class Account_model extends CI_Model{
                 }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"){
                     $status = "baddebt";
                     $this->set_status($status , $accountid);
+                }elseif($totalamount > 0 && $status != "baddebt" && $status != "late"){
+                    $status = " ";
+                    $this->set_status($status , $accountid);
                 }
             }
         }
@@ -1267,7 +1270,7 @@ public function set_baddebt_update($accountid){
     {
         // Run the query
         $this->db->where('accountid', $accountid_original);
-        if($this->db->update('account', array('amount' => $amount, 'interest' => '0', 'status' => 'closed')))
+        if($this->db->update('account', array('amount' => $amount, 'interest' => '0', 'pullnextperiod' => '1', 'status' => 'closed')))
         {
             $return = "insert";
             return $return;

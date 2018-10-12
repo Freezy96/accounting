@@ -186,6 +186,7 @@
         <?php $totalamount = number_format($final_amount+$final_interest, 2, '.', ''); ?>
         <?php if ($totalamount<=0): ?>
           <?php echo "Paid"; ?>
+          <input type="hidden" value="0" name="<?php echo "totalamount_check_limitation".$account_number_count; ?>">
         <?php else: ?>  
           <?php echo $totalamount; ?>
           <input type="hidden" value="<?php echo $totalamount; ?>" name="<?php echo "totalamount_check_limitation".$account_number_count; ?>">
