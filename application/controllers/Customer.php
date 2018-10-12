@@ -29,10 +29,11 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-				// 再滚利息
+		// 再滚利息
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
+		// 再set status
 		$this->load->account_model->account_status_set();
 
 		$this->load->customer_model->reset_duedate();

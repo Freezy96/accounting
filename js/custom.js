@@ -203,7 +203,9 @@ $(document).ready(function() {
                     }
                   if (i<res.length-1) 
                   {
-                    $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
+                    if (total>0 && res[i].pullnextperiod != 1) {
+                      $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
+                    }
                   }
                   $('.account_modal_table tr:last').before($tr);
                 }
@@ -213,47 +215,83 @@ $(document).ready(function() {
             });
           });
 
-//Customer Payment
+//Customer Payment  --- 2 ajax together one for customer one for black list
  $(".customer_payment_view").click(function(event) {
     event.preventDefault();
     var customerid = $(this).val();
     var customername = $(this).attr('data-name');
     $("#customer_modal_title").html(customerid+" - "+customername);
     console.log(customerid);
-  $.ajax({
-  type: "POST",
-  url: 'customer/customer_payment_modal',
-  dataType: 'json',
-  data: {'customerid': customerid},
-  success: function(res) {
-      if (res)
-      { 
-        console.log(res);
-        $(".customer_header_append").remove(); 
-        $(".customer_trtd_append").remove(); 
-        // empty html
-       
-        $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
-          var $tr = $('<tr class=\'customer_header_append\'/>');
-          $tr.append($('<td/>').html("Ref ID"));
-          $tr.append($('<td/>').html("Package Type"));
-          $tr.append($('<td/>').html("Date"));
-          $tr.append($('<td/>').html("Payment Type"));
-          $tr.append($('<td/>').html("Payment"));
-          // $tr.append($('<td/>').html("Action:"));
-          $('.customer_modal_table tr:last').before($tr);
-         for (var i = 0; i < res.length; i++) {
-          var $tr = $('<tr class=\'customer_trtd_append\'/>');
-           $tr.append($('<td/>').html(res[i].accountid));
-          $tr.append($('<td/>').html(res[i].packagetypename));
-          $tr.append($('<td/>').html(res[i].paymentdate));
-          $tr.append($('<td/>').html(res[i].paymenttype));
-          $tr.append($('<td/>').html(res[i].payment));
-           $('.customer_modal_table tr:last').before($tr);
+    var BASE_URL = "<?php echo base_url();?>";
+    $.ajax({
+    type: "POST",
+    url: 'customer/customer_payment_modal',
+    dataType: 'json',
+    data: {'customerid': customerid},
+    success: function(res) {
+        if (res)
+        { 
+          console.log(res);
+          $(".customer_header_append").remove(); 
+          $(".customer_trtd_append").remove(); 
+          // empty html
+         
+          $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
+            var $tr = $('<tr class=\'customer_header_append\'/>');
+            $tr.append($('<td/>').html("Ref ID"));
+            $tr.append($('<td/>').html("Package Type"));
+            $tr.append($('<td/>').html("Date"));
+            $tr.append($('<td/>').html("Payment Type"));
+            $tr.append($('<td/>').html("Payment"));
+            // $tr.append($('<td/>').html("Action:"));
+            $('.customer_modal_table tr:last').before($tr);
+           for (var i = 0; i < res.length; i++) {
+            var $tr = $('<tr class=\'customer_trtd_append\'/>');
+             $tr.append($('<td/>').html(res[i].accountid));
+            $tr.append($('<td/>').html(res[i].packagetypename));
+            $tr.append($('<td/>').html(res[i].paymentdate));
+            $tr.append($('<td/>').html(res[i].paymenttype));
+            $tr.append($('<td/>').html(res[i].payment));
+             $('.customer_modal_table tr:last').before($tr);
+          }
         }
       }
-    }
     });
+
+    $.ajax({
+      type: "POST",
+      url: 'customer_payment_modal',
+      dataType: 'json',
+      data: {'customerid': customerid},
+      success: function(res) {
+          if (res)
+          { 
+            console.log(res);
+            $(".customer_header_append").remove(); 
+            $(".customer_trtd_append").remove(); 
+            // empty html
+           
+            $("#customer_modal_title").html(res[0].customerid+" - "+res[0].customername);         
+              var $tr = $('<tr class=\'customer_header_append\'/>');
+              $tr.append($('<td/>').html("Ref ID"));
+              $tr.append($('<td/>').html("Package Type"));
+              $tr.append($('<td/>').html("Date"));
+              $tr.append($('<td/>').html("Payment Type"));
+              $tr.append($('<td/>').html("Payment"));
+              // $tr.append($('<td/>').html("Action:"));
+              $('.customer_modal_table tr:last').before($tr);
+             for (var i = 0; i < res.length; i++) {
+              var $tr = $('<tr class=\'customer_trtd_append\'/>');
+               $tr.append($('<td/>').html(res[i].accountid));
+              $tr.append($('<td/>').html(res[i].packagetypename));
+              $tr.append($('<td/>').html(res[i].paymentdate));
+              $tr.append($('<td/>').html(res[i].paymenttype));
+              $tr.append($('<td/>').html(res[i].payment));
+               $('.customer_modal_table tr:last').before($tr);
+            }
+          }
+        }
+      });
   });
            // Package insert total amount identify
        $('.weekamount').on('change keyup', function(){
@@ -406,20 +444,26 @@ $(document).ready(function() {
 
   $(".account_ready_to_run").on("click", function(event) {
       event.preventDefault();
-      var refid = $(this).val();
-      console.log(refid);
-      $.ajax({
-      type: "POST",
-      url: 'account/acc_ready_to_run',
-      dataType: 'json',
-      data: {'refid': refid},
-      success: function(res) {
-          if (res)
-          { 
-            alert(res);
+      if (confirm('Are you sure you want to delete this item?')) {
+        var refid = $(this).val();
+        // console.log(refid);
+        $.ajax({
+        type: "POST",
+        url: 'account/acc_ready_to_run',
+        dataType: 'json',
+        data: {'refid': refid},
+        success: function(res) {
+            if (res)
+            { 
+              // alert(res);
+              $("#ready_to_run_"+res).css('display', 'none');
+            }
           }
-        }
-        });
+          });
+      } else {
+
+      }
+
     });
 
 
