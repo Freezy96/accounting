@@ -98,6 +98,9 @@ class Agent extends CI_Controller {
 		$res = $this->load->agent_model->get_agent_payment_not_grouped();
 		$data['payment_not_grouped'] = $res;
 
+		$res = $this->load->agent_model->get_agent_customer();
+		$data['customer'] = $res;
+
 		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
 

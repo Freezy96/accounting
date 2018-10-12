@@ -780,7 +780,18 @@ class Account extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-         $res1= $this->load->account_model->get_status();
+        // 再滚利息
+		$this->load->account_model->interest_30_4week();
+		// 再算totalamount
+		$this->load->account_model->count_total_amount();
+		// 再set status
+		$this->load->account_model->account_status_set();
+
+		$this->load->customer_model->reset_duedate();
+		$this->load->customer_model->checkuserstatus();
+		$this->load->customer_model->blackliststatus();
+		$res = $this->load->account_model->getuserdata();
+        $res1= $this->load->account_model->get_status();
 
         foreach ($res1 as $key => $value) {
             $status = $value['status'];
@@ -800,11 +811,6 @@ class Account extends CI_Controller {
             $res_info = $this->load->account_model->get_package_info($packagename, $packageid);
             $data['p'.$packageid] = $res_info;
         }
-        // 先滚利息
-        $this->load->account_model->interest_30_4week();
-        // 再算totalamount
-        $this->load->account_model->count_total_amount();
-        $this->load->account_model->account_status_set();
 
 
 

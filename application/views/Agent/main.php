@@ -79,7 +79,10 @@
 						<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["agentid"]; ?>" name="agentiddelete">Delete</button>
 					</form>
 					<form action="javascript:void(0);">
-						<a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_agent_<?php echo $val['agentid']; ?>" aria-expanded="true" aria-controls="collapseOne">View Customer</a>
+						<a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_agent_<?php echo $val['agentid']; ?>" aria-expanded="true" aria-controls="collapseOne">View Payment</a>
+					</form>
+					<form action="javascript:void(0);">
+						<a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_agent_customer_<?php echo $val['agentid']; ?>" aria-expanded="true" aria-controls="collapseOne">View Customer</a>
 					</form>
 
 				</div>
@@ -153,6 +156,75 @@
 			</td>
 		</tr>
 		<!-- collapse agent -->
+
+		<!-- collapse agent customer -->
+		<tr id="collapse_agent_customer_<?php echo $val['agentid']; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+			<td colspan="5" >
+				<!-- collapse show customer match the agentid -->
+				<div>
+			      <div class="panel-body">
+			      	<table class="table">
+			      		<tr>
+			      			<td>
+			      				Account ID
+			      			</td>
+			      			<td>
+			      				Customer Name
+			      			</td>
+			      			<td>
+			      				Wechat Name
+			      			</td>
+			      			<td>
+			      				Package
+			      			</td>
+			      			<td>
+			      				Amount To Be Pay
+			      			</td>
+<!-- 			      			<td>
+			      				Action
+			      			</td> -->
+			      		</tr>
+			      		<?php
+			      		// get from agent controller
+			      		if(is_array($customer) && $customer){
+			      			foreach ($customer as $key => $val_customer) {
+						    
+							    if($val_customer['agentid'] == $val['agentid']){
+				        			?>
+				        			
+				        				<tr>
+				        					<td>
+					        					<?php echo $val_customer['refid']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo $val_customer['customername']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo $val_customer['wechatname']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo $val_customer['packagetypename']; ?>
+					        				</td>
+					        				<td>
+					        					<?php echo $val_customer['SUM(a.totalamount)']; ?>
+					        				</td>
+					        				<!-- <td>
+					        					<form action="javascript:void(0);">
+					        						<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_completed['agentid_completed']; ?>" data-refid="<?php echo $value_completed['refid']; ?>" name="accountid">Payment</button>
+					        					</form>
+					        				</td> -->
+					        			</tr>
+				        			<?php
+				        		}
+							}
+			      		}?>
+						
+					</table>
+			      </div>
+			    </div>
+			</td>
+		</tr>
+		<!-- collapse agent customer -->
 	<?php endforeach ?>
 <?php } ?>
 </table>

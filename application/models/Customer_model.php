@@ -319,19 +319,46 @@ public function blackliststatus(){
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $this->db->where('blacklist', 1);
+        // $this->db->where('blacklist', 1);
         $query = $this->db->get();
         $blacklist = $query->result_array();
         $In_db = "no";
         foreach ($blacklist as $key => $value) {
         $value_customer_name = $value['customername'];
         $value_customer_passport = $value['passport'];
+        $blacklist_status = $value['blacklist'];
           if ($value_customer_name == $name && $passport == $value_customer_passport) {
             $In_db = "yes";
+            if ($blacklist_status == 1) {
+              $In_db = "yes_blacklist";
+            }
           }
         } 
         return $In_db;
       }
+
+      //   public function check_availability_normal($name,$passport){
+      //   // Run the query
+
+      //   $this->db->select("blacklist, customername, passport");
+      //   $this->db->from('customer');
+      //   ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      //   $company_identity = $this->session->userdata('adminid');
+      //   $this->db->where('companyid', $company_identity);
+      //   ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+
+      //   $query = $this->db->get();
+      //   $blacklist = $query->result_array();
+      //   $In_db = "no";
+      //   foreach ($blacklist as $key => $value) {
+      //   $value_customer_name = $value['customername'];
+      //   $value_customer_passport = $value['passport'];
+      //     if ($value_customer_name == $name && $passport == $value_customer_passport) {
+      //       $In_db = "yes";
+      //     }
+      //   } 
+      //   return $In_db;
+      // }
 
       public function confirm($msg){
         echo "<script type='text/javascript'>confirm('".$msg."');</script>";    
