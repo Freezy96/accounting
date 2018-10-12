@@ -152,28 +152,58 @@
 <div class="row">
 
 <div class="col-sm-2">
-	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer'">Customer</button>
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer'">Customer</button>
 </div>
 
 <div class="col-sm-2">
-	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>package'">Package</button>
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>package'">Package</button>
 </div>
 
 <div class="col-sm-2">
-	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>agent'">Agent</button>
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>agent'">Agent</button>
 </div>
 
 <div class="col-sm-2">
-	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/baddebt'">Baddebt</button>
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>account/baddebt'">Baddebt</button>
 </div>
 
 <div class="col-sm-2">
-	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer/blacklist'">Blacklist</button>
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>customer/blacklist'">Blacklist</button>
 </div>
 
 <div class="col-sm-2">
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>employee'">Employee</button>
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>expenses'">Expenses</button>
+</div>
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>register'">Register Admin</button>
+</div>
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>password'">Change Password</button>
+</div>
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>Print_Expired'">Print</button>
+</div>
+
+<div class="col-sm-2">
+	<button style="height: 25vh; font-size: 100%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>book'">Book</button>
+</div>
+
+<!-- <div class="col-sm-2">
 	<button style="height: 25vh; font-size: 180%" class="btn btn-block btn-success" onclick="location.href='<?php echo base_url();?>employee'">Employee</button>
-</div>
+</div> -->
 
 </div>
 

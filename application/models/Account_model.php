@@ -52,7 +52,7 @@ class Account_model extends CI_Model{
     public function getuserdata_payment_use($refid){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , a.totalamount, (select sum(a.totalamount) from account a where a.refid = '.$refid.') sum_total, a.refid, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
+        $this->db->select('a.accountid , a.totalamount, (select sum(a.totalamount) from account a where a.refid = '.$refid.') sum_total, a.refid, a.guarantyitem, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -409,10 +409,11 @@ class Account_model extends CI_Model{
                 //5天账 公式
                 elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
                 {
-                    if ($days<=$totaldays_package_manual_payeveryday_manualdays) {
+                    if ($days>=$totaldays_package_manual_payeveryday_manualdays) {
+                        $days = $totaldays_package_manual_payeveryday_manualdays;
+                    }
                         $total_interest = $interest * $days;
                         $this->insert_interest($total_interest,$accountid);
-                    }
                     
                 }
                 //一个月 迟一天110% 算法不同 在这边就那payment来减了 而不是像其他的一样 在view那边加减

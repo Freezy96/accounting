@@ -1554,7 +1554,7 @@ class Account extends CI_Controller {
 				'packagetypeid' => $packagetypeid,
 				'oriamount' => $oriamount,
 				'interest' => 0,
-				'guarantyitem'=>$this->input->post('guarantyitem'),
+				'guarantyitem'=>$guarantyitem,
 				'amount' => $oriamount,
 				'refid' => $refid,
 				// 'payment' => 0,
