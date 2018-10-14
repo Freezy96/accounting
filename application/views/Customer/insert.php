@@ -53,5 +53,5 @@
   
 </div>
 </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-default" id="customer_insert_submit_btn">Submit</button>
 </form>
