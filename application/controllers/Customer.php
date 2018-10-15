@@ -313,56 +313,29 @@ $this->load->view('template/footer');
     }
             $return = $this->customer_model->insert_blacklist($data);
    }
-
+public function blacklistbutton($customerid){
+	$this->load->insertblacklist($customerid);
+	$this->load->toblacklist($customerid);
+}
   public function insertblacklist($customerid){
-  	 $data = array(
+  	 $data2 = array(
             'customerid' => $customerid
             );
-$this->db->where('customerid', $customerid);
-        $this->db->insert('blacklist', $data);
-$return = $this->customer_model->insert_blacklist($data);
+
+	$this->db->where('customerid', $customerid);
+        $this->db->insert('blacklist', $data2);
+$return = $this->customer_model->insert_blacklist($data2);
 
   }
-  public function insertblacklist()
+  
+	public function toblacklist($customerid)
 	{	
-		$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-		$customerid = $this->input->post('customerid');
-		$this->load->insertblacklist($customerid);
-		$res = $this->load->customer_model->getuserdataupdate($customerid);
-		$data['result'] = $res;
-		$this->load->view('employee/update', $data);
-		$this->load->view('template/footer');
-	}
-
-	public function updatedb()
-	{	
-		$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-		///////////////Combo of User Identity Insert///////////////////
-		$company_identity = $this->session->userdata('adminid');
-		///////////////Combo of User Identity Insert///////////////////		
+		$blacklist=1;
 		$data = array(
-		'employeeid' => $this->input->post('employeeidedit'),
-		'employeename' => $this->input->post('name'),
-		'salary' => $this->input->post('salary'),
-		///////////////Combo of User Identity Insert///////////////////
-		'companyid' => $company_identity,
-		///////////////Combo of User Identity Insert///////////////////
-		'contactnum' => $this->input->post('contactnum')
+		'blacklist' => $blacklist,
 		);
 
-		$return = $this->employee_model->update($data);
-		$data['return'] = $return;
-
-		if($return == true){
-
-			$this->session->set_flashdata('return',$data);
-			redirect('employee');
-		}
-		$this->load->view('template/footer');
+		$return = $this->customer_model->update($data);
 	} 
        public function customer_payment_modal() 
 	{	

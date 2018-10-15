@@ -32,7 +32,7 @@
 				ID
 				</td>
 				<td>
-					NAME(PASSPORT/IC)
+					NAME (PASSPORT/IC)
 				</td>
 					<td>
 					WECHAT
@@ -60,11 +60,11 @@
 		$status=$val['status'];
 		?>
 		 <?php if ($status=="good"){?>
-			<tr bgcolor="#54FF9F" width="90%">
+			<tr bgcolor="#54FF9F" width="70%">
 			 <?php }elseif ($status=="baddebt") {?>
-			<tr bgcolor="#EE5C42" width="90%">
+			<tr bgcolor="#EE5C42" width="70%">
 			<?php  }elseif ($status=="late") {?>
-			<tr bgcolor="CDCD00" width="90%">
+			<tr bgcolor="CDCD00" width="70%">
 				<?php } ?>
 			
 		<?php ?>
@@ -88,22 +88,26 @@
 				<?php echo $val['phoneno']; ?>
 			</td>
 			
-				<td width="80%">
+				<td >
 					<div class="btn-group">
 						<form action="javascript:void(0);">
 							<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid">View Payment</button>
 						</form>
+						<br>
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
 							<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
 						</form>
+						<br>
 						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
 						</form>
+						<br>
 						<form action='<?php echo base_url();?>customer/resets' method='post' name='customerresetstatus'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to Reset This Status (3 days)');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">ResetStatus</button>
 						</form>
-						<form action='<?php echo base_url();?>customer/insertblacklist' method='post' name='insertblacklist'>
-							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to put into Blacklist');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">Blacklist</button>
+						<br>
+						<form action='<?php echo base_url();?>customer/blacklistbutton' method='post' name='blacklistbutton'>
+							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to put into Blacklist');" value="<?php echo $val["customerid"]; ?>" name="blacklistbutton">Blacklist</button>
 						</form>
 					</div>
 				</td>
