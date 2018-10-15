@@ -4,7 +4,7 @@
 <form action="<?php echo base_url();?>book/total" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>
-	    <input type="date" class="form-control date_book" id="" placeholder="" name="date">
+	    <input type="date" class="form-control date_book" id="date" placeholder="" name="date">
 	    <input type="hidden" name="day" class="book_day_input">
 	    <input type="hidden" name="month" class="book_month_input">
 	    <input type="hidden" name="year" class="book_year_input">
@@ -19,125 +19,86 @@
 <table  class="table table-condensed">
 <thead>
 <tr>
-<th colspan="3" style="text-align: center;">Debit</th>
 </tr>
 <tr>
 <th>Date</th>
 <th>Description</th>
-<th>Amount</th>
+<th>Debit</th>
+<th>Credit</th>
+<th>Total</th>
 </tr>
 </thead>
 <tbody>
 
-	<?php 
-	$debit=0;
-	if(is_array($result) && $result){ 
-		$debit=0;
-
-	if ($balance>0) {
-		?>
-		<td colspan="2" align="left">
-		<?php
-		echo "Balance b/f:Debit ".$balance;
-		$debit=$balance;
-		?>
-		</td>
-		<?php
-	}?>
-		<?php
+	<tr>
+<?php if(is_array($result) && $result){
+	$total=0;
+	 foreach ($result as $key => $val): 
+	
+$date = $this->input->post('date');
+ ?>
+<td><?php echo $date; ?></td>
+<td>Balance forward</td>
+<td><?php if($balance<0){echo $balance; $total=$balance;}else{}?></td>
+<td><?php if($balance>0){echo $balance; $total=$balance;}else{}?></td>
+<td><?php echo $total?></td>
+</tr>
+<?php endforeach ?>
+	<?php
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 // echo $date_month;
 		?>
-		
-	
-<?php if ($type=="receive"){?>
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount']; $debit+= $val['amount'];?></td>
+
+<td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank']; }else{}?></font></td>
+<td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank']; }else{}?></td>
+<td><?php echo $total?></td>
 </tr>
-<?php } ?>
 <?php endforeach ?>
 <?php } ?>
-</tbody>
 </table>
-</td>
-<td width="50%" style="vertical-align: top;">
-<table  class="table table-condensed">
-<thead>
-<tr>
-<th colspan="3" style="text-align: center;">Credit</th>
-</tr>
-<tr>
-<th>Date</th>
-<th>Description</th>
-<th>Amount</th>
-</tr>
-</thead>
-<tbody>
-	<?php $credit=0;
-	if(is_array($result) && $result){ 
-	$credit=0;
-	if ($balance<0) {?>
-		<td colspan="2" align="right">
-			<?php
-			echo "Balance b/f:Credit ".$balance*-1;
-			$credit=$balance*-1;
-			?>
 
-		</td><?php
-	}
-	 foreach ($result as $key => $val): 
-	$type=$val['type'];
-		?>
-		 <?php if ($type=="payment"){?>
-<tr>
-<td><?php echo $val['datee']; ?></td>
-<td><?php echo $val['description']; ?></td>
-<td align="right"><?php echo $val['amount'];$credit+= $val['amount'];?></td>
-</tr>
-<?php }?>
-<?php endforeach ?>
-<?php } ?>
-</tbody>
+<br>
+<br>
+<br>
+<table width="100%">
+<form action='<?php echo base_url();?>Book/inserttotaldata' method='post' name='insert' enctype="multipart/form-data">
+ <tr>
+ <td>
+ 	<label for="">Date:</label>
+    <input type="date" class="form-control" id="" name="datee" required>
+ </td>
+ 	<td>
+ 		<label for="">Description:</label>
+    <input type="text" class="form-control" id="" placeholder="Des" name="description" required>
+ 	</td>
+ 	<td>
+ 		<label for="">Bank:</label>
+   <select name="bank">
+        <option selected disabled>------------</option>
+        <option value="mbb">MBB</option>   
+        <option value="pbb">PBB</option>
+        <option value="rhb">RHB</option>   
+        <option value="hlb">HLB</option>
+        </select>
+ 	</td>
+ 	<td>
+ 	<label for="">Type:</label>
+    <select name="type">
+        <option selected disabled>------------</option>
+        <option value="debit">DEBIT</option>   
+        <option value="credit">CREDIT</option>
+    </select>
+ 	</td>
+ 	<td>
+ 	<label for="">Amount:</label>
+<input type="number" step="0.01" class="form-control" id="" placeholder="Amount" name="amount" required>	
+ 	</td>
+ 	<td><button type="submit" class="btn btn-default">Submit</button></td>
+ 	
+ </tr>
+</form>
 </table>
-</td>
-</tr>
-<tr>
-
-	<?php 
-	$balancec = abs($debit-$credit);
-	if ($debit>$credit) {?>
-		<td colspan="2" align="right">
-			<?php
-			echo "Balance c/f:Credit ".$balancec;
-			?>
-		</td><?php
-	}elseif ($credit>$debit) {
-		?>
-		<td colspan="2" align="left">
-		<?php
-		echo "Balance c/f:Debit ".$balancec;
-		?>
-		</td>
-	<?php
-	}?>
-
-
-</tr>
-<h3>
-<?php 
-	$balancec = abs($debit-$credit);
-	if ($debit>$credit) {
-
-		echo "Balance:Credit ".$balancec;
-	}elseif ($credit>$debit) {
-		echo "Balance:Debit ".$balancec;
-	}else{
-
-	}
-	 ?>
-	 </h3>
-</table>
-<a class="btn btn-default" href="<?php echo site_url('book/inserttotal'); ?>" >Insert</a>

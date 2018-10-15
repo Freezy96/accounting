@@ -27,7 +27,7 @@
     }
            
             public function insertT($data){
-        if($this->db->insert('Total', $data)){
+        if($this->db->insert('total', $data)){
             $return = "insert";
             $id = $this->db->insert_id();
             return $id;
@@ -270,25 +270,25 @@
      public function gettotaldata($date){
          $this->db->select('*');
         $this->db->from('total');
-        $this->db->where("datee", $date);
+        $this->db->where('datee', $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
     }public function gettotaldebit($date){
-        $typed="receive";
+        $typed="debit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
-        $this->db->where("type", $typed);
-        $this->db->where("datee <", $date);
+        $this->db->where('type', $typed);
+        $this->db->where('datee <', $date);
         $query = $this->db->get();
         return $query->result_array();
     }
     public function gettotalcredit($date){
-        $typec="payment";
+        $typec="credit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
-        $this->db->where("type", $typec);
-        $this->db->where("datee <", $date);
+        $this->db->where('type', $typec);
+        $this->db->where('datee <', $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -303,7 +303,7 @@
             {
                 $sumc= $value['SUM(amount)'];
             }
-        $balance=$sumd-$sumc;
+        $balance=$sumc-$sumd;
         return $balance;
     }
     
