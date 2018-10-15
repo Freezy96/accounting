@@ -35,16 +35,19 @@
 <tr>
 <?php if(is_array($result) && $result){
 	$debit=0;
+ 
+     foreach ($result as $key => $val):
+$date = $this->input->post('date');
  ?>
-<td><?php echo $val['datee']; ?></td>
+<td><?php echo $date; ?></td>
 <td>Balance forward</td>
 <td><?php echo $val[$mbb];?></td>
 <td><?php echo $val[$pbb];?></td>
 <td><?php echo $val[$rhb];?></td>
 <td><?php echo $val[$hlb];?></td>
-<td ><?php if ($balance>0) { echo $val[$balance];$debit=$balance;}?></td>
+<td ><?php echo $balance;$debit=$balance;?></td>
 </tr>
-
+<?php endforeach ?>
 		<?php
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];

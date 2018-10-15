@@ -126,14 +126,14 @@ public function insertbankdata()
         $data['result'] = $res;
         $result=$this->load->book_model->getbalancebank($date_day);
         $data['balance'] = $result;
-        $result1=$this->load->book_model->getbalancembb($date_day);
-        $data['mmb'] = $result1;
-        $result2=$this->load->book_model->getbalancepbb($date_day);
-        $data['pbb'] = $result2;
-        $result3=$this->load->book_model->getbalancerhb($date_day);
-        $data['rhb'] = $result3;
-        $result4=$this->load->book_model->getbalancehlb($date_day);
-        $data['hlb'] = $result4;
+        $result=$this->load->book_model->getbalancembb($date_day);
+        $data['mbb'] = $result;
+        $result=$this->load->book_model->getbalancepbb($date_day);
+        $data['pbb'] = $result;
+        $result=$this->load->book_model->getbalancerhb($date_day);
+        $data['rhb'] = $result;
+        $result=$this->load->book_model->getbalancehlb($date_day);
+        $data['hlb'] = $result;
         // echo "<script>console.log(".$result.")</script>";
         
     	$this->load->view('book/bank',$data);
@@ -144,24 +144,11 @@ public function insertbankdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $day = $this->input->post('date');
-
-		if ($this->input->post('month')<10) {
-			$month = "0".$this->input->post('month');
-		}else{
-			$month = $this->input->post('month');
-		}
-		
-		$year = $this->input->post('year');
-		
-		
-		$date_day = $year."-".$month;
-		$date_year = $year;
-		echo "<script>console.log(".$date_day.")</script>";
-		echo "<script>console.log(".$date_year.")</script>";
-        $result=$this->load->book_model->getbalancecoh($date_day);
+        $date = $this->input->post('date');
+       
+        $result=$this->load->book_model->getbalancecoh($date);
         $data['balance'] = $result;
-        $res= $this->load->book_model->getcohdata($date_day);
+        $res= $this->load->book_model->getcohdata($date);
         $data['result'] = $res;
     	$this->load->view('book/coh',$data);
     		$this->load->view('template/footer');
@@ -172,7 +159,7 @@ public function insertbankdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $day = $this->input->post('date');
+        $day = $this->input->post('day');
 
 		if ($this->input->post('month')<10) {
 			$month = "0".$this->input->post('month');

@@ -42,7 +42,7 @@
 
         $this->db->select('*');
         $this->db->from('bank');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
@@ -54,7 +54,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
         $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -63,7 +63,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
         $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -90,7 +90,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -101,7 +101,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -126,7 +126,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -137,7 +137,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -162,7 +162,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -173,7 +173,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -198,7 +198,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -209,7 +209,7 @@
         $this->db->from('bank');
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -230,7 +230,7 @@
      public function getcohdata($date){
         $this->db->select('*');
         $this->db->from('coh');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
@@ -240,7 +240,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('coh');
         $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -249,7 +249,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('coh');
         $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -270,7 +270,7 @@
      public function gettotaldata($date){
          $this->db->select('*');
         $this->db->from('total');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
@@ -279,7 +279,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('total');
         $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -288,7 +288,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('total');
         $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
