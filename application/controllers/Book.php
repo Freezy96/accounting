@@ -112,14 +112,14 @@ public function insertbankdata()
         $data['result'] = $res;
         $result=$this->load->book_model->getbalancebank($date);
         $data['balance'] = $result;
-        $result=$this->load->book_model->getbalancembb($date);
-        $data['mbb'] = $result;
-        $result=$this->load->book_model->getbalancepbb($date);
-        $data['pbb'] = $result;
-        $result=$this->load->book_model->getbalancerhb($date);
-        $data['rhb'] = $result;
-        $result=$this->load->book_model->getbalancehlb($date);
-        $data['hlb'] = $result;
+        $result1=$this->load->book_model->getbalancembb($date);
+        $data['mbb'] = $result1;
+        $result2=$this->load->book_model->getbalancepbb($date);
+        $data['pbb'] = $result2;
+        $result3=$this->load->book_model->getbalancerhb($date);
+        $data['rhb'] = $result3;
+        $result4=$this->load->book_model->getbalancehlb($date);
+        $data['hlb'] = $result4;
         // echo "<script>console.log(".$result.")</script>";
         
     	$this->load->view('book/bank',$data);
@@ -137,7 +137,7 @@ public function insertbankdata()
         $res= $this->load->book_model->getcohdata($date);
         $data['result'] = $res;
     	$this->load->view('book/coh',$data);
-    		$this->load->view('template/footer');
+    	$this->load->view('template/footer');
 
 	}
 		
@@ -145,14 +145,14 @@ public function insertbankdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-       $date = $this->input->post('date');
+        $date = $this->input->post('date');
         
         $result= $this->load->book_model->gettotaldata($date);
         $data['result'] = $result;
-        $result=$this->load->book_model->getbalancetotal($date);
-        $data['balance'] = $result;
-    	$this->load->view('book/total',$data);
-    		$this->load->view('template/footer');
+        $res=$this->load->book_model->getbalancetotal($date);
+        $data['balance'] = $res;
+    	$this->load->view('book/Total',$data);
+    	$this->load->view('template/footer');
 
 	}
 

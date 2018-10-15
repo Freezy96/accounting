@@ -270,16 +270,18 @@
      public function gettotaldata($date){
          $this->db->select('*');
         $this->db->from('total');
-        $this->db->where('datee', $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
-    }public function gettotaldebit($date){
+    }
+
+    public function gettotaldebit($date){
         $typed="debit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
         $this->db->where('type', $typed);
-        $this->db->where('datee <', $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -288,7 +290,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('total');
         $this->db->where('type', $typec);
-        $this->db->where('datee <', $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }

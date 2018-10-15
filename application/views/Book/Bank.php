@@ -41,10 +41,10 @@ $date = $this->input->post('date');
  ?>
 <td><?php echo $date; ?></td>
 <td>Balance forward</td>
-<td><?php echo $val[$mbb];?></td>
-<td><?php echo $val[$pbb];?></td>
-<td><?php echo $val[$rhb];?></td>
-<td><?php echo $val[$hlb];?></td>
+<td><?php echo $mbb;?></td>
+<td><?php echo $pbb;?></td>
+<td><?php echo $rhb;?></td>
+<td><?php echo $hlb;?></td>
 <td ><?php echo $balance;$debit=$balance;?></td>
 </tr>
 <?php endforeach ?>

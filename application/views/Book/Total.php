@@ -29,18 +29,18 @@
 </tr>
 </thead>
 <tbody>
-
-	<tr>
+<tr>
 <?php if(is_array($result) && $result){
 	$total=0;
+	
 	 foreach ($result as $key => $val): 
 	
 $date = $this->input->post('date');
  ?>
 <td><?php echo $date; ?></td>
 <td>Balance forward</td>
-<td><?php if($balance<0){echo $balance; $total=$balance;}else{}?></td>
-<td><?php if($balance>0){echo $balance; $total=$balance;}else{}?></td>
+<td><?php if($balance<0){echo $balance; $total=$balance;}else{};?></td>
+<td><?php if($balance>0){echo $balance; $total=$balance;}else{};?></td>
 <td><?php echo $total?></td>
 </tr>
 <?php endforeach ?>
