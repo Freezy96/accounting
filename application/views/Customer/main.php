@@ -102,6 +102,9 @@
 						<form action='<?php echo base_url();?>customer/resets' method='post' name='customerresetstatus'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to Reset This Status (3 days)');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">ResetStatus</button>
 						</form>
+						<form action='<?php echo base_url();?>customer/insertblacklist' method='post' name='insertblacklist'>
+							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to put into Blacklist');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">Blacklist</button>
+						</form>
 					</div>
 				</td>
 		</tr>
