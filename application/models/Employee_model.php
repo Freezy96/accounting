@@ -33,12 +33,9 @@ class Employee_Model extends CI_Model{
         return $query->result_array();
     }
 
-    public function update($data){
-        foreach ($data as $key => $value) {
-           $employeeid = $value['employeeid'];
-        }
+    public function update($data, $employeeid){
         $this->db->where('employeeid', $employeeid);
-        if($this->db->replace('employee', $data)){
+        if($this->db->update('employee', $data)){
             $return = "update";
             return $return;
         }else{

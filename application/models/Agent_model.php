@@ -33,12 +33,9 @@ class Agent_Model extends CI_Model{
         return $query->result_array();
     }
 
-    public function update($data){
-        foreach ($data as $key => $value) {
-           $agentid = $value['agentid'];
-        }
+    public function update($data, $agentid){
         $this->db->where('agentid', $agentid);
-        if($this->db->replace('agent', $data)){
+        if($this->db->update('agent', $data)){
             $return = "update";
             return $return;
         }else{

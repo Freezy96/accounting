@@ -227,12 +227,10 @@ public function blackliststatus(){
     }
 }
 
-    public function update($data){
-        foreach ($data as $key => $value) {
-           $customerid = $value['customerid'];
-        }
+    public function update($data, $customerid){
+
         $this->db->where('customerid', $customerid);
-        if($this->db->replace('customer', $data)){
+        if($this->db->update('customer', $data)){
             $return = "update";
             return $return;
         }else{

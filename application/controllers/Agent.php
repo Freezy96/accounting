@@ -161,11 +161,11 @@ class Agent extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		$agentid = $this->input->post('agentidedit');
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
-		'agentid' => $this->input->post('agentidedit'),
 		'agentname' => $this->input->post('name'),
 		///////////////Combo of User Identity Insert///////////////////
 		'companyid' => $company_identity,
@@ -173,7 +173,7 @@ class Agent extends CI_Controller {
 		'charge' => $this->input->post('charge')
 		);
 
-		$return = $this->agent_model->update($data);
+		$return = $this->agent_model->update($data, $agentid);
 		$data['return'] = $return;
 
 		if($return == true){
