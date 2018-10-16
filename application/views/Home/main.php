@@ -99,10 +99,17 @@
 							</span>
 						</td>
 						<td>
-							<?php if ($val['packagetypename'] == "package_25_month"|| $val['packagetypename'] == "package_20_week" || $val['packagetypename'] == "package_15_week" || $val['packagetypename'] == "package_15_5days" ||$val['packagetypename'] == "package_10_5days"): ?>
-								<?php $val['interest'] = $val['SUM(a.totalamount)'] - $val['oriamount'] ?>
-							<?php endif ?>
-							<?php echo $val['SUM(a.totalamount)']."(Interest:".$val['interest'].")"; ?>
+								<?php $val['interest'] = ${'totalamount'.$val['refid']} - $val['oriamount'] ?>
+								<?php echo ${'totalamount'.$val['refid']}; ?>
+								<?php if ($val['interest']>=0): ?>
+
+									<?php echo "(Interest:".$val['interest'].")"; ?>
+
+								<?php else: ?>
+									<?php $val['interest'] = $val['interest'] * -1; ?>
+									<?php echo "(Payment:".$val['interest'].")"; ?>
+
+								<?php endif ?>
 						</td>
 						<td>
 							<?php echo $val['phoneno']; ?>

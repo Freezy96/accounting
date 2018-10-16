@@ -73,11 +73,11 @@ class Employee extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		$employeeid = $this->input->post('employeeidedit');
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
-		'employeeid' => $this->input->post('employeeidedit'),
 		'employeename' => $this->input->post('name'),
 		'salary' => $this->input->post('salary'),
 		///////////////Combo of User Identity Insert///////////////////
@@ -86,7 +86,7 @@ class Employee extends CI_Controller {
 		'contactnum' => $this->input->post('contactnum')
 		);
 
-		$return = $this->employee_model->update($data);
+		$return = $this->employee_model->update($data, $employeeid);
 		$data['return'] = $return;
 
 		if($return == true){
