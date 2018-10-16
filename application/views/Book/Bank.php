@@ -33,10 +33,9 @@
 </thead>
 <tbody>
 <tr>
-<?php if(is_array($result) && $result){
+<?php 
 	$debit=0;
  
-     foreach ($result as $key => $val):
 $date = $this->input->post('date');
  ?>
 <td><?php echo $date; ?></td>
@@ -47,8 +46,10 @@ $date = $this->input->post('date');
 <td><?php echo $hlb;?></td>
 <td ><?php echo $balance;$debit=$balance;?></td>
 </tr>
-<?php endforeach ?>
-		<?php
+
+
+<?php if(is_array($result) && $result){
+	
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 	$bank=$val['bank'];
