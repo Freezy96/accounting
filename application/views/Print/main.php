@@ -71,10 +71,10 @@
 				<?php echo $val['packagetypename']; ?>
 			</td>
 			<td>
-				<?php echo $val['SUM(a.totalamount)']; ?>
+				<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
 			</td>
 			<td>
-				<?php echo $val['MIN(a.duedate)']; ?>
+				<!-- <?php echo $val['MIN(a.duedate)']; ?> -->
 			</td>
 		</tr>
 		<?php endforeach ?>

@@ -101,8 +101,8 @@ $date = $this->input->post('date');
  	</td>
  	<td>
  		<label for="">Bank:</label>
-   <select name="bank">
-        <option selected disabled>------------</option>
+   <select name="bank" required>
+        <option value="" selected disabled>------------</option>
         <option value="mbb">MBB</option>   
         <option value="pbb">PBB</option>
         <option value="rhb">RHB</option>   
@@ -111,8 +111,8 @@ $date = $this->input->post('date');
  	</td>
  	<td>
  	<label for="">Type:</label>
-    <select name="type">
-        <option selected disabled>------------</option>
+    <select name="type" required>
+        <option value="" selected disabled>------------</option>
         <option value="payment">Payment</option>   
         <option value="receive">Receive</option>
     </select>

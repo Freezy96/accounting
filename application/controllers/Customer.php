@@ -166,12 +166,13 @@ class Customer extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
+		$customerid = $this->input->post('customeridedit');
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
 		///////////////Combo of User Identity Insert///////////////////
-			$redirect = $this->input->post('redirect_destination');
+		$redirect = $this->input->post('redirect_destination');
 		$data = array(
-		'customerid' => $this->input->post('customeridedit'),
+		// 'customerid' => $customerid,
 		'customername' => $this->input->post('name'),
 		'wechatname' => $this->input->post('wechatname'),
 		'address' => $this->input->post('address'),
@@ -183,33 +184,41 @@ class Customer extends CI_Controller {
 		'passport' => $this->input->post('passport')
 		);
 
-		$return = $this->customer_model->update($data);
+		$return = $this->load->customer_model->update($data, $customerid);
 		$data['return'] = $return;
 
 		$customerid_photouse = $this->input->post('customeridedit');
-		$config['upload_path']= realpath(APPPATH . '../Image/Customer_Image');
-		$config['allowed_types'] = 'gif|jpg|png|jpeg';
-		$config['overwrite'] = TRUE;
-		$config['file_name'] = $customerid_photouse;
-		$config['max_size'] = "2048000"; 
-		$config['max_height'] = "9999";
-		$config['max_width'] = "9999";
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('profilePic')){
-				$image_data = $this->upload->data();
-			    $fname=$image_data[file_name];
-			    $temp = explode(".", $fname);
-				$newfilename = $customerid_photouse . '.' . end($temp);
 
-			    $fpath=site_url().'Image/Customer_Image/'.$newfilename;
-			    $return = $this->customer_model->update_photo_pathname($customerid_photouse,$fpath);
-			    $data['return'] = $return;
-		    }
-		    else{
-		            echo $this->upload->display_errors();
-		            // $data['return'] = "Failed";
-		    	// redirect('customer');
-		    } 
+		if (file_exists($_FILES['profilePic']['tmp_name']) || is_uploaded_file($_FILES['profilePic']['tmp_name'])) {
+			$config['upload_path']= realpath(APPPATH . '../Image/Customer_Image');
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['overwrite'] = TRUE;
+			$config['file_name'] = $customerid_photouse;
+			$config['max_size'] = "2048000"; 
+			$config['max_height'] = "9999";
+			$config['max_width'] = "9999";
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('profilePic')){
+						$image_data = $this->upload->data();
+					    $fname=$image_data[file_name];
+					    $temp = explode(".", $fname);
+						$newfilename = $customerid_photouse . '.' . end($temp);
+
+					    $fpath=site_url().'Image/Customer_Image/'.$newfilename;
+					    $return = $this->customer_model->update_photo_pathname($customerid_photouse,$fpath);
+				    $data['return'] = $return;
+			    }
+			    else{
+			            echo $this->upload->display_errors();
+			            // $data['return'] = "Failed";
+			    	// redirect('customer');
+			    }
+
+		}
+
+		    
+
+ 
 
 		if($return == true){
 			// session to sow success or not, only available next page load
