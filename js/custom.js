@@ -51,6 +51,18 @@ $('.switch_package_checkbox_class').change(function(){
     }
  });
 
+$('.book_total_select').change(function(){
+  var value = $(this).val();
+    if (value == "")
+    {
+      $('#book_total_submit_btn').prop("disabled", true);
+    }
+    else
+    {
+      $('#book_total_submit_btn').prop("disabled", false);
+    }
+ });
+
   
 $(document).ready(function() {
 
