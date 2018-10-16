@@ -25,19 +25,9 @@
         }
 
     }
-            public function insertE($data){
-        if($this->db->insert('Emp', $data)){
-            $return = "insert";
-            $id = $this->db->insert_id();
-            return $id;
-        }else{
-            $return = "false";
-            return $return;
-        }
-
-    }
+           
             public function insertT($data){
-        if($this->db->insert('Total', $data)){
+        if($this->db->insert('total', $data)){
             $return = "insert";
             $id = $this->db->insert_id();
             return $id;
@@ -52,19 +42,19 @@
 
         $this->db->select('*');
         $this->db->from('bank');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
 
 
     }
-     public function getbankdebit($date){
+    public function getbankdebit($date){
         $typed="receive";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
         $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -73,7 +63,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
         $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -91,10 +81,156 @@
         $balance=$sumd-$sumc;
         return $balance;
     }
+
+
+    public function getmbbdebit($date){
+        $typed="receive";
+        $bank="mbb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typed);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getmbbcredit($date){
+        $typec="payment";
+        $bank="mbb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typec);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getbalancembb($date){
+        $mbbd = $this->getmbbdebit($date);
+            foreach ($mbbd as $key => $value) 
+            {
+                $sumd= $value['SUM(amount)'];
+            }
+        $mbbc = $this->getmbbcredit($date);
+            foreach ($mbbc as $key => $value) 
+            {
+                $sumc= $value['SUM(amount)'];
+            }
+        $mbb=$sumd-$sumc;
+        return $mbb;
+    }
+        public function getpbbdebit($date){
+        $typed="receive";
+        $bank="pbb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typed);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getpbbcredit($date){
+        $typec="payment";
+        $bank="pbb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typec);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getbalancepbb($date){
+        $pbbd = $this->getpbbdebit($date);
+            foreach ($pbbd as $key => $value) 
+            {
+                $sumd= $value['SUM(amount)'];
+            }
+        $pbbc = $this->getpbbcredit($date);
+            foreach ($pbbc as $key => $value) 
+            {
+                $sumc= $value['SUM(amount)'];
+            }
+        $pbb=$sumd-$sumc;
+        return $pbb;
+    }
+        public function getrhbdebit($date){
+        $typed="receive";
+        $bank="rhb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typed);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getrhbcredit($date){
+        $typec="payment";
+        $bank="rhb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typec);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getbalancerhb($date){
+        $rhbd = $this->getrhbdebit($date);
+            foreach ($rhbd as $key => $value) 
+            {
+                $sumd= $value['SUM(amount)'];
+            }
+        $rhbc = $this->getrhbcredit($date);
+            foreach ($rhbc as $key => $value) 
+            {
+                $sumc= $value['SUM(amount)'];
+            }
+        $rhb=$sumd-$sumc;
+        return $rhb;
+    }
+    public function gethlbdebit($date){
+        $typed="receive";
+        $bank="hlb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typed);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function gethlbcredit($date){
+        $typec="payment";
+        $bank="hlb";
+        $this->db->select('SUM(amount)');
+        $this->db->from('bank');
+        $this->db->where("type", $typec);
+        $this->db->where("bank", $bank);
+        $this->db->where("datee <", $date);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getbalancehlb($date){
+        $hlbd = $this->gethlbdebit($date);
+            foreach ($hlbd as $key => $value) 
+            {
+                $sumd= $value['SUM(amount)'];
+            }
+        $hlbc = $this->gethlbcredit($date);
+            foreach ($hlbc as $key => $value) 
+            {
+                $sumc= $value['SUM(amount)'];
+            }
+        $hlb=$sumd-$sumc;
+        return $hlb;
+    }
      public function getcohdata($date){
         $this->db->select('*');
         $this->db->from('coh');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
@@ -104,7 +240,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('coh');
         $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -113,7 +249,7 @@
         $this->db->select('SUM(amount)');
         $this->db->from('coh');
         $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -131,68 +267,30 @@
         $balance=$sumd-$sumc;
         return $balance;
     }
-     public function getempdata($date){
-         $this->db->select('*');
-        $this->db->from('emp');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
-        $this->db->order_by('datee','ASC');
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function getempdebit($date){
-        $typed="receive";
-        $this->db->select('SUM(amount)');
-        $this->db->from('emp');
-        $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function getempcredit($date){
-        $typec="payment";
-        $this->db->select('SUM(amount)');
-        $this->db->from('emp');
-        $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function getbalanceemp($date){
-        $debit = $this->getempdebit($date);
-            foreach ($debit as $key => $value) 
-            {
-                $sumd= $value['SUM(amount)'];
-            }
-        $credit = $this->getempcredit($date);
-            foreach ($credit as $key => $value) 
-            {
-                $sumc= $value['SUM(amount)'];
-            }
-        $balance=$sumd-$sumc;
-        return $balance;
-    }
      public function gettotaldata($date){
          $this->db->select('*');
         $this->db->from('total');
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
+        $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
-    }public function gettotaldebit($date){
-        $typed="receive";
+    }
+
+    public function gettotaldebit($date){
+        $typed="debit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
-        $this->db->where("type", $typed);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where('type', $typed);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
     public function gettotalcredit($date){
-        $typec="payment";
+        $typec="credit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
-        $this->db->where("type", $typec);
-        $this->db->where("DATE_FORMAT(datee,'%Y-%m') <", $date);
+        $this->db->where('type', $typec);
+        $this->db->where("datee <", $date);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -207,7 +305,7 @@
             {
                 $sumc= $value['SUM(amount)'];
             }
-        $balance=$sumd-$sumc;
+        $balance=$sumc-$sumd;
         return $balance;
     }
     

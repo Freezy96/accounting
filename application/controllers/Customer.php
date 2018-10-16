@@ -313,7 +313,30 @@ $this->load->view('template/footer');
     }
             $return = $this->customer_model->insert_blacklist($data);
    }
+public function blacklistbutton($customerid){
+	$this->load->insertblacklist($customerid);
+	$this->load->toblacklist($customerid);
+}
+  public function insertblacklist($customerid){
+  	 $data2 = array(
+            'customerid' => $customerid
+            );
 
+	$this->db->where('customerid', $customerid);
+        $this->db->insert('blacklist', $data2);
+$return = $this->customer_model->insert_blacklist($data2);
+
+  }
+  
+	public function toblacklist($customerid)
+	{	
+		$blacklist=1;
+		$data = array(
+		'blacklist' => $blacklist,
+		);
+
+		$return = $this->customer_model->update($data);
+	} 
        public function customer_payment_modal() 
 	{	
 		$customerid = $this->input->post('customerid');

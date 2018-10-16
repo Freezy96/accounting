@@ -34,6 +34,7 @@ class Book extends CI_Controller {
 		$data = array(
 		'description' => $this->input->post('description'),
 		'type' => $this->input->post('type'),
+		'bank'=> $this->input->post('bank'),
 		'amount' => $this->input->post('amount'),
 		'datee' => $this->input->post('datee')
 		);
@@ -90,6 +91,7 @@ public function insertbankdata()
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
 		'description' => $this->input->post('description'),
+		'bank'=> $this->input->post('bank'),
 		'type' => $this->input->post('type'),
 		'amount' => $this->input->post('amount'),
 		'datee' => $this->input->post('datee')
@@ -100,60 +102,26 @@ public function insertbankdata()
 
 		$this->load->view('template/footer');
 	}
-	public function insertemp()
-	{	
-		$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-		$this->load->view('Book/insertemp');
-		$this->load->view('template/footer');
-	}
-public function insertempdata()
-	{	
-		$this->load->helper('url');
-		$this->load->view('template/header');
-		$this->load->view('template/nav');
-
-		///////////////Combo of User Identity Insert///////////////////
-		$company_identity = $this->session->userdata('adminid');
-		///////////////Combo of User Identity Insert///////////////////		
-		$data = array(
-		'description' => $this->input->post('description'),
-		'type' => $this->input->post('type'),
-		'amount' => $this->input->post('amount'),
-		'datee' => $this->input->post('datee')
-		);
-		echo "<script>alert('insert successfully!'); location.href='/accounting/book/emp';</script>";
-		$return = $this->book_model->insertE($data);
-		$data['return'] = $return;
-
-		$this->load->view('template/footer');
-	}
-
+	
 	public function bank(){
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-		$day = $this->input->post('date');
-
-		if ($this->input->post('month')<10) {
-			$month = "0".$this->input->post('month');
-		}else{
-			$month = $this->input->post('month');
-		}
-		
-		$year = $this->input->post('year');
-		
-		
-		$date_month = $year."-".$month;
-		$date_year = $year;
-		echo "<script>console.log(".$date_month.")</script>";
-		echo "<script>console.log(".$date_year.")</script>";
-        $res= $this->load->book_model->getbankdata($date_month);
+		$date = $this->input->post('date');
+        $res= $this->load->book_model->getbankdata($date);
         $data['result'] = $res;
-        $result=$this->load->book_model->getbalancebank($date_month);
-        // echo "<script>console.log(".$result.")</script>";
+        $result=$this->load->book_model->getbalancebank($date);
         $data['balance'] = $result;
+        $result1=$this->load->book_model->getbalancembb($date);
+        $data['mbb'] = $result1;
+        $result2=$this->load->book_model->getbalancepbb($date);
+        $data['pbb'] = $result2;
+        $result3=$this->load->book_model->getbalancerhb($date);
+        $data['rhb'] = $result3;
+        $result4=$this->load->book_model->getbalancehlb($date);
+        $data['hlb'] = $result4;
+        // echo "<script>console.log(".$result.")</script>";
+        
     	$this->load->view('book/bank',$data);
     	$this->load->view('template/footer');
 
@@ -162,81 +130,29 @@ public function insertempdata()
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $day = $this->input->post('date');
-
-		if ($this->input->post('month')<10) {
-			$month = "0".$this->input->post('month');
-		}else{
-			$month = $this->input->post('month');
-		}
-		
-		$year = $this->input->post('year');
-		
-		
-		$date_month = $year."-".$month;
-		$date_year = $year;
-		echo "<script>console.log(".$date_month.")</script>";
-		echo "<script>console.log(".$date_year.")</script>";
-        $result=$this->load->book_model->getbalancecoh($date_month);
+        $date = $this->input->post('date');
+       
+        $result=$this->load->book_model->getbalancecoh($date);
         $data['balance'] = $result;
-        $res= $this->load->book_model->getcohdata($date_month);
+        $res= $this->load->book_model->getcohdata($date);
         $data['result'] = $res;
     	$this->load->view('book/coh',$data);
-    		$this->load->view('template/footer');
+    	$this->load->view('template/footer');
 
 	}
-		public function emp(){
-		$this->load->helper('url');
-        $this->load->view('template/header');
-        $this->load->view('template/nav');
-        $day = $this->input->post('date');
-
-		if ($this->input->post('month')<10) {
-			$month = "0".$this->input->post('month');
-		}else{
-			$month = $this->input->post('month');
-		}
 		
-		$year = $this->input->post('year');
-		
-		
-		$date_month = $year."-".$month;
-		$date_year = $year;
-		echo "<script>console.log(".$date_month.")</script>";
-		echo "<script>console.log(".$date_year.")</script>";
-        $result=$this->load->book_model->getbalanceemp($date_month);
-        $data['balance'] = $result;
-        $res= $this->load->book_model->getempdata($date_month);
-        $data['result'] = $res;
-    	$this->load->view('book/emp',$data);
-    		$this->load->view('template/footer');
-
-	}
 		public function Total(){
 		$this->load->helper('url');
         $this->load->view('template/header');
         $this->load->view('template/nav');
-        $day = $this->input->post('date');
-
-		if ($this->input->post('month')<10) {
-			$month = "0".$this->input->post('month');
-		}else{
-			$month = $this->input->post('month');
-		}
-		
-		$year = $this->input->post('year');
-		
-		
-		$date_month = $year."-".$month;
-		$date_year = $year;
-		echo "<script>console.log(".$date_month.")</script>";
-		echo "<script>console.log(".$date_year.")</script>";
-        $result=$this->load->book_model->getbalancetotal($date_month);
-        $data['balance'] = $result;
-        $res= $this->load->book_model->gettotaldata($date_month);
-        $data['result'] = $res;
-    	$this->load->view('book/total',$data);
-    		$this->load->view('template/footer');
+        $date = $this->input->post('date');
+        
+        $result= $this->load->book_model->gettotaldata($date);
+        $data['result'] = $result;
+        $res=$this->load->book_model->getbalancetotal($date);
+        $data['balance'] = $res;
+    	$this->load->view('book/Total',$data);
+    	$this->load->view('template/footer');
 
 	}
 
