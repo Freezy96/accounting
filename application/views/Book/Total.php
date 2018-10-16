@@ -97,7 +97,7 @@ $date = $this->input->post('date');
  	<label for="">Amount:</label>
 <input type="number" step="0.01" class="form-control" id="" placeholder="Amount" name="amount" required>	
  	</td>
- 	<td><button type="submit" class="btn btn-default">Submit</button></td>
+ 	<td><button type="submit" class="btn btn-default" id="book_total_submit_btn">Submit</button></td>
  	
  </tr>
 </form>
