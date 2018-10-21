@@ -38,7 +38,7 @@ class Customer extends CI_Controller {
 
 		$this->load->customer_model->reset_duedate();
 		$this->load->customer_model->checkuserstatus();
-		//$this->load->customer_model->blackliststatus();
+		$this->load->customer_model->blackliststatus();
 
 		$res = $this->load->customer_model->getuserdata();
 		$data['result'] = $res;
@@ -172,6 +172,9 @@ public function insertbldb(){
 		$exist_check = $this->customer_model->check_availability($customername,$passport_check);
 		$status="baddebt";
 		$blacklist="1";
+		$reset="1";
+		$date = date("Y-m-d");
+
 		// echo $blacklist_check;
 		// if ($exist_check == "yes") {
 		// 	$this->session->set_flashdata('return',"update");
@@ -190,7 +193,10 @@ public function insertbldb(){
 			///////////////Combo of User Identity Insert///////////////////
 			'gender' => $this->input->post('gender'),
 			'status' => $status,
-			'blacklist' => $blacklist
+			'blacklist' => $blacklist,
+			'reset'=>$reset,
+			're-date' => $date
+
 			);
 
 			$return_id = $this->customer_model->insert($data);
@@ -411,19 +417,20 @@ $this->load->view('template/footer');
             $return = $this->customer_model->insert_blacklist($data);
    }
 public function blacklistbutton($customerid){
+	$customerid=$customerid;
 	$this->load->insertblacklist($customerid);
 	$this->load->toblacklist($customerid);
 }
-//   public function insertblacklist($customerid){
-//   	 $data = array(
-//             'customerid' => $customerid
-//             );
+  public function insertblacklist($customerid){
+  	 $data = array(
+            'customerid' => $customerid
+           );
 
-// 	$this->db->where('customerid', $customerid);
-//         $this->db->insert('blacklist', $data);
-// $return = $this->customer_model->insert_blacklist($data);
+	$this->db->where('customerid', $customerid);
+         $this->db->insert('blacklist', $data);
+ $return = $this->customer_model->insert_blacklist($data);
 
-//   }
+  }
   
 	public function toblacklist($customerid)
 	{	
