@@ -129,5 +129,7 @@
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
+
   </div>
-</div>
+
+</div><a class="btn btn-default" href="<?php echo site_url('customer/insertbl'); ?>">Insert New Customer</a></li>

@@ -149,6 +149,100 @@ class Customer extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+public function insertbl(){	
+		$this->security_model->secure_session_login();
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$this->load->view('customer/insert');
+		$this->load->view('template/footer');
+	}	
+
+public function insertbldb(){	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////
+		$redirect = $this->input->post('redirect_destination');
+		$statuscus=$this->customer_model->checkuserstatus();
+		$customername=$this->input->post('name');
+		$passport_check = $this->input->post('passport');
+		$exist_check = $this->customer_model->check_availability($customername,$passport_check);
+		$status="baddebt";
+		$blacklist="1";
+		$reset="1";
+		$date = date("Y-m-d");
+
+		// echo $blacklist_check;
+		// if ($exist_check == "yes") {
+		// 	$this->session->set_flashdata('return',"update");
+		// 	redirect("customer");
+		// }
+		
+
+			$data = array(
+			'customername' => $this->input->post('name'),
+			'wechatname' => $this->input->post('wechatname'),
+			'address' => $this->input->post('address'),
+			'phoneno' => $this->input->post('phoneno'),
+			'passport' => $this->input->post('passport'),
+			///////////////Combo of User Identity Insert///////////////////
+			'companyid' => $company_identity,
+			///////////////Combo of User Identity Insert///////////////////
+			'gender' => $this->input->post('gender'),
+			'status' => $status,
+			'blacklist' => $blacklist,
+			'reset'=>$reset,
+			're-date' => $date
+
+			);
+
+			$return_id = $this->customer_model->insert($data);
+			$return = $return_id;
+			$data['return'] = "insert";
+
+				$config['upload_path']= realpath(APPPATH . '../Image/Customer_Image');
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['overwrite'] = TRUE;
+				$config['file_name'] = $return_id;
+				$config['max_size'] = "2048000"; 
+				$config['max_height'] = "9999";
+				$config['max_width'] = "9999";
+				$this->load->library('upload', $config);
+				if ($this->upload->do_upload('profilePic')){
+						$image_data = $this->upload->data();
+					    $fname=$image_data[file_name];
+					    $temp = explode(".", $fname);
+						$newfilename = $return_id . '.' . end($temp);
+
+					    $fpath=site_url().'Image/Customer_Image/'.$newfilename;
+					    $return = $this->customer_model->update_photo_pathname($return_id,$fpath);
+					    $data['return'] = $return;
+				    }
+				    else{
+				            echo $this->upload->display_errors();
+				            // $data['return'] = "Failed";
+				    		// redirect('customer');
+				    } 
+				    
+			
+		
+			
+			
+		$this->session->set_flashdata('return',$data);
+				if($redirect!="")
+				{
+					echo "<script>window.location.href='".base_url().$redirect."';</script>";
+				}
+				else
+				{
+					echo "<script>window.location.href='".base_url()."customer';</script>";
+				}
+		$this->load->view('template/footer');
+	}
+
 	public function update()
 	{	
 		$this->load->helper('url');
@@ -323,17 +417,18 @@ $this->load->view('template/footer');
             $return = $this->customer_model->insert_blacklist($data);
    }
 public function blacklistbutton($customerid){
+	$customerid=$customerid;
 	$this->load->insertblacklist($customerid);
 	$this->load->toblacklist($customerid);
 }
   public function insertblacklist($customerid){
-  	 $data2 = array(
+  	 $data = array(
             'customerid' => $customerid
-            );
+           );
 
 	$this->db->where('customerid', $customerid);
-        $this->db->insert('blacklist', $data2);
-$return = $this->customer_model->insert_blacklist($data2);
+         $this->db->insert('blacklist', $data);
+ $return = $this->customer_model->insert_blacklist($data);
 
   }
   

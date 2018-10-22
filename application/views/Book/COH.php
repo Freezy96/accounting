@@ -30,8 +30,8 @@
 <tbody>
 
 	<tr>
-<?php if(is_array($result) && $result){
-	 foreach ($result as $key => $val): 
+<?php
+
 	$debit=0;
 $date = $this->input->post('date');
  ?>
@@ -40,8 +40,8 @@ $date = $this->input->post('date');
 <td></td>
 <td ><?php  echo $balance; $debit=$balance;?></td>
 </tr>
-<?php endforeach ?>
-	<?php
+
+	<?php if(is_array($result) && $result){
 	 foreach ($result as $key => $val): 
 	$type=$val['type'];
 // echo $date_month;

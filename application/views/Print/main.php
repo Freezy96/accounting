@@ -8,8 +8,8 @@
   	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
 </form>
 <div id="div_print">
-	
-<table class="table">
+<link rel="stylesheet" type="text/css" media="print" href="print.css">
+<table class="table table-condensed">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
@@ -37,7 +37,7 @@
 					PACKAGE NAME
 				</td>				
 				<td>
-					Amount
+					AMOUNT
 				</td>
 				<td>
 					DUEDATE
@@ -74,7 +74,11 @@
 				<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
 			</td>
 			<td>
+<<<<<<< HEAD
 				<?php echo ${'min_duedate'.$val['refid']}; ?>
+=======
+				<!--  <?php echo $val['MAX(a.duedate)']; ?> -->
+>>>>>>> master
 			</td>
 		</tr>
 		<?php endforeach ?>
@@ -89,6 +93,7 @@
 <script type="text/javascript">
 function printdiv(printpage)
 {
+	
 var headstr = "<html><head><title></title></head><body>";
 var footstr = "</body>";
 var newstr = document.all.item(printpage).innerHTML;
