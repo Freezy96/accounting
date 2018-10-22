@@ -74,11 +74,7 @@
 				<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
 			</td>
 			<td>
-<<<<<<< HEAD
 				<?php echo ${'min_duedate'.$val['refid']}; ?>
-=======
-				<!--  <?php echo $val['MAX(a.duedate)']; ?> -->
->>>>>>> master
 			</td>
 		</tr>
 		<?php endforeach ?>
