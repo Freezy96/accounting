@@ -20,7 +20,7 @@ class Print_Model extends CI_Model{
 
     public function get_accountid_duedate_that_day($date){
         // Run the query
-        $this->db->select('a.refid, MAX(a.duedate)');
+        $this->db->select('a.refid, MAX(a.duedate), MIN(a.duedate)');
         $this->db->from('account a');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');

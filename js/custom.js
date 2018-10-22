@@ -293,6 +293,41 @@ $(document).ready(function() {
         }
       });
   });
+
+  // View Agent in Customer
+  $(".customer_agent_view").click(function(event) {
+    event.preventDefault();
+    var customerid = $(this).val();
+    var customername = $(this).attr('data-name');
+    $("#customer_agent_modal_title").html(customerid+" - "+customername);
+    console.log(customerid);
+    $.ajax({
+    type: "POST",
+    url: 'customer/customer_agent_modal',
+    dataType: 'json',
+    data: {'customerid': customerid},
+    success: function(res) {
+        if (res)
+        { 
+          console.log(res);
+          $(".customer_agent_header_append").remove(); 
+          $(".customer_agent_trtd_append").remove(); 
+          // empty html
+         
+          $("#customer_agent_modal_title").html(res[0].customerid+" - "+res[0].customername);         
+            var $tr = $('<tr class=\'customer_agent_header_append\'/>');
+            $tr.append($('<td/>').html("Agent"));
+            // $tr.append($('<td/>').html("Action:"));
+            $('.customer_agent_modal_table tr:last').before($tr);
+           for (var i = 0; i < res.length; i++) {
+            var $tr = $('<tr class=\'customer_agent_trtd_append\'/>');
+             $tr.append($('<td/>').html(res[i].agentid+" - "+res[i].agentname));
+             $('.customer_agent_modal_table tr:last').before($tr);
+          }
+        }
+      }
+    });
+  });
            // Package insert total amount identify
        $('.weekamount').on('change keyup', function(){
         var $totalamount = parseFloat($('#totalamount').val());
@@ -360,7 +395,9 @@ $(document).ready(function() {
         }
           
       });
+      
        $('.livesearch').DataTable();
+       $(".chosen-select").chosen();
       
         $('#accountpackage').on('change', function(){
          var $string = $(this).val();

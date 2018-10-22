@@ -98,9 +98,9 @@
 						<form action='<?php echo base_url();?>account/set_baddebt' method='post'>
 						<button class="btn btn-default" value="<?php echo $val["accountid"]; ?>" name="set_baddebt">baddebt</button>
 						</form>
-						<?php if ($val['readytorun'] != 1): ?>
+<!-- 						<?php if ($val['readytorun'] != 1): ?>
 							<button class="btn btn-warning account_ready_to_run" value="<?php echo $val['refid']; ?>" id="ready_to_run_<?php echo $val['refid']; ?>" name="ready_to_run">Ready To Run</button>
-						<?php endif ?>
+						<?php endif ?> -->
 						
 				</div>
 			</td>

@@ -308,6 +308,24 @@ public function blackliststatus(){
         return $query->result_array();
     }
 
+    public function get_customer_agent_modal($customerid){
+        // Run the query
+
+        $this->db->select("ag.agentid, ag.agentname, c.customername, c.customerid, pt.packagetypename");
+        $this->db->from('account a');
+        $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('a.customerid', $customerid);
+        $this->db->group_by('a.agentid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function check_availability($name,$passport){
         // Run the query
 

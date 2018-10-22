@@ -20,7 +20,7 @@
 					PACKAGE
 				</TD>
 				<td>
-					GUARANTY ITEM
+					GUARANTEE ITEM
 				</td>
 				<TD>
 					TOTAL AMOUNT
@@ -97,27 +97,27 @@
 					NAME
 				</td>
 				<td>
-					Lent
+					LENT
 				</td>
 				<td>
-					Return
+					RETURN
 				</td>
-				<!-- <td>
-					PAYMENT
-				</td> -->
+
 				<td>
 					DUEDATE
 				</td> 
-
 				<TD>
 					PACKAGE
 				</TD>
+				<td>
+					GUARANTEE ITEM
+				</td>
 				<TD>
 					TOTAL AMOUNT
 				</TD>
-				<TD>
-					AGENT
-				</TD>
+				<td>
+					ACTION
+				</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -144,25 +144,37 @@
 			<td>
 
 				<?php echo $val['MAX(a.duedate)']; ?>
-							</td> '
+			</td> 
 
 			<td>
 				<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
 			</td>
 			<td>
-
-				<?php echo $val['SUM(a.totalamount)']; ?>
-			</td> 
-
-			<td>
-				<?php if ($val['agentname']!=""): ?>
-				<?php echo $val['agentname']; ?>	
+				<?php if ($val['guarantyitem'] == ""): ?>
+					-
 				<?php else: ?>
-				<?php echo "-"; ?>	
+					<?php echo $val['guarantyitem']; ?>
 				<?php endif ?>
+				
 			</td>
+			<td>
+				<?php echo $val['SUM(a.totalamount)']; ?>
+			</td>	
+			<td>
+				<div class="row">
+					<!-- <form action='<?php echo base_url();?>account/update' method='post' name='accountedit'>
+					<button class="btn btn-primary" value="<?php echo $val["accountid"]; ?>" name="accountid">Edit</button>
+					</form> -->
+					<!-- <button class="btn btn-default accountmodal" data-toggle="modal" data-target="#myModal" value="<?php echo $val["accountid"]; ?>" name="accountid">View</button> -->
+					<form  action='<?php echo base_url();?>account/payment/' method='post' name='accountpayamount'>
+			<!-- ajax script generated button -->
+			<button class="btn btn-default "  value="<?php echo $val["refid"]; ?>" name="account_refid">Payment</button>
+		</form>
 
-	<?php  endforeach ?>
+			</td>
+		</tr>
+		</tr>
+	<?php endforeach ?>
 <?php } ?>
 </table>
 </div>
