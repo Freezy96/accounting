@@ -174,6 +174,8 @@ public function insertbldb(){
 		$blacklist="1";
 		$reset="1";
 		$date = date("Y-m-d");
+		$date2= strtotime("+10 year", strtotime($date));
+		$date2 = date('Y-m-d', $date2);
 
 		// echo $blacklist_check;
 		// if ($exist_check == "yes") {
@@ -195,7 +197,7 @@ public function insertbldb(){
 			'status' => $status,
 			'blacklist' => $blacklist,
 			'reset'=>$reset,
-			're-date' => $date
+			're-date' => $date2
 
 			);
 
@@ -413,31 +415,17 @@ $this->load->view('template/footer');
     }
             $return = $this->customer_model->insert_blacklist($data);
    }
-public function blacklistbutton($customerid){
-	$customerid=$customerid;
-	$this->load->insertblacklist($customerid);
-	$this->load->toblacklist($customerid);
+
+public function blacklistbutton(){
+	$customerid = $this->input->post('blacklistbutton');
+	$this->customer_model->updatebldb($customerid);
+	redirect('customer');
+
 }
-  public function insertblacklist($customerid){
-  	 $data = array(
-            'customerid' => $customerid
-           );
 
-	$this->db->where('customerid', $customerid);
-         $this->db->insert('blacklist', $data);
- $return = $this->customer_model->insert_blacklist($data);
 
-  }
-  
-	public function toblacklist($customerid)
-	{	
-		$blacklist=1;
-		$data = array(
-		'blacklist' => $blacklist,
-		);
 
-		$return = $this->customer_model->update($data);
-	} 
+
        public function customer_payment_modal() 
 	{	
 		$customerid = $this->input->post('customerid');

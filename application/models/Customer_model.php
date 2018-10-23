@@ -197,7 +197,7 @@ public function reset_status($customerid){
 }
 public function getstatus(){
         // Run the query
-        $this->db->select('customerid, status');
+        $this->db->select('customerid, status,reset');
         $this->db->from('customer');
         $query = $this->db->get();
 
@@ -209,9 +209,9 @@ public function blackliststatus(){
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
            $status = $value['status'];
-
+           $reset =$value['reset'];
            $blacklist= 0;
-          if($status=="baddebt"){ 
+          if($status=="baddebt" && $reset!="1"){ 
                 $blacklist="1";
            }
            $data = array(
@@ -376,5 +376,27 @@ public function blackliststatus(){
       public function confirm($msg){
         echo "<script type='text/javascript'>confirm('".$msg."');</script>";    
       }
+
+
+public function updatebldb($customerid){ 
+  $customerid=$customerid;
+    
+  $status="baddebt";
+  $blacklist="1";
+  $reset="1";
+  $date = date("Y-m-d");
+  $date2= strtotime("+10 year", strtotime($date));
+  $date2 = date('Y-m-d', $date2);
+  $data = array(
+'status' => $status,
+      'blacklist' => $blacklist,
+      'reset'=>$reset,
+      're-date' => $date2
+
+      );
+    $return = $this->update($data, $customerid);
+    $data['return'] = $return;
+    $this->load->view('template/footer');
+  }
 }
 ?>
