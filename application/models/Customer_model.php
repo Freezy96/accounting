@@ -211,7 +211,7 @@ public function blackliststatus(){
            $status = $value['status'];
            $reset =$value['reset'];
            $blacklist= 0;
-          if($status=="baddebt" && $reset!="1"){ 
+          if($status=="baddebt"){ 
                 $blacklist="1";
            }
            $data = array(
