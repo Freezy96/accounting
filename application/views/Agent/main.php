@@ -93,8 +93,8 @@
 			<td colspan="5" >
 				<!-- collapse show customer match the agentid -->
 				<div>
-			      <div class="panel-body">
-			      	<table class="table">
+			      <div class="panel-body" id="agent_div_<?php echo $val['agentid']; ?>">
+			      	<table class="table" border="1">
 			      		<tr>
 			      			<td>
 			      				Account ID
@@ -129,7 +129,7 @@
 											<?php 
 												$days_minus_15 = strtotime('-15 days',strtotime(date("Y-m-d")));
 												$days_minus_15 = date("Y-m-d",$days_minus_15);
-												echo $days_minus_15;
+												// echo $days_minus_15;
 											 ?>
 											<?php if ($value_not_grouped['MAX(paymentdate)']<$days_minus_15 && number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '')<= 0.10): ?>
 												<?php $show = 0;?>
@@ -166,6 +166,8 @@
 			      		}?>
 						
 					</table>
+
+					<input name="b_print" type="button" class="ipt"   onClick="printdiv('agent_div_<?php echo $val['agentid']; ?>');" value=" Print ">
 			      </div>
 			    </div>
 			</td>
@@ -274,3 +276,20 @@
 
     
  
+
+
+
+<script type="text/javascript">
+function printdiv(printpage)
+{
+	
+var headstr = "<html><head><title></title>    <link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/bootstrap.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/bootstrap-theme.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/simple-sidebar.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/datatables.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/chosen.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/custom.css\"><!-- JS / JQUERY --><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/jquery-3.3.1.min.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/bootstrap.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/npm.js\"></\script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/datatables.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/chosen.proto.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/chosen.jquery.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/custom.js\"><\/script></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false; 
+}
+</script>
