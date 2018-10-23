@@ -233,9 +233,9 @@
         $this->db->order_by('bookid', 'DESC');
         $this->db->limit('1');
         $query = $this->db->get();
+        $result = $query->result_array();
         $amount=0;
-        $query->result_array();
-         foreach ($query as $key => $value) 
+         foreach ($result as $key => $value) 
             {
                 $amount= $value['amount'];
             }
