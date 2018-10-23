@@ -94,7 +94,7 @@
 				<!-- collapse show customer match the agentid -->
 				<div>
 			      <div class="panel-body" id="agent_div_<?php echo $val['agentid']; ?>">
-			      	<table class="table">
+			      	<table class="table" border="1">
 			      		<tr>
 			      			<td>
 			      				Account ID
@@ -166,7 +166,7 @@
 			      		}?>
 						
 					</table>
-					
+
 					<input name="b_print" type="button" class="ipt"   onClick="printdiv('agent_div_<?php echo $val['agentid']; ?>');" value=" Print ">
 			      </div>
 			    </div>
