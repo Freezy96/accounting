@@ -108,6 +108,9 @@ public function insertbankdata()
         $this->load->view('template/header');
         $this->load->view('template/nav');
 		$date = $this->input->post('date');
+		if ($date == "") {
+			$date = date("Y-m-d");
+		}
         $res= $this->load->book_model->getbankdata($date);
         $data['result'] = $res;
         $result=$this->load->book_model->getbalancebank($date);
@@ -146,7 +149,9 @@ public function insertbankdata()
         $this->load->view('template/header');
         $this->load->view('template/nav');
         $date = $this->input->post('date');
-        
+        if ($date == "") {
+			$date = date("Y-m-d");
+		}
         $result= $this->load->book_model->gettotaldata($date);
         $data['result'] = $result;
         $res=$this->load->book_model->getbalancetotal($date);
@@ -156,23 +161,44 @@ public function insertbankdata()
 
 	}
 
-public function delete()
+	public function delete_bank()
 	{	
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		
 		$data = array(
-		'bookid' => $this->input->post('bookiddelete')
+		'bookid' => $this->input->post('book_bank_id')
 		);
 
-		$return = $this->employee_model->delete($data);
+		$return = $this->book_model->delete_bank($data);
 		$data['return'] = $return;
 
 		if($return == true){
 
 			$this->session->set_flashdata('return',$data);
-			redirect('book');
+			redirect('book/bank');
+		}
+		$this->load->view('template/footer');
+	}
+
+	public function delete_total()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'bookid' => $this->input->post('book_total_id')
+		);
+
+		$return = $this->book_model->delete_total($data);
+		$data['return'] = $return;
+
+		if($return == true){
+
+			$this->session->set_flashdata('return',$data);
+			redirect('book/total');
 		}
 		$this->load->view('template/footer');
 	}

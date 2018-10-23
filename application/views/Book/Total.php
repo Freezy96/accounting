@@ -55,7 +55,10 @@ $date = $this->input->post('date');
 
 <td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank']; }else{}?></font></td>
 <td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank']; }else{}?></td>
-<td><?php echo $total?></td>
+<td>
+    <?php echo $total?>
+    &nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_total' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_total_id">Del</button></form>
+</td>
 </tr>
 <?php endforeach ?>
 <?php } ?>

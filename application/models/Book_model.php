@@ -308,7 +308,32 @@
         $balance=$sumc-$sumd;
         return $balance;
     }
-    
+
+    public function delete_bank($data){
+        
+        if($this->db->delete('bank', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+
+
+    }
+
+    public function delete_total($data){
+        
+        if($this->db->delete('total', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+
+
+    }
 
     }
 ?>

@@ -65,7 +65,7 @@ $date = $this->input->post('date');
 <td ><?php if($bank=="pbb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
 <td ><?php if($bank=="rhb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
 <td ><?php if($bank=="hlb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
-<td><?php echo $debit;?><button class="btn btn-danger">Del</button></td>
+<td><?php echo $debit;?>&nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_bank' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_bank_id">Del</button></form></td>
 </tr>
 <?php }elseif ($type=="payment"){?> 
 <tr>
@@ -75,7 +75,7 @@ $date = $this->input->post('date');
 <td ><font color="red"><?php if($bank=="pbb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
 <td ><font color="red"><?php if($bank=="rhb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
 <td ><font color="red"><?php if($bank=="hlb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
-<td><?php echo $debit;?><button class="btn btn-danger">Del</button></td>
+<td><?php echo $debit;?>&nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_bank' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_bank_id">Del</button></form></td>
 </tr>
 <?php }?> 
 <?php endforeach ?>
