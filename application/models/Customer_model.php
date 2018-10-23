@@ -200,7 +200,7 @@ public function reset_status($data){
 }
 public function getstatus(){
         // Run the query
-        $this->db->select('customerid, status');
+        $this->db->select('customerid, status,reset');
         $this->db->from('customer');
         $query = $this->db->get();
 
@@ -212,9 +212,9 @@ public function blackliststatus(){
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
            $status = $value['status'];
-
+           $reset =$value['reset'];
            $blacklist= 0;
-          if($status=="baddebt"){ 
+          if($status=="baddebt" && $reset!="1"){ 
                 $blacklist="1";
            }
            $data = array(
