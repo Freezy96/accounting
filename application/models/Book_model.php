@@ -228,44 +228,20 @@
         return $hlb;
     }
      public function getcohdata($date){
-        $this->db->select('*');
+        $this->db->select('amount');
         $this->db->from('coh');
-        $this->db->where("datee", $date);
-        $this->db->order_by('datee','ASC');
+        $this->db->order_by('bookid', 'DESC');
+        $this->db->limit('1');
         $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function getcohdebit($date){
-        $typed="receive";
-        $this->db->select('SUM(amount)');
-        $this->db->from('coh');
-        $this->db->where("type", $typed);
-        $this->db->where("datee <", $date);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function getcohcredit($date){
-        $typec="payment";
-        $this->db->select('SUM(amount)');
-        $this->db->from('coh');
-        $this->db->where("type", $typec);
-        $this->db->where("datee <", $date);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-    public function getbalancecoh($date){
-        $debit = $this->getcohdebit($date);
-            foreach ($debit as $key => $value) 
+        $amount=0;
+        $query->result_array();
+         foreach ($query as $key => $value) 
             {
-                $sumd= $value['SUM(amount)'];
+                $amount= $value['amount'];
             }
-        $credit = $this->getcohcredit($date);
-            foreach ($credit as $key => $value) 
-            {
-                $sumc= $value['SUM(amount)'];
-            }
-        $balance=$sumd-$sumc;
-        return $balance;
+
+            return $amount;
+
     }
      public function gettotaldata($date){
          $this->db->select('*');

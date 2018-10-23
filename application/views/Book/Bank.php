@@ -1,6 +1,7 @@
 <?php $this->load->view('template/sidenav'); ?>
-
-<h1>Bank</h1>
+<div>
+<h1>Bank</h1><h1 align="right">Cash on Hand: <?php echo $coh?></h1>
+</div>
 <form action="<?php echo base_url();?>book/bank" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>

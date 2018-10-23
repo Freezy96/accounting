@@ -120,6 +120,8 @@ public function insertbankdata()
         $data['rhb'] = $result3;
         $result4=$this->load->book_model->getbalancehlb($date);
         $data['hlb'] = $result4;
+        $res2= $this->load->book_model->getcohdata($date);
+        $data['coh'] = $res2;
         // echo "<script>console.log(".$result.")</script>";
         
     	$this->load->view('book/bank',$data);
