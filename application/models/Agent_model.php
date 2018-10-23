@@ -80,8 +80,9 @@ class Agent_Model extends CI_Model{
 
     public function get_agent_payment_not_grouped(){
         // Run the query
-        $this->db->select('payment, agentid, refid');
+        $this->db->select('SUM(payment), agentid, refid, MAX(paymentdate)');
         $this->db->from('agentpayment');
+        $this->db->group_by('refid');
         $query = $this->db->get();
         return $query->result_array();
 

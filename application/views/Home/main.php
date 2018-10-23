@@ -4,7 +4,7 @@
 </p>
 
 <div class="collapse" id="collapseExample" aria-expanded="true" style=""> 
-	<div class="well"> 
+	<div class="well" style="overflow-x:auto;"> 
 		<table class="table livesearch">
 			<thead>
 				<tr>

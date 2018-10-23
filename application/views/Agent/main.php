@@ -119,8 +119,26 @@
 						    
 							    if($value_completed['agentid_completed'] == $val['agentid']){
 				        			?>
-				        			
-				        				<tr>
+				        			<?php 
+					        			$salary_paid = 0; 
+					        			$show = 1;
+				        			?>
+		        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
+		        						<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
+										<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
+											<?php 
+												$days_minus_15 = strtotime('-15 days',strtotime(date("Y-m-d")));
+												$days_minus_15 = date("Y-m-d",$days_minus_15);
+												echo $days_minus_15;
+											 ?>
+											<?php if ($value_not_grouped['MAX(paymentdate)']<$days_minus_15 && number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '')<= 0.10): ?>
+												<?php $show = 0;?>
+											<?php endif ?>
+											
+										<?php endif ?>
+									<?php endforeach ?>
+									<?php if ($show != 0): ?>
+										<tr>
 				        					<td>
 					        					<?php echo $value_completed['refid']; ?>
 					        				</td>
@@ -131,12 +149,7 @@
 					        					<?php echo $value_completed['wechatname']; ?>
 					        				</td>
 					        				<td>
-					        					<?php $salary_paid = 0;?>
-					        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
-													<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
-														<?php $salary_paid += $value_not_grouped['payment']; ?>
-													<?php endif ?>
-												<?php endforeach ?>
+					        					
 					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); ?>
 					        				</td>
 					        				<td>
@@ -145,6 +158,8 @@
 					        					</form>
 					        				</td>
 					        			</tr>
+									<?php endif ?>
+				        				
 				        			<?php
 				        		}
 							}

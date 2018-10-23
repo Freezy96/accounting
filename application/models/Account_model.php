@@ -855,8 +855,9 @@ class Account_model extends CI_Model{
                     $sum_payment_by_accid_count_total_amount = $this->sum_payment_by_accid_count_total_amount($accountid);
                     $amount = $val['amount'];
                     $totalamount = $amount - $sum_payment_by_accid_count_total_amount;
+                    $this->update_total_amount($totalamount,$accountid);
                 }
-                $this->update_total_amount($totalamount,$accountid);
+                // $this->update_total_amount($totalamount,$accountid);
             }
             else
             {
@@ -923,7 +924,7 @@ class Account_model extends CI_Model{
         $result = $query->result_array();
         foreach ($result as $key => $val) {
             $readytorun = $val['readytorun'];
-            if ($readytorun == 1) {
+            // if ($readytorun == 1) {
                 $accountid = $val['accountid'];
                 $totalamount = $val['totalamount'];
                 $packagetypename = $val['packagetypename'];
@@ -966,7 +967,7 @@ class Account_model extends CI_Model{
                     $status = " ";
                     $this->set_status($status , $accountid);
                 }
-            }
+            // }
         }
     }
      public function get_payment_days($accountid)
@@ -1069,7 +1070,10 @@ public function set_account_baddebt()
 
             $create_agent_salary_variable = $value_agent['agentid'];
             ${'salary'.$create_agent_salary_variable} = 0;
+            //reset salary into 0
+            $this->insert_agent_salary($create_agent_salary_variable, 0);
         }
+
         foreach ($result_complete_paid as $key => $value) {
             //check sum of totalamount is 0 or not
             $totalamount_check = $value['SUM(totalamount)'];

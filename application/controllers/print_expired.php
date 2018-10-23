@@ -28,6 +28,7 @@ class Print_Expired extends CI_Controller {
 				// echo "accid:".$accountid;echo "<br>";echo $totalamount;echo "<br>";
 			}
 			$data['totalamount'.$refid] = $totalamount;
+			$data['min_duedate'.$refid] = $value['MIN(a.duedate)'];
             $data['result' . $i] = $res;
             $i++;
         }
