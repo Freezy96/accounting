@@ -182,10 +182,7 @@ public function reset_duedate(){
     
 }
 
-public function reset_status($data){
-   foreach ($data as $key => $value) {
-      $customerid = $value['customerid'];
-  } 
+public function reset_status($customerid){
            $reset=1; 
            $date = date("Y-m-d");
            $status= "good";
@@ -214,7 +211,7 @@ public function blackliststatus(){
            $status = $value['status'];
            $reset =$value['reset'];
            $blacklist= 0;
-          if($status=="baddebt" && $reset!="1"){ 
+          if($status=="baddebt"){ 
                 $blacklist="1";
            }
            $data = array(

@@ -445,7 +445,7 @@ $(document).ready(function() {
       $('#profit_day_input').val(day);
       $('#profit_month_input').val(month);
       $('#profit_year_input').val(year);
-      alert([day, month, year].join('/'));
+      // alert([day, month, year].join('/'));
     });
 
     $('.date_book').on('keyup change', function(){
@@ -456,7 +456,7 @@ $(document).ready(function() {
       $('.book_day_input').val(day);
       $('.book_month_input').val(month);
       $('.book_year_input').val(year);
-      alert([day, month, year].join('/'));
+      // alert([day, month, year].join('/'));
     });
 
     $(".home_check").on("change", function(event) {

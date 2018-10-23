@@ -349,13 +349,10 @@ public function resets()
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$this->load->view('template/nav');
-		$data = array(
-		'customerid' => $this->input->post('customerresetstatus')
-		);
-		$return = $this->customer_model->reset_status($data);
+		$customerid = $this->input->post('customerresetstatus');
+		$return = $this->customer_model->reset_status($customerid);
 			redirect('customer');
-			$data['return'] = $return;
+		$data['return'] = $return;
 
 		if($return == true){
 			// session to sow success or not, only available next page load
