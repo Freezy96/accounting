@@ -379,5 +379,27 @@ public function blackliststatus(){
       public function confirm($msg){
         echo "<script type='text/javascript'>confirm('".$msg."');</script>";    
       }
+
+
+public function updatebldb($customerid){ 
+  $customerid=$customerid;
+    
+  $status="baddebt";
+  $blacklist="1";
+  $reset="1";
+  $date = date("Y-m-d");
+  $date2= strtotime("+10 year", strtotime($date));
+  $date2 = date('Y-m-d', $date2);
+  $data = array(
+'status' => $status,
+      'blacklist' => $blacklist,
+      'reset'=>$reset,
+      're-date' => $date2
+
+      );
+    $return = $this->update($data, $customerid);
+    $data['return'] = $return;
+    $this->load->view('template/footer');
+  }
 }
 ?>
