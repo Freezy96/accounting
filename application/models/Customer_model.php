@@ -121,7 +121,7 @@ public function checkuserstatus(){
            $statusc = $value['statusc'];
            $reset = $value['reset']; 
             
-           $statuscus_update= "";
+           $statuscus_update= $statusc;
 
            if(($statusa==""||$statusa=="closed") && $reset!="1" && $statusc!="late" && $statusc!="baddebt"){
             
