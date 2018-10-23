@@ -4,10 +4,10 @@
 <form action="<?php echo base_url();?>book/bank" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>
-	    <input type="date" class="form-control date_book" id="" placeholder="" name="date">
-	    <input type="hidden" name="day" class="book_day_input">
-	    <input type="hidden" name="month" class="book_month_input">
-	    <input type="hidden" name="year" class="book_year_input">
+	    <input type="date" class="form-control date_book" id="" placeholder="" name="date" value="<?php echo date("Y-m-d"); ?>">
+	    <input type="hidden" name="day" class="book_day_input" value="<?php echo date("d"); ?>">
+	    <input type="hidden" name="month" class="book_month_input" value="<?php echo date("m"); ?>">
+	    <input type="hidden" name="year" class="book_year_input" value="<?php echo date("Y"); ?>">
   	</div>
   	<button class="btn btn-default pull-right" id="submit">Submit</button>
 </form>
