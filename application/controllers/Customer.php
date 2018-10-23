@@ -137,15 +137,15 @@ class Customer extends CI_Controller {
 		
 			
 			
-		$this->session->set_flashdata('return',$data);
-				if($redirect!="")
-				{
-					echo "<script>window.location.href='".base_url().$redirect."';</script>";
-				}
-				else
-				{
-					echo "<script>window.location.href='".base_url()."customer';</script>";
-				}
+		// $this->session->set_flashdata('return',$data);
+		// 		if($redirect!="")
+		// 		{
+		// 			echo "<script>window.location.href='".base_url().$redirect."';</script>";
+		// 		}
+		// 		else
+		// 		{
+		// 			echo "<script>window.location.href='".base_url()."customer';</script>";
+		// 		}
 		$this->load->view('template/footer');
 	}
 
@@ -154,7 +154,7 @@ public function insertbl(){
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$this->load->view('customer/insert');
+		$this->load->view('customer/insertbl');
 		$this->load->view('template/footer');
 	}	
 
