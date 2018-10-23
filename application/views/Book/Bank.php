@@ -1,6 +1,13 @@
 <?php $this->load->view('template/sidenav'); ?>
-<div>
-<h1>Bank</h1><h1 align="right">Cash on Hand: <?php echo $coh?></h1>
+
+<form action="<?php echo base_url();?>book/insertcohdata" method="post" name="">
+
+<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;"></h1>
+<button class="btn btn-default " id="submit">Submit</button>
+</form>
+<form action="javascript:void(0);">
+    <a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_coh; ?>" aria-expanded="true" aria-controls="collapseOne">View</a>
+</form>
 </div>
 <form action="<?php echo base_url();?>book/bank" method="post" name="">
 	<div class="form-group">
