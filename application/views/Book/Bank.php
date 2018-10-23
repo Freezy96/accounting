@@ -65,7 +65,7 @@ $date = $this->input->post('date');
 <td ><?php if($bank=="pbb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
 <td ><?php if($bank=="rhb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
 <td ><?php if($bank=="hlb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
-<td><?php echo $debit;?></td>
+<td><?php echo $debit;?><button class="btn btn-danger">Del</button></td>
 </tr>
 <?php }elseif ($type=="payment"){?> 
 <tr>
@@ -75,7 +75,7 @@ $date = $this->input->post('date');
 <td ><font color="red"><?php if($bank=="pbb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
 <td ><font color="red"><?php if($bank=="rhb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
 <td ><font color="red"><?php if($bank=="hlb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
-<td><?php echo $debit;?></td>
+<td><?php echo $debit;?><button class="btn btn-danger">Del</button></td>
 </tr>
 <?php }?> 
 <?php endforeach ?>
