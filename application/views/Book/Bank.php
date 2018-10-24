@@ -15,56 +15,31 @@
                     <table class="table">
                         <tr>
                             <td>
-                                Account ID
+                                DATE
                             </td>
                             <td>
-                                Customer Name
+                                AMOUNT
                             </td>
-                            <td>
-                                Wechat Name
-                            </td>
-                            <td>
-                                Package
-                            </td>
-                            <td>
-                                Amount To Be Pay
-                            </td>
-<!--                            <td>
-                                Action
-                            </td> -->
                         </tr>
                         <?php
                         // get from agent controller
-                        if(is_array($customer) && $customer){
-                            foreach ($customer as $key => $val_customer) {
+                        if(is_array($coh2) && $coh2){
+                            foreach ($coh2 as $key => $coh2) {
                             
-                                if($val_customer['agentid'] == $val['agentid']){
+                                
                                     ?>
                                     
                                         <tr>
                                             <td>
-                                                <?php echo $val_customer['refid']; ?>
+                                                <?php echo $val['date']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $val_customer['customername']; ?>
+                                                <?php echo $val['amount']; ?>
                                             </td>
-                                            <td>
-                                                <?php echo $val_customer['wechatname']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $val_customer['packagetypename']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $val_customer['SUM(a.totalamount)']; ?>
-                                            </td>
-                                            <!-- <td>
-                                                <form action="javascript:void(0);">
-                                                    <button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_completed['agentid_completed']; ?>" data-refid="<?php echo $value_completed['refid']; ?>" name="accountid">Payment</button>
-                                                </form>
-                                            </td> -->
+                                            
                                         </tr>
                                     <?php
-                                }
+                                
                             }
                         }?>
                         
