@@ -94,7 +94,7 @@
 				<!-- collapse show customer match the agentid -->
 				<div>
 			      <div class="panel-body" id="agent_div_<?php echo $val['agentid']; ?>">
-			      	<table class="table" border="1">
+			      	<table class="table" border="1" width="100%">
 			      		<tr>
 			      			<td>
 			      				Account ID
