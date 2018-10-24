@@ -6,9 +6,71 @@
 <button class="btn btn-default " id="submit">Submit</button>
 </form>
 <form action="javascript:void(0);">
-    <a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_coh; ?>" aria-expanded="true" aria-controls="collapseOne">View</a>
+    <a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_coh" aria-expanded="true" aria-controls="collapseOne">View History</a>
 </form>
 </div>
+<div id="collapse_coh" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <!-- collapse show customer match the agentid -->
+                  <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                Account ID
+                            </td>
+                            <td>
+                                Customer Name
+                            </td>
+                            <td>
+                                Wechat Name
+                            </td>
+                            <td>
+                                Package
+                            </td>
+                            <td>
+                                Amount To Be Pay
+                            </td>
+<!--                            <td>
+                                Action
+                            </td> -->
+                        </tr>
+                        <?php
+                        // get from agent controller
+                        if(is_array($customer) && $customer){
+                            foreach ($customer as $key => $val_customer) {
+                            
+                                if($val_customer['agentid'] == $val['agentid']){
+                                    ?>
+                                    
+                                        <tr>
+                                            <td>
+                                                <?php echo $val_customer['refid']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $val_customer['customername']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $val_customer['wechatname']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $val_customer['packagetypename']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $val_customer['SUM(a.totalamount)']; ?>
+                                            </td>
+                                            <!-- <td>
+                                                <form action="javascript:void(0);">
+                                                    <button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_completed['agentid_completed']; ?>" data-refid="<?php echo $value_completed['refid']; ?>" name="accountid">Payment</button>
+                                                </form>
+                                            </td> -->
+                                        </tr>
+                                    <?php
+                                }
+                            }
+                        }?>
+                        
+                    </table>
+                  </div>
+        </div>
 <form action="<?php echo base_url();?>book/bank" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>
