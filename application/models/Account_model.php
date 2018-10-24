@@ -488,7 +488,7 @@ class Account_model extends CI_Model{
                             }
                         }
                     }
-                    $total_amount = $total_amount -= $payment_amount_date_larger_than_duedate;
+                    $total_amount = $total_amount - $payment_amount_date_larger_than_duedate;
                     $this->update_total_amount($total_amount,$accountid);
                 }
 
