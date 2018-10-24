@@ -59,14 +59,14 @@ class Book extends CI_Controller {
 		$this->load->view('template/nav');
 		///////////////Combo of User Identity Insert///////////////////
 		$company_identity = $this->session->userdata('adminid');
-		///////////////Combo of User Identity Insert///////////////////		
+		///////////////Combo of User Identity Insert///////////////////	
+		$date = date("Y-m-d");	
 		$data = array(
-		'description' => $this->input->post('description'),
-		'type' => $this->input->post('type'),
+		
 		'amount' => $this->input->post('amount'),
-		'datee' => $this->input->post('datee')
+		'datee' => $date
 		);
-		echo "<script>alert('insert successfully!'); location.href='/accounting/book/coh';</script>";
+		echo "<script>alert('insert successfully!'); location.href='/accounting/book/bank';</script>";
 		$return = $this->book_model->insertC($data);
 		$data['return'] = $return;
 
