@@ -74,6 +74,9 @@ class Customer_Model extends CI_Model{
             elseif($status_new == "baddebt") {
               $statusa = $status_new;
             }
+            elseif($status_new == "done") {
+              $statusa = $status_new;
+            }
           }
           //when status is late
           elseif($statusa == "late"){
@@ -86,6 +89,9 @@ class Customer_Model extends CI_Model{
             elseif($status_new == "baddebt") {
               $statusa = $status_new;
             }
+            elseif($status_new == "done") {
+              $statusa = $status_new;
+            }
           }
           elseif($statusa == "baddebt"){
             if ($status_new == "" || $status_new == "closed") {
@@ -95,6 +101,23 @@ class Customer_Model extends CI_Model{
               //do nothing
             }
             elseif($status_new == "baddebt") {
+              $statusa = $status_new;
+            }
+            elseif($status_new == "done") {
+              $statusa = $status_new;
+            }
+          }
+          elseif($statusa == "done"){
+            if ($status_new == "" || $status_new == "closed") {
+              //do nothing
+            }
+            elseif($status_new == "late") {
+              //do nothing
+            }
+            elseif($status_new == "baddebt") {
+              //do nothing
+            }
+            elseif($status_new == "done") {
               $statusa = $status_new;
             }
           }
@@ -116,9 +139,10 @@ public function checkuserstatus(){
         $data=$this->customer_model->getuserstatus();
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
-           $statusa = $this->get_account_status_by_customerid($customerid);
-           // echo "<script>console.log('".$statusa."');</script>";
-           $statusc = $value['statusc'];
+           $statusa = $this->get_account_status_by_customerid($customerid); //done
+           echo "<script>console.log('".$statusa."');</script>";
+           $statusc = $value['statusc']; //baddebt
+           echo "<script>console.log('".$statusc."');</script>";
            $reset = $value['reset']; 
             
            $statuscus_update= $statusc;
@@ -127,13 +151,22 @@ public function checkuserstatus(){
             
             $statuscus_update = "good";
 
-           }elseif($statusa!="" && $reset!="1" && $statusa=="baddebt" ){
+           }elseif($statusa!="" && $reset!="1" && $statusa=="baddebt" && $statusa!="done"){
 
             $statuscus_update="baddebt";
 
            }elseif($statusa!="" && $statusa=="late" && $reset!="1" && $statusa!="baddebt" && $statusc!="baddebt"){
 
             $statuscus_update="late";
+
+           }elseif($reset=="0" && $statusa=="done" && $statusc==" "){
+
+            $statuscus_update="good";
+
+           }
+           elseif($reset=="1" && $statusa=="done" && $statusc==" "){
+
+            $statuscus_update=" ";
 
            }
 
@@ -166,7 +199,7 @@ public function reset_duedate(){
      $date=strtotime(date("Y-m-d"));
      $re_duedate = strtotime("+3 days", strtotime($re_date));
 
-     if ($date>=$re_duedate) {
+     if ($date>=$re_duedate && $reset==1) {
        $reset = 0;
        $status = " ";
 
@@ -185,7 +218,7 @@ public function reset_duedate(){
 public function reset_status($customerid){
            $reset=1; 
            $date = date("Y-m-d");
-           $status= "good";
+           $status= " ";
            $data = array(
             'reset' => $reset,
             're-date' => $date,

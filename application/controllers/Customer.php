@@ -137,15 +137,15 @@ class Customer extends CI_Controller {
 		
 			
 			
-		// $this->session->set_flashdata('return',$data);
-		// 		if($redirect!="")
-		// 		{
-		// 			echo "<script>window.location.href='".base_url().$redirect."';</script>";
-		// 		}
-		// 		else
-		// 		{
-		// 			echo "<script>window.location.href='".base_url()."customer';</script>";
-		// 		}
+		$this->session->set_flashdata('return',$data);
+				if($redirect!="")
+				{
+					echo "<script>window.location.href='".base_url().$redirect."';</script>";
+				}
+				else
+				{
+					echo "<script>window.location.href='".base_url()."customer';</script>";
+				}
 		$this->load->view('template/footer');
 	}
 
@@ -357,7 +357,7 @@ public function resets()
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('customer');
+			redirect('customer/blacklist');
 		}
 $this->load->view('template/footer');
 	}
