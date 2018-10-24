@@ -125,6 +125,8 @@ public function insertbankdata()
         $data['hlb'] = $result4;
         $res2= $this->load->book_model->getcohdata($date);
         $data['coh'] = $res2;
+        $res_all_coh= $this->load->book_model->get_all_cohdata();
+        $data['all_coh'] = $res_all_coh;
         // echo "<script>console.log(".$result.")</script>";
         
     	$this->load->view('book/bank',$data);

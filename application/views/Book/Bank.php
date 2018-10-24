@@ -15,19 +15,10 @@
                     <table class="table">
                         <tr>
                             <td>
-                                Account ID
+                                Date
                             </td>
                             <td>
-                                Customer Name
-                            </td>
-                            <td>
-                                Wechat Name
-                            </td>
-                            <td>
-                                Package
-                            </td>
-                            <td>
-                                Amount To Be Pay
+                                Amount
                             </td>
 <!--                            <td>
                                 Action
@@ -35,27 +26,16 @@
                         </tr>
                         <?php
                         // get from agent controller
-                        if(is_array($customer) && $customer){
-                            foreach ($customer as $key => $val_customer) {
-                            
-                                if($val_customer['agentid'] == $val['agentid']){
+                        if(is_array($all_coh) && $all_coh){
+                            foreach ($all_coh as $key => $val_all_coh) {
                                     ?>
                                     
                                         <tr>
                                             <td>
-                                                <?php echo $val_customer['refid']; ?>
+                                                <?php echo $val_all_coh['datee']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $val_customer['customername']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $val_customer['wechatname']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $val_customer['packagetypename']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $val_customer['SUM(a.totalamount)']; ?>
+                                                <?php echo $val_all_coh['amount']; ?>
                                             </td>
                                             <!-- <td>
                                                 <form action="javascript:void(0);">
@@ -64,7 +44,6 @@
                                             </td> -->
                                         </tr>
                                     <?php
-                                }
                             }
                         }?>
                         
@@ -199,3 +178,4 @@ $date = $this->input->post('date');
 
 
 
+<br><br>
