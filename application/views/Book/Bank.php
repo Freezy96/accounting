@@ -2,7 +2,7 @@
 
 <form action="<?php echo base_url();?>book/insertcohdata" method="post" name="">
 
-<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;"></h1>
+<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;" value= "<?php echo $coh?>"></h1>
 <button class="btn btn-default " id="submit">Submit</button>
 </form>
 <form action="javascript:void(0);">
