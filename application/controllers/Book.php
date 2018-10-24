@@ -38,7 +38,7 @@ class Book extends CI_Controller {
 		'amount' => $this->input->post('amount'),
 		'datee' => $this->input->post('datee')
 		);
-		echo "<script>alert('insert successfully!'); location.href='/accounting/book/total';</script>";
+		echo "<script>location.href='/accounting/book/total';</script>";
 		$return = $this->book_model->insertT($data);
 		$data['return'] = $return;
 
@@ -66,7 +66,7 @@ class Book extends CI_Controller {
 		'amount' => $this->input->post('amount'),
 		'datee' => $date
 		);
-		echo "<script>alert('insert successfully!'); location.href='/accounting/book/bank';</script>";
+		echo "<script>location.href='/accounting/book/bank';</script>";
 		$return = $this->book_model->insertC($data);
 		$data['return'] = $return;
 
@@ -96,7 +96,7 @@ public function insertbankdata()
 		'amount' => $this->input->post('amount'),
 		'datee' => $this->input->post('datee')
 		);
-		 echo "<script>alert('insert successfully!'); location.href='/accounting/book/bank';</script>";
+		 echo "<script>location.href='/accounting/book/bank';</script>";
 		$return = $this->book_model->insertB($data);
 		$data['return'] = $return;
 
