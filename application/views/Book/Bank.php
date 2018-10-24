@@ -12,7 +12,8 @@
 <div id="collapse_coh" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <!-- collapse show customer match the agentid -->
                   <div class="panel-body">
-                    <table class="table">
+                    <table class="table livesearch" width="100%">
+                        <thead>
                         <tr>
                             <td>
                                 Date
@@ -24,6 +25,8 @@
                                 Action
                             </td> -->
                         </tr>
+                        </thead>
+                        <tbody>
                         <?php
                         // get from agent controller
                         if(is_array($all_coh) && $all_coh){
@@ -45,7 +48,7 @@
 
                             }
                         }?>
-                        
+                        </tbody>
                     </table>
                   </div>
         </div>
