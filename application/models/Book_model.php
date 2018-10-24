@@ -243,6 +243,14 @@
             return $amount;
 
     }
+    public function get_all_cohdata(){
+        $this->db->select('*');
+        $this->db->from('coh');
+        $query = $this->db->get();
+
+        return $query->result_array();
+
+    }
      public function gettotaldata($date){
          $this->db->select('*');
         $this->db->from('total');
