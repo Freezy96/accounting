@@ -228,7 +228,7 @@
         return $hlb;
     }
      public function getcohdata($date){
-        $this->db->select('amount');
+        $this->db->select('amount,datee');
         $this->db->from('coh');
         $this->db->order_by('bookid', 'DESC');
         $this->db->limit('1');
@@ -243,12 +243,14 @@
             return $amount;
 
     }
+
     public function get_all_cohdata(){
         $this->db->select('*');
         $this->db->from('coh');
         $query = $this->db->get();
 
         return $query->result_array();
+
 
     }
      public function gettotaldata($date){

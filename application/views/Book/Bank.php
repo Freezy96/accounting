@@ -2,7 +2,7 @@
 
 <form action="<?php echo base_url();?>book/insertcohdata" method="post" name="">
 
-<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;"></h1>
+<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;" value= "<?php echo $coh?>"></h1>
 <button class="btn btn-default " id="submit">Submit</button>
 </form>
 <form action="javascript:void(0);">
@@ -28,6 +28,7 @@
                         // get from agent controller
                         if(is_array($all_coh) && $all_coh){
                             foreach ($all_coh as $key => $val_all_coh) {
+
                                     ?>
                                     
                                         <tr>
@@ -36,14 +37,12 @@
                                             </td>
                                             <td>
                                                 <?php echo $val_all_coh['amount']; ?>
+
                                             </td>
-                                            <!-- <td>
-                                                <form action="javascript:void(0);">
-                                                    <button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_completed['agentid_completed']; ?>" data-refid="<?php echo $value_completed['refid']; ?>" name="accountid">Payment</button>
-                                                </form>
-                                            </td> -->
+                                            
                                         </tr>
                                     <?php
+
                             }
                         }?>
                         
