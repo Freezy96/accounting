@@ -15,31 +15,34 @@
                     <table class="table">
                         <tr>
                             <td>
-                                DATE
+                                Date
                             </td>
                             <td>
-                                AMOUNT
+                                Amount
                             </td>
+<!--                            <td>
+                                Action
+                            </td> -->
                         </tr>
                         <?php
                         // get from agent controller
-                        if(is_array($coh2) && $coh2){
-                            foreach ($coh2 as $key => $coh2) {
-                            
-                                
+                        if(is_array($all_coh) && $all_coh){
+                            foreach ($all_coh as $key => $val_all_coh) {
+
                                     ?>
                                     
                                         <tr>
                                             <td>
-                                                <?php echo $val['date']; ?>
+                                                <?php echo $val_all_coh['datee']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $val['amount']; ?>
+                                                <?php echo $val_all_coh['amount']; ?>
+
                                             </td>
                                             
                                         </tr>
                                     <?php
-                                
+
                             }
                         }?>
                         
@@ -174,3 +177,4 @@ $date = $this->input->post('date');
 
 
 
+<br><br>

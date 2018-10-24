@@ -244,14 +244,13 @@
 
     }
 
-         public function getcohalldata($date){
-        $this->db->select('amount,datee');
+    public function get_all_cohdata(){
+        $this->db->select('*');
         $this->db->from('coh');
-        $this->db->order_by('bookid', 'DESC');
-        $this->db->limit('1');
         $query = $this->db->get();
-        return $result = $query->result_array();
-       
+
+        return $query->result_array();
+
 
     }
      public function gettotaldata($date){
