@@ -2,7 +2,7 @@
 <div id="table_year">
 	
 
-<table class="table table-condensed" border="1">
+<table class="table table-condensed" border="1" width="100%">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
