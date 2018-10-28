@@ -308,6 +308,9 @@
      public function gettotaldata($date){
          $this->db->select('*');
         $this->db->from('total');
+                $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
