@@ -792,7 +792,7 @@ class Account extends CI_Controller {
 		$this->load->customer_model->blackliststatus();
 		$res = $this->load->account_model->getuserdata();
         $res1= $this->load->account_model->get_status();
-
+        $data['result'] = array();
         foreach ($res1 as $key => $value) {
             $status = $value['status'];
             $accountid = $value['accountid'];
