@@ -42,6 +42,10 @@
 
         $this->db->select('*');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("datee", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
@@ -53,6 +57,10 @@
         $typed="receive";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typed);
         $this->db->where("datee <", $date);
         $query = $this->db->get();
@@ -62,6 +70,10 @@
         $typec="payment";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typec);
         $this->db->where("datee <", $date);
         $query = $this->db->get();
@@ -88,6 +100,10 @@
         $bank="mbb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -99,6 +115,10 @@
         $bank="mbb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -124,6 +144,10 @@
         $bank="pbb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -135,6 +159,10 @@
         $bank="pbb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -160,6 +188,10 @@
         $bank="rhb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -171,6 +203,10 @@
         $bank="rhb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -196,6 +232,10 @@
         $bank="hlb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typed);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -207,6 +247,10 @@
         $bank="hlb";
         $this->db->select('SUM(amount)');
         $this->db->from('bank');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where("type", $typec);
         $this->db->where("bank", $bank);
         $this->db->where("datee <", $date);
@@ -230,6 +274,10 @@
      public function getcohdata($date){
         $this->db->select('amount,datee');
         $this->db->from('coh');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->order_by('bookid', 'DESC');
         $this->db->limit('1');
         $query = $this->db->get();
@@ -266,6 +314,10 @@
         $typed="debit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where('type', $typed);
         $this->db->where("datee <", $date);
         $query = $this->db->get();
@@ -275,6 +327,10 @@
         $typec="credit";
         $this->db->select('SUM(amount)');
         $this->db->from('total');
+         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $this->db->where('type', $typec);
         $this->db->where("datee <", $date);
         $query = $this->db->get();

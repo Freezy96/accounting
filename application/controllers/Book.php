@@ -36,6 +36,9 @@ class Book extends CI_Controller {
 		'type' => $this->input->post('type'),
 		'bank'=> $this->input->post('bank'),
 		'amount' => $this->input->post('amount'),
+		///////////////Combo of User Identity Insert///////////////////
+			'companyid' => $company_identity,
+			///////////////Combo of User Identity Insert///////////////////
 		'datee' => $this->input->post('datee')
 		);
 		echo "<script>location.href='/accounting/book/total';</script>";
@@ -64,6 +67,9 @@ class Book extends CI_Controller {
 		$data = array(
 		
 		'amount' => $this->input->post('amount'),
+		///////////////Combo of User Identity Insert///////////////////
+			'companyid' => $company_identity,
+			///////////////Combo of User Identity Insert///////////////////
 		'datee' => $date
 		);
 		echo "<script>location.href='/accounting/book/bank';</script>";
@@ -94,6 +100,9 @@ public function insertbankdata()
 		'bank'=> $this->input->post('bank'),
 		'type' => $this->input->post('type'),
 		'amount' => $this->input->post('amount'),
+		///////////////Combo of User Identity Insert///////////////////
+			'companyid' => $company_identity,
+			///////////////Combo of User Identity Insert///////////////////
 		'datee' => $this->input->post('datee')
 		);
 		 echo "<script>location.href='/accounting/book/bank';</script>";
