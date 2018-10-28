@@ -164,8 +164,8 @@ $date = $this->input->post('date');
  	<label for="">Type:</label>
     <select name="type" required>
         <option value="" selected disabled>------------</option>
-        <option value="payment">Payment</option>   
-        <option value="receive">Receive</option>
+        <option value="payment">Credit</option>   
+        <option value="receive">Debit</option>
     </select>
  	</td>
  	<td>
