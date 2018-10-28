@@ -25,9 +25,9 @@
           <?php $blacklisted = 1; ?>
         <?php endif ?>
         <?php if ($blacklisted == 1): ?>
-          <option value="<?php echo $value['customerid']; ?>" style="color: red;"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?>&nbsp; (Blacklisting by this company)</option>
+          <option value="<?php echo $value['customerid']; ?>" style="color: red;"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?>&nbsp;(<?php echo $value['passport']; ?>)&nbsp; (Blacklisting by this company)</option>
         <?php else: ?>
-          <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?></option>
+          <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?>&nbsp;(<?php echo $value['passport']; ?>)</option>
         <?php endif ?>
     <?php endforeach ?>
      </select>

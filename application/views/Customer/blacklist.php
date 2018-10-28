@@ -1,4 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
+<div style="overflow-x:auto;">
 <table class="table livesearch">
 
 	<!-- get session success = true / fail = false -->
@@ -133,3 +134,4 @@
   </div>
 
 </div><a class="btn btn-default" href="<?php echo site_url('customer/insertbl'); ?>">Insert New Customer</a></li>
+</div>

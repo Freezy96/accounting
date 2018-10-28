@@ -51,32 +51,34 @@
 		<!-- $count post from data['count'] -->
 	<?php for ($i=0; $i < $count; $i++) { ?> 
 		<?php foreach (${'result'.$i} as $key => $val): ?>
-		<tr>
-			<td>
-				<?php echo $val['refid']; ?>
-			</td>
-			<td>
-				<?php echo $val['customerid']; ?>
-			</td>
-			<td>
-				<?php echo $val['customername']; ?>
-			</td>
-			<td>
-				<?php echo $val['address']; ?>
-			</td>
-			<td>
-				<?php echo $val['phoneno']; ?>
-			</td>
-			<td>
-				<?php echo $val['packagetypename']; ?>
-			</td>
-			<td>
-				<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
-			</td>
-			<td>
-				<?php echo ${'min_duedate'.$val['refid']}; ?>
-			</td>
-		</tr>
+			<?php if (${'totalamount'.$val['refid']} > 0): ?>
+				<tr>
+					<td>
+						<?php echo $val['refid']; ?>
+					</td>
+					<td>
+						<?php echo $val['customerid']; ?>
+					</td>
+					<td>
+						<?php echo $val['customername']; ?>
+					</td>
+					<td>
+						<?php echo $val['address']; ?>
+					</td>
+					<td>
+						<?php echo $val['phoneno']; ?>
+					</td>
+					<td>
+						<?php echo $val['packagetypename']; ?>
+					</td>
+					<td>
+						<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
+					</td>
+					<td>
+						<?php echo ${'min_duedate'.$val['refid']}; ?>
+					</td>
+				</tr>
+			<?php endif ?>
 		<?php endforeach ?>
 	<?php	} ?>
 	
