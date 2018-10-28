@@ -295,6 +295,10 @@
     public function get_all_cohdata(){
         $this->db->select('*');
         $this->db->from('coh');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
         $query = $this->db->get();
 
         return $query->result_array();
