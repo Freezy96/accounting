@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-
+<div style="overflow-x:auto;">
 <form action='<?php echo base_url();?>customer/insertbldb' method='post' name='blacklistinsert' enctype="multipart/form-data">
   <?php 
 
@@ -55,5 +55,6 @@
 </div>
   <button type="submit" class="btn btn-default" id="blacklists_insert_submit_btn">Submit</button>
 </form>
+</div>
 
 

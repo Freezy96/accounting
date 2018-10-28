@@ -1,5 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
-
+<div style="overflow-x:auto;">
 <form action='<?php echo base_url();?>customer/insertdb' method='post' name='customerinsert' enctype="multipart/form-data">
   <?php 
 
@@ -55,3 +55,4 @@
 </div>
   <button type="submit" class="btn btn-default" id="customer_insert_submit_btn">Submit</button>
 </form>
+</div>

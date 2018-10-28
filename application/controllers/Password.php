@@ -19,17 +19,12 @@ class Password extends CI_Controller {
     
 
     public function update(){
-    $this->db->select('username, password');
-    $this->db->from('admin');
-    
-    $username = $this->input->post('username');
-   
-    
-    $this->db->where('username',$username);
-    $data=$this->db->get();
+
+    $adminid = $this->session->userdata('adminid');
+    $newpassword = $this->input->post('newpassword');
 
         
-        $return['return'] = $this->password_model->update($data);
+        $return['return'] = $this->password_model->update($adminid, $newpassword);
 
         $this->session->set_flashdata('return',$return);
 
