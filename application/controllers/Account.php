@@ -470,7 +470,7 @@ class Account extends CI_Controller {
 				'refid' => $refid,
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
-				'duedate' => $date1,
+				'duedate' => $dateoriginal,
 				'agentcharge' => $agent_charge,
 				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
@@ -1365,7 +1365,7 @@ class Account extends CI_Controller {
 				'refid' => $refid,
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
-				'duedate' => $date1,
+				'duedate' => $dateoriginal,
 				'agentcharge' => 0,
 				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
