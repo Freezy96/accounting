@@ -8,10 +8,15 @@
 
 body { 
 	padding-top: 50px; 
+  font-size:small;
+}
+tr,td{ 
+ font-size:small;
 }
 
 .container{
 	width: 75vw;
+  font-size:small;
 }
 
 .btn-group{
@@ -21,11 +26,8 @@ body {
 /* style sheet for "A4" printing */
  @media print and (width: 21cm) and (height: 29.7cm) {
     @page {
-       size: A4 landscape;
-        margin:2cm;
-        section {page-break-before: always;}
-    h1 {page-break-after: always;}
-    p {page-break-inside: avoid;}
+       margin: 3cm;
+       size: A4;
     }
  }
 
