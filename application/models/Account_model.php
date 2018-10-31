@@ -7,7 +7,7 @@ class Account_model extends CI_Model{
     public function getuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.readytorun, a.customerid, c.customername, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MIN(a.status)');
+        $this->db->select('a.accountid , SUM(a.totalamount),a.refid, a.readytorun, a.customerid, c.customername, c.wechatname, a.oriamount, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, p.packagetypename, MIN(a.status)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
@@ -1352,6 +1352,34 @@ public function set_baddebt_update($accountid){
         echo json_encode($refid);
 
     }
+       public function delete($data){
+        
+        if($this->db->delete('account', $data)){
+            $this->deletepayment();
+
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }    
+
+    }
+
+    public function deletepayment(){
+        $refid = $this->input->post('accountdelete');
+        $ref=$this->get_accountid_using_refid($refid);
+        $data = array(
+            
+        'accountid' => $this->$ref
+        );
+
+        $this->db->delete('payment', $data);
+
+
+
+    }
+
 
 }
 ?>
