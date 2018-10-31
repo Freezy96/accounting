@@ -1724,12 +1724,9 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
-		$data = array(
-		'refid' => $this->input->post('accountdelete')
-		);
 
-		$return = $this->account_model->delete($data);
+		$refid = $this->input->post('accountdelete');
+		$return = $this->account_model->delete($refid);
 		$data['return'] = $return;
 
 		if($return == true){

@@ -1436,11 +1436,10 @@ public function set_baddebt_update($accountid){
         echo json_encode($refid);
 
     }
-       public function delete($data){
-        
-        if($this->db->delete('account', $data)){
-            $this->deletepayment();
-
+       public function delete($refid){
+        $ref = $this->get_accountid_using_refid($refid);
+        if($this->db->delete('account', array('refid' => $refid))){
+            $this->deletepayment($ref);
             $return = "delete";
             return $return;
         }else{
@@ -1450,18 +1449,13 @@ public function set_baddebt_update($accountid){
 
     }
 
-    public function deletepayment(){
-        $refid = $this->input->post('accountdelete');
-        $ref=$this->get_accountid_using_refid($refid);
-        $data = array(
-            
-        'accountid' => $this->$ref
-        );
+    public function deletepayment($ref){
 
-        $this->db->delete('payment', $data);
-
-
-
+        foreach ($ref as $key => $value) {
+            $accountid = $value['accountid'];
+            echo $accountid;
+            $this->db->delete('payment', array('accountid' => $accountid));
+        }
     }
 
 
