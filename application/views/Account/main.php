@@ -53,7 +53,7 @@
 				<?php echo $val['refid']; ?>
 			</td>
 			<td>
-				<?php echo $val['customername']; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(".$val['wechatname'].")"; ?>
 			</td>
 			<td>
 				<?php foreach (${'p' . $val['packageid']} as $key => $value): ?>
