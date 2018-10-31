@@ -113,8 +113,10 @@
 			      			</td>
 			      		</tr>
 			      		<?php
+			      		$totalmoney = 0;
 			      		// get from agent controller
 			      		if(is_array($salary_completed) && $salary_completed){
+			      			
 			      			foreach ($salary_completed as $key => $value_completed) {
 						    
 							    if($value_completed['agentid_completed'] == $val['agentid']){
@@ -150,7 +152,10 @@
 					        				</td>
 					        				<td>
 					        					
-					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); ?>
+					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); 
+
+					        					$totalmoney += number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '');
+					        					?>
 					        				</td>
 					        				<td>
 					        					<form action="javascript:void(0);">
@@ -164,7 +169,20 @@
 				        		}
 							}
 			      		}?>
-						
+										<tr>
+				        					<td>
+					        				</td>
+					        				<td>
+					        				</td>
+					        				<td>
+					        				</td>
+					        				<td>
+					        					Total: &nbsp;RM <?php echo $totalmoney; ?>
+					        				</td>
+					        				<td>
+					        					
+					        				</td>
+					        			</tr>
 					</table>
 
 					<input name="b_print" type="button" class="ipt"   onClick="printdiv('agent_div_<?php echo $val['agentid']; ?>');" value=" Print ">
