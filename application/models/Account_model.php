@@ -422,13 +422,22 @@ class Account_model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
                         }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
+                        }
                     }
+                    echo "<script>console.log('package_25_month:".$payment_amount_date_less_than_duedate."');</script>";
+                    echo "<script>console.log('package_25_month:".$payment_amount_date_larger_than_duedate."');</script>";
                     //每次 + 1天来取得date
                     $total_interest = 0;
                     for ($i=1; $i <$days+1 ; $i++) 
@@ -479,6 +488,7 @@ class Account_model extends CI_Model{
                             }
                         }
                     }
+                    $total_amount = $total_amount - $payment_amount_date_larger_than_duedate;
                     $this->update_total_amount($total_amount,$accountid);
                 }
 
@@ -487,11 +497,18 @@ class Account_model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -560,6 +577,7 @@ class Account_model extends CI_Model{
                         }
                     
                     }
+                    $total_amount = $total_amount - $payment_amount_date_larger_than_duedate;
                      $this->update_total_amount($total_amount,$accountid);
                 }
             
@@ -570,11 +588,18 @@ class Account_model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -643,6 +668,7 @@ class Account_model extends CI_Model{
                         }
                     
                     }
+                    $total_amount = $total_amount - $payment_amount_date_larger_than_duedate;
                      $this->update_total_amount($total_amount,$accountid);
                 }
 
@@ -651,11 +677,18 @@ class Account_model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -722,6 +755,7 @@ class Account_model extends CI_Model{
                             }
                         }
                     }
+                    $total_amount = $total_amount - $payment_amount_date_larger_than_duedate;
                      $this->update_total_amount($total_amount,$accountid);
                 }
 
@@ -731,11 +765,18 @@ class Account_model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -805,6 +846,7 @@ class Account_model extends CI_Model{
                         }
                     
                     }
+                    $total_amount = $total_amount - $payment_amount_date_larger_than_duedate;
                      $this->update_total_amount($total_amount,$accountid);
 
                 }
@@ -855,8 +897,9 @@ class Account_model extends CI_Model{
                     $sum_payment_by_accid_count_total_amount = $this->sum_payment_by_accid_count_total_amount($accountid);
                     $amount = $val['amount'];
                     $totalamount = $amount - $sum_payment_by_accid_count_total_amount;
+                    $this->update_total_amount($totalamount,$accountid);
                 }
-                $this->update_total_amount($totalamount,$accountid);
+                // $this->update_total_amount($totalamount,$accountid);
             }
             else
             {
@@ -923,7 +966,7 @@ class Account_model extends CI_Model{
         $result = $query->result_array();
         foreach ($result as $key => $val) {
             $readytorun = $val['readytorun'];
-            if ($readytorun == 1) {
+            // if ($readytorun == 1) {
                 $accountid = $val['accountid'];
                 $totalamount = $val['totalamount'];
                 $packagetypename = $val['packagetypename'];
@@ -952,8 +995,9 @@ class Account_model extends CI_Model{
                 $datediff2 = $now - $payment_date;
                 // today - last payment date
                 $pdays = round($datediff2 / (60 * 60 * 24));
+                //就算是baddebt 只要 total 少过等于0 都算account close，为了避免customer从blacklist reset status 回来后又被误判成account baddebt, customer baddebt 回去blacklist 
 
-                if($totalamount <= 0 && $status != "baddebt"){
+                if($totalamount <= 0 && $status != "baddebt" && $status != "done"){
                     $status = "closed";
                     $this->set_status($status, $accountid); 
                 }elseif($days>=4 && $days<=29 && $totalamount >= 0 && $status != "baddebt"){
@@ -965,8 +1009,11 @@ class Account_model extends CI_Model{
                 }elseif($totalamount > 0 && $status != "baddebt" && $status != "late"){
                     $status = " ";
                     $this->set_status($status , $accountid);
+                }elseif($totalamount <= 0 && $status == "baddebt"){
+                    $status = "done";
+                    $this->set_status($status , $accountid);
                 }
-            }
+            // }
         }
     }
      public function get_payment_days($accountid)
@@ -1069,7 +1116,10 @@ public function set_account_baddebt()
 
             $create_agent_salary_variable = $value_agent['agentid'];
             ${'salary'.$create_agent_salary_variable} = 0;
+            //reset salary into 0
+            $this->insert_agent_salary($create_agent_salary_variable, 0);
         }
+
         foreach ($result_complete_paid as $key => $value) {
             //check sum of totalamount is 0 or not
             $totalamount_check = $value['SUM(totalamount)'];

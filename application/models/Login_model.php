@@ -23,6 +23,7 @@ class Login_Model extends CI_Model{
             $data = array(
                     'adminid' => $row->adminid,
                     'username' => $row->username,
+                    'company' => $row->company,
                     'validated' => true
                     );
             $this->session->set_userdata($data);

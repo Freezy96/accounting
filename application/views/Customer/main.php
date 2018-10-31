@@ -1,4 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
+<div style="overflow-x:auto;">
 <table class="table livesearch">
 
 	<!-- get session success = true / fail = false -->
@@ -94,6 +95,10 @@
 							<button class="btn btn-default customer_payment_view" data-toggle="modal" data-target="#customer_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid">View Payment</button>
 						</form>
 						<br>
+						<form action="javascript:void(0);">
+							<button class="btn btn-default customer_agent_view" data-toggle="modal" data-target="#customer_agent_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid_agent">View Agent</button>
+						</form>
+						<br>
 						<form action='<?php echo base_url();?>customer/update' method='post' name='customeredit'>
 							<button class="btn btn-primary" value="<?php echo $val["customerid"]; ?>" name="customeridedit">Edit</button>
 						</form>
@@ -115,9 +120,11 @@
 	<?php endforeach ?>
 <?php } ?>
 	</tbody>
+	</div>
 </table>
 <a class="btn btn-default" href="<?php echo site_url('customer/insert'); ?>">Insert New Customer</a></li>
 <br><br>
+<!-- customer payment modal -->
 <div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -129,6 +136,31 @@
        <!-- body -->
       <!-- Customer: <span id="customer_modal_customerid"></span><span id="customer_modal_customername"></span><br> -->
       <table class="customer_modal_table table livesearch">
+      	<thead></thead>
+      	<tr></tr>
+      </table>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- customer agent modal -->
+<div class="modal fade" id="customer_agent_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="customer_agent_modal_title"></h4>
+      </div>
+      <div class="modal-body">
+       <!-- body -->
+      <!-- Customer: <span id="customer_modal_customerid"></span><span id="customer_modal_customername"></span><br> -->
+      <table class="customer_agent_modal_table table livesearch">
       	<thead></thead>
       	<tr></tr>
       </table>

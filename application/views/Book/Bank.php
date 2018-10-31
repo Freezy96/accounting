@@ -1,13 +1,64 @@
 <?php $this->load->view('template/sidenav'); ?>
 
-<h1>Bank</h1>
+<form action="<?php echo base_url();?>book/insertcohdata" method="post" name="">
+
+<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;" value= "<?php echo $coh?>"></h1>
+<button class="btn btn-default " id="submit">Submit</button>
+</form>
+<form action="javascript:void(0);">
+    <a class="btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_coh" aria-expanded="true" aria-controls="collapseOne">View History</a>
+</form>
+</div>
+<div id="collapse_coh" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <!-- collapse show customer match the agentid -->
+                  <div class="panel-body">
+                    <table class="table livesearch" width="100%">
+                        <thead>
+                        <tr>
+                            <td>
+                                Date
+                            </td>
+                            <td>
+                                Amount
+                            </td>
+<!--                            <td>
+                                Action
+                            </td> -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        // get from agent controller
+                        if(is_array($all_coh) && $all_coh){
+                            foreach ($all_coh as $key => $val_all_coh) {
+
+                                    ?>
+                                    
+                                        <tr>
+                                            <td>
+                                                <?php echo $val_all_coh['datee']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $val_all_coh['amount']; ?>
+
+                                            </td>
+                                            
+                                        </tr>
+                                    <?php
+
+                            }
+                        }?>
+                        </tbody>
+                    </table>
+                  </div>
+        </div>
 <form action="<?php echo base_url();?>book/bank" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>
-	    <input type="date" class="form-control date_book" id="" placeholder="" name="date">
-	    <input type="hidden" name="day" class="book_day_input">
-	    <input type="hidden" name="month" class="book_month_input">
-	    <input type="hidden" name="year" class="book_year_input">
+	    <input type="date" class="form-control date_book" id="" placeholder="" name="date" value="<?php echo date("Y-m-d"); ?>">
+	    <input type="hidden" name="day" class="book_day_input" value="<?php echo date("d"); ?>">
+	    <input type="hidden" name="month" class="book_month_input" value="<?php echo date("m"); ?>">
+	    <input type="hidden" name="year" class="book_year_input" value="<?php echo date("Y"); ?>">
   	</div>
   	<button class="btn btn-default pull-right" id="submit">Submit</button>
 </form>
@@ -65,7 +116,7 @@ $date = $this->input->post('date');
 <td ><?php if($bank=="pbb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
 <td ><?php if($bank=="rhb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
 <td ><?php if($bank=="hlb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
-<td><?php echo $debit;?></td>
+<td><?php echo $debit;?>&nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_bank' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_bank_id">Del</button></form></td>
 </tr>
 <?php }elseif ($type=="payment"){?> 
 <tr>
@@ -75,7 +126,7 @@ $date = $this->input->post('date');
 <td ><font color="red"><?php if($bank=="pbb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
 <td ><font color="red"><?php if($bank=="rhb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
 <td ><font color="red"><?php if($bank=="hlb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
-<td><?php echo $debit;?></td>
+<td><?php echo $debit;?>&nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_bank' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_bank_id">Del</button></form></td>
 </tr>
 <?php }?> 
 <?php endforeach ?>
@@ -113,8 +164,8 @@ $date = $this->input->post('date');
  	<label for="">Type:</label>
     <select name="type" required>
         <option value="" selected disabled>------------</option>
-        <option value="payment">Payment</option>   
-        <option value="receive">Receive</option>
+        <option value="payment" style="color:red"><font color="red">Credit</font></option>   
+        <option value="receive" style="color:green"><font color="green">Debit</font></option>
     </select>
  	</td>
  	<td>
@@ -129,3 +180,4 @@ $date = $this->input->post('date');
 
 
 
+<br><br>

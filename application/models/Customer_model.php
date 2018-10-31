@@ -74,6 +74,9 @@ class Customer_Model extends CI_Model{
             elseif($status_new == "baddebt") {
               $statusa = $status_new;
             }
+            elseif($status_new == "done") {
+              $statusa = $status_new;
+            }
           }
           //when status is late
           elseif($statusa == "late"){
@@ -86,6 +89,9 @@ class Customer_Model extends CI_Model{
             elseif($status_new == "baddebt") {
               $statusa = $status_new;
             }
+            elseif($status_new == "done") {
+              $statusa = $status_new;
+            }
           }
           elseif($statusa == "baddebt"){
             if ($status_new == "" || $status_new == "closed") {
@@ -95,6 +101,23 @@ class Customer_Model extends CI_Model{
               //do nothing
             }
             elseif($status_new == "baddebt") {
+              $statusa = $status_new;
+            }
+            elseif($status_new == "done") {
+              $statusa = $status_new;
+            }
+          }
+          elseif($statusa == "done"){
+            if ($status_new == "" || $status_new == "closed") {
+              //do nothing
+            }
+            elseif($status_new == "late") {
+              //do nothing
+            }
+            elseif($status_new == "baddebt") {
+              //do nothing
+            }
+            elseif($status_new == "done") {
               $statusa = $status_new;
             }
           }
@@ -116,24 +139,34 @@ public function checkuserstatus(){
         $data=$this->customer_model->getuserstatus();
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
-           $statusa = $this->get_account_status_by_customerid($customerid);
-           // echo "<script>console.log('".$statusa."');</script>";
-           $statusc = $value['statusc'];
+           $statusa = $this->get_account_status_by_customerid($customerid); //done
+           echo "<script>console.log('".$statusa."');</script>";
+           $statusc = $value['statusc']; //baddebt
+           echo "<script>console.log('".$statusc."');</script>";
            $reset = $value['reset']; 
             
-           $statuscus_update= "";
+           $statuscus_update= $statusc;
 
            if(($statusa==""||$statusa=="closed") && $reset!="1" && $statusc!="late" && $statusc!="baddebt"){
             
             $statuscus_update = "good";
 
-           }elseif($statusa!="" && $reset!="1" && $statusa=="baddebt" ){
+           }elseif($statusa!="" && $reset!="1" && $statusa=="baddebt" && $statusa!="done"){
 
             $statuscus_update="baddebt";
 
            }elseif($statusa!="" && $statusa=="late" && $reset!="1" && $statusa!="baddebt" && $statusc!="baddebt"){
 
             $statuscus_update="late";
+
+           }elseif($reset=="0" && $statusa=="done" && $statusc==" "){
+
+            $statuscus_update="good";
+
+           }
+           elseif($reset=="1" && $statusa=="done" && $statusc==" "){
+
+            $statuscus_update=" ";
 
            }
 
@@ -166,7 +199,7 @@ public function reset_duedate(){
      $date=strtotime(date("Y-m-d"));
      $re_duedate = strtotime("+3 days", strtotime($re_date));
 
-     if ($date>=$re_duedate) {
+     if ($date>=$re_duedate && $reset==1) {
        $reset = 0;
        $status = " ";
 
@@ -182,13 +215,10 @@ public function reset_duedate(){
     
 }
 
-public function reset_status($data){
-   foreach ($data as $key => $value) {
-      $customerid = $value['customerid'];
-  } 
+public function reset_status($customerid){
            $reset=1; 
            $date = date("Y-m-d");
-           $status= "good";
+           $status= " ";
            $data = array(
             'reset' => $reset,
             're-date' => $date,
@@ -200,7 +230,7 @@ public function reset_status($data){
 }
 public function getstatus(){
         // Run the query
-        $this->db->select('customerid, status');
+        $this->db->select('customerid, status,reset');
         $this->db->from('customer');
         $query = $this->db->get();
 
@@ -212,7 +242,7 @@ public function blackliststatus(){
          foreach ($data as $key => $value) {
            $customerid= $value['customerid'];
            $status = $value['status'];
-
+           $reset =$value['reset'];
            $blacklist= 0;
           if($status=="baddebt"){ 
                 $blacklist="1";
@@ -308,6 +338,24 @@ public function blackliststatus(){
         return $query->result_array();
     }
 
+    public function get_customer_agent_modal($customerid){
+        // Run the query
+
+        $this->db->select("ag.agentid, ag.agentname, c.customername, c.customerid, pt.packagetypename");
+        $this->db->from('account a');
+        $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('a.customerid', $customerid);
+        $this->db->group_by('a.agentid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function check_availability($name,$passport){
         // Run the query
 
@@ -361,5 +409,27 @@ public function blackliststatus(){
       public function confirm($msg){
         echo "<script type='text/javascript'>confirm('".$msg."');</script>";    
       }
+
+
+public function updatebldb($customerid){ 
+  $customerid=$customerid;
+    
+  $status="baddebt";
+  $blacklist="1";
+  $reset="1";
+  $date = date("Y-m-d");
+  $date2= strtotime("+10 year", strtotime($date));
+  $date2 = date('Y-m-d', $date2);
+  $data = array(
+'status' => $status,
+      'blacklist' => $blacklist,
+      'reset'=>$reset,
+      're-date' => $date2
+
+      );
+    $return = $this->update($data, $customerid);
+    $data['return'] = $return;
+    $this->load->view('template/footer');
+  }
 }
 ?>

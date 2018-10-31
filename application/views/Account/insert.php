@@ -18,11 +18,17 @@
 
   <div class="form-group">
     <label for="">Customer</label>
-    <select class="form-control" name="customerid" required="">
+    <select class="form-control chosen-select" name="customerid" required="">
     <?php foreach ($result as $key => $value): ?>
-      
-        <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?></option>
-     
+      <?php $blacklisted = 0; ?>
+        <?php if ($value['blacklist'] == 1): ?>
+          <?php $blacklisted = 1; ?>
+        <?php endif ?>
+        <?php if ($blacklisted == 1): ?>
+          <option value="<?php echo $value['customerid']; ?>" style="color: red;"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?>&nbsp;(<?php echo $value['passport']; ?>)&nbsp; (Blacklisting by this company)</option>
+        <?php else: ?>
+          <option value="<?php echo $value['customerid']; ?>"><?php echo $value['customername']; ?>&nbsp;/&nbsp;WeChat:&nbsp;<?php echo $value['wechatname']; ?>&nbsp;(<?php echo $value['passport']; ?>)</option>
+        <?php endif ?>
     <?php endforeach ?>
      </select>
   </div><br>
@@ -213,7 +219,7 @@
   </div> -->
   
   <div class="form-group" id="guarantyitemcol" style="display:none">
-  <label for="">Guaranty Item</label>
+  <label for="">Guarantee Item</label>
 <input type="text" name="guarantyitem" id="input_option"  disabled="disabled" required> 
 </div>
 

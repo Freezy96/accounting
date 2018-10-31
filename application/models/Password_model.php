@@ -3,23 +3,12 @@ class Password_Model extends CI_Model{
     function __construct(){
         parent::__construct();
     }
-    public function update($data){
-        $password = $this->input->post('password');
-        $newpassword = $this->input->post('newpassword'); 
-        if($this->db->where('password', $password)){
-            foreach ($data as $key => $value) {
-            $data = array(
-            'password' => $newpassword
-            );
-       
-            if($this->db->update('admin', $data)){
-                $return = "update";
-           
-            }
-        } 
-        
-    }
-    return $return;
+    public function update($adminid, $newpassword){
+
+        $this->db->where('adminid', $adminid);
+        $this->db->update('admin', array('password' => $newpassword));
+        $return = "update";
+        return $return;
     }
 }
 ?>

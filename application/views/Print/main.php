@@ -8,8 +8,8 @@
   	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
 </form>
 <div id="div_print">
-	
-<table class="table">
+<link rel="stylesheet" type="text/css" media="print" href="print.css">
+<table class="table table-condensed" border="1" width="100%">
 
 	<!-- get session success = true / fail = false -->
 	<?php $return = $this->session->flashdata('return'); ?>
@@ -37,7 +37,7 @@
 					PACKAGE NAME
 				</td>				
 				<td>
-					Amount
+					AMOUNT
 				</td>
 				<td>
 					DUEDATE
@@ -51,32 +51,34 @@
 		<!-- $count post from data['count'] -->
 	<?php for ($i=0; $i < $count; $i++) { ?> 
 		<?php foreach (${'result'.$i} as $key => $val): ?>
-		<tr>
-			<td>
-				<?php echo $val['refid']; ?>
-			</td>
-			<td>
-				<?php echo $val['customerid']; ?>
-			</td>
-			<td>
-				<?php echo $val['customername']; ?>
-			</td>
-			<td>
-				<?php echo $val['address']; ?>
-			</td>
-			<td>
-				<?php echo $val['phoneno']; ?>
-			</td>
-			<td>
-				<?php echo $val['packagetypename']; ?>
-			</td>
-			<td>
-				<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
-			</td>
-			<td>
-				<!-- <?php echo $val['MIN(a.duedate)']; ?> -->
-			</td>
-		</tr>
+			<?php if (${'totalamount'.$val['refid']} > 0): ?>
+				<tr>
+					<td>
+						<?php echo $val['refid']; ?>
+					</td>
+					<td>
+						<?php echo $val['customerid']; ?>
+					</td>
+					<td>
+						<?php echo $val['customername']; ?>
+					</td>
+					<td>
+						<?php echo $val['address']; ?>
+					</td>
+					<td>
+						<?php echo $val['phoneno']; ?>
+					</td>
+					<td>
+						<?php echo $val['packagetypename']; ?>
+					</td>
+					<td>
+						<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
+					</td>
+					<td>
+						<?php echo ${'min_duedate'.$val['refid']}; ?>
+					</td>
+				</tr>
+			<?php endif ?>
 		<?php endforeach ?>
 	<?php	} ?>
 	
@@ -89,13 +91,14 @@
 <script type="text/javascript">
 function printdiv(printpage)
 {
-var headstr = "<html><head><title></title></head><body>";
+var headstr = "<html><head><title></title>    <link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/bootstrap.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/bootstrap-theme.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/simple-sidebar.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/datatables.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/chosen.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/custom.css\"><!-- JS / JQUERY --><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/jquery-3.3.1.min.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/bootstrap.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/npm.js\"></\script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/datatables.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/chosen.proto.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/chosen.jquery.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/custom.js\"><\/script></head><body>";
 var footstr = "</body>";
 var newstr = document.all.item(printpage).innerHTML;
 var oldstr = document.body.innerHTML;
 document.body.innerHTML = headstr+newstr+footstr;
 window.print();
+
 document.body.innerHTML = oldstr;
-return false;
+return false; 
 }
 </script>

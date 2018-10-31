@@ -1,4 +1,5 @@
 <?php $this->load->view('template/sidenav'); ?>
+<div style="overflow-x:auto;">
 <table class="table livesearch">
 
 	<!-- get session success = true / fail = false -->
@@ -98,7 +99,7 @@
 						<form action='<?php echo base_url();?>customer/delete' method='post' name='customerdelete'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["customerid"]; ?>" name="customeriddelete">Delete</button>
 						</form>
-												<form action='<?php echo base_url();?>customer/resets' method='post' name='customerresetstatus'>
+						<form action='<?php echo base_url();?>customer/resets' method='post' name='customerresetstatus'>
 							<button class="btn btn-danger" onclick="return confirm('Are you sure you want to Reset This Status (3 days)');" value="<?php echo $val["customerid"]; ?>" name="customerresetstatus">ResetStatus</button>
 						</form>
 					</div>
@@ -129,5 +130,8 @@
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
+
   </div>
+
+</div><a class="btn btn-default" href="<?php echo site_url('customer/insertbl'); ?>">Insert New Customer</a></li>
 </div>

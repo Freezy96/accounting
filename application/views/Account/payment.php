@@ -67,7 +67,7 @@
     </tr>
     <tr>
       <td>
-        Guaranty Item:
+        Guarantee Item:
       </td>
       <td>
         <?php echo $guarantyitem; ?>
@@ -390,7 +390,7 @@
               </optgroup>
             </select>
             <div class="form-group" id="<?php echo "guarantyitem".$account_number_count; ?>" style="display:none;">
-              <label for="">Guaranty Item</label>
+              <label for="">Guarantee Item</label>
               <input type="text" name="<?php echo "guarantyitem_name".$account_number_count; ?>" id="<?php echo "input_option_switch_package".$account_number_count; ?>" disabled="disabled" required> 
             </div>
           </div>

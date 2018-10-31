@@ -4,10 +4,10 @@
 <form action="<?php echo base_url();?>book/total" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>
-	    <input type="date" class="form-control date_book" id="date" placeholder="" name="date">
-	    <input type="hidden" name="day" class="book_day_input">
-	    <input type="hidden" name="month" class="book_month_input">
-	    <input type="hidden" name="year" class="book_year_input">
+	    <input type="date" class="form-control date_book" id="date" placeholder="" name="date" value="<?php echo date("Y-m-d"); ?>">
+	    <input type="hidden" name="day" class="book_day_input" value="<?php echo date("d"); ?>">
+	    <input type="hidden" name="month" class="book_month_input" value="<?php echo date("m"); ?>">
+	    <input type="hidden" name="year" class="book_year_input" value="<?php echo date("Y"); ?>">
   	</div>
   	<button class="btn btn-default pull-right" id="submit">Submit</button>
 </form>
@@ -55,7 +55,10 @@ $date = $this->input->post('date');
 
 <td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank']; }else{}?></font></td>
 <td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank']; }else{}?></td>
-<td><?php echo $total?></td>
+<td>
+    <?php echo $total?>
+    &nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_total' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_total_id">Del</button></form>
+</td>
 </tr>
 <?php endforeach ?>
 <?php } ?>
@@ -89,8 +92,8 @@ $date = $this->input->post('date');
  	<label for="">Type:</label>
     <select name="type" required>
         <option value="" selected disabled>------------</option>
-        <option value="debit">DEBIT</option>   
-        <option value="credit">CREDIT</option>
+        <option value="debit" style="color:red">DEBIT</option>   
+        <option value="credit" style="color:green">CREDIT</option>
     </select>
  	</td>
  	<td>

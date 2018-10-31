@@ -1,6 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 <div style="overflow-x:auto;">
-<form action='<?php echo base_url();?>customer/insertdb' method='post' name='customerinsert' enctype="multipart/form-data">
+<form action='<?php echo base_url();?>customer/insertbldb' method='post' name='blacklistinsert' enctype="multipart/form-data">
   <?php 
 
   if ($this->uri->segment(3, 0) !="") {
@@ -53,6 +53,8 @@
   
 </div>
 </div>
-  <button type="submit" class="btn btn-default" id="customer_insert_submit_btn">Submit</button>
+  <button type="submit" class="btn btn-default" id="blacklists_insert_submit_btn">Submit</button>
 </form>
 </div>
+
+

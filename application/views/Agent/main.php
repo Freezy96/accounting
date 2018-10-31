@@ -93,8 +93,8 @@
 			<td colspan="5" >
 				<!-- collapse show customer match the agentid -->
 				<div>
-			      <div class="panel-body">
-			      	<table class="table">
+			      <div class="panel-body" id="agent_div_<?php echo $val['agentid']; ?>">
+			      	<table class="table" border="1" width="100%">
 			      		<tr>
 			      			<td>
 			      				Account ID
@@ -119,8 +119,26 @@
 						    
 							    if($value_completed['agentid_completed'] == $val['agentid']){
 				        			?>
-				        			
-				        				<tr>
+				        			<?php 
+					        			$salary_paid = 0; 
+					        			$show = 1;
+				        			?>
+		        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
+		        						<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
+										<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
+											<?php 
+												$days_minus_15 = strtotime('-15 days',strtotime(date("Y-m-d")));
+												$days_minus_15 = date("Y-m-d",$days_minus_15);
+												// echo $days_minus_15;
+											 ?>
+											<?php if ($value_not_grouped['MAX(paymentdate)']<$days_minus_15 && number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '')<= 0.10): ?>
+												<?php $show = 0;?>
+											<?php endif ?>
+											
+										<?php endif ?>
+									<?php endforeach ?>
+									<?php if ($show != 0): ?>
+										<tr>
 				        					<td>
 					        					<?php echo $value_completed['refid']; ?>
 					        				</td>
@@ -131,12 +149,7 @@
 					        					<?php echo $value_completed['wechatname']; ?>
 					        				</td>
 					        				<td>
-					        					<?php $salary_paid = 0;?>
-					        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
-													<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
-														<?php $salary_paid += $value_not_grouped['payment']; ?>
-													<?php endif ?>
-												<?php endforeach ?>
+					        					
 					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); ?>
 					        				</td>
 					        				<td>
@@ -145,12 +158,16 @@
 					        					</form>
 					        				</td>
 					        			</tr>
+									<?php endif ?>
+				        				
 				        			<?php
 				        		}
 							}
 			      		}?>
 						
 					</table>
+
+					<input name="b_print" type="button" class="ipt"   onClick="printdiv('agent_div_<?php echo $val['agentid']; ?>');" value=" Print ">
 			      </div>
 			    </div>
 			</td>
@@ -259,3 +276,20 @@
 
     
  
+
+
+
+<script type="text/javascript">
+function printdiv(printpage)
+{
+	
+var headstr = "<html><head><title></title>    <link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/bootstrap.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/bootstrap-theme.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/simple-sidebar.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/datatables.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/chosen.css\"><link rel = \"stylesheet\" type = \"text/css\" href = \"<?php echo base_url(); ?>css/custom.css\"><!-- JS / JQUERY --><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/jquery-3.3.1.min.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/bootstrap.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/npm.js\"></\script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/datatables.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/chosen.proto.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/chosen.jquery.js\"><\/script><script type = 'text/javascript' src = \"<?php echo base_url(); ?>js/custom.js\"><\/script></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false; 
+}
+</script>

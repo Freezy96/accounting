@@ -149,6 +149,102 @@ class Customer extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+public function insertbl(){	
+		$this->security_model->secure_session_login();
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$this->load->view('customer/insertbl');
+		$this->load->view('template/footer');
+	}	
+
+public function insertbldb(){	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		///////////////Combo of User Identity Insert///////////////////
+		$company_identity = $this->session->userdata('adminid');
+		///////////////Combo of User Identity Insert///////////////////
+		$redirect = $this->input->post('redirect_destination');
+		$statuscus=$this->customer_model->checkuserstatus();
+		$customername=$this->input->post('name');
+		$passport_check = $this->input->post('passport');
+		$exist_check = $this->customer_model->check_availability($customername,$passport_check);
+		$status="baddebt";
+		$blacklist="1";
+		$reset="1";
+		$date = date("Y-m-d");
+		$date2= strtotime("+10 year", strtotime($date));
+		$date2 = date('Y-m-d', $date2);
+
+		// echo $blacklist_check;
+		// if ($exist_check == "yes") {
+		// 	$this->session->set_flashdata('return',"update");
+		// 	redirect("customer");
+		// }
+		
+
+			$data = array(
+			'customername' => $this->input->post('name'),
+			'wechatname' => $this->input->post('wechatname'),
+			'address' => $this->input->post('address'),
+			'phoneno' => $this->input->post('phoneno'),
+			'passport' => $this->input->post('passport'),
+			///////////////Combo of User Identity Insert///////////////////
+			'companyid' => $company_identity,
+			///////////////Combo of User Identity Insert///////////////////
+			'gender' => $this->input->post('gender'),
+			'status' => $status,
+			'blacklist' => $blacklist,
+			'reset'=>$reset,
+			're-date' => $date2
+
+			);
+
+			$return_id = $this->customer_model->insert($data);
+			$return = $return_id;
+			$data['return'] = "insert";
+
+				$config['upload_path']= realpath(APPPATH . '../Image/Customer_Image');
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['overwrite'] = TRUE;
+				$config['file_name'] = $return_id;
+				$config['max_size'] = "2048000"; 
+				$config['max_height'] = "9999";
+				$config['max_width'] = "9999";
+				$this->load->library('upload', $config);
+				if ($this->upload->do_upload('profilePic')){
+						$image_data = $this->upload->data();
+					    $fname=$image_data[file_name];
+					    $temp = explode(".", $fname);
+						$newfilename = $return_id . '.' . end($temp);
+
+					    $fpath=site_url().'Image/Customer_Image/'.$newfilename;
+					    $return = $this->customer_model->update_photo_pathname($return_id,$fpath);
+					    $data['return'] = $return;
+				    }
+				    else{
+				            echo $this->upload->display_errors();
+				            // $data['return'] = "Failed";
+				    		// redirect('customer');
+				    } 
+				    
+			
+		
+			
+			
+		$this->session->set_flashdata('return',$data);
+				if($redirect!="")
+				{
+					echo "<script>window.location.href='".base_url().$redirect."';</script>";
+				}
+				else
+				{
+					echo "<script>window.location.href='".base_url()."customer';</script>";
+				}
+		$this->load->view('template/footer');
+	}
+
 	public function update()
 	{	
 		$this->load->helper('url');
@@ -253,18 +349,15 @@ public function resets()
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$this->load->view('template/nav');
-		$data = array(
-		'customerid' => $this->input->post('customerresetstatus')
-		);
-		$return = $this->customer_model->reset_status($data);
+		$customerid = $this->input->post('customerresetstatus');
+		$return = $this->customer_model->reset_status($customerid);
 			redirect('customer');
-			$data['return'] = $return;
+		$data['return'] = $return;
 
 		if($return == true){
 			// session to sow success or not, only available next page load
 			$this->session->set_flashdata('return',$data);
-			redirect('customer');
+			redirect('customer/blacklist');
 		}
 $this->load->view('template/footer');
 	}
@@ -322,75 +415,37 @@ $this->load->view('template/footer');
     }
             $return = $this->customer_model->insert_blacklist($data);
    }
-public function blacklistbutton($customerid){
-	$this->load->insertblacklist($customerid);
-	$this->load->toblacklist($customerid);
+
+public function blacklistbutton(){
+	$customerid = $this->input->post('blacklistbutton');
+	$this->customer_model->updatebldb($customerid);
+	redirect('customer');
+
 }
-  public function insertblacklist($customerid){
-  	 $data2 = array(
-            'customerid' => $customerid
-            );
 
-	$this->db->where('customerid', $customerid);
-        $this->db->insert('blacklist', $data2);
-$return = $this->customer_model->insert_blacklist($data2);
 
-  }
-  
-	public function toblacklist($customerid)
-	{	
-		$blacklist=1;
-		$data = array(
-		'blacklist' => $blacklist,
-		);
 
-		$return = $this->customer_model->update($data);
-	} 
+
        public function customer_payment_modal() 
 	{	
 		$customerid = $this->input->post('customerid');
 		$data = $this->customer_model->get_customer_payment_modal($customerid);
-		//用accountid 拿refid,再用refid那所有的accountid，在拿所有的payment出来，吧同样的payment merge起来，组成几个东西，push进array
-		// $get_refid = $this->account_model->getrefid($accountid);
-		// foreach ($get_refid as $key => $value) {
-		// 	$refid = $value['refid'];
-		// }
-		// $get_all_acc_id = $this->account_model->get_accountid_using_refid($refid);
-		// $count_array = -1;
-		// foreach ($get_all_acc_id as $key => $value) {
-		// 	$count_array++;
-		// 	$all_account_id = $value['accountid'];
-		// 	$get_payment = $this->account_model->get_payment_amount($all_account_id);
-		// 	$payment = 0;
-		// 	$interest_paid = 0;
-		// 	foreach ($get_payment as $key => $value) {
-		// 		if($value['paymenttype']=="amount")
-		// 		{
-		// 			$payment+=$value['payment'];
-		// 		}
-		// 		// elseif($value['paymenttype']=="interest")
-		// 		// {
-		// 		// 	$interest_paid+=$value['payment'];
-		// 		// }
-		// 		if($value['paymenttype']=="discount")
-		// 		{
-		// 			$payment+=$value['payment'];
-		// 		}
-		// 		if($value['paymenttype']=="newpackage")
-		// 		{
-		// 			$payment+=$value['payment'];
-		// 		}
-		// 		// ${'data'. $all_account_id} = array();
-		// 		$data[$count_array]["payment"] = $payment;
-		// 		// $data[$count_array]["interest_paid"] = $interest_paid;
- 		// 	}
-		// }
+
 		
 	     
 	    echo json_encode($data);
  		//Either you can print value or you can send value to database
 	}
+   	public function customer_agent_modal() 
+	{	
+		$customerid = $this->input->post('customerid');
+		$data = $this->customer_model->get_customer_agent_modal($customerid);
 
+		
+	     
+	    echo json_encode($data);
+ 		//Either you can print value or you can send value to database
+	}
 }
 
 /* End of file welcome.php */
