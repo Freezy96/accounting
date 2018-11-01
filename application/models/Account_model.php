@@ -314,7 +314,7 @@ class Account_model extends CI_Model{
     // Package 30 / 4Week 滚利息
     public function interest_30_4week()
     {
-        $this->db->select('a.accountid, a.refid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
+        $this->db->select('a.accountid, a.amount, a.refid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -333,7 +333,7 @@ class Account_model extends CI_Model{
             $accountid = $value['accountid'];
             $totalamount = $value['totalamount'];
             $refid = $value['refid'];
-
+            $amount_4week = $value['amount'];
             
             $packageinfo = $this->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) 
@@ -344,6 +344,7 @@ class Account_model extends CI_Model{
                 //for package_manual_payeveryday_manualdays
                 if ($packagename == "package_manual_payeveryday_manualdays") {
                     $totaldays_package_manual_payeveryday_manualdays = $value['days'];
+                    $amount_every_day = $value['amounteveryday'];
                 }
                 
 
@@ -383,7 +384,7 @@ class Account_model extends CI_Model{
             $day_limitdays = $max_limit_datedif/86400; 
         }
         elseif ($packagename == "package_manual_payeveryday_manualdays") {
-            $day_limitdays = $totaldays_package_manual_payeveryday_manualdays+2;
+            $day_limitdays = $totaldays_package_manual_payeveryday_manualdays;
         }
         if($days>=$day_limitdays){
             $days=$day_limitdays;
@@ -398,21 +399,104 @@ class Account_model extends CI_Model{
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed"  )
                 {
-                    $total_interest = $interest * $days;
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) {
+                        $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] < $date_eachday) 
+                            {
+                                $payment_paid += $value['payment'];
+                                echo "<script>console.log('payment:".$payment_paid."')</script>";
+                            }
+                        }
+                        
+                        if ($i == 1) {
+                            $counting_interest_enable = $amount_4week+$interest;
+                        }else{
+                            $counting_interest_enable = $amount_4week+$total_interest;
+                        }
+                        
+                        if ($payment_paid < $counting_interest_enable) {
+                            $total_interest += $interest;
+                        }
+                    }
                     $this->insert_interest($total_interest,$accountid);
                 }
                 elseif($packagename == "package_manual_5days_4week" && $status !=="closed"  )
                 {
-                    $total_interest = $interest * $days;
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) {
+                        $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] < $date_eachday) 
+                            {
+                                $payment_paid += $value['payment'];
+                                echo "<script>console.log('payment:".$payment_paid."')</script>";
+                            }
+                        }
+                        
+                        if ($i == 1) {
+                            $counting_interest_enable = $amount_4week+$interest;
+                        }else{
+                            $counting_interest_enable = $amount_4week+$total_interest;
+                        }
+                        
+                        if ($payment_paid < $counting_interest_enable) {
+                            $total_interest += $interest;
+                        }
+                    }
                     $this->insert_interest($total_interest,$accountid);
                 }
                 //5天账 公式
                 elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
                 {
-                    if ($days>=$totaldays_package_manual_payeveryday_manualdays) {
-                        $days = $totaldays_package_manual_payeveryday_manualdays;
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
+                        }
                     }
-                        $total_interest = $interest * $days;
+
+                    $total_interest = 0;
+
+                    for ($i=1; $i <$days+2 ; $i++) { // days + 2 because of last day wont count that day interest.
+                        $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
+                        $date_eachday = date("Y-m-d", $date_eachday);
+
+                        if ($i>1) {
+                            $payment_paid = 0;
+                            foreach ($payment_info as $key => $value) 
+                            {
+                                if ($value['paymentdate'] < $date_eachday) 
+                                {
+                                    $payment_paid += $value['payment'];
+                                    echo "<script>console.log('payment:".$payment_paid."')</script>";
+                                }
+                            }
+
+                            $counting_interest_enable = ($amount_every_day * ($i-1)) + $total_interest;
+                            if ($payment_paid < $counting_interest_enable) {
+                                $total_interest += $interest;
+                            }
+                        }
+                        echo "<script>console.log(".$total_interest.")</script>";
+                    }
                         $this->insert_interest($total_interest,$accountid);
                     
                 }
@@ -1352,11 +1436,10 @@ public function set_baddebt_update($accountid){
         echo json_encode($refid);
 
     }
-       public function delete($data){
-        
-        if($this->db->delete('account', $data)){
-            $this->deletepayment();
-
+       public function delete($refid){
+        $ref = $this->get_accountid_using_refid($refid);
+        if($this->db->delete('account', array('refid' => $refid))){
+            $this->deletepayment($ref);
             $return = "delete";
             return $return;
         }else{
@@ -1366,18 +1449,13 @@ public function set_baddebt_update($accountid){
 
     }
 
-    public function deletepayment(){
-        $refid = $this->input->post('accountdelete');
-        $ref=$this->get_accountid_using_refid($refid);
-        $data = array(
-            
-        'accountid' => $this->$ref
-        );
+    public function deletepayment($ref){
 
-        $this->db->delete('payment', $data);
-
-
-
+        foreach ($ref as $key => $value) {
+            $accountid = $value['accountid'];
+            echo $accountid;
+            $this->db->delete('payment', array('accountid' => $accountid));
+        }
     }
 
 

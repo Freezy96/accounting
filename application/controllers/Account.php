@@ -470,7 +470,7 @@ class Account extends CI_Controller {
 				'refid' => $refid,
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
-				'duedate' => $date1,
+				'duedate' => $dateoriginal,
 				'agentcharge' => $agent_charge,
 				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
@@ -1365,7 +1365,7 @@ class Account extends CI_Controller {
 				'refid' => $refid,
 				// 'payment' => 0,
 				'datee' => $dateoriginal,
-				'duedate' => $date1,
+				'duedate' => $dateoriginal,
 				'agentcharge' => 0,
 				'accountline' => $accountline,
 				///////////////Combo of User Identity Insert///////////////////
@@ -1724,12 +1724,9 @@ class Account extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		
-		$data = array(
-		'refid' => $this->input->post('accountdelete')
-		);
 
-		$return = $this->account_model->delete($data);
+		$refid = $this->input->post('accountdelete');
+		$return = $this->account_model->delete($refid);
 		$data['return'] = $return;
 
 		if($return == true){
