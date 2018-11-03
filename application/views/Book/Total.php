@@ -25,7 +25,7 @@
 <th>Description</th>
 <th>Debit</th>
 <th>Credit</th>
-<th>Total</th>
+<th>Balance</th>
 </tr>
 </thead>
 <tbody>
