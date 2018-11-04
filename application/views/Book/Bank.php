@@ -144,7 +144,7 @@ $date = $this->input->post('date');
  <tr>
  <td>
  	<label for="">Date:</label>
-    <input type="date" class="form-control" id="" name="datee" required>
+    <input type="date" class="form-control" id="" name="datee" required value="<?php echo date("Y-m-d"); ?>">
  </td>
  	<td>
  		<label for="">Description:</label>

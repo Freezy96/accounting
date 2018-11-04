@@ -225,7 +225,7 @@
 
   <div class="form-group">
     <label for="">Date</label>
-     <input type="date" class="form-control" id="" placeholder="Date" name="date" required>
+     <input type="date" class="form-control" id="" placeholder="Date" value="<?php echo date("Y-m-d"); ?>" name="date" required>
   </div>
 
   <div class="form-group">

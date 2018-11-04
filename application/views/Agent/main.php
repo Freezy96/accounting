@@ -126,8 +126,9 @@
 					        			$show = 1;
 				        			?>
 		        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
-		        						<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
+		        						
 										<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
+											<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
 											<?php 
 												$days_minus_15 = strtotime('-15 days',strtotime(date("Y-m-d")));
 												$days_minus_15 = date("Y-m-d",$days_minus_15);
