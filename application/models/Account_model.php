@@ -406,6 +406,7 @@ class Account_model extends CI_Model{
                 if($packagename == "package_30_4week" && $status !=="closed"  )
                 {
                     $total_interest = 0;
+
                     for ($i=1; $i <$days+1 ; $i++) {
                         $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
                         $date_eachday = date("Y-m-d", $date_eachday);
@@ -420,7 +421,11 @@ class Account_model extends CI_Model{
                         }
                         
                         if ($i == 1) {
-                            $counting_interest_enable = $amount_4week+$interest;
+                            if ($payment_paid>=$amount_4week) { //350
+                                $counting_interest_enable = $amount_4week+$total_interest;
+                            }else{
+                                $counting_interest_enable = $amount_4week+$interest;
+                            }
                         }else{
                             $counting_interest_enable = $amount_4week+$total_interest;
                         }
@@ -448,7 +453,11 @@ class Account_model extends CI_Model{
                         }
                         
                         if ($i == 1) {
-                            $counting_interest_enable = $amount_4week+$interest;
+                            if ($payment_paid>=$amount_4week) { //350
+                                $counting_interest_enable = $amount_4week+$total_interest;
+                            }else{
+                                $counting_interest_enable = $amount_4week+$interest;
+                            }
                         }else{
                             $counting_interest_enable = $amount_4week+$total_interest;
                         }
@@ -460,7 +469,8 @@ class Account_model extends CI_Model{
                     $this->insert_interest($total_interest,$accountid);
                 }
                 //5天账 公式
-                elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
+                // elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
+                elseif($packagename == "package_manual_payeveryday_manualdays" )//必须算完20天
                 {
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
@@ -481,7 +491,7 @@ class Account_model extends CI_Model{
 
                     $total_interest = 0;
 
-                    for ($i=1; $i <$days+2 ; $i++) { // days + 2 because of last day wont count that day interest.
+                    for ($i=1; $i <$days+1 ; $i++) { 
                         $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
                         $date_eachday = date("Y-m-d", $date_eachday);
 
@@ -502,6 +512,25 @@ class Account_model extends CI_Model{
                             }
                         }
                         echo "<script>console.log(".$total_interest.")</script>";
+                    }
+                    $last_day = date("Y-m-d");
+                    $duedate_plus_pay_day = strtotime("+ ".$days." days", $due_date);
+                    $duedate_plus_pay_day = date("Y-m-d",$duedate_plus_pay_day);
+                    if ($last_day>$duedate_plus_pay_day) {
+                        $payment_paid = 0;
+                            foreach ($payment_info as $key => $value) 
+                            {
+                                if ($value['paymentdate'] < $date_eachday) 
+                                {
+                                    $payment_paid += $value['payment'];
+                                    echo "<script>console.log('payment:".$payment_paid."')</script>";
+                                }
+                            }
+
+                            $counting_interest_enable = ($amount_every_day * ($i-1)) + $total_interest;
+                            if ($payment_paid < $counting_interest_enable) {
+                                $total_interest += $interest;
+                            }
                     }
                         $this->insert_interest($total_interest,$accountid);
                     
@@ -624,7 +653,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                              if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                }
+                                
                                 echo "<script>console.log('totalamounta:".$total_amount."')</script>";
                    
                                
@@ -658,7 +692,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
+                                
                    
                                
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
@@ -730,7 +769,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                }
+                                
                    
                                
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
@@ -755,7 +799,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
+                                
                    
                                
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 ) 
@@ -819,7 +868,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                 }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                 }
+                                
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -843,7 +897,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
+                                
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -907,7 +966,12 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                }
+                                
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
@@ -932,7 +996,11 @@ class Account_model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 

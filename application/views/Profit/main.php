@@ -3,10 +3,10 @@
 <form action='<?php echo base_url();?>profit/' method='post' name='customerinsert'>
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
-	    <input type="date" class="form-control" id="date_profit" placeholder="" name="profit_date">
-	    <input type="hidden" name="day" id="profit_day_input">
-	    <input type="hidden" name="month" id="profit_month_input">
-	    <input type="hidden" name="year" id="profit_year_input">
+	    <input type="date" class="form-control" id="date_profit" placeholder="" name="profit_date" value="<?php echo date("Y-m-d"); ?>">
+	    <input type="hidden" name="day" id="profit_day_input" value="<?php echo date("d"); ?>">
+	    <input type="hidden" name="month" id="profit_month_input" value="<?php echo date("m"); ?>">
+	    <input type="hidden" name="year" id="profit_year_input" value="<?php echo date("Y"); ?>">
   	</div>
   	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
 </form>

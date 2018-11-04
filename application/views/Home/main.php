@@ -101,7 +101,7 @@
 						<td>
 								<?php $val['interest'] = ${'totalamount'.$val['refid']} - $val['oriamount'] ?>
 								<?php echo ${'totalamount'.$val['refid']}; ?>
-								<?php if ($val['interest']>=0): ?>
+<!-- 								<?php if ($val['interest']>=0): ?>
 
 									<?php echo "(Interest:".$val['interest'].")"; ?>
 
@@ -109,7 +109,7 @@
 									<?php $val['interest'] = $val['interest'] * -1; ?>
 									<?php echo "(Payment:".$val['interest'].")"; ?>
 
-								<?php endif ?>
+								<?php endif ?> -->
 						</td>
 						<td>
 							<?php echo $val['phoneno']; ?>
