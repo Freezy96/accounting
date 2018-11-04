@@ -86,10 +86,18 @@
 <tr>
 <?php 
 	$debit=0;
+    $tdmmb=0;
+    $tcmmb=0;
+    $tdpbb=0;
+    $tcpbb=0;
+    $tdrhb=0;
+    $tcrhb=0;
+    $tdhlb=0;
+    $tchlb=0;
  
 $date = $this->input->post('date');
  ?>
-<td><?php echo $date; ?></td>
+<td> </td>
 <td>Balance forward</td>
 <td><?php echo $mbb;?></td>
 <td><?php echo $pbb;?></td>
@@ -112,25 +120,49 @@ $date = $this->input->post('date');
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td ><?php if($bank=="mbb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
-<td ><?php if($bank=="pbb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
-<td ><?php if($bank=="rhb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
-<td ><?php if($bank=="hlb"){echo $val['amount'];$debit+= $val['amount'];}else{ } ?></td>
+<td ><?php if($bank=="mbb"){echo $val['amount'];$debit+= $val['amount'];$tdmmb+= $val['amount'];}else{ } ?></td>
+<td ><?php if($bank=="pbb"){echo $val['amount'];$debit+= $val['amount'];$tdpbb+= $val['amount'];}else{ } ?></td>
+<td ><?php if($bank=="rhb"){echo $val['amount'];$debit+= $val['amount'];$tdrhb+= $val['amount'];}else{ } ?></td>
+<td ><?php if($bank=="hlb"){echo $val['amount'];$debit+= $val['amount'];$tdhlb+= $val['amount'];}else{ } ?></td>
 <td><?php echo $debit;?>&nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_bank' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_bank_id">Del</button></form></td>
 </tr>
 <?php }elseif ($type=="payment"){?> 
 <tr>
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
-<td ><font color="red"><?php if($bank=="mbb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
-<td ><font color="red"><?php if($bank=="pbb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
-<td ><font color="red"><?php if($bank=="rhb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
-<td ><font color="red"><?php if($bank=="hlb"){echo $val['amount'];$debit-= $val['amount'];}else{ } ?></font></td>
+<td ><font color="red"><?php if($bank=="mbb"){echo $val['amount'];$debit-= $val['amount'];$tcmmb+= $val['amount'];}else{ } ?></font></td>
+<td ><font color="red"><?php if($bank=="pbb"){echo $val['amount'];$debit-= $val['amount'];$tcpbb+= $val['amount'];}else{ } ?></font></td>
+<td ><font color="red"><?php if($bank=="rhb"){echo $val['amount'];$debit-= $val['amount'];$tcrhb+= $val['amount'];}else{ } ?></font></td>
+<td ><font color="red"><?php if($bank=="hlb"){echo $val['amount'];$debit-= $val['amount'];$tchlb+= $val['amount'];}else{ } ?></font></td>
 <td><?php echo $debit;?>&nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_bank' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_bank_id">Del</button></form></td>
 </tr>
 <?php }?> 
 <?php endforeach ?>
 <?php } ?>
+<tr>
+<td> </td>
+<td> </td>
+    <td>
+        MMB:<br>
+        Total Debit:<?php echo $tdmmb;?><br>
+        Total Credit:<?php echo $tcmmb;?>
+    </td>
+    <td>
+        PBB:<br>
+        Total Debit:<?php echo $tdpbb;?><br>
+        Total Credit:<?php echo $tcpbb;?>
+    </td>
+    <td>
+        RHB:<br>
+        Total Debit:<?php echo $tdrhb;?><br>
+        Total Credit:<?php echo $tcrhb;?>
+    </td>
+    <td>
+        HLB:<br>
+        Total Debit:<?php echo $tdhlb;?><br>
+        Total Credit:<?php echo $tchlb;?>
+    </td>
+</tr>
 </tbody>
 </table>
 </td>
