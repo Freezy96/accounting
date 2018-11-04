@@ -24,7 +24,7 @@
 <th>Date</th>
 <th>Description</th>
 <th>Amount</th>
-<th>Total</th>
+<th>Balance</th>
 </tr>
 </thead>
 <tbody>
@@ -33,6 +33,7 @@
 <?php
 
 	$debit=0;
+
 $date = $this->input->post('date');
  ?>
 <td><?php echo $date; ?></td>
@@ -52,7 +53,7 @@ $date = $this->input->post('date');
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
 
-<td ><?php echo $val['amount'];$debit+= $val['amount']; ?></td>
+<td ><?php echo $val['amount'];$debit+= $val['amount'];$tdebit+= $val['amount']; ?></td>
 <td><?php echo $debit;?></td>
 </tr>
 <?php }elseif ($type=="payment"){?> 
@@ -65,6 +66,7 @@ $date = $this->input->post('date');
 <?php }?> 
 <?php endforeach ?>
 <?php } ?>
+
 </table>
 
 <br>
