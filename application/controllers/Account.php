@@ -1593,7 +1593,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$accountid = $this->input->post('set_baddebt');
-		$res = $this->load->account_model->set_baddebt_update($accountid);
+		$res = $this->load->account_model->set_baddebt_update($refid);
 		$data['result'] = $res;
 
 
