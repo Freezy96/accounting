@@ -1593,7 +1593,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$accountid = $this->input->post('set_baddebt');
-		$res = $this->load->account_model->set_baddebt_update($refid);
+		$res = $this->load->account_model->set_baddebt_update($accountid);
 		$data['result'] = $res;
 
 
@@ -1631,6 +1631,7 @@ class Account extends CI_Controller {
             // $date = date ( 'Y-m-d' , $date );
             $data = array(
                 'accountid' => $accountid
+                'refid' => $refid
                 // 'datee' => $date
                 );
             $return = $this->account_model->insert_baddebt($data);
