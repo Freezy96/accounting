@@ -67,7 +67,7 @@
 				<?php echo $val['payment']; ?>
 			</td> -->
 			<td>
-				<?php echo $val['datee']; ?>
+				<?php echo $val['MIN(a.datee)']; ?>
 			</td>
 			<!-- <td>
 				<?php echo $val['duedate']; ?>

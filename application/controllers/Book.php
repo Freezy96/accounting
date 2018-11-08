@@ -117,6 +117,7 @@ public function insertbankdata()
         $this->load->view('template/header');
         $this->load->view('template/nav');
 		$day = $this->input->post('day');
+
 		if ($this->input->post('month')<10) {
 			$month = "0".$this->input->post('month');
 		}else{
@@ -124,11 +125,13 @@ public function insertbankdata()
 		}
 		
 		$year = $this->input->post('year');
+		if ($year==""||$month=="") {
+			$date_month = date("Y-m");
+		}else{
+			$date_month = $year."-".$month;
+		}
 		
-		$date_month = $year."-".$month;
 		
-		$year = $this->input->post('year');
-		$date_month = $year."-".$month;
         $res= $this->load->book_model->getbankdata($date_month);
         $data['result'] = $res;
         $result=$this->load->book_model->getbalancebank($date_month);
@@ -190,7 +193,11 @@ public function insertbankdata()
 		
 		$year = $this->input->post('year');
 		
-		$date_month = $year."-".$month;
+		if ($year==""||$month=="") {
+			$date_month = date("Y-m");
+		}else{
+			$date_month = $year."-".$month;
+		}
         $result= $this->load->book_model->gettotaldata($date_month);
         $data['result'] = $result;
         $res=$this->load->book_model->getbalancetotal($date_month);

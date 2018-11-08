@@ -21,7 +21,7 @@
 					REF ID
 				</td>
 				<td>
-					CUSTOMER ID
+					C. ID
 				</td>
 				<td>
 					NAME
@@ -60,7 +60,7 @@
 						<?php echo $val['customerid']; ?>
 					</td>
 					<td>
-						<?php echo $val['customername']; ?>
+						<?php echo $val['customername']; ?>(<?php echo $val['wechatname']; ?>)
 					</td>
 					<td>
 						<?php echo $val['address']; ?>
@@ -69,7 +69,7 @@
 						<?php echo $val['phoneno']; ?>
 					</td>
 					<td>
-						<?php echo $val['packagetypename']; ?>
+						<?php echo wordwrap($val['packagetypename'], 13, "<br />\n",TRUE); ?>
 					</td>
 					<td>
 						<?php echo number_format((float)${'totalamount'.$val['refid']}, 2, '.', ''); ?>
