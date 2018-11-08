@@ -25,19 +25,20 @@
 <th>Description</th>
 <th>Debit</th>
 <th>Credit</th>
-<th>Total</th>
+<th>Balance</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <?php 
 	$total=0;
-	
+	$tdebit=0;
+    $tcredit=0;
 	 
 	
 $date = $this->input->post('date');
  ?>
-<td><?php echo $date; ?></td>
+<td> </td>
 <td>Balance forward</td>
 <td><?php if($balance<0){echo $balance; $total=$balance;}else{};?></td>
 <td><?php if($balance>0){echo $balance; $total=$balance;}else{};?></td>
@@ -53,8 +54,8 @@ $date = $this->input->post('date');
 <td><?php echo $val['datee']; ?></td>
 <td><?php echo $val['description']; ?></td>
 
-<td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank']; }else{}?></font></td>
-<td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank']; }else{}?></td>
+<td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank'];$tdebit+= $val['amount']; }else{}?></font></td>
+<td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank'];$tcredit+= $val['amount']; }else{}?></td>
 <td>
     <?php echo $total?>
     &nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_total' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_total_id">Del</button></form>
@@ -62,6 +63,15 @@ $date = $this->input->post('date');
 </tr>
 <?php endforeach ?>
 <?php } ?>
+<tr>
+<td> </td>
+<td> </td>
+    <td>
+        Total Debit:<?php echo $tdebit;?></td>
+        <td>
+        Total Credit:<?php echo $tcredit;?>
+    </td>
+</tr>
 </table>
 
 <br>

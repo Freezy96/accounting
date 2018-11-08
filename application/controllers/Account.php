@@ -1718,6 +1718,28 @@ class Account extends CI_Controller {
 		// echo json_encode($checked);
 	}
 
+
+	public function delete()
+	{	
+		$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		
+		$data = array(
+		'refid' => $this->input->post('accountdelete')
+		);
+
+		$return = $this->account_model->delete($data);
+		$data['return'] = $return;
+
+		if($return == true){
+			// session to sow success or not, only available next page load
+			$this->session->set_flashdata('return',$data);
+			redirect('account');
+		}
+		$this->load->view('template/footer');
+	}
+
 }
 
 	

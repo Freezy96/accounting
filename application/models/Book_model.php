@@ -46,7 +46,7 @@
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $this->db->where("datee", $date);
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
@@ -311,7 +311,7 @@
                 $company_identity = $this->session->userdata('adminid');
         $this->db->where('companyid', $company_identity);
         ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
-        $this->db->where("datee", $date);
+        $this->db->where("DATE_FORMAT(datee,'%Y-%m')", $date);
         $this->db->order_by('datee','ASC');
         $query = $this->db->get();
         return $query->result_array();
