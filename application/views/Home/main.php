@@ -20,9 +20,9 @@
 					<td>
 						DUEDATE
 					</td>
-					<TD>
+					<!-- <TD>
 						PACKAGE
-					</TD>
+					</TD> -->
 					<TD>
 						AGENT
 					</TD>
@@ -67,7 +67,7 @@
 							<?php echo $val['refid']; ?>
 						</td>
 						<td>
-							<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?>
+							<?php echo $val['customerid']; ?> - <?php echo $val['customername']; ?> (<?php echo $val['wechatname']; ?>)
 						</td>
 						<td>
 							<?php echo $val['MIN(a.datee)']; ?>
@@ -75,9 +75,9 @@
 						<td>
 							<?php echo $val['MAX(a.duedate)']; ?>
 						</td>
-						<td>
+						<!-- <td>
 							<?php echo $val['packageid']; ?> - <?php echo $val['packagetypename']; ?>
-						</td>
+						</td> -->
 						<td>
 							<?php echo $val['agentname']; ?>
 						</td>

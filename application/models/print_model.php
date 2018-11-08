@@ -38,7 +38,7 @@ class Print_Model extends CI_Model{
     }
     
     public function getuserdata($refid,$duedate){
-        $this->db->select('a.accountid, a.totalamount, a.oriamount, a.refid, a.customerid, c.customername, c.address, c.gender, a.amount, a.datee, a.interest, a.duedate, a.packageid, c.phoneno, ag.agentname, p.packagetypename');
+        $this->db->select('a.accountid, a.totalamount, a.oriamount, a.refid, a.customerid, c.customername, c.wechatname, c.address, c.gender, a.amount, a.datee, a.interest, a.duedate, a.packageid, c.phoneno, ag.agentname, p.packagetypename');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');

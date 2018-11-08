@@ -12,67 +12,68 @@
   	<button class="btn btn-default pull-right" id="submit">Submit</button>
 </form>
 
-<table width="100%">
+<br><br><br>
 
-<tr>
-<td width="50%" style="vertical-align: top;">
-<table  class="table table-condensed">
-<thead>
-<tr>
-</tr>
-<tr>
-<th>Date</th>
-<th>Description</th>
-<th>Debit</th>
-<th>Credit</th>
-<th>Balance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<?php 
-	$total=0;
-	$tdebit=0;
-    $tcredit=0;
-	 
-	
-$date = $this->input->post('date');
- ?>
-<td> </td>
-<td>Balance forward</td>
-<td><?php if($balance<0){echo $balance; $total=$balance;}else{};?></td>
-<td><?php if($balance>0){echo $balance; $total=$balance;}else{};?></td>
-<td><?php echo $total?></td>
-</tr>
+<table class="table table-condensed livesearch">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <?php 
+                $total=0;
+                $tdebit=0;
+                $tcredit=0;
+                 
+                
+            $date = $this->input->post('date');
+             ?>
+            <td> </td>
+            <td>Balance forward</td>
+            <td><?php if($balance<0){echo $balance; $total=$balance;}else{};?></td>
+            <td><?php if($balance>0){echo $balance; $total=$balance;}else{};?></td>
+            <td><?php echo $total?></td>
+        </tr>
 
-	<?php if(is_array($result) && $result){
-	 foreach ($result as $key => $val): 
-	$type=$val['type'];
-// echo $date_month;
-		?>
-<tr>
-<td><?php echo $val['datee']; ?></td>
-<td><?php echo $val['description']; ?></td>
+            <?php if(is_array($result) && $result){
+             foreach ($result as $key => $val): 
+            $type=$val['type'];
+        // echo $date_month;
+                ?>
+        <tr>
+            <td><?php echo $val['datee']; ?></td>
+            <td><?php echo $val['description']; ?></td>
 
-<td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank'];$tdebit+= $val['amount']; }else{}?></font></td>
-<td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank'];$tcredit+= $val['amount']; }else{}?></td>
-<td>
-    <?php echo $total?>
-    &nbsp;&nbsp;&nbsp;<form action='<?php echo base_url();?>book/delete_total' method='post' name=''><button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_total_id">Del</button></form>
-</td>
-</tr>
-<?php endforeach ?>
-<?php } ?>
-<tr>
-<td> </td>
-<td> </td>
-    <td>
-        Total Debit:<?php echo $tdebit;?></td>
-        <td>
-        Total Credit:<?php echo $tcredit;?>
-    </td>
-</tr>
+            <td><font color="red"><?php if ($type=="debit"){echo $val['amount'];$total-= $val['amount'];echo $val['bank'];$tdebit+= $val['amount']; }else{}?></font></td>
+            <td><?php if ($type=="credit"){echo $val['amount'];$total+= $val['amount'];echo $val['bank'];$tcredit+= $val['amount']; }else{}?></td>
+            <td>
+                <?php echo $total?>
+                &nbsp;&nbsp;&nbsp;<form class="pull-right" action='<?php echo base_url();?>book/delete_total' method='post' name=''><button class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val['bookid']; ?>" name="book_total_id">Del</button></form>
+            </td>
+        </tr>
+        <?php endforeach ?>
+        <?php } ?>
+
+    </tbody>
+            <tr>
+                <td> </td>
+                <td> </td>
+                <td>
+                    Total Debit:<?php echo $tdebit;?>
+                </td>
+                <td>
+                    Total Credit:<?php echo $tcredit;?>
+                </td>
+                <td></td>
+            </tr>
 </table>
+
 
 <br>
 <br>
@@ -90,7 +91,7 @@ $date = $this->input->post('date');
  	</td>
  	<td>
  		<label for="">Bank:</label>
-   <select name="bank">
+   <select name="bank" class="form-control">
         <option value="">------------</option>
         <option value="mbb">MBB</option>   
         <option value="pbb">PBB</option>
@@ -100,7 +101,7 @@ $date = $this->input->post('date');
  	</td>
  	<td>
  	<label for="">Type:</label>
-    <select name="type" required>
+    <select name="type" required class="form-control">
         <option value="" selected disabled>------------</option>
         <option value="debit" style="color:red">DEBIT</option>   
         <option value="credit" style="color:green">CREDIT</option>

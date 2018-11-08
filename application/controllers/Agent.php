@@ -34,12 +34,15 @@ class Agent extends CI_Controller {
 		$count = 0;
 		//prevent empty display error
 		$data['salary_completed'] = array();
+		//只拿 first_account_interest 的
 		$check_complete_paid_account = $this->load->agent_model->check_complete_paid_account();
 			foreach ($check_complete_paid_account as $key => $val) 
 			{
 	            //check sum of totalamount is 0 or not
-	            $totalamount_check = $val['SUM(totalamount)'];
-	            echo "<script>console.log(".$totalamount_check.");</script>";
+	            $totalamount_check = $val['SUM(a.totalamount)'];
+	            $agentid_complete = $val['MIN(ag.agentid)'];
+	            // echo "<script>console.log(".$totalamount_check.");</script>";
+	            echo "<script>console.log(".$agentid_complete.");</script>";
 	            if($totalamount_check<=0)
 	            {
 	                //completed accountline
