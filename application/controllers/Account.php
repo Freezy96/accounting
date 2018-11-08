@@ -799,6 +799,7 @@ class Account extends CI_Controller {
             $data['result'] = $res1;
             if ($status=="baddebt") {
             $this->baddebt_insert_db($accountid);
+            
         }
 
 
@@ -1615,14 +1616,20 @@ class Account extends CI_Controller {
         $this->db->from('baddebt');
         $query = $this->db->get();
         // $my_array=array();
-
+        $get_refid = $this->account_model->getrefid($accountid);
+        foreach ($get_refid as $key => $value) {
+            $refid = $value['refid'];
+        }
+        $refid=$refid;
         $result = $query->result_array();
         $check_exist = "";
         foreach ($result as $key => $val) {
         $accountid_baddebt= $val['accountid'];
             if ($accountid_baddebt == $accountid) {
                 $check_exist = "exist";
+
             }
+
         }
 
         if ($check_exist !== "exist") {
@@ -1631,7 +1638,7 @@ class Account extends CI_Controller {
             // $date = date ( 'Y-m-d' , $date );
             $data = array(
                 'accountid' => $accountid
-                'refid' => $refid
+                
                 // 'datee' => $date
                 );
             $return = $this->account_model->insert_baddebt($data);
