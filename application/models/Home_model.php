@@ -77,7 +77,7 @@ class Home_Model extends CI_Model{
         // $this->update_status_home_check($accountid);
     }
 
-     public function count_totalamount_home($accountid, $max_duedate)
+    public function count_totalamount_home($accountid, $max_duedate)
     {
         $this->db->select('a.accountid, a.refid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status, a.amount');
         $this->db->from('account a');
@@ -100,6 +100,7 @@ class Home_Model extends CI_Model{
             $accountid = $value['accountid'];
             $totalamount = $value['totalamount'];
             $refid = $value['refid'];
+            $amount_4week = $value['amount'];
             $amount = $value['amount'];
             
             $packageinfo = $this->account_model->get_package_info($packagename, $packageid);
@@ -111,6 +112,7 @@ class Home_Model extends CI_Model{
                 //for package_manual_payeveryday_manualdays
                 if ($packagename == "package_manual_payeveryday_manualdays") {
                     $totaldays_package_manual_payeveryday_manualdays = $value['days'];
+                    $amount_every_day = $value['amounteveryday'];
                 }
                 
 
@@ -129,7 +131,7 @@ class Home_Model extends CI_Model{
             $days = $timeDiff/86400; 
             // $days = $days-1;
             // echo "<script>console.log( 'days value: " .$days. "' );</script>";
-            $date1 = date("Y-m-d");
+            $date1 = $max_duedate;
             $date2 = date("Y-m-d",strtotime($duedate));
                         
         $paymentinfo = $this->account_model->get_payment_info($accountid);
@@ -157,36 +159,183 @@ class Home_Model extends CI_Model{
         }
 
         $payment_info = $this->account_model->get_payment_info($accountid);
-            // for before duedate
-            if ($days>=0 && $date2>$date1 ) {
-                $totalamount_home = $totalamount;
-            }
+        $totalamount_home_payment_paid = 0;
 
+        foreach ($payment_info as $key => $value) {
+
+            $payment_paid = $value['payment'];
+            $totalamount_home_payment_paid +=$payment_paid;
+            if ($payment_paid<0) {
+                $status ="open";
+            }
+        }
+            // for before duedate
+            $totalamount_home = $amount-$totalamount_home_payment_paid;
             if ($days>0 && $date2<$date1 ) 
             {
 
-                echo "<script>console.log('".$packagename.":".$days."')</script>";
+                // echo "<script>console.log('".$packagename.":".$days."')</script>";
                 //package 不是closed 就跑利息
                 if($packagename == "package_30_4week" && $status !=="closed"  )
                 {
-                    $total_interest = $interest * $days;
-                    $totalamount_home = $amount + $total_interest;
+                    $total_interest = 0;
+
+                    for ($i=1; $i <$days+1 ; $i++) {
+                        $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] < $date_eachday) 
+                            {
+                                $payment_paid += $value['payment'];
+                                echo "<script>console.log('payment:".$payment_paid."')</script>";
+                            }
+                        }
+                        
+                        if ($i == 1) {
+                            if ($payment_paid>=$amount_4week) { //350
+                                $counting_interest_enable = $amount_4week+$total_interest;
+                            }else{
+                                $counting_interest_enable = $amount_4week+$interest;
+                            }
+                        }else{
+                            $counting_interest_enable = $amount_4week+$total_interest;
+                        }
+                        
+                        if ($payment_paid < $counting_interest_enable) {
+                            $total_interest += $interest;
+                        }
+                    }
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date_eachday) 
+                        {
+                            $payment_paid += $value['payment'];
+                            echo "<script>console.log('payment:".$payment_paid."')</script>";
+                        }
+                    }
+
+                        $totalamount_home = $amount + $total_interest-$payment_paid;
                     // $this->insert_interest($total_interest,$accountid);
                 }
                 elseif($packagename == "package_manual_5days_4week" && $status !=="closed"  )
                 {
-                    $total_interest = $interest * $days;
-                    $totalamount_home = $amount + $total_interest;
+                    $total_interest = 0;
+                    for ($i=1; $i <$days+1 ; $i++) {
+                        $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
+                        $date_eachday = date("Y-m-d", $date_eachday);
+                        $payment_paid = 0;
+                        foreach ($payment_info as $key => $value) 
+                        {
+                            if ($value['paymentdate'] < $date_eachday) 
+                            {
+                                $payment_paid += $value['payment'];
+                                echo "<script>console.log('payment:".$payment_paid."')</script>";
+                            }
+                        }
+                        
+                        if ($i == 1) {
+                            if ($payment_paid>=$amount_4week) { //350
+                                $counting_interest_enable = $amount_4week+$total_interest;
+                            }else{
+                                $counting_interest_enable = $amount_4week+$interest;
+                            }
+                        }else{
+                            $counting_interest_enable = $amount_4week+$total_interest;
+                        }
+                        
+                        if ($payment_paid < $counting_interest_enable) {
+                            $total_interest += $interest;
+                        }
+                    }
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date_eachday) 
+                        {
+                            $payment_paid += $value['payment'];
+                            echo "<script>console.log('payment:".$payment_paid."')</script>";
+                        }
+                    }
+
+                        $totalamount_home = $amount + $total_interest-$payment_paid;
                     // $this->insert_interest($total_interest,$accountid);
                 }
                 //5天账 公式
-                elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
+                // elseif($packagename == "package_manual_payeveryday_manualdays" && $status !=="closed" )
+                elseif($packagename == "package_manual_payeveryday_manualdays" )//必须算完20天
                 {
-                    if ($days>=$totaldays_package_manual_payeveryday_manualdays) {
-                        $days = $totaldays_package_manual_payeveryday_manualdays;
+                    //日期小过duedate的全部加起来
+                    $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date2) //date2 就是 duedate
+                        {
+                            $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
+                        }
                     }
-                        $total_interest = $interest * $days;
-                        $totalamount_home = $amount + $total_interest;
+
+                    $total_interest = 0;
+
+                    for ($i=1; $i <$days+1 ; $i++) { 
+                        $date_eachday = strtotime("+ ".$i." days", $due_date); //duedate +x days
+                        $date_eachday = date("Y-m-d", $date_eachday);
+
+                        if ($i>1) {
+                            $payment_paid = 0;
+                            foreach ($payment_info as $key => $value) 
+                            {
+                                if ($value['paymentdate'] < $date_eachday) 
+                                {
+                                    $payment_paid += $value['payment'];
+                                    echo "<script>console.log('payment:".$payment_paid."')</script>";
+                                }
+                            }
+
+                            $counting_interest_enable = ($amount_every_day * ($i-1)) + $total_interest;
+                            if ($payment_paid < $counting_interest_enable) {
+                                $total_interest += $interest;
+                            }
+                        }
+                        echo "<script>console.log(".$total_interest.")</script>";
+                    }
+                    $last_day = date("Y-m-d");
+                    $duedate_plus_pay_day = strtotime("+ ".$days." days", $due_date);
+                    $duedate_plus_pay_day = date("Y-m-d",$duedate_plus_pay_day);
+                    if ($last_day>$duedate_plus_pay_day) {
+                        $payment_paid = 0;
+                            foreach ($payment_info as $key => $value) 
+                            {
+                                if ($value['paymentdate'] < $date_eachday) 
+                                {
+                                    $payment_paid += $value['payment'];
+                                    echo "<script>console.log('payment:".$payment_paid."')</script>";
+                                }
+                            }
+
+                            $counting_interest_enable = ($amount_every_day * ($i-1)) + $total_interest;
+                            if ($payment_paid < $counting_interest_enable) {
+                                $total_interest += $interest;
+                            }
+                    }
+
+                    foreach ($payment_info as $key => $value) 
+                    {
+                        if ($value['paymentdate'] <= $date_eachday) 
+                        {
+                            $payment_paid += $value['payment'];
+                            echo "<script>console.log('payment:".$payment_paid."')</script>";
+                        }
+                    }
+
+                        $totalamount_home = $amount + $total_interest-$payment_paid;
                         // $this->insert_interest($total_interest,$accountid);
                     
                 }
@@ -196,13 +345,22 @@ class Home_Model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
                         }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
+                        }
                     }
+                    echo "<script>console.log('package_25_month:".$payment_amount_date_less_than_duedate."');</script>";
+                    echo "<script>console.log('package_25_month:".$payment_amount_date_larger_than_duedate."');</script>";
                     //每次 + 1天来取得date
                     $total_interest = 0;
                     for ($i=1; $i <$days+1 ; $i++) 
@@ -227,13 +385,13 @@ class Home_Model extends CI_Model{
                             if ($i == 1) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = (($oriamount - $payment_amount_date_less_than_duedate) * ((100+$interest)/100)) - $payment_paid;
+                                $total_amount = (($oriamount - $payment_amount_date_less_than_duedate) * ((100+$interest)/100)) - $payment_paid;echo "<script>console.log('totalamountb:".$total_amount."')</script>";
                             }
                             //其他天
                             else
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount * ((100+$interest)/100)) - $payment_paid;
+                                $total_amount = ($total_amount * ((100+$interest)/100)) - $payment_paid;echo "<script>console.log('totalamountb:".$total_amount."')</script>";
                             }
                         }
                         //当天没有payment
@@ -243,18 +401,17 @@ class Home_Model extends CI_Model{
                             if ($i == 1) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = (($oriamount - $payment_amount_date_less_than_duedate) * ((100+$interest)/100));
+                                $total_amount = (($oriamount - $payment_amount_date_less_than_duedate) * ((100+$interest)/100));echo "<script>console.log('totalamountb:".$total_amount."')</script>";
                             }
                             //其他天
                             else
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount * ((100+$interest)/100));
+                                $total_amount = ($total_amount * ((100+$interest)/100));echo "<script>console.log('totalamountb:".$total_amount."')</script>";
                             }
                         }
                     }
-                    // $this->update_total_amount($total_amount,$accountid);
-                    $totalamount_home = $total_amount;
+                    $totalamount_home = $total_amount - $payment_amount_date_larger_than_duedate;
                 }
 
             if ($packagename == "package_20_week"  && $status !=="closed" )
@@ -262,11 +419,18 @@ class Home_Model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -292,23 +456,37 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                              if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                }
+                                
+                                echo "<script>console.log('totalamounta:".$total_amount."')</script>";
                    
                                
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest)- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {
+                                    $total_amount = ($total_amount)+($interest)- $payment_paid;
+                                }
+                                
                             }
                             //其他天
                             elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.2- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {
+                                    $total_amount = ($total_amount)*1.2- $payment_paid;
+                                }
                             }elseif($i>=60){
 
                             }else{
-                                $total_amount = $total_amount- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {
+                                    $total_amount = $total_amount- $payment_paid;
+                                }
+                                
                             }
                         }
                         //当天没有payment
@@ -317,26 +495,36 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
+                                
                    
                                
                             }elseif ($i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest);
+                                if ($total_amount>0 || $payment_paid < 0) {
+                                    $total_amount = ($total_amount)+($interest);
+                                }
+                                echo "<script>console.log('totalamountb:".$total_amount."')</script>";
                             //其他天
                             }elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.2;
+                                if ($total_amount>0 || $payment_paid < 0) {
+                                    $total_amount = ($total_amount)*1.2;
+                                }
+                                echo "<script>console.log('totalamountc:".$total_amount."')</script>";
                             }elseif($i>=60){
 
                             }
                         }
                     
                     }
-                     // $this->update_total_amount($total_amount,$accountid);
-                    $totalamount_home = $total_amount;
+                    $totalamount_home = $total_amount - $payment_amount_date_larger_than_duedate;
                 }
             
 
@@ -346,11 +534,18 @@ class Home_Model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -376,23 +571,28 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                }
+                                
                    
                                
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 )
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest)- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)+($interest)- $payment_paid;}
                             }
                             //其他天
                             elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.15- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)*1.15- $payment_paid;}
                             }elseif($i>=60){
 
                             }else{
-                                $total_amount = $total_amount- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = $total_amount- $payment_paid;}
                             }
                         }
                         //当天没有payment
@@ -401,26 +601,30 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
+                                
                    
                                
                             }elseif ( $i==2|| $i==8|| $i==9|| $i==15|| $i==16|| $i==22|| $i==23|| $i==29|| $i==30|| $i==36|| $i==37|| $i==43|| $i==44|| $i==50|| $i==51|| $i==57|| $i==58 ) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest);
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)+($interest);}
                             //其他天
                             }elseif($i==3 || $i==10 || $i==17 || $i==24 || $i==31 || $i==38 || $i==45 || $i==52 || $i==59)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.15;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)*1.15;}
                             }elseif($i>=60){
 
                             }
                         }
                     
                     }
-                     // $this->update_total_amount($total_amount,$accountid);
-                    $totalamount_home = $total_amount;
+                    $totalamount_home = $total_amount - $payment_amount_date_larger_than_duedate;
                 }
 
                 if ($packagename == "package_15_5days"  && $status !=="closed" )
@@ -428,11 +632,18 @@ class Home_Model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -458,23 +669,28 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                 }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                 }
+                                
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest)- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)+($interest)- $payment_paid;}
                             }
                             //其他天
                             elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.15- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)*1.15- $payment_paid;}
                             }elseif($i>=60){
 
                             }else{
-                                $total_amount = $total_amount- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = $total_amount- $payment_paid;}
                             }
                         }
                         //当天没有payment
@@ -482,24 +698,29 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
+                                
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest);
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)+($interest);}
                             //其他天
                             }elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.15;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)*1.15;}
                             }elseif($i>=60){
 
                             }
                         }
                     }
-                    $totalamount_home = $total_amount;
+                    $totalamount_home = $total_amount - $payment_amount_date_larger_than_duedate;
                      // $this->update_total_amount($total_amount,$accountid);
                 }
 
@@ -509,11 +730,18 @@ class Home_Model extends CI_Model{
                 {   
                     //日期小过duedate的全部加起来
                     $payment_amount_date_less_than_duedate = 0;
+                    $payment_amount_date_larger_than_duedate = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date2) //date2 就是 duedate
                         {
                             $payment_amount_date_less_than_duedate += $value['payment'];
+                        }
+                        $date_after_duedate = strtotime("+".$days." days", strtotime($date2));
+                        $date_after_duedate = date("Y-m-d", $date_after_duedate);
+                        if ($value['paymentdate'] > $date_after_duedate) //date2 就是 duedate
+                        {
+                            $payment_amount_date_larger_than_duedate += $value['payment'];
                         }
                     }
                     //每次 + 1天来取得date
@@ -539,23 +767,28 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate) - $payment_paid;
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest)- $payment_paid;
+                                }
+                                
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest)- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)+($interest)- $payment_paid;}
                             }
                             //其他天
                             elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.1- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)*1.1- $payment_paid;}
                             }elseif($i>=60){
 
                             }else{
-                                $total_amount = $total_amount- $payment_paid;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = $total_amount- $payment_paid;}
                             }
                         }
                         //当天没有payment
@@ -564,26 +797,30 @@ class Home_Model extends CI_Model{
                             //第一天/只有一天
                             if ($i == 1) 
                             {   
-                                $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                if ($payment_amount_date_less_than_duedate>=$oriamount) {
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate);
+                                }else{
+                                    $total_amount =($oriamount- $payment_amount_date_less_than_duedate)+($interest);
+                                }
                    
                                
                             }elseif ($i==2|| $i==6 || $i==7 || $i==11 || $i==12 || $i==16 || $i==17 || $i==21 || $i==22 || $i==26 || $i==27 || $i==31 || $i==32 || $i==36 || $i==37 || $i==41 || $i==42 || $i==46 || $i==47 || $i==51 || $i==52 || $i==56 || $i==57) 
                             {
                                 // t = 1250+125-300(payment)
-                                $total_amount = ($total_amount)+($interest);
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)+($interest);}
                             }
                             //其他天
                             elseif($i==3 || $i==8 || $i==13 || $i==18 || $i==23 || $i==28 || $i==33 || $i==38 || $i==43 || $i==48 || $i==53 || $i==58)
                             {
                                 //t = 1075+107.5-payment
-                                $total_amount = ($total_amount)*1.1;
+                                if ($total_amount>0 || $payment_paid < 0) {$total_amount = ($total_amount)*1.1;}
                             }elseif($i>=60){
 
                             }
                         }
                     
                     }
-                    $totalamount_home = $total_amount;
+                    $totalamount_home = $total_amount - $payment_amount_date_larger_than_duedate;
                      // $this->update_total_amount($total_amount,$accountid);
 
                 }

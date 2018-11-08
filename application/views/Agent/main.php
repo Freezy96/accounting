@@ -113,8 +113,10 @@
 			      			</td>
 			      		</tr>
 			      		<?php
+			      		$totalmoney = 0;
 			      		// get from agent controller
 			      		if(is_array($salary_completed) && $salary_completed){
+			      			
 			      			foreach ($salary_completed as $key => $value_completed) {
 						    
 							    if($value_completed['agentid_completed'] == $val['agentid']){
@@ -124,8 +126,9 @@
 					        			$show = 1;
 				        			?>
 		        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
-		        						<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
+		        						
 										<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
+											<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
 											<?php 
 												$days_minus_15 = strtotime('-15 days',strtotime(date("Y-m-d")));
 												$days_minus_15 = date("Y-m-d",$days_minus_15);
@@ -150,7 +153,10 @@
 					        				</td>
 					        				<td>
 					        					
-					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); ?>
+					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); 
+
+					        					$totalmoney += number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '');
+					        					?>
 					        				</td>
 					        				<td>
 					        					<form action="javascript:void(0);">
@@ -164,7 +170,20 @@
 				        		}
 							}
 			      		}?>
-						
+										<tr>
+				        					<td>
+					        				</td>
+					        				<td>
+					        				</td>
+					        				<td>
+					        				</td>
+					        				<td>
+					        					Total: &nbsp;RM <?php echo $totalmoney; ?>
+					        				</td>
+					        				<td>
+					        					
+					        				</td>
+					        			</tr>
 					</table>
 
 					<input name="b_print" type="button" class="ipt"   onClick="printdiv('agent_div_<?php echo $val['agentid']; ?>');" value=" Print ">

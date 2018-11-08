@@ -3,7 +3,7 @@
 <form action='<?php echo base_url();?>Print_Expired/' method='post' name='customerinsert'>
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date (Please Provide Complete Format Date)</label>
-	    <input type="date" class="form-control" id="" placeholder="" name="date">
+	    <input type="date" class="form-control" id="" placeholder="" name="date" value="<?php echo date("Y-m-d"); ?>">
   	</div>
   	<button class="btn btn-default pull-right" id="submit_profit">Submit</button>
 </form>

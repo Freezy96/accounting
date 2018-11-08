@@ -20,7 +20,7 @@
   </div>
   <div class="form-group">
     <label for="">Date:</label>
-    <input type="date" class="form-control" id="" name="datee" required>
+    <input type="date" class="form-control" id="" name="datee" required value="<?php echo date("Y-m-d"); ?>">
   </div>
 </div>
   <button type="submit" class="btn btn-default">Submit</button>
