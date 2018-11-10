@@ -30,7 +30,8 @@ class Agent extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
 		$this->load->account_model->count_agent_salary();
-		
+
+		//////////////////////////////FIRST ACCOUNT INTEREST//////////////////////////////////////////////
 		$count = 0;
 		//prevent empty display error
 		$data['salary_completed'] = array();
@@ -103,7 +104,11 @@ class Agent extends CI_Controller {
 
 		$res = $this->load->agent_model->get_agent_customer();
 		$data['customer'] = $res;
+		//////////////////////////////FIRST ACCOUNT INTEREST//////////////////////////////////////////////
 
+		//////////////////////////////SHARE ALL INTEREST//////////////////////////////////////////////
+		// $agent_where_share_all = $this->load->agent_model->get_agent_where_share_all();
+		//////////////////////////////SHARE ALL INTEREST//////////////////////////////////////////////
 		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
 
@@ -130,6 +135,7 @@ class Agent extends CI_Controller {
 		///////////////Combo of User Identity Insert///////////////////		
 		$data = array(
 		'agentname' => $this->input->post('name'),
+		'type' => $this->input->post('agent_type'),
 		///////////////Combo of User Identity Insert///////////////////
 		'companyid' => $company_identity,
 		///////////////Combo of User Identity Insert///////////////////

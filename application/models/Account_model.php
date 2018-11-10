@@ -1308,10 +1308,11 @@ public function set_account_baddebt()
     //计算agent利息，进account的时候就定好了（以前的account不会）
     public function count_agent_salary()
     {
+        /////////////////////////////FIRST ACCOUNT INTEREST////////////////////////////////////////////////////////////////
         //sum all accountline totalamount
         $result_complete_paid = $this->check_complete_paid_account();
-        //get all agent id
-        $get_all_agent = $this->load->agent_model->getuserdata();
+        //get agent id WITH FIRST ACCOUNT INTEREST
+        $get_all_agent = $this->load->agent_model->getuserdata_count_salary_first_account_interest();
         //create variable liek salary1, salary2, using agentid
         foreach ($get_all_agent as $key => $value_agent) {
 
@@ -1365,6 +1366,136 @@ public function set_account_baddebt()
                 }
             }
         }
+        /////////////////////////////FIRST ACCOUNT INTEREST////////////////////////////////////////////////////////////////
+
+        /////////////////////////////SHARE ALL INTEREST////////////////////////////////////////////////////////////////
+        //拿 share all 的agent
+        $get_all_agent_share_all = $this->load->agent_model->getuserdata_count_salary_share_all_interest();
+        foreach ($get_all_agent_share_all as $key => $value) {
+            $salary = 0;
+            $agentid_share_all = $value['agentid'];
+            $agent_charge = $value['charge'];
+            //用agent拿accline
+            $get_accountline_by_agentid = $this->get_accountline_by_agentid($agentid_share_all);
+            foreach ($get_accountline_by_agentid as $key => $value_accline) {
+                $accline = $value_accline['accountline'];
+                // echo $accline;
+                //用accline 拿refid
+                $get_refid_by_accline = $this->get_refid_by_accline($accline);
+                foreach ($get_refid_by_accline as $key => $value_refid) {
+                    $refid = $value_refid['refid'];
+                    // echo $refid;
+                    $packagetypename = $value_refid['packagetypename'];
+                    $packageid_shareall = $value_refid['packageid'];
+                    $package_info = $this->get_package_info($packagetypename, $packageid_shareall);
+                    //拿lentamount
+                    foreach ($package_info as $key => $value_package_info) {
+                        $lentamount = $value_package_info['lentamount'];
+                        // echo $lentamount;
+                    }
+                    //用来拿payment(每个同refid的account)
+                    $get_accid_by_refid = $this->get_accid_by_refid($refid);
+                    $payment_refid = 0;
+                    foreach ($get_accid_by_refid as $key => $value_accid_by_refid) {
+                        $accid = $value_accid_by_refid['accountid'];
+                        $payment_refid += $this->sum_payment_by_accid_agent_salary($accid);
+                        // echo $payment_refid;
+                    }
+                    //拿account 的info 用refid
+                    $get_info_by_refid = $this->get_info_by_refid($refid);
+                    foreach ($get_info_by_refid as $key => $value_info_refid) {
+                        $refid_totalamount = $value_info_refid['SUM(a.totalamount)'];
+                        $status = $value_info_refid['status'];
+                        //条件
+
+                        //还完 和 baddebt还完
+                        if ($refid_totalamount <= 0 && ($status == "closed" || $status == "done")) {
+                            $salary += ($payment_refid - $lentamount) * $agent_charge / 100;
+                            // echo $salary;
+                        }
+                        //baddebt
+                        elseif ($refid_totalamount >= 0 && $status == "baddebt") {
+                            // ？？？？？？？？？？？？？？？？？？？？？？？？待定
+                            $salary += ($payment_refid - $lentamount) * $agent_charge / 100;
+                        }
+                    }
+                }
+            }
+            $this->insert_agent_salary($agentid_share_all, $salary);
+        }
+        /////////////////////////////SHARE ALL INTEREST////////////////////////////////////////////////////////////////
+    }
+
+    public function get_accountline_by_agentid($agentid_share_all)
+    {
+        $this->db->select('a.accountline');
+        $this->db->from('account a');
+        // $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.agentid', $agentid_share_all);
+        $this->db->group_by('a.refid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_refid_by_accline($accline)
+    {
+        $this->db->select('a.refid, p.packagetypename, a.packageid');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.accountline', $accline);
+        $this->db->group_by('a.refid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_info_by_refid($refid)
+    {
+        $this->db->select('SUM(a.totalamount), a.status');
+        $this->db->from('account a');
+        // $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.refid', $refid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_accid_by_refid($refid)
+    {
+        $this->db->select('a.accountid');
+        $this->db->from('account a');
+        // $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.refid', $refid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function sum_payment_by_accid_agent_salary($accid)
+    {
+        $this->db->select('payment');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accid);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        $amount = 0;
+        foreach ($res as $key => $value) {
+            $amount += $value['payment'];
+        }
+        return $amount;
     }
             
     public function check_complete_paid_account()

@@ -27,7 +27,7 @@ class Home_Model extends CI_Model{
         return $query->result_array();
     }
 
-        public function getuserdata_by_refid($refid){
+    public function getuserdata_by_refid($refid){
         // Run the query
         $date_plus_4 = date("Y-m-d");
         $date_plus_4 = strtotime("+4 days", strtotime($date_plus_4));
@@ -45,7 +45,25 @@ class Home_Model extends CI_Model{
         $query = $this->db->get();
         return $query->result_array();
     }
-
+    public function count_total_include_hevent_reach($refid){
+        // Run the query
+        $this->db->select('SUM(a.totalamount)');
+        $this->db->from('account a');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where('a.refid', $refid);
+        // $this->db->order_by("a.homeremind", "desc");
+        // $this->db->group_by('a.refid');// add group_by
+        $query = $this->db->get();
+        $res = $query->result_array();
+        $total = 0;
+        foreach ($res as $key => $value) {
+            $total += $value['SUM(a.totalamount)'];
+        }
+        return $total;
+    }
     public function get_db_check_exist(){
         // Run the query
         $this->db->select('*');
@@ -79,7 +97,7 @@ class Home_Model extends CI_Model{
 
     public function count_totalamount_home($accountid, $max_duedate)
     {
-        $this->db->select('a.accountid, a.refid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status, a.amount');
+        $this->db->select('a.accountid, a.interest, a.refid, a.packageid ,a.totalamount, a.duedate, p.packagetypename, a.oriamount, a.status, a.amount');
         $this->db->from('account a');
         $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -102,7 +120,7 @@ class Home_Model extends CI_Model{
             $refid = $value['refid'];
             $amount_4week = $value['amount'];
             $amount = $value['amount'];
-            
+            $interest_account = $value['interest'];
             $packageinfo = $this->account_model->get_package_info($packagename, $packageid);
             foreach ($packageinfo as $key => $value) 
             {
@@ -170,7 +188,7 @@ class Home_Model extends CI_Model{
             }
         }
             // for before duedate
-            $totalamount_home = $amount-$totalamount_home_payment_paid;
+            $totalamount_home = $amount+$interest_account-$totalamount_home_payment_paid;
             if ($days>0 && $date2<$date1 ) 
             {
 
@@ -189,7 +207,7 @@ class Home_Model extends CI_Model{
                             if ($value['paymentdate'] < $date_eachday) 
                             {
                                 $payment_paid += $value['payment'];
-                                echo "<script>console.log('payment:".$payment_paid."')</script>";
+                                echo "<script>console.log('payment:".$days.$payment_paid."')</script>";
                             }
                         }
                         
@@ -209,7 +227,8 @@ class Home_Model extends CI_Model{
                     }
                     foreach ($payment_info as $key => $value) 
                     {
-                        if ($value['paymentdate'] <= $date_eachday) 
+                        // if ($value['paymentdate'] <= $date_eachday) 
+                        if ($value['paymentdate'] >= $date_eachday) 
                         {
                             $payment_paid += $value['payment'];
                             echo "<script>console.log('payment:".$payment_paid."')</script>";
@@ -217,6 +236,7 @@ class Home_Model extends CI_Model{
                     }
 
                         $totalamount_home = $amount + $total_interest-$payment_paid;
+
                     // $this->insert_interest($total_interest,$accountid);
                 }
                 elseif($packagename == "package_manual_5days_4week" && $status !=="closed"  )
@@ -231,7 +251,7 @@ class Home_Model extends CI_Model{
                             if ($value['paymentdate'] < $date_eachday) 
                             {
                                 $payment_paid += $value['payment'];
-                                echo "<script>console.log('payment:".$payment_paid."')</script>";
+                                // echo "<script>console.log('payment:".$payment_paid."')</script>";
                             }
                         }
                         
@@ -251,7 +271,8 @@ class Home_Model extends CI_Model{
                     }
                     foreach ($payment_info as $key => $value) 
                     {
-                        if ($value['paymentdate'] <= $date_eachday) 
+                        // if ($value['paymentdate'] <= $date_eachday) 
+                        if ($value['paymentdate'] >= $date_eachday) 
                         {
                             $payment_paid += $value['payment'];
                             echo "<script>console.log('payment:".$payment_paid."')</script>";
