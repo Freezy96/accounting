@@ -1397,7 +1397,7 @@ public function set_account_baddebt()
                         //baddebt
                         elseif ($refid_totalamount >= 0 && $status == "baddebt") {
                             // ？？？？？？？？？？？？？？？？？？？？？？？？待定
-                            // $salary += ($payment_refid - $lentamount);
+                            $salary += ($payment_refid - $lentamount) * $agent_charge / 100;
                         }
                     }
                 }
