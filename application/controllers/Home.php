@@ -41,13 +41,20 @@ class Home extends CI_Controller {
 			foreach ($account_by_refid as $key => $value_refid) {
 				$accountid = $value_refid['accountid'];
 				$amount_to_be_pay = $this->load->home_model->count_totalamount_home($accountid, $max_duedate);
-				$totalamount += $amount_to_be_pay;
+				if ($amount_to_be_pay > 0) {
+					$totalamount += $amount_to_be_pay;
+				}
 				// echo "accid:".$accountid;echo "<br>";echo $totalamount;echo "<br>";
+				echo "<script>console.log('total:".$totalamount."')</script>";
 			}
 			// echo $totalamount;echo "<br>";
+			// echo "<script>console.log('total:".$totalamount."')</script>";
 			$data['totalamount'.$refid] = $totalamount;
+			$data['total_include_havent_reach'.$refid] = $this->load->home_model->count_total_include_hevent_reach($refid);
 		}
 		$data['result'] = $res;
+
+
 		$this->load->dbutil();
 		// $hour = date("H", mktime(date("H") + 5));  control timezone
 		// $hour = date("H", mktime(date("H"))); 

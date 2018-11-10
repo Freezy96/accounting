@@ -14,6 +14,28 @@ class Agent_Model extends CI_Model{
         return $query->result_array();
     }
 
+    public function getuserdata_count_salary_first_account_interest(){
+        // Run the query
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('type', 'first_account_interest');
+        $query = $this->db->get('agent');
+        return $query->result_array();
+    }
+
+    public function getuserdata_count_salary_share_all_interest(){
+        // Run the query
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('type', 'share_all_interest');
+        $query = $this->db->get('agent');
+        return $query->result_array();
+    }
+
     public function insert($data){
         if($this->db->insert('agent', $data)){
         	$return = "insert";

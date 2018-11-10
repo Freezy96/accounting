@@ -100,7 +100,8 @@
 						</td>
 						<td>
 								<?php $val['interest'] = ${'totalamount'.$val['refid']} - $val['oriamount'] ?>
-								<?php echo ${'totalamount'.$val['refid']}; ?>
+								<?php $left = ${'total_include_havent_reach'.$val['refid']} - ${'totalamount'.$val['refid']}; ?>
+								<?php echo ${'totalamount'.$val['refid']}; ?> (<?php echo "left:".$left;  ?>)
 <!-- 								<?php if ($val['interest']>=0): ?>
 
 									<?php echo "(Interest:".$val['interest'].")"; ?>
