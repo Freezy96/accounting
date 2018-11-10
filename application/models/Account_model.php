@@ -1182,12 +1182,14 @@ class Account_model extends CI_Model{
                 if($totalamount <= 0 && $status != "baddebt" && $status != "done"){
                     $status = "closed";
                     $this->set_status($status, $accountid); 
+
                 }elseif($days>=4 && $days<=29 && $totalamount >= 0 && $status != "baddebt"){
                     $status = "late";
                     $this->set_status($status, $accountid);
                 }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"){
                     $status = "baddebt";
-                    $this->set_status($status , $accountid);
+                    $this->set_status2($status , $accountid);
+
                 }elseif($totalamount > 0 && $status != "baddebt" && $status != "late"){
                     $status = " ";
                     $this->set_status($status , $accountid);
@@ -1209,7 +1211,24 @@ class Account_model extends CI_Model{
     public function set_status($status,$accountid)
     {
         $this->db->where('accountid', $accountid);
+        $this->db->where('status !=', "baddebt");
         $this->db->update('account', array('status' => $status)); 
+    }
+
+    public function set_status2($status,$accountid)
+    {   $accountid = $accountid;
+        $status = $status;
+        $data = $this->getrefid($accountid);
+        foreach ($data as $key => $value) {
+        $refid=$value['refid'];
+        $data = array(
+            'status' => $status
+            );
+        $this->db->where('status !=', "closed");
+        $this->db->where('status !=', "baddebt");
+        $this->db->where('refid', $refid);
+        $this->db->update('account', $data);
+}        
     }
 
      public function get_status()
