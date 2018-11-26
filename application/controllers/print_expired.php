@@ -24,11 +24,13 @@ class Print_Expired extends CI_Controller {
 			foreach ($account_by_refid as $key => $value_refid) {
 				$accountid = $value_refid['accountid'];
 				$amount_to_be_pay = $this->load->print_model->count_totalamount_home($accountid, $date);
+				if ($amount_to_be_pay > 0) {
 				$totalamount += $amount_to_be_pay;
+				}
 				// echo "accid:".$accountid;echo "<br>";echo $totalamount;echo "<br>";
 			}
 			$data['totalamount'.$refid] = $totalamount;
-			$data['min_duedate'.$refid] = $value['MIN(a.duedate)'];
+			$data['min_duedate'.$refid] = $value['MAX(a.duedate)'];
             $data['result' . $i] = $res;
             $i++;
         }

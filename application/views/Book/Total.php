@@ -1,6 +1,22 @@
 <?php $this->load->view('template/sidenav'); ?>
-
-<h1>Total</h1>
+<?php 
+    $balance_ontop = $balance;
+    if(is_array($result) && $result)
+    {
+        foreach ($result as $key => $value) 
+        {
+            if ($value['type'] == "credit") 
+            {
+                $balance_ontop += $value['amount'];
+            }
+            elseif ($value['type'] == "debit") 
+            {
+                $balance_ontop -= $value['amount'];
+            }
+        }
+    }
+ ?>
+<h1>Total</h1><h3>Balance = <?php echo $balance_ontop; ?></h3>
 <form action="<?php echo base_url();?>book/total" method="post" name="">
 	<div class="form-group">
 	    <label for="exampleInputEmail1">Choose Date </label>

@@ -96,62 +96,44 @@
 			      		</tr>
 			      		<?php
 			      		$totalmoney = 0;
-			      		// get from agent controller
-			      		if(is_array($salary_completed) && $salary_completed){
-			      			
-			      			foreach ($salary_completed as $key => $value_completed) {
-						    
-							    if($value_completed['agentid_completed'] == $val['agentid']){
-				        			?>
-				        			<?php 
-					        			$salary_paid = 0; 
-					        			$show = 1;
-				        			?>
-		        					<?php foreach ($payment_not_grouped as $key => $value_not_grouped): ?>
-		        						
-										<?php if ($value_not_grouped['refid'] == $value_completed['refid']): ?>
-											<?php $salary_paid += $value_not_grouped['SUM(payment)']; ?>
-											<?php 
-												$days_minus_15 = strtotime('-15 days',strtotime(date("Y-m-d")));
-												$days_minus_15 = date("Y-m-d",$days_minus_15);
-												// echo $days_minus_15;
-											 ?>
-											<?php if ($value_not_grouped['MAX(paymentdate)']<$days_minus_15 && number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '')<= 0.10): ?>
-												<?php $show = 0;?>
-											<?php endif ?>
-											
-										<?php endif ?>
-									<?php endforeach ?>
-									<?php if ($show != 0): ?>
-										<tr>
-				        					<td>
-					        					<?php echo $value_completed['refid']; ?>
-					        				</td>
-					        				<td>
-					        					<?php echo $value_completed['customername']; ?>
-					        				</td>
-					        				<td>
-					        					<?php echo $value_completed['wechatname']; ?>
-					        				</td>
-					        				<td>
-					        					
-					        					<?php echo "(".$value_completed['totalamount']."-".$value_completed['lentamount'].") * ".$value_completed['agent_charge']." - ".$salary_paid."( Paid ) = RM ".number_format((float)$value_completed['salary']-$salary_paid, 2, '.', ''); 
+			      		if(is_array($agent_where_share_all) && $agent_where_share_all){
+			      		?>
+							<?php foreach ($agent_where_share_all as $key => $value_customer): ?>
+								<?php if ($value_customer['agentid'] == $val['agentid']): ?>
+									<tr>
+						      			<td>
+						      				<?php echo $value_customer['refid']; ?>
+						      			</td>
+						      			<td>
+						      				<?php echo $value_customer['customername']; ?>
+						      			</td>
+						      			<td>
+						      				<?php echo $value_customer['wechatname']; ?>
+						      			</td>
+						      			<td>
+						      				<?php $salary_paid = 0; ?>
+						      				<?php foreach ($payment_not_grouped as $key => $value_payment): ?>
+						      					<?php if ($value_payment['refid'] == $value_customer['refid']): ?>
+						      						<?php $salary_paid = $value_payment['SUM(payment)']; ?>
+						      					<?php endif ?>
+						      				<?php endforeach ?>
+						      				<?php echo "(".number_format((float)$value_customer['payment'], 2, '.', '')." - ".$value_customer['lentamount'].") * ".$value_customer['agentcharge']."% - ".$salary_paid." = ".number_format((float)($value_customer['payment']-$value_customer['lentamount'])*$value_customer['agentcharge']/100 - $salary_paid, 2, '.', ''); ?>
 
-					        					$totalmoney += number_format((float)$value_completed['salary']-$salary_paid, 2, '.', '');
-					        					?>
-					        				</td>
-					        				<td>
-					        					<form action="javascript:void(0);">
-					        						<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_completed['agentid_completed']; ?>" data-refid="<?php echo $value_completed['refid']; ?>" name="accountid">Payment</button>
-					        					</form>
-					        				</td>
-					        			</tr>
-									<?php endif ?>
-				        				
-				        			<?php
-				        		}
-							}
-			      		}?>
+						      				<?php $totalmoney += number_format((float)($value_customer['payment']-$value_customer['lentamount'])*$value_customer['agentcharge']/100 - $salary_paid, 2, '.', ''); ?>
+						      			</td>
+						      			<td>
+						      				<form action="javascript:void(0);">
+				        						<button class="btn btn-default agent_modal" data-toggle="modal" data-target="#agentModal" data-agentid="<?php echo $value_customer['agentid']; ?>" data-refid="<?php echo $value_customer['refid']; ?>" name="accountid">Payment</button>
+				        					</form>
+						      			</td>
+						      		</tr>
+					      		<?php endif ?>
+							<?php endforeach ?>
+
+					<?php } ?>
+
+
+			      								
 										<tr>
 				        					<td>
 					        				</td>

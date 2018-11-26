@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Customer_Model extends CI_Model{
     function __construct(){
         parent::__construct();
+        $this->load->model('account_model');
     }
     
     public function getuserdata(){
@@ -323,7 +324,7 @@ public function blackliststatus(){
     public function get_customer_payment_modal($customerid){
         // Run the query
 
-        $this->db->select("p.paymentid, p.accountid, p.payment, p.paymenttype, p.paymentdate, c.customerid, c.customername, pt.packagetypename");
+        $this->db->select("p.paymentid, a.refid as accountid, p.payment, p.paymenttype, p.paymentdate, c.customerid, c.customername, pt.packagetypename");
         $this->db->from('payment p');
         $this->db->join('account a', 'p.accountid = a.accountid', 'left');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
@@ -336,6 +337,74 @@ public function blackliststatus(){
 
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+        public function get_customer_balance_modal($customerid){
+        // Run the query
+
+        $this->db->select("a.refid, SUM(p.payment) as payment, c.customerid, c.customername, pt.packagetypename, a.packageid");
+        $this->db->from('account a');
+        $this->db->join('payment p', 'a.accountid = p.accountid', 'left');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        // $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('c.companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('c.customerid', $customerid);
+        $this->db->where("p.paymenttype !=", "discount");
+        $this->db->group_by('a.refid');
+
+        $query = $this->db->get();
+        $data = $query->result_array();
+
+        return $data;
+    }
+
+        public function get_customer_balance_modal_lentamount($customerid){
+
+        $this->db->select("a.refid, SUM(p.payment) as payment, c.customerid, c.customername, pt.packagetypename, a.packageid");
+        $this->db->from('account a');
+        $this->db->join('payment p', 'a.accountid = p.accountid', 'left');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        // $this->db->join('packagetype pt', 'a.packagetypeid = pt.packagetypeid', 'left');
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('c.companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $this->db->where('c.customerid', $customerid);
+        $this->db->group_by('a.refid');
+
+        $query = $this->db->get();
+        $res = $query->result_array();
+        $lentamount = 0;
+        $count = 0;
+        foreach ($res as $key => $value) {
+          $packagename = $value['packagetypename'];
+          $packageid = $value['packageid'];
+          $packageinfo = $this->get_package_info_modal($packagename, $packageid);
+          foreach ($packageinfo as $key => $value_package_info) {
+            $lentamount = $value_package_info['lentamount'];
+          }
+          $res[$count]['lentamount'] = $lentamount;
+          $count++;
+        }
+
+
+        return $res;
+    }
+
+        public function get_package_info_modal($packagename, $packageid)
+    {
+      //database 名字，在insert的选项那边的前缀
+      $dbname = $packagename;
+      $packageid = $packageid;
+      $this->db->from($dbname);
+      $this->db->where('packageid', $packageid);
+      $query = $this->db->get();
+      return $query->result_array();
     }
 
     public function get_customer_agent_modal($customerid){

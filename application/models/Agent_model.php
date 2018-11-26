@@ -228,5 +228,89 @@ class Agent_Model extends CI_Model{
         return $query->result_array();
 
     }
+
+    public function get_share_all_agent_account(){
+        // Run the query
+                /////////////////////////////SHARE ALL INTEREST////////////////////////////////////////////////////////////////
+        $data = array();
+        $count = 0;
+        //拿 share all 的agent
+        $get_all_agent_share_all = $this->load->agent_model->getuserdata_count_salary_share_all_interest();
+        foreach ($get_all_agent_share_all as $key => $value) {
+            $salary = 0;
+            $agentid_share_all = $value['agentid'];
+            $agent_charge = $value['charge'];
+            //用agent拿accline
+            $get_accountline_by_agentid = $this->load->account_model->get_accountline_by_agentid($agentid_share_all);
+            foreach ($get_accountline_by_agentid as $key => $value_accline) {
+                $accline = $value_accline['accountline'];
+                $customername = $value_accline['customername'];
+                $wechatname = $value_accline['wechatname'];
+                // echo $accline;
+                //用accline 拿refid
+                $get_refid_by_accline = $this->load->account_model->get_refid_by_accline($accline);
+                foreach ($get_refid_by_accline as $key => $value_refid) {
+                    $refid = $value_refid['refid'];
+                    // echo $refid;
+                    $packagetypename = $value_refid['packagetypename'];
+                    $packageid_shareall = $value_refid['packageid'];
+                    $package_info = $this->load->account_model->get_package_info($packagetypename, $packageid_shareall);
+                    //拿lentamount
+                    foreach ($package_info as $key => $value_package_info) {
+                        $lentamount = $value_package_info['lentamount'];
+                        // echo $lentamount;
+                    }
+                    //用来拿payment(每个同refid的account)
+                    $get_accid_by_refid = $this->load->account_model->get_accid_by_refid($refid);
+                    $payment_refid = 0;
+                    foreach ($get_accid_by_refid as $key => $value_accid_by_refid) {
+                        $accid = $value_accid_by_refid['accountid'];
+                        $payment_refid += $this->load->account_model->sum_payment_by_accid_agent_salary($accid);
+                        // echo $payment_refid;
+                    }
+                    //拿account 的info 用refid
+                    $get_info_by_refid = $this->load->account_model->get_info_by_refid($refid);
+                    foreach ($get_info_by_refid as $key => $value_info_refid) {
+                        $refid_totalamount = $value_info_refid['SUM(a.totalamount)'];
+                        $status = $value_info_refid['status'];
+                        //条件
+
+                        //还完 和 baddebt还完
+                        if ($refid_totalamount <= 0 && ($status == "closed" || $status == "done")) {
+                            $salary += ($payment_refid - $lentamount) * $agent_charge / 100;
+                            // echo $salary;
+                            $data[$count] = array(
+                                'agentid' => $agentid_share_all,
+                                'customername' => $customername,
+                                'wechatname' => $wechatname,
+                                'refid' => $refid,
+                                'payment' => $payment_refid,
+                                'lentamount' => $lentamount,
+                                'agentcharge' => $agent_charge
+                                );$count++;
+                        }
+                        //baddebt
+                        elseif ($status == "baddebt") {
+                            // ？？？？？？？？？？？？？？？？？？？？？？？？待定
+                            $salary += ($payment_refid - $lentamount) * $agent_charge / 100;
+                            print_r($salary);
+                            $data[$count] = array(
+                                'agentid' => $agentid_share_all,
+                                'customername' => $customername,
+                                'wechatname' => $wechatname,
+                                'refid' => $refid,
+                                'payment' => $payment_refid,
+                                'lentamount' => $lentamount,
+                                'agentcharge' => $agent_charge
+                                );$count++;
+                        }
+                    }
+                }
+            }
+            return $data;
+        }
+        /////////////////////////////SHARE ALL INTEREST////////////////////////////////////////////////////////////////
+
+    }
 }
 ?>

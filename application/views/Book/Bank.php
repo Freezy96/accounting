@@ -1,8 +1,26 @@
 <?php $this->load->view('template/sidenav'); ?>
 
 <form action="<?php echo base_url();?>book/insertcohdata" method="post" name="">
+<?php 
+    $balance_ontop = $balance;
+    if(is_array($result) && $result)
+    {
+        foreach ($result as $key => $value) 
+        {
+            if ($value['type'] == "receive") 
+            {
+                $balance_ontop += $value['amount'];
+            }
+            elseif ($value['type'] == "payment") 
+            {
+                $balance_ontop -= $value['amount'];
+            }
+        }
+    }
+ ?>
+<h1>Bank</h1><h3>Balance = <?php echo $balance_ontop; ?></h3>
 
-<h1>Bank</h1><div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;" value= "<?php echo $coh?>"></h1>
+<div style = "position:relative;left:75%;"><h1 >Cash on Hand: <input type="number" step="0.01" class="form-control" id=""  name="amount" placeholder=  "<?php echo $coh?>" style="width:200px; height:30px;" value= "<?php echo $coh?>"></h1>
 <button class="btn btn-default " id="submit">Submit</button>
 </form>
 <form action="javascript:void(0);">
@@ -169,23 +187,39 @@
         <td> </td>
         <td>
             MMB:<br>
-            Total Debit:<?php echo $tdmmb;?><br>
-            Total Credit:<?php echo $tcmmb;?>
+            <?php $mmb_count = $tdmmb - $tcmmb; ?>
+            <?php if ($mmb_count<0): ?>
+                <font style="color:red;"><?php echo $mmb_count; ?></font>
+            <?php else: ?>
+                <font><?php echo $mmb_count; ?></font>
+            <?php endif ?>
         </td>
         <td>
             PBB:<br>
-            Total Debit:<?php echo $tdpbb;?><br>
-            Total Credit:<?php echo $tcpbb;?>
+            <?php $pbb_count = $tdpbb - $tcpbb; ?>
+            <?php if ($pbb_count<0): ?>
+                <font style="color:red;"><?php echo $pbb_count; ?></font>
+            <?php else: ?>
+                <font><?php echo $pbb_count; ?></font>
+            <?php endif ?>
         </td>
         <td>
             RHB:<br>
-            Total Debit:<?php echo $tdrhb;?><br>
-            Total Credit:<?php echo $tcrhb;?>
+            <?php $rhb_count = $tdrhb - $tcrhb; ?>
+            <?php if ($rhb_count<0): ?>
+                <font style="color:red;"><?php echo $rhb_count; ?></font>
+            <?php else: ?>
+                <font><?php echo $rhb_count; ?></font>
+            <?php endif ?>
         </td>
         <td>
             HLB:<br>
-            Total Debit:<?php echo $tdhlb;?><br>
-            Total Credit:<?php echo $tchlb;?>
+            <?php $hlb_count = $tdhlb - $tchlb; ?>
+            <?php if ($rhb_count<0): ?>
+                <font style="color:red;"><?php echo $hlb_count; ?></font>
+            <?php else: ?>
+                <font><?php echo $hlb_count; ?></font>
+            <?php endif ?>
         </td>
         <td></td>
     </tr>
@@ -219,8 +253,8 @@
  	<label for="">Type:</label>
     <select name="type" required class="form-control">
         <option value="" selected disabled>------------</option>
-        <option value="payment" style="color:red"><font color="red">Credit</font></option>   
-        <option value="receive" style="color:green"><font color="green">Debit</font></option>
+        <option value="payment" style="color:red"><font color="red">Debit</font></option>   
+        <option value="receive" style="color:green"><font color="green">Credit</font></option>
     </select>
  	</td>
  	<td>
