@@ -14,7 +14,7 @@ class Profit_Model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m-%d')", $date);
-        // $this->db->where("paymenttype !=", "discount");
+        $this->db->where("paymenttype !=", "discount");
         // $this->db->group_by('paymentdate');// add group_by
         $query = $this->db->get();
 
@@ -31,7 +31,7 @@ class Profit_Model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m')", $date);
-        // $this->db->where("paymenttype !=", "discount");
+        $this->db->where("paymenttype !=", "discount");
         // $this->db->group_by('paymentdate');// add group_by
         $query = $this->db->get();
 
@@ -48,7 +48,7 @@ class Profit_Model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->where("DATE_FORMAT(paymentdate,'%Y')", $date);
-        // $this->db->where("paymenttype !=", "discount");
+        $this->db->where("paymenttype !=", "discount");
         // $this->db->group_by('paymentdate');// add group_by
         $query = $this->db->get();
 

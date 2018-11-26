@@ -170,7 +170,6 @@
 					<?php echo "- ".$val['SUM(payment)']; ?>
 				</td>
 			</tr>	
-			<?php $additional_minus+=$val['SUM(payment)']; ?>
 		<?php endif ?>
 	<?php endforeach ?>
 	<?php } ?>

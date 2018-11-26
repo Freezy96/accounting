@@ -3,3 +3,7 @@
 																3. custom.js 显示
 																4. payment View 显示
 																5. Home remind 显示
+
+collapsible + datatables 问题出现在tbody,让他产生很多个tbody （一个大loop一次）																
+
+ajax inside for loop using accountid to get payment info

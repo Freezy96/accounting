@@ -207,7 +207,7 @@ class Print_Model extends CI_Model{
                     }
                     foreach ($payment_info as $key => $value) 
                     {
-                        if ($value['paymentdate'] <= $date_eachday) 
+                        if ($value['paymentdate'] >= $date_eachday) 
                         {
                             $payment_paid += $value['payment'];
                             echo "<script>console.log('payment:".$payment_paid."')</script>";
@@ -249,7 +249,7 @@ class Print_Model extends CI_Model{
                     }
                     foreach ($payment_info as $key => $value) 
                     {
-                        if ($value['paymentdate'] <= $date_eachday) 
+                        if ($value['paymentdate'] >= $date_eachday) 
                         {
                             $payment_paid += $value['payment'];
                             echo "<script>console.log('payment:".$payment_paid."')</script>";
@@ -323,7 +323,7 @@ class Print_Model extends CI_Model{
                                 $total_interest += $interest;
                             }
                     }
-
+                    $payment_paid = 0;
                     foreach ($payment_info as $key => $value) 
                     {
                         if ($value['paymentdate'] <= $date_eachday) 

@@ -436,6 +436,22 @@ public function blacklistbutton(){
 	    echo json_encode($data);
  		//Either you can print value or you can send value to database
 	}
+
+	   public function customer_balance_modal() 
+	{	
+		$customerid = $this->input->post('customerid');
+		$data = $this->customer_model->get_customer_balance_modal($customerid);
+		$get_package_info = $this->customer_model->get_customer_balance_modal_lentamount($customerid);
+		$count = 0;
+		foreach ($get_package_info as $key => $value) {
+			$data[$count]['lentamount'] = $value['lentamount'];
+			$count ++;
+		}
+
+
+	    echo json_encode($data);
+ 		//Either you can print value or you can send value to database
+	}
    	public function customer_agent_modal() 
 	{	
 		$customerid = $this->input->post('customerid');

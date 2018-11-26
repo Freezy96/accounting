@@ -21,6 +21,23 @@ class Account_model extends CI_Model{
 
         return $query->result_array();
     }
+
+     public function getuserdata_groupby_customername(){
+        // Run the query
+        // $this->db->distinct('a.refid');
+        $this->db->select('a.customerid, c.customername, c.wechatname');
+        $this->db->from('account a');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->group_by('c.customername');// add group_by
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
     public function getbaddebtuserdata(){
         // Run the query
         // $this->db->distinct('a.refid');
@@ -106,10 +123,11 @@ class Account_model extends CI_Model{
 
     public function get_accountid_using_refid($refid){
         // Run the query
-        $this->db->select('accountid');
-        $this->db->from('account');
-        $this->db->where('refid', $refid);
-        $this->db->order_by("duedate", "asc");
+        $this->db->select('a.accountid, p.packagetypename, a.packageid');
+        $this->db->from('account a');
+        $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
+        $this->db->where('a.refid', $refid);
+        $this->db->order_by("a.duedate", "asc");
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -1414,7 +1432,7 @@ public function set_account_baddebt()
                             // echo $salary;
                         }
                         //baddebt
-                        elseif ($refid_totalamount >= 0 && $status == "baddebt") {
+                        elseif ($status == "baddebt") {
                             // ？？？？？？？？？？？？？？？？？？？？？？？？待定
                             $salary += ($payment_refid - $lentamount) * $agent_charge / 100;
                         }
@@ -1428,9 +1446,9 @@ public function set_account_baddebt()
 
     public function get_accountline_by_agentid($agentid_share_all)
     {
-        $this->db->select('a.accountline');
+        $this->db->select('a.accountline, c.customername, c.wechatname');
         $this->db->from('account a');
-        // $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
+        $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
         $this->db->where('a.companyid', $company_identity);

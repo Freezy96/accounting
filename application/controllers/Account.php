@@ -43,8 +43,11 @@ class Account extends CI_Controller {
 		$this->load->customer_model->reset_duedate();
 		$this->load->customer_model->checkuserstatus();
 		$this->load->customer_model->blackliststatus();
+		$res1 = $this->load->account_model->getuserdata_groupby_customername();
+		$data['result_groupby_customername'] = $res1;
 		$res = $this->load->account_model->getuserdata();
 		$data['result'] = $res;
+		
 		foreach ($res as $key => $value) {
             $packagename =  $value['packagetypename'];
             $packageid = $value['packageid'];
@@ -705,10 +708,18 @@ class Account extends CI_Controller {
 		$get_all_acc_id = $this->account_model->get_accountid_using_refid($refid);
 		$count_array = -1;
 		foreach ($get_all_acc_id as $key => $value) {
+			$package_name = $value['packagetypename'];
+			$package_id = $value['packageid'];
+			$get_package = $this->account_model->get_package_info($package_name, $package_id);
+			$lentamount = 0;
+			foreach ($get_package as $key => $value_package_lentamount) {
+				$lentamount = $value_package_lentamount['lentamount'];
+			}
 			$count_array++;
 			$all_account_id = $value['accountid'];
 			$get_payment = $this->account_model->get_payment_amount($all_account_id);
 			$payment = 0;
+			$payment_discount = 0;
 			$interest_paid = 0;
 			foreach ($get_payment as $key => $value) {
 				if($value['paymenttype']=="amount")
@@ -722,6 +733,7 @@ class Account extends CI_Controller {
 				if($value['paymenttype']=="discount")
 				{
 					$payment+=$value['payment'];
+					$payment_discount+=$value['payment'];
 				}
 				if($value['paymenttype']=="newpackage")
 				{
@@ -729,6 +741,8 @@ class Account extends CI_Controller {
 				}
 				// ${'data'. $all_account_id} = array();
 				$data[$count_array]["payment"] = $payment;
+				$data[$count_array]["payment_discount"] = $payment_discount;
+				$data[$count_array]["lentamount"] = $lentamount;
 				// $data[$count_array]["interest_paid"] = $interest_paid;
 
 			}

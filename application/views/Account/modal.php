@@ -12,7 +12,9 @@
       Total Amount: <span id="account_modal_oriamount"></span><br>
       Package: <span id="account_modal_package"></span><br>
       Agent: <span id="account_modal_agent"></span><br>
-      Guarantee Item: <span id="account_modal_guarantyitem"></span><br><br>
+      Guarantee Item: <span id="account_modal_guarantyitem"></span><br>
+      Start Date: <span id="account_modal_startdate"></span><br>
+      <br>
       <table class="account_modal_table table">
       	<thead></thead>
       	<tr></tr>

@@ -96,6 +96,10 @@
 						</form>
 						<br>
 						<form action="javascript:void(0);">
+							<button class="btn btn-default customer_balance_view" data-toggle="modal" data-target="#customer_balance_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid">View Balance</button>
+						</form>
+						<br>
+						<form action="javascript:void(0);">
 							<button class="btn btn-default customer_agent_view" data-toggle="modal" data-target="#customer_agent_modal" value="<?php echo $val['customerid']; ?>" data-name="<?php echo $val['customername']; ?>" name="accountid_agent">View Agent</button>
 						</form>
 						<br>
@@ -161,6 +165,31 @@
        <!-- body -->
       <!-- Customer: <span id="customer_modal_customerid"></span><span id="customer_modal_customername"></span><br> -->
       <table class="customer_agent_modal_table table livesearch">
+      	<thead></thead>
+      	<tr></tr>
+      </table>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- customer balance modal -->
+<div class="modal fade" id="customer_balance_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="customer_balance_modal_title"></h4>
+      </div>
+      <div class="modal-body">
+       <!-- body -->
+      <!-- Customer: <span id="customer_modal_customerid"></span><span id="customer_modal_customername"></span><br> -->
+      <table class="customer_balance_modal_table table livesearch">
       	<thead></thead>
       	<tr></tr>
       </table>

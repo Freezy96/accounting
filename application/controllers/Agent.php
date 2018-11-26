@@ -43,7 +43,7 @@ class Agent extends CI_Controller {
 	            $totalamount_check = $val['SUM(a.totalamount)'];
 	            $agentid_complete = $val['MIN(ag.agentid)'];
 	            // echo "<script>console.log(".$totalamount_check.");</script>";
-	            echo "<script>console.log(".$agentid_complete.");</script>";
+	            // echo "<script>console.log(".$agentid_complete.");</script>";
 	            if($totalamount_check<=0)
 	            {
 	                //completed accountline
@@ -107,11 +107,13 @@ class Agent extends CI_Controller {
 		//////////////////////////////FIRST ACCOUNT INTEREST//////////////////////////////////////////////
 
 		//////////////////////////////SHARE ALL INTEREST//////////////////////////////////////////////
-		// $agent_where_share_all = $this->load->agent_model->get_agent_where_share_all();
+		$agent_where_share_all = $this->load->agent_model->get_share_all_agent_account();
+		$data['agent_where_share_all'] = $agent_where_share_all;
 		//////////////////////////////SHARE ALL INTEREST//////////////////////////////////////////////
+		
 		$res = $this->load->agent_model->getuserdata();
 		$data['result'] = $res;
-
+		// print_r($res);
     	$this->load->view('agent/main', $data);
 		$this->load->view('template/footer');
 	}
