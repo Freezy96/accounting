@@ -173,6 +173,17 @@
 		<?php endif ?>
 	<?php endforeach ?>
 	<?php } ?>
+
+	<?php if ($pi_year > 0): ?>
+			<tr>
+				<td>
+					Pure Interest
+				</td>
+				<td>
+					<?php echo $pi_year; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
 	<!-- additional---------------------------------------------------------------------------- -->	
 	<tr>
 		<td>
