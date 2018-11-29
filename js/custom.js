@@ -92,14 +92,16 @@ $(document).ready(function() {
                   $tr.append($('<td/>').html("Amount To Be Pay"));
                   $tr.append($('<td/>').html("Interest To Be Pay"));
                   $tr.append($('<td/>').html("Total:"));
-                  // $tr.append($('<td/>').html("Action:"));
+                  $tr.append($('<td/>').html("Action:"));
                   $('.account_modal_table tr:last').before($tr);
 
 
                 var earned_payment = 0;
                 var earned_payment_discount = 0;
                 var earned_amount = 0;  
-                for (var i = 0; i < res.length; i++) {
+                var showed = 0;
+                for (var i = 0; i < res.length; i++) 
+                {
                   var $tr = $('<tr class=\'account_trtd_append\'/>');
                   // $tr.append($('<td/>').html(res[i].datee));
                   $tr.append($('<td/>').html(res[i].duedate));
@@ -250,10 +252,56 @@ $(document).ready(function() {
                       $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
                     }
                   }
-                  $('.account_modal_table tr:last').before($tr);
-                }
+                  //
+                  $tr.append($('<td/>').html("<a class=\"btn btn-default\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\".modal_collapsible_"+res[i].accountid+"\" aria-expanded=\"true\" aria-controls=\"collapseOne\">View</a>"));
 
-                }
+                  $('.account_modal_table tr:last').before($tr);
+
+                  // NESTED AJAX - GET PAYMENT USING ACCOUNT ID
+                  $.ajax({
+                  type: "POST",
+                  url: 'account/get_payment_modal',
+                  dataType: 'json',
+                  data: {'accid': res[i].accountid},
+                  success: function(res1) {
+                      if (res1)
+                      { 
+                        console.log(res1);
+                        // $(".account_modal_collapse_append").remove(); 
+                        // $(".account_modal_collapse_trtd_append").remove(); 
+                        
+                        if (showed == 0) 
+                        {
+                          var $tr = $('<tr class=\'account_header_append\'/>');
+                          $tr.append($('<td/>').html(" "));
+                          $('.account_modal_table tr:last').before($tr);
+                          var $tr = $('<tr class=\'account_header_append\'/>');
+                          $tr.append($('<td/>').html(" "));
+                          $('.account_modal_table tr:last').before($tr);
+                          var $tr = $('<tr class=\'account_header_append\'/>');
+                          $tr.append($('<td/>').html("Date"));
+                          $tr.append($('<td/>').html("Amount"));
+                          $tr.append($('<td/>').html("Type"));
+                          $('.account_modal_table tr:last').before($tr);
+                          
+                        }  
+                        showed = 1;
+                         for (var i = 0; i < res1.length; i++) {
+                          var $tr = $('<tr id=\'\' class=\'account_header_append  panel-collapse collapse modal_collapsible_'+res1[i].accountid+'\' role=\'tabpanel\' aria-labelledby=\'headingOne\'/>');
+                          $tr.append($('<td/>').html(res1[i].paymentdate));
+                          $tr.append($('<td/>').html(res1[i].payment));
+                          $tr.append($('<td/>').html(res1[i].paymenttype));
+                          $('.account_modal_table tr:last').before($tr);
+                        }
+                      }
+                    }
+                });
+                // NESTED AJAX - GET PAYMENT USING ACCOUNT ID
+
+
+                } // END OF FOR LOOP
+
+                }//END OF IF
                 var $tr = $('<tr class=\'account_earned_append\'/>');
                   $tr.append($('<td/>').html(" "));
                   $tr.append($('<td/>').html(" "));
@@ -274,8 +322,8 @@ $(document).ready(function() {
                   // $tr.append($('<td/>').html("Action:"));
                   $('.account_modal_table tr:last').before($tr);
                    
-              }
-            });
+              } //END OF SUCCESS
+            }); // END OF AJAX
           });
 
 //Customer Payment  --- 2 ajax together one for customer one for black list

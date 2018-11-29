@@ -37,7 +37,9 @@
 				<tbody>
 				<tr>
 					<td>
-						-
+						<?php if ($val_groupby_customername['SUM(a.totalamount)']<=0): ?>
+							<span style="color: red">PAID</span>
+						<?php endif ?>
 					</td>
 					<td>
 						<?php echo $val_groupby_customername['customername']; ?>	<?php echo "(".$val_groupby_customername['wechatname'].")"; ?>
@@ -74,6 +76,9 @@
 										if($status !=="baddebt"){ ?>
 											<tr>
 												<td>
+													<?php if ($val['SUM(a.totalamount)']<=0): ?>
+														<span style="color: red">PAID</span>
+													<?php endif ?>
 													<?php echo $val['refid']; ?>
 												</td>
 												<td>

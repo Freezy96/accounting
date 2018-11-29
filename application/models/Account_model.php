@@ -25,7 +25,7 @@ class Account_model extends CI_Model{
      public function getuserdata_groupby_customername(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.customerid, c.customername, c.wechatname');
+        $this->db->select('a.customerid, c.customername, c.wechatname, SUM(a.totalamount)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -88,6 +88,15 @@ class Account_model extends CI_Model{
     public function get_payment_amount($accountid){
         // Run the query
         $this->db->select('payment, paymenttype');
+        $this->db->from('payment');
+        $this->db->where('accountid', $accountid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_payment_modal($accountid){
+        // Run the query
+        $this->db->select('accountid, payment, paymenttype, paymentdate');
         $this->db->from('payment');
         $this->db->where('accountid', $accountid);
         $query = $this->db->get();
