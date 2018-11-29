@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Profit_Model extends CI_Model{
     function __construct(){
         parent::__construct();
@@ -334,6 +334,147 @@ class Profit_Model extends CI_Model{
 
         return $query->result_array();
     }
+public function getoriamount($refid){
+        // Run the query
+        $this->db->select('oriamount');
+        $this->db->from('account');
+        $this->db->where('refid', $refid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getpureinterest_day($date){
+       $this->db->select('SUM(p.payment), a.refid');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m-%d')", $date);
 
+        $this->db->where("paymenttype !=", "discount");
+        $this->db->group_by('a.refid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function calpureinterest_day($date){
+        $p = $this->getpureinterest_day($date);
+        $pi_day=0;
+            foreach ($p as $key => $value) 
+            {
+                $pay= $value['SUM(p.payment)'];
+                $r=$value['refid'];
+            $a = $this->getoriamount($r);
+            foreach ($a as $key => $value) 
+            {
+                $amount= $value['oriamount'];
+
+            }
+            $pi=$pay-$amount;
+            if($pi>0){
+                $pi_day+=$pi;
+            }
+            
+            }
+        
+        
+        if ($pi_day>0) {
+            return $pi_day;
+        }else{
+
+        }
+        
+    }
+
+     public function getpureinterest_month($date){
+       $this->db->select('SUM(p.payment), a.refid');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(paymentdate,'%Y-%m')", $date);
+
+        $this->db->where("paymenttype !=", "discount");
+        $this->db->group_by('a.refid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function calpureinterest_month($date){
+        $p = $this->getpureinterest_month($date);
+        $pi_month=0;
+            foreach ($p as $key => $value) 
+            {
+                $pay= $value['SUM(p.payment)'];
+                $r=$value['refid'];
+            $a = $this->getoriamount($r);
+            foreach ($a as $key => $value) 
+            {
+                $amount= $value['oriamount'];
+
+            }
+            $pi=$pay-$amount;
+            if($pi>0){
+                $pi_month+=$pi;
+            }
+            
+            }
+        
+        
+        if ($pi_month>0) {
+            return $pi_month;
+        }else{
+
+        }
+        
+    }
+
+     public function getpureinterest_year($date){
+       $this->db->select('SUM(p.payment), a.refid');
+        $this->db->from('payment p');
+        $this->db->join('account a', 'p.accountid = a.accountid', 'left');
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('a.companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $this->db->where("DATE_FORMAT(paymentdate,'%Y')", $date);
+
+        $this->db->where("paymenttype !=", "discount");
+        $this->db->group_by('a.refid');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function calpureinterest_year($date){
+        $p = $this->getpureinterest_year($date);
+        $pi_year=0;
+            foreach ($p as $key => $value) 
+            {
+                $pay= $value['SUM(p.payment)'];
+                $r=$value['refid'];
+            $a = $this->getoriamount($r);
+            foreach ($a as $key => $value) 
+            {
+                $amount= $value['oriamount'];
+
+            }
+            $pi=$pay-$amount;
+            if($pi>0){
+                $pi_year+=$pi;
+            }
+            
+            }
+        
+        
+        if ($pi_year>0) {
+            return $pi_year;
+        }else{
+
+        }
+        
+    }
 }
 ?>

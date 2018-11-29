@@ -173,6 +173,17 @@
 		<?php endif ?>
 	<?php endforeach ?>
 	<?php } ?>
+
+	<?php if ($pi_month > 0): ?>
+			<tr>
+				<td>
+					Pure Interest
+				</td>
+				<td>
+					<?php echo $pi_month; ?>
+				</td>
+			</tr>	
+		<?php endif ?>
 	<!-- additional---------------------------------------------------------------------------- -->	
 	<tr>
 		<td>

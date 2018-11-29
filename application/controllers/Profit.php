@@ -65,7 +65,13 @@ class Profit extends CI_Controller {
 	    $data['expenses_month'] = $res;
 	    $res = $this->load->profit_model->get_this_year_expenses($date_year);
 	    $data['expenses_year'] = $res;
-	    
+	   
+	   	$res = $this->load->profit_model->calpureinterest_day($date_day);
+	    $data['pi_day'] = $res; 
+	   	$res = $this->load->profit_model->calpureinterest_month($date_month);
+	    $data['pi_month'] = $res; 
+	    $res = $this->load->profit_model->calpureinterest_year($date_year);
+	    $data['pi_year'] = $res; 
     	$this->load->view('profit/main', $data);
 		$this->load->view('template/footer');
 	}
