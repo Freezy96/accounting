@@ -754,6 +754,15 @@ class Account extends CI_Controller {
 		//Either you can print value or you can send value to database
 	}
 
+	public function get_payment_modal() 
+	{	
+		$accountid = $this->input->post('accid');
+		$data = $this->account_model->get_payment_modal($accountid);
+		
+	     
+	    echo json_encode($data);
+	}
+
 	public function payment()
 	{	
 		$this->load->helper('url');
