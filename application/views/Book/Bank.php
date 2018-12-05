@@ -111,10 +111,10 @@
      ?>
         <td> </td>
         <td>Balance forward</td>
-        <td><?php echo $mbb;?></td>
-        <td><?php echo $pbb;?></td>
-        <td><?php echo $rhb;?></td>
-        <td><?php echo $hlb;?></td>
+        <td><?php echo $mbb;$tdmmb+= $mbb; ?></td>
+        <td><?php echo $pbb;$tdpbb+= $pbb; ?></td>
+        <td><?php echo $rhb;$tdrhb+= $rhb; ?></td>
+        <td><?php echo $hlb;$tdhlb+= $hlb; ?></td>
         <td ><?php echo $balance;$debit=$balance;?></td>
     </tr>
 

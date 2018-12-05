@@ -4,7 +4,7 @@
 		<thead>
 			<tr>
 				<td>
-					NAME
+					NAME(WECHAT)
 				</td>
 				<td>
 					LENT
@@ -38,7 +38,7 @@
 	<?php foreach ($result as $key => $val): ?>
 		<tr>
 			<td>
-				<?php echo $val['customername']; ?>
+				<?php echo $val['customername']; ?>	<?php echo "(".$val['wechatname'].")"; ?>
 			</td>
 			<td>
 				<?php foreach (${'p' . $val['packageid']} as $key => $value): ?>

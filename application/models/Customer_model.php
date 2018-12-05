@@ -231,7 +231,7 @@ public function reset_status($customerid){
 }
 public function getstatus(){
         // Run the query
-        $this->db->select('customerid, status,reset');
+        $this->db->select('wechatname,customerid, status,reset');
         $this->db->from('customer');
         $query = $this->db->get();
 
