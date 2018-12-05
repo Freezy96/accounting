@@ -78,7 +78,7 @@ $(document).ready(function() {
                 $("#pay_amount").html("<button class=\"btn btn-success\" value=\""+ res[0].refid +"\" name=\"account_refid\">Pay Amount</button>");
                
                 $("#account_modal_title").html(res[0].customername +" - RM "+ res[0].oriamount); 
-                $("#account_modal_customer").html(res[0].customerid +" - "+ res[0].customername); 
+                $("#account_modal_customer").html(res[0].customerid +" - "+ res[0].customername +"("+res[0].wechatname+")"); 
                 $("#account_modal_refid").html(res[0].refid); 
                 $("#account_modal_oriamount").html(res[0].oriamount); 
                 $("#account_modal_package").html(res[0].packageid +" - "+ res[0].packagetypename); 
@@ -113,6 +113,8 @@ $(document).ready(function() {
                   var ady_paid_interest_show = 0;
                   var ady_paid_amount_show = 0;
                   var ady_paid_total_show = 0;
+                  var minus_by_discount = 0;
+                  var discount_overflow = 0;
                   if ("payment_discount" in res[i]) {
                     earned_payment_discount += parseFloat(res[i].payment_discount);
                   }
@@ -122,12 +124,21 @@ $(document).ready(function() {
                   if ("lentamount" in res[i]) {
                     earned_amount = parseFloat(res[i].lentamount);
                   }
-                  console.log(earned_payment);
+                  // console.log(earned_payment);
                   // earned_amount += parseFloat(res[i].amount);
                   //Calculation
                   if ("payment" in res[i]) 
                   {
-                    interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);//-100.00
+                    
+                    interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment) - parseFloat(res[i].payment_discount)).toFixed(2);//-100.00
+                    if ((parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2) >0 && (parseFloat(res[i].interest) - parseFloat(res[i].payment) - parseFloat(res[i].payment_discount)).toFixed(2)<0) {
+                      minus_by_discount = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);
+                      discount_overflow = (parseFloat(res[i].payment_discount) - parseFloat(minus_by_discount)).toFixed(2);
+                    }else{
+                      minus_by_discount = 0;
+                      discount_overflow = 0;
+                    }
+
                     if (res[i].payment>=res[i].interest) {
                       ady_paid_interest_show = res[i].interest;
                     }else{
@@ -144,7 +155,10 @@ $(document).ready(function() {
                   if(interest_to_be_pay <= 0)
                   {
                     amount_paid = parseFloat(interest_to_be_pay * -1).toFixed(2); //100.00
-                    ady_paid_amount_show = amount_paid;
+
+                    ady_paid_amount_show = (parseFloat(amount_paid) - parseFloat(discount_overflow)).toFixed(2);
+                    console.log("amount paid ="+amount_paid);
+                    console.log("discount overflow ="+discount_overflow);
                     amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
                     // console.log(amount_paid);
                     interest_to_be_pay = parseFloat(0).toFixed(2);
@@ -189,7 +203,8 @@ $(document).ready(function() {
                       
                     }
                   }
-
+                  total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
+                  ady_paid_total_show = (parseFloat(ady_paid_amount_show)+parseFloat(ady_paid_interest_show)).toFixed(2);
 
                   //Amount to be pay
                   if ("payment" in res[i]) 
@@ -308,7 +323,7 @@ $(document).ready(function() {
                   // $tr.append($('<td/>').html(" "));
                   // $tr.append($('<td/>').html(" "));
                   $tr.append($('<td/>').html("Earned"));
-                  $tr.append($('<td/>').html((parseFloat(earned_payment) - parseFloat(earned_amount) - parseFloat(earned_payment_discount)).toFixed(2)));
+                  $tr.append($('<td/>').html((parseFloat(earned_payment) - parseFloat(earned_amount)).toFixed(2)));
                   // $tr.append($('<td/>').html("Action:"));
                   $('.account_modal_table tr:last').before($tr);
 

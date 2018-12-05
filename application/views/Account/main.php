@@ -31,10 +31,10 @@
 				</td>
 			</tr>
 		</thead>
-		
+		<tbody>
 		<?php if(is_array($result_groupby_customername) && $result_groupby_customername){ ?>
 			<?php foreach ($result_groupby_customername as $key => $val_groupby_customername): ?>
-				<tbody>
+				<div>
 				<tr>
 					<td>
 						<?php if ($val_groupby_customername['SUM(a.totalamount)']<=0): ?>
@@ -135,7 +135,7 @@
 					</td>
 					<td style="display: none;"></td><td style="display: none;"></td><td style="display: none;"></td><td style="display: none;"></td><td style="display: none;"></td><td style="display: none;"></td><td style="display: none;"></td>
 				</tr>
-				</tbody>
+				</div>
 			<?php  endforeach ?>
 		<?php } ?>	
 		</tbody>
