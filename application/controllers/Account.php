@@ -732,7 +732,7 @@ class Account extends CI_Controller {
 				// }
 				if($value['paymenttype']=="discount")
 				{
-					$payment+=$value['payment'];
+					// $payment+=$value['payment'];
 					$payment_discount+=$value['payment'];
 				}
 				if($value['paymenttype']=="newpackage")

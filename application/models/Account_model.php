@@ -109,7 +109,7 @@ class Account_model extends CI_Model{
         foreach ($refid as $value) {
             $refid_res = $value['refid'];
         }
-        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename, a.guarantyitem, a.pullnextperiod');
+        $this->db->select('a.accountid, a.totalamount, a.refid, a.oriamount, a.customerid, c.customername,c.wechatname, a.amount, a.datee, a.interest, a.duedate, a.packageid, ag.agentname, ag.agentid, p.packagetypename, a.guarantyitem, a.pullnextperiod');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
