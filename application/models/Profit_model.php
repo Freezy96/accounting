@@ -150,6 +150,7 @@ class Profit_Model extends CI_Model{
         foreach ($acc_day as $key => $value) {
             $datee = $value['datee'];
             if ($datee == $date) {
+                
                 $dbname = $value['packagetypename'];
                 $packageid = $value['packageid'];
                 $package_info = $this->get_package_info($dbname, $packageid);

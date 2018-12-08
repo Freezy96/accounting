@@ -11,7 +11,13 @@ class Profit extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('template/header');
 		$this->load->view('template/nav');
-		$day = $this->input->post('day');
+		// $day = $this->input->post('day');
+		if ($this->input->post('day')<10) {
+			$day = "0".$this->input->post('day');
+		}else{
+			$day = $this->input->post('day');
+		}
+
 		if ($this->input->post('month')<10) {
 			$month = "0".$this->input->post('month');
 		}else{
