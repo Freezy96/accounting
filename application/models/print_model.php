@@ -20,7 +20,7 @@ class Print_Model extends CI_Model{
 
     public function get_accountid_duedate_that_day($date){
         // Run the query
-        $this->db->select('a.refid, MAX(a.duedate), MIN(a.duedate)');
+        $this->db->select('a.refid, MAX(a.duedate), MIN(a.duedate),a.status');
         $this->db->from('account a');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $company_identity = $this->session->userdata('adminid');
@@ -32,6 +32,7 @@ class Print_Model extends CI_Model{
         $date_3week=(date("Y-m-d",$date_3week));
         $this->db->where('a.duedate >=',  $date_3week);
         $this->db->where('a.duedate <=',  $date_select);
+        $this->db->where('a.status !=',  "baddebt");
         $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();
         return $query->result_array();
@@ -51,7 +52,7 @@ class Print_Model extends CI_Model{
         $this->db->where('a.totalamount >=', 0);
         $this->db->where('a.duedate <=', $duedate);
         $this->db->group_by('a.refid');// add group_by
-        $this->db->order_by('a.duedate', 'desc');
+        $this->db->order_by("a.duedate", "ASC");
         $query = $this->db->get();
         return $query->result_array();
     }
