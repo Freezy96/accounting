@@ -91,6 +91,7 @@ $(document).ready(function() {
                   // $tr.append($('<td/>').html("Amount"));
                   $tr.append($('<td/>').html("Amount To Be Pay"));
                   $tr.append($('<td/>').html("Interest To Be Pay"));
+                  $tr.append($('<td/>').html("Discount"));
                   $tr.append($('<td/>').html("Total:"));
                   $tr.append($('<td/>').html("Action:"));
                   $('.account_modal_table tr:last').before($tr);
@@ -107,6 +108,7 @@ $(document).ready(function() {
                   $tr.append($('<td/>').html(res[i].duedate));
                   // $tr.append($('<td/>').html(res[i].amount));
                   var interest_to_be_pay = 0;
+                  var totalamount_left_to_pay = 0;
                   var amount_paid = 0;
                   var amount_to_be_pay = 0;
                   var total = 0;
@@ -115,6 +117,8 @@ $(document).ready(function() {
                   var ady_paid_total_show = 0;
                   var minus_by_discount = 0;
                   var discount_overflow = 0;
+                  var discount_overflow_inherit_to_amount_show = 0;
+                  var is_Paid = 0;
                   if ("payment_discount" in res[i]) {
                     earned_payment_discount += parseFloat(res[i].payment_discount);
                   }
@@ -127,48 +131,78 @@ $(document).ready(function() {
                   // console.log(earned_payment);
                   // earned_amount += parseFloat(res[i].amount);
                   //Calculation
-                  if ("payment" in res[i]) 
-                  {
-                    
-                    interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment) - parseFloat(res[i].payment_discount)).toFixed(2);//-100.00
-                    if ((parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2) >0 && (parseFloat(res[i].interest) - parseFloat(res[i].payment) - parseFloat(res[i].payment_discount)).toFixed(2)<0) {
-                      minus_by_discount = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);
-                      discount_overflow = (parseFloat(res[i].payment_discount) - parseFloat(minus_by_discount)).toFixed(2);
-                    }else{
-                      minus_by_discount = 0;
-                      discount_overflow = 0;
-                    }
 
-                    if (res[i].payment>=res[i].interest) {
-                      ady_paid_interest_show = res[i].interest;
-                    }else{
-                      ady_paid_interest_show = res[i].payment;
-                    }
-                    
-                  }
-                  else
-                  {
-                    interest_to_be_pay = (parseFloat(res[i].interest)).toFixed(2);//200.00
-                    ady_paid_interest_show = 0;
-                  }
-                  // console.log(interest_to_be_pay);
-                  if(interest_to_be_pay <= 0)
-                  {
-                    amount_paid = parseFloat(interest_to_be_pay * -1).toFixed(2); //100.00
-
-                    ady_paid_amount_show = (parseFloat(amount_paid) - parseFloat(discount_overflow)).toFixed(2);
-                    console.log("amount paid ="+amount_paid);
-                    console.log("discount overflow ="+discount_overflow);
-                    amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
-                    // console.log(amount_paid);
+                  
+                  totalamount_left_to_pay = (parseFloat(res[i].totalamount)).toFixed(2);
+                  if (parseFloat(totalamount_left_to_pay)<=parseFloat(res[i].amount)) {
+                    amount_to_be_pay = parseFloat(totalamount_left_to_pay).toFixed(2);
                     interest_to_be_pay = parseFloat(0).toFixed(2);
-                    var is_Paid = 1;
+                    ady_paid_amount_show = (parseFloat(res[i].amount)-parseFloat(amount_to_be_pay)-parseFloat(res[i].payment_discount)).toFixed(2);
+                    if (ady_paid_amount_show<0) {
+                      //负负得正
+                      ady_paid_interest_show = (parseFloat(res[i].payment)-parseFloat(ady_paid_amount_show)+parseFloat(ady_paid_amount_show)).toFixed(2);
+                      ady_paid_amount_show -= parseFloat(ady_paid_amount_show);
+                    }else{
+                      ady_paid_interest_show = (parseFloat(res[i].payment)-parseFloat(ady_paid_amount_show)).toFixed(2);
+                    }
+                    is_Paid = 1;
+                  }else{
+                    amount_to_be_pay = parseFloat(res[i].amount).toFixed(2);
+                    interest_to_be_pay = (parseFloat(totalamount_left_to_pay) - parseFloat(res[i].amount)).toFixed(2);
+                    ady_paid_amount_show = (0).toFixed(2);
+                    ady_paid_interest_show = (parseFloat(res[i].payment)).toFixed(2);
                   }
-                  else
-                  {
-                    amount_to_be_pay = parseFloat(res[i].amount).toFixed(2); //350.00
-                    ady_paid_amount_show = 0;
-                  }
+
+                  console.log("aaaaaaaaaaaaaa ="+amount_to_be_pay);
+                  console.log("bbbbbbbbbbbb ="+interest_to_be_pay);
+
+
+
+
+
+                  // if ("payment" in res[i]) 
+                  // {
+                    
+                  //   interest_to_be_pay = (parseFloat(res[i].interest) - parseFloat(res[i].payment) - parseFloat(res[i].payment_discount)).toFixed(2);//-100.00
+                  //   if ((parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2) >=0 && (parseFloat(res[i].interest) - parseFloat(res[i].payment) - parseFloat(res[i].payment_discount)).toFixed(2)<0) {
+                  //     minus_by_discount = (parseFloat(res[i].interest) - parseFloat(res[i].payment)).toFixed(2);
+                  //     discount_overflow = (parseFloat(res[i].payment_discount) - parseFloat(minus_by_discount)).toFixed(2);
+                  //   }else{
+                  //     discount_overflow = parseFloat(res[i].payment_discount);console.log("discount overflow ="+discount_overflow);
+                  //   }
+
+                  //   if (res[i].payment>=res[i].interest) {
+                  //     ady_paid_interest_show = (parseFloat(res[i].interest)).toFixed(2);
+                  //     discount_overflow_inherit_to_amount_show = (parseFloat(res[i].payment_discount)).toFixed(2);
+                  //     discount_overflow += parseFloat(res[i].interest);
+                  //   }else{
+                  //     ady_paid_interest_show = res[i].payment;
+                  //   }
+                    
+                  // }
+                  // else
+                  // {
+                  //   interest_to_be_pay = (parseFloat(res[i].interest)).toFixed(2);//200.00
+                  //   ady_paid_interest_show = 0;
+                  // }
+                  // // console.log(interest_to_be_pay);
+                  // if(interest_to_be_pay <= 0)
+                  // {
+                  //   amount_paid = (parseFloat(interest_to_be_pay * -1)).toFixed(2); //100.00
+                  //   ady_paid_amount_show = (parseFloat(amount_paid) - parseFloat(discount_overflow) + parseFloat(discount_overflow_inherit_to_amount_show)).toFixed(2);
+                  //   console.log("amount paid ="+amount_paid);
+                  //   console.log("discount overflow ="+discount_overflow);
+                  //   console.log("inherit ="+discount_overflow_inherit_to_amount_show);
+                  //   amount_to_be_pay = (parseFloat(res[i].amount)-parseFloat(amount_paid)).toFixed(2); //250.00
+                  //   // console.log(amount_paid);
+                  //   interest_to_be_pay = parseFloat(0).toFixed(2);
+                  //   var is_Paid = 1;
+                  // }
+                  // else
+                  // {
+                  //   amount_to_be_pay = parseFloat(res[i].amount).toFixed(2); //350.00
+                  //   ady_paid_amount_show = 0;
+                  // }
 
                   total = (parseFloat(amount_to_be_pay)+parseFloat(interest_to_be_pay)).toFixed(2);
                   ady_paid_total_show = (parseFloat(ady_paid_amount_show)+parseFloat(ady_paid_interest_show)).toFixed(2);
@@ -243,10 +277,18 @@ $(document).ready(function() {
                   {
                     $tr.append($('<td/>').html(res[i].interest+" ("+ady_paid_interest_show+")"));
                   }
+
+                  //Discount
+                  if ("payment_discount" in res[i]) {
+                    $tr.append($('<td/>').html(parseFloat(res[i].payment_discount).toFixed(2)));
+                  }else{
+                    $tr.append($('<td/>').html(parseFloat(0).toFixed(2)));
+                  }
+
                   //Total
                   if (total<=0) 
                   {
-                    $tr.append($('<td/>').html("Paid ("+ady_paid_total_show+")"));
+                    $tr.append($('<td/>').html("<span style=\"color:red;\">Paid ("+ady_paid_total_show+")</span>"));
                   }
                   else
                   {
@@ -267,8 +309,6 @@ $(document).ready(function() {
                       $tr.append($('<td/>').html("<form id=\"pay_amount\" action=\'"+baseurl_pathname+pathname+"/pull_to_next_period/\' method=\'post\' name=\'\'><button class=\"btn btn-default\" value=\""+ res[i].accountid +"\" name=\"accountid_pull_to_next_period\" onclick=\"return confirm('Are you sure you want to PULL THE TOTAL AMOUNT TO NEXT PERIOD AND SET THIS PERIOD AS PAID?');\">Pull to next period</button><input type=\"hidden\" name=\"totalamount\" value=\""+total_pull_nxt_period_use+"\"></form>"));
                     }
                   }
-                  //
-                  $tr.append($('<td/>').html("<a class=\"btn btn-default\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\".modal_collapsible_"+res[i].accountid+"\" aria-expanded=\"true\" aria-controls=\"collapseOne\">View</a>"));
 
                   $('.account_modal_table tr:last').before($tr);
 
@@ -302,11 +342,13 @@ $(document).ready(function() {
                         }  
                         showed = 1;
                          for (var i = 0; i < res1.length; i++) {
-                          var $tr = $('<tr id=\'\' class=\'account_header_append  panel-collapse collapse modal_collapsible_'+res1[i].accountid+'\' role=\'tabpanel\' aria-labelledby=\'headingOne\'/>');
-                          $tr.append($('<td/>').html(res1[i].paymentdate));
-                          $tr.append($('<td/>').html(res1[i].payment));
-                          $tr.append($('<td/>').html(res1[i].paymenttype));
-                          $('.account_modal_table tr:last').before($tr);
+                          if (res1[i].paymenttype!="discount") {
+                            var $tr = $('<tr id=\'\' class=\'account_header_append  panel-collapse collapse modal_collapsible_\' role=\'tabpanel\' aria-labelledby=\'headingOne\'/>');
+                            $tr.append($('<td/>').html(res1[i].paymentdate));
+                            $tr.append($('<td/>').html(res1[i].payment));
+                            $tr.append($('<td/>').html(res1[i].paymenttype));
+                            $('.account_modal_table tr:last').before($tr);
+                          }
                         }
                       }
                     }
@@ -334,6 +376,16 @@ $(document).ready(function() {
                   // $tr.append($('<td/>').html(" "));
                   $tr.append($('<td/>').html("Discount Given"));
                   $tr.append($('<td/>').html(parseFloat(earned_payment_discount).toFixed(2)));
+                  // $tr.append($('<td/>').html("Action:"));
+                  $('.account_modal_table tr:last').before($tr);
+
+                  var $tr = $('<tr class=\'account_earned_append\'/>');
+                  $tr.append($('<td/>').html(" "));
+                  $tr.append($('<td/>').html(" "));
+                  // $tr.append($('<td/>').html(" "));
+                  // $tr.append($('<td/>').html(" "));
+                  $tr.append($('<td/>').html(" "));
+                  $tr.append($('<td/>').html("<a class=\"btn btn-default\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\".modal_collapsible_\" aria-expanded=\"true\" aria-controls=\"collapseOne\">View</a>"));
                   // $tr.append($('<td/>').html("Action:"));
                   $('.account_modal_table tr:last').before($tr);
                    
@@ -372,13 +424,15 @@ $(document).ready(function() {
             // $tr.append($('<td/>').html("Action:"));
             $('.customer_modal_table tr:last').before($tr);
            for (var i = 0; i < res.length; i++) {
-            var $tr = $('<tr class=\'customer_trtd_append\'/>');
-             $tr.append($('<td/>').html(res[i].accountid));
-            $tr.append($('<td/>').html(res[i].packagetypename));
-            $tr.append($('<td/>').html(res[i].paymentdate));
-            $tr.append($('<td/>').html(res[i].paymenttype));
-            $tr.append($('<td/>').html(res[i].payment));
-             $('.customer_modal_table tr:last').before($tr);
+            if (res[i].paymenttype!="discount") {
+              var $tr = $('<tr class=\'customer_trtd_append\'/>');
+               $tr.append($('<td/>').html(res[i].accountid));
+              $tr.append($('<td/>').html(res[i].packagetypename));
+              $tr.append($('<td/>').html(res[i].paymentdate));
+              $tr.append($('<td/>').html(res[i].paymenttype));
+              $tr.append($('<td/>').html(res[i].payment));
+               $('.customer_modal_table tr:last').before($tr);
+            }
           }
         }
       }
@@ -407,6 +461,7 @@ $(document).ready(function() {
               // $tr.append($('<td/>').html("Action:"));
               $('.customer_modal_table tr:last').before($tr);
              for (var i = 0; i < res.length; i++) {
+              if (res[i].paymenttype!="discount") {
               var $tr = $('<tr class=\'customer_trtd_append\'/>');
                $tr.append($('<td/>').html(res[i].accountid));
               $tr.append($('<td/>').html(res[i].packagetypename));
@@ -414,6 +469,7 @@ $(document).ready(function() {
               $tr.append($('<td/>').html(res[i].paymenttype));
               $tr.append($('<td/>').html(res[i].payment));
                $('.customer_modal_table tr:last').before($tr);
+             }
             }
           }
         }

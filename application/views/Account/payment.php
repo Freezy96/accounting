@@ -1,5 +1,6 @@
 <?php $this->load->view('template/sidenav'); ?>
 <!-- <?php print_r($result); ?> -->
+<?php $x = 0; ?>
 <?php if(is_array($result) && $result){ ?>
   <?php foreach ($result as $key => $val): ?>
     <?php 
@@ -8,7 +9,7 @@
       $refid = $val['refid'];
       $oriamount = $val['oriamount'];
       $amount = $val['amount'];
-      $datee = $val['datee'];
+      ${'datee'.$x} = $val['datee'];
       $interest = $val['interest'];
       $duedate = $val['duedate'];
       $packageid = $val['packageid'];
@@ -16,6 +17,7 @@
       $packagetypename = $val['packagetypename'];
       $agentid = $val['agentid'];
       $guarantyitem = $val['guarantyitem'];
+      $x++;
      ?>
   <?php endforeach ?>
 <?php } ?>
@@ -72,6 +74,14 @@
       <td>
         <?php echo $guarantyitem; ?>
       </td>
+    </tr> 
+    <tr>
+      <td>
+        Start Date:
+      </td>
+      <td>
+        <?php echo $datee0; ?>
+      </td>
     </tr>    
   </table>
 
@@ -92,13 +102,7 @@
     <thead>
       <tr>
         <td>
-          START DATE
-        </td>
-        <td>
           DUEDATE
-        </td>
-        <td>
-          AMOUNT
         </td>
         <td>
           AMOUNT TO BE PAY
@@ -175,13 +179,7 @@
      ?>
     <tr>
       <td>
-        <?php echo $val['datee']; ?>
-      </td>
-      <td>
         <?php echo $val['duedate']; ?>
-      </td>
-      <td>
-        <?php echo $val['amount']; ?>
       </td>
       <td>
         <!-- amount to be pay  -->

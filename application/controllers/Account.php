@@ -925,7 +925,7 @@ class Account extends CI_Controller {
 				$accountline =  $this->account_model->get_accountline($accountid_check_accountline);
 				echo "<script>console.log('Debug:".$guarantyitem."')</script>";
 				//packageid here is packagename + id
-				$this->insertdb_switch_package($customerid, $packageid, $guarantyitem, $accountline);
+				$this->insertdb_switch_package($customerid, $packageid, $guarantyitem, $accountline, $date_today);
 
 
 				if (substr( $packageid, 0, 16) === "package_30_4week") 
@@ -1022,7 +1022,7 @@ class Account extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	public function insertdb_switch_package($customerid, $packageid, $guarantyitem, $accountline)
+	public function insertdb_switch_package($customerid, $packageid, $guarantyitem, $accountline, $date_today)
 	{	
 		$this->load->helper('url');
 		$this->load->view('template/header');
@@ -1064,7 +1064,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal =  date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -1196,7 +1196,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal =  date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+5 days", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -1324,7 +1324,7 @@ class Account extends CI_Controller {
 				foreach ($max_refid as $key => $value) {
 					$refid = $value['refid']+1; //auto increment
 				}
-				$dateoriginal =  date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+1 month", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -1374,7 +1374,7 @@ class Account extends CI_Controller {
 				foreach ($max_refid as $key => $value) {
 					$refid = $value['refid']+1; //auto increment
 				}
-				$dateoriginal = date('Y-m-d');
+				$dateoriginal = $date_today;
 				//1天？
 				$date1 = strtotime("+1 days", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
@@ -1425,7 +1425,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal =  date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -1474,7 +1474,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal =  date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+1 week", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -1525,7 +1525,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal = date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+5 days", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
@@ -1574,7 +1574,7 @@ class Account extends CI_Controller {
 					$refid = $value['refid']+1; //auto increment
 				}
 
-				$dateoriginal = date('Y-m-d');
+				$dateoriginal = $date_today;
 				$date1 = strtotime("+5 days", strtotime($dateoriginal));
 				$date1 = date('Y-m-d', $date1);
 
