@@ -1206,18 +1206,18 @@ class Account_model extends CI_Model{
                 $pdays = round($datediff2 / (60 * 60 * 24));
                 //就算是baddebt 只要 total 少过等于0 都算account close，为了避免customer从blacklist reset status 回来后又被误判成account baddebt, customer baddebt 回去blacklist 
 
-                if($totalamount <= 0 && $status != "baddebt" && $status != "done"){
+                if($totalamount <= 0 && $status != "baddebt" && $status != "stop" && $status != "done"){
                     $status = "closed";
                     $this->set_status($status, $accountid); 
 
-                }elseif($days>=4 && $days<=29 && $totalamount >= 0 && $status != "baddebt"){
+                }elseif($days>=4 && $days<=29 && $totalamount >= 0  && $status != "stop" && $status != "baddebt"){
                     $status = "late";
                     $this->set_status($status, $accountid);
-                }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"){
+                }elseif($pdays>=30 && $totalamount > 0 && $status != "baddebt"  && $status != "stop"){
                     $status = "baddebt";
                     $this->set_status2($status , $accountid);
 
-                }elseif($totalamount > 0 && $status != "baddebt" && $status != "late"){
+                }elseif($totalamount > 0 && $status != "baddebt" && $status != "late"  && $status != "stop"){
                     $status = " ";
                     $this->set_status($status , $accountid);
                 }elseif($totalamount <= 0 && $status == "baddebt"){
@@ -1253,6 +1253,7 @@ class Account_model extends CI_Model{
             );
         $this->db->where('status !=', "closed");
         $this->db->where('status !=', "baddebt");
+        $this->db->where('status !=', "stop");
         $this->db->where('refid', $refid);
         $this->db->update('account', $data);
 }        
@@ -1626,6 +1627,45 @@ public function set_baddebt_update($accountid){
         foreach ($data as $key => $value) {
         $refid=$value['refid'];
         $status = "baddebt";
+        $data = array(
+            'status' => $status
+            );
+        $this->db->where('status !=', "closed");
+        $this->db->where('refid', $refid);
+        $this->db->update('account', $data);
+}
+        $query = $this->db->get('account');
+        return $query->result_array();
+
+    }
+
+
+public function set_stop_update($accountid){
+        // Run the query
+        $accountid = $accountid;
+        $data = $this->getrefid($accountid);
+        foreach ($data as $key => $value) {
+        $refid=$value['refid'];
+        $status = "stop";
+        $data = array(
+            'status' => $status
+            );
+        $this->db->where('status !=', "closed");
+        $this->db->where('refid', $refid);
+        $this->db->update('account', $data);
+}
+        $query = $this->db->get('account');
+        return $query->result_array();
+
+    }
+
+    public function set_start_update($accountid){
+        // Run the query
+        $accountid = $accountid;
+        $data = $this->getrefid($accountid);
+        foreach ($data as $key => $value) {
+        $refid=$value['refid'];
+        $status = " ";
         $data = array(
             'status' => $status
             );

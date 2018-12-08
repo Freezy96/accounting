@@ -117,6 +117,12 @@
 														<form action='<?php echo base_url();?>account/set_baddebt' method='post'>
 														<button class="btn btn-default" onclick="return confirm('Are you sure you want to Baddebt this item?');" value="<?php echo $val["accountid"]; ?>" name="set_baddebt">baddebt</button>
 														</form>
+														<form action='<?php echo base_url();?>account/set_stop' method='post'>
+														<button class="btn btn-default" onclick="return confirm('Are you sure you want to stop this interest?');" value="<?php echo $val["accountid"]; ?>" name="set_stop">STOP</button>
+														</form>
+														<form action='<?php echo base_url();?>account/set_start' method='post'>
+														<button class="btn btn-default" onclick="return confirm('Are you sure you want to start this interest?');" value="<?php echo $val["accountid"]; ?>" name="set_start">START</button>
+														</form>
 														<form action='<?php echo base_url();?>account/delete' method='post' name='accountdelete'>
 														<button class="btn btn-danger" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this item?');" value="<?php echo $val["refid"]; ?>" name="accountdelete">Delete</button>
 														</form>

@@ -52,7 +52,7 @@ class Print_Model extends CI_Model{
         $this->db->where('a.totalamount >=', 0);
         $this->db->where('a.duedate <=', $duedate);
         $this->db->group_by('a.refid');// add group_by
-        $this->db->order_by('a.duedate', 'asc');
+        $this->db->order_by("a.duedate", "ASC");
         $query = $this->db->get();
         return $query->result_array();
     }

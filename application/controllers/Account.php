@@ -37,7 +37,7 @@ class Account extends CI_Controller {
 		$this->load->account_model->interest_30_4week();
 		// 再算totalamount
 		$this->load->account_model->count_total_amount();
-		// 再set status
+		// 再set status 
 		$this->load->account_model->account_status_set();
 
 		$this->load->customer_model->reset_duedate();
@@ -1618,6 +1618,40 @@ class Account extends CI_Controller {
 		$this->load->view('template/nav');
 		$accountid = $this->input->post('set_baddebt');
 		$res = $this->load->account_model->set_baddebt_update($accountid);
+		$data['result'] = $res;
+
+
+
+		
+			redirect('account');
+		
+		
+		$this->load->view('template/footer');
+	}
+
+		public function set_stop()
+    {	$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$accountid = $this->input->post('set_stop');
+		$res = $this->load->account_model->set_stop_update($accountid);
+		$data['result'] = $res;
+
+
+
+		
+			redirect('account');
+		
+		
+		$this->load->view('template/footer');
+	}
+    
+    public function set_start()
+    {	$this->load->helper('url');
+		$this->load->view('template/header');
+		$this->load->view('template/nav');
+		$accountid = $this->input->post('set_start');
+		$res = $this->load->account_model->set_start_update($accountid);
 		$data['result'] = $res;
 
 
