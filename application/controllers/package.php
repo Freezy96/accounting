@@ -21,6 +21,8 @@ class Package extends CI_Controller {
     $data['main_20_week'] = $res;
     $res = $this->load->Package_model->main_15_week();
     $data['main_15_week'] = $res;
+    $res = $this->load->Package_model->main_10_week();
+    $data['main_10_week'] = $res;
     $res = $this->load->Package_model->main_15_5days();
     $data['main_15_5days'] = $res;
     $res = $this->load->Package_model->main_10_5days();
@@ -355,6 +357,52 @@ class Package extends CI_Controller {
     );
     // $this->load->model('Package_model');
     $return = $this->load->Package_model->delete_15_week($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+
+    $this->load->view('template/footer');
+  }
+  public function insert_10_week()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $lentamount = $this->input->post('lentamount');
+    $interest= $this->input->post('interest');
+    $totalamount= ($lentamount*1.10);
+    $company_identity = $this->session->userdata('adminid');
+    $data = array(
+   
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_10_week($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+ 
+  public function delete_10_week()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_10_week($data);
     $data['return'] = $return;
 
     if($return == true){
