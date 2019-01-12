@@ -25,7 +25,7 @@ class Account_model extends CI_Model{
      public function getuserdata_groupby_customername(){
         // Run the query
         // $this->db->distinct('a.refid');
-        $this->db->select('a.customerid, c.customername, c.wechatname, SUM(a.totalamount)');
+        $this->db->select('a.customerid, c.customername, c.wechatname, SUM(a.totalamount),MAX(a.datee)');
         $this->db->from('account a');
         $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
@@ -33,6 +33,7 @@ class Account_model extends CI_Model{
         $this->db->where('a.companyid', $company_identity);
         ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         $this->db->group_by('c.customername');// add group_by
+         $this->db->order_by("MAX(a.datee)", "asc");
         $query = $this->db->get();
 
         return $query->result_array();
@@ -66,6 +67,7 @@ class Account_model extends CI_Model{
         $query = $this->db->get();
         return $query->result_array();
 }
+
     public function getuserdata_payment_use($refid){
         // Run the query
         // $this->db->distinct('a.refid');
