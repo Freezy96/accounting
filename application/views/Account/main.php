@@ -51,10 +51,10 @@
 						-
 					</td>
 					<td>
-						-
-					</td>
+													<?php echo $val_groupby_customername['MAX(a.datee)']; ?>
+				</td>
 					<td>
-						-
+							-
 					</td>
 					<td>
 						-

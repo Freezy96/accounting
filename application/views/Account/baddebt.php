@@ -68,7 +68,7 @@
 				
 			</td>
 			<td>
-				<?php echo $val['SUM(a.totalamount)']; ?>
+				<?php if( $val['SUM(a.totalamount)']=="0.00"){ ?>   <font size="3" color="red"> BAD<font> <?php }else {echo $val['SUM(a.totalamount)']; }?>
 			</td>	
 			<td>
 				<div class="row">
@@ -80,8 +80,17 @@
 			<!-- ajax script generated button -->
 			<button class="btn btn-default "  value="<?php echo $val["refid"]; ?>" name="account_refid">Payment</button>
 		</form>
+	
+			<form action='<?php echo base_url();?>account/set_stop' method='post'>
+				<button class="btn btn-default" onclick="return confirm('Are you sure you want to stop this interest?');" value="<?php echo $val["accountid"]; ?>" name="set_stop">STOP</button>
+			</form>
+			<form action='<?php echo base_url();?>account/set_start' method='post'>
+				<button class="btn btn-default" onclick="return confirm('Are you sure you want to start this interest?');" value="<?php echo $val["accountid"]; ?>" name="set_start">START</button>
+			</form>
+
 
 			</td>
+
 		</tr>
 		</tr>
 	<?php endforeach ?>
