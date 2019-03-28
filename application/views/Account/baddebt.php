@@ -22,6 +22,9 @@
 				<td>
 					GUARANTEE ITEM
 				</td>
+				<td>
+					TOTAL PAYMENT
+				</td>
 				<TD>
 					TOTAL AMOUNT
 				</TD>
@@ -66,6 +69,10 @@
 					<?php echo $val['guarantyitem']; ?>
 				<?php endif ?>
 				
+			</td>
+			<td>
+
+				<?php echo $val['SUM(pa.payment)']; ?>
 			</td>
 			<td>
 				<?php if( $val['SUM(a.totalamount)']=="0.00"){ ?>   <font size="3" color="red"> BAD<font> <?php }else {echo $val['SUM(a.totalamount)']; }?>

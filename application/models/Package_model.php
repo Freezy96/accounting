@@ -70,6 +70,39 @@ class Package_Model extends CI_Model{
             return $return;
         } 
     }
+    public function main_20_4week_5days()
+    {
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_20_4week_5days');
+      return $query->result_array();
+    }
+    public function insert_20_4week_5days($data)
+    {
+      if($this->db->insert('package_20_4week_5days', $data)){
+            $return = "insert";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        }
+    }
+    
+    public function delete_20_4week_5days($data)
+    {
+      if($this->db->delete('package_20_4week_5days', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+
     public function main_25_month()
     {
       // Run the query
@@ -321,6 +354,39 @@ public function main_10_week()
     public function delete_10_5days($data)
     {
       if($this->db->delete('package_10_5days', $data)){
+            $return = "delete";
+            return $return;
+        }else{
+            $return = "false";
+            return $return;
+        } 
+    }
+
+    public function main_10_5days2()
+    {
+      // Run the query
+      ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (ORIGINAL VERSION)///////////////////
+      $query = $this->db->get('package_10_5days2');
+      return $query->result_array();
+    }
+     public function insert_10_5days2($data)
+    {
+      if($this->db->insert('package_10_5days2', $data)){
+    
+             $return = "insert";
+            return $return;
+         }else{
+            $return = "false";
+           return $return;
+         }
+     }
+    
+    public function delete_10_5days2($data)
+    {
+      if($this->db->delete('package_10_5days2', $data)){
             $return = "delete";
             return $return;
         }else{

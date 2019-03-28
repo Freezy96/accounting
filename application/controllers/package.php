@@ -15,6 +15,8 @@ class Package extends CI_Controller {
     $this->load->view('template/nav');
     $res = $this->load->Package_model->main_30_4week();
     $data['main_30_4week'] = $res;
+    $res = $this->load->Package_model->main_20_4week_5days();
+    $data['main_20_4week_5days'] = $res;
     $res = $this->load->Package_model->main_25_month();
     $data['main_25_month'] = $res;
     $res = $this->load->Package_model->main_20_week();
@@ -27,6 +29,8 @@ class Package extends CI_Controller {
     $data['main_15_5days'] = $res;
     $res = $this->load->Package_model->main_10_5days();
     $data['main_10_5days'] = $res;
+    $res = $this->load->Package_model->main_10_5days2();
+    $data['main_10_5days2'] = $res;
     $res = $this->load->Package_model->main_manual_payeveryday_manualdays();
     $data['main_manual_payeveryday_manualdays'] = $res;
     $res = $this->load->Package_model->main_manual_5days_4week();
@@ -122,6 +126,56 @@ class Package extends CI_Controller {
     );
     // $this->load->model('Package_model');
     $return = $this->load->Package_model->delete_30_4week($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function insert_20_4week_5days()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    ///////////////Combo of User Identity Insert///////////////////
+    $company_identity = $this->session->userdata('adminid');
+    ///////////////Combo of User Identity Insert///////////////////
+    $data = array(
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $this->input->post('interest'),
+    'totalamount' => $this->input->post('totalamount'),
+    'week1' => $this->input->post('week1'),
+    'week2' => $this->input->post('week2'),
+    'week3' => $this->input->post('week3'),
+    ///////////////Combo of User Identity Insert///////////////////
+    'companyid' => $company_identity,
+    ///////////////Combo of User Identity Insert///////////////////
+    'week4' => $this->input->post('week4')
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_20_4week_5days($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+
+  public function delete_20_4week_5days()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_20_4week_5days($data);
     $data['return'] = $return;
 
     if($return == true){
@@ -494,6 +548,52 @@ class Package extends CI_Controller {
     );
     // $this->load->model('Package_model');
     $return = $this->load->Package_model->delete_10_5days($data);
+    $data['return'] = $return;
+
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+
+    $this->load->view('template/footer');
+  }
+  public function insert_10_5days2()
+  { $this->security_model->secure_session_login();
+    $this->load->helper('url');
+    $lentamount = $this->input->post('lentamount');
+    $interest= $this->input->post('interest');
+    $totalamount= ($lentamount*1.1);
+    $company_identity = $this->session->userdata('adminid');
+    $data = array(
+ 
+    'lentamount' => $this->input->post('lentamount'),
+    'interest' => $interest,
+    'totalamount' => $totalamount,
+     'companyid' => $company_identity
+    );
+    $this->load->model('Package_model');
+    $return = $this->Package_model->insert_10_5days2($data);
+    $data['return'] = $return;
+    if($return == true){
+      // session to sow success or not, only available next page load
+      $this->session->set_flashdata('return',$data);
+      redirect('package');
+    }
+    $this->load->view('template/footer');
+  }
+ 
+  public function delete_10_5days2()
+  { 
+    $this->load->helper('url');
+    $this->load->view('template/header');
+    $this->load->view('template/nav');
+    
+    $data = array(
+    'packageid' => $this->input->post('packagedelete')
+    );
+    // $this->load->model('Package_model');
+    $return = $this->load->Package_model->delete_10_5days2($data);
     $data['return'] = $return;
 
     if($return == true){
