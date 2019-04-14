@@ -820,10 +820,12 @@ if (substr( $package_type_id, 0, 15) === "package_10_week")
 		}
 
 
-		if (substr( $package_type_id, 0, 16) === "package_10_5days") 
+		if (substr( $package_type_id, 0, 16) === "package_10_5days" && substr( $package_type_id, 0, 17) !== "package_10_5days2") 
 		{	
 			$packagename = substr( $package_type_id, 0, 16);
 			$packageid = substr( $package_type_id, 16, 17 );
+			echo "<script>console.log('".$packagename."')</script>";
+			echo "<script>console.log('".$packageid."')</script>";
 			//find id using name, 用于account 显示分类
 			$res = $this->load->account_model->get_package_type_id($packagename);
 			foreach ($res as $key => $value) {
@@ -870,10 +872,12 @@ if (substr( $package_type_id, 0, 15) === "package_10_week")
 		}
 
 
-		if (substr( $package_type_id, 0, 16) === "package_10_5days2") 
+		if (substr( $package_type_id, 0, 17) === "package_10_5days2") 
 		{	
 			$packagename = substr( $package_type_id, 0, 17);
 			$packageid = substr( $package_type_id, 17, 18 );
+			echo "<script>console.log('".$packagename."')</script>";
+			echo "<script>console.log('".$packageid."')</script>";
 			//find id using name, 用于account 显示分类
 			$res = $this->load->account_model->get_package_type_id($packagename);
 			foreach ($res as $key => $value) {

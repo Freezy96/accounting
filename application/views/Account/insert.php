@@ -1,4 +1,4 @@
-<?php $this->load->view('template/sidenav'); ?>
+﻿<?php $this->load->view('template/sidenav'); ?>
 <div class="pull-right">
     <a class="btn btn-default" href="<?php echo site_url('customer/insert/AccountNewCustomer'); ?>">Add New Customer</a>
 </div>
@@ -65,10 +65,10 @@
           </optgroup>
 
 
-          <optgroup label="25% / 5days / 4 Week">
-         <?php foreach ($package_5days_4week as $key => $value): ?>
+          <optgroup label="20% / 5days / 4 Week">
+         <?php foreach ($package_20_4week_5days as $key => $value): ?>
           <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-            <option value="<?php echo "package_manual_5days_4week".$value['packageid']; ?>">
+            <option value="<?php echo "package_20_4week_5days".$value['packageid']; ?>">
               
               <?php echo "Lent: RM ".$value['lentamount']; ?> 
                
@@ -202,9 +202,9 @@
           </optgroup>
 
           <optgroup label="10% / 5 days">
-        <?php foreach ($package_10_5days as $key => $value): ?>
+        <?php foreach ($package_10_5days2 as $key => $value): ?>
           <!-- 注意：value里的前缀 30_4week 代表的是 package_30_4week 的 package -->
-            <option value="<?php echo "package_10_5days".$value['packageid']; ?>">
+            <option value="<?php echo "package_10_5days2".$value['packageid']; ?>">
               
               <?php echo "Lent: RM ".$value['lentamount']; ?> 
                
