@@ -11,10 +11,10 @@ class Expenses_Model extends CI_Model{
         // $this->db->join('customer c', 'a.customerid = c.customerid', 'left');
         // $this->db->join('agent ag', 'a.agentid = ag.agentid', 'left');
         // $this->db->join('packagetype p', 'a.packagetypeid = p.packagetypeid', 'left');
-        // ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
-        // $company_identity = $this->session->userdata('adminid');
-        // $this->db->where('a.companyid', $company_identity);
-        // ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
+        $company_identity = $this->session->userdata('adminid');
+        $this->db->where('companyid', $company_identity);
+        ///////////////Combo of User Indentity (JOIN VERSION) -- 请自己换///////////////////
         // $this->db->group_by('a.refid');// add group_by
         $query = $this->db->get();
         return $query->result_array();
