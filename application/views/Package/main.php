@@ -41,19 +41,16 @@
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content">
+   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="30_4week"><?php $this->load->view('package/main_30%_4week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="20_week"><?php $this->load->view('package/main_20%_week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="15_week"><?php $this->load->view('package/main_15%_week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="10_week"><?php $this->load->view('package/main_10%_week'); ?></div>
     <div role="tabpanel" class="tab-pane" id="pay_per_day"><?php $this->load->view('package/main_manual_payeveryday_manualdays'); ?></div>
-    <div role="tabpanel" class="tab-pane" id="25_4week_5days"><?php $this->load->view('package/main_manual_5days_4week'); ?></div>
-    <div role="tabpanel" class="tab-pane" id="20_4week_5days"><?php $this->load->view('package/main_20_4week_5days'); ?></div>
+    <div role="tabpanel" class="tab-pane" id="25_4week_5days"><?php $this->load->view('package/main_20_4week_5days'); ?></div>
     <div role="tabpanel" class="tab-pane" id="15_5days"><?php $this->load->view('package/main_15_5days'); ?></div>
     <div role="tabpanel" class="tab-pane" id="10_5days"><?php $this->load->view('package/main_10_5days'); ?></div>
-    <div role="tabpanel" class="tab-pane" id="10_5days2"><?php $this->load->view('package/main_10_5days2'); ?></div>    
+    <div role="tabpanel" class="tab-pane" id="10_5days2"><?php $this->load->view('package/main_10_5days2'); ?></div>
     <div role="tabpanel" class="tab-pane" id="25_month"><?php $this->load->view('package/main_25%_month'); ?></div>
   </div>
-
-</div>
 <a class="btn btn-default" href="<?php echo site_url('package/insert'); ?>">Insert New Account</a></li>
