@@ -2161,8 +2161,8 @@ if (substr( $package_type_id, 0, 15) === "package_10_week")
 	public function baddebt_insert_db($accountid)
     {
         $this->load->helper('url');
-        $this->load->view('template/header');
-        $this->load->view('template/nav');
+        // $this->load->view('template/header');
+        // $this->load->view('template/nav');
         $this->db->select('*');
         $this->db->from('baddebt');
         $query = $this->db->get();
