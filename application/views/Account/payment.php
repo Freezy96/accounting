@@ -165,7 +165,7 @@
       }
 
       //for package_25_month///////////////////////////////////////////////////////////////////
-      if ($packagetypename == "package_25_month"|| $packagetypename == "package_20_week"|| $packagetypename == "package_15_week"|| $packagetypename == "package_15_5days"|| $packagetypename == "package_10_5days") {
+      if ($packagetypename == "package_25_month"|| $packagetypename == "package_20_week"|| $packagetypename == "package_15_week"|| $packagetypename == "package_15_5days"|| $packagetypename == "package_10_5days"|| $packagetypename == "package_10_5days2") {
         if ($val['sum_total']<=$val['amount']) {
           $final_interest = 0;
           $final_amount = $val['sum_total'];
